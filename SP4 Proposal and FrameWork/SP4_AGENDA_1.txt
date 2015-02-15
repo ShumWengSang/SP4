@@ -1,0 +1,192 @@
+
+AGENDA TODAY:
+1	Sketch of your game scenes
+2	Project schedule, task allocation
+3	Selling point of game
+4	Game play
+5	Features
+6	Workload effort points for task
+
+
+Version Control:
+
+	www.github.com
+
+
+
+Ying Tsu:
+
+	Prefers:
+		2D gameplay
+
+	Expectation:
+
+		Getting grade B and above
+
+Samuel:
+
+	Prefers:
+		Okay with 2D and 3D
+
+	Expectation:
+
+		Getting grade B and above
+
+
+Wei Qi:
+
+	Prefers:
+		2D gameplay
+
+	Expectation:
+
+		Getting a better grade (B)
+
+
+Roland:
+
+	Expectation:
+
+		Getting grade A
+
+IDEAS:
+
+	Sars Attack!
+		2D Simulation
+		Uses money to hire researchers to slow down spread
+		Food can get infected, needs to inport food from other
+			countries using money
+
+	Defend SG!
+		2.5D RTS defence
+		Overambitious
+		Lots of AI
+
+	Singapura
+		Open World 3D (Minecraft)
+		Lots of physics
+
+	Typing game
+		Runner, speed from Word-by-Minute
+
+	Making profit from Haze scenario
+		Sells Masks
+		Easy on both coding and textures
+
+	PM Lee hack and slash
+		2.5D
+		Heavy on sprites and animation
+
+	Chasing Mas Selamat
+
+===========================================================
+		
+
+IN FAVOR TO:
+
+	Gas Mask Stall
+		Selling point:
+			Resource Allocation game (Mind game)
+
+		Pros:
+			Easy on coding and textures
+		Cons:
+			Alot of randomized occurence
+
+		Game States:
+			Main menu, new game, save game, load game, game play
+
+		Game Play:
+			Game will go for 7 days (exceeds 400 PSI at end)
+			Start with $1000
+			Forecast not 100% correct (PSI reading)
+				Average PSI per day
+				PSI may change every second but still averages at AvePSI at the end
+			Set price and amount to sell
+			Pure simulation thereafter
+			End of day, shows profit, gas mask resets to zero, gives player choice of saving and buying mask stocks
+
+		Buyer:
+			Randomized values
+			Health priority + multiplier depending on haze
+			Money priority - multiplier the more expensive
+			Time priority
+
+	WL	Features:
+	43		GameStates: Main Menu, settings :	
+			Textures :				
+			Win Lose condition :			
+			UI :					
+			Sound :					
+			Change to Orthogonal view :		
+			Money System (Buy/Sell/No. of mask) :	
+			Buyer Class :				
+			Haze Class :				
+			Forecast Class :			
+			Load/Save Class :			
+
+			
+			
+===========================================================
+
+	Sars Attack
+		Selling point:
+			Defend your nation, be proud of it
+
+		Pros:
+			Less on textures
+
+		Cons:
+			More on coding
+			Background AI
+			Timer with random occurence
+
+		Game States:
+			Main menu, settings, level selection, gameplay
+
+		Game Play:
+			Multiple strains (no difference tentatively) with different tiers, player allocates researchers to research cures
+			Use money from taxes to buy researchers. Cure progress may go negative if not enough researchers
+			Singapore separated to different areas (N,S,E,W) with smaller parts (Woodlands, Bedok, etc)
+			Each smaller areas can only have 1 virus strain
+			Areas infected can spread its virus strain to adjacent areas but with a lower tier (eg. From Tier 4 -> Tier 1)
+			Use colors to represent each strain
+			When an area gets infected from another area by spread, it fades to black before changing into the other color
+			Researchers visualized with bar, the number to limit ratio and +/- buttons
+			Researchers research on one of the 3 base strains
+			GDP tax income (not core: more money when more sick/infected )
+			Win Condition: Cure all 3 base strains. 0% infection
+			Lose: 100% infection
+
+	WL	Features:
+	43		GameStates: Main Menu, settings :	
+	10		Textures :				
+	72		Color Class:				
+			Virus Class <- AI :			
+			Researcher Allocation :			
+			Money Matter :				
+			Win Lose condition :			
+			UI :					
+			Infection + Infection rate Class :	
+			Location Class :			
+			Throw Medicine (slows infection) :	
+			Sound :					
+			Time :					
+
+		Not-core:
+			Rate of infection (Advanced Algorithm?)
+
+===========================================================
+
+	PM Lee hack and slash
+		Pros:
+			2D is easier (probably)
+		Cons:
+			Lots of sprites needed
+
+
+REJECTED IDEAS:
+
+	Singapura
+
+	The rest that are not IN FAVOR TO
