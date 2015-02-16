@@ -13,7 +13,7 @@ bool CApplication::Init()
 	//Game State Manager
 	GSM = CGameStateManager::getInstance();
 	GSM->Init("Game State Manager");
-	GSM->ChangeState(CPlayState::Instance());
+	GSM->ChangeState(CMenuState::Instance());
 
 	//Real-Time Loop Control
 	timelastcall = timeGetTime();

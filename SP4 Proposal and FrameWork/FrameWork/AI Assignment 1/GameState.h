@@ -20,7 +20,6 @@ public:
 	virtual void Draw(CGameStateManager * GSM) = 0;
 	void ChangeState(CGameStateManager* GSM, CGameState* state) {
 		GSM->ChangeState(state);
-	}
-
+	}	
 };
 

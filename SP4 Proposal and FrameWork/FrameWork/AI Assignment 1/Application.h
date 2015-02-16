@@ -6,7 +6,7 @@
 #include "GameStateManager.h"
 #include "Camera.h"
 #include "Timer.h"
-#include "PlayState.h"
+#include "MenuState.h"
 
 class CApplication
 {

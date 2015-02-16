@@ -13,69 +13,99 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="FrameWork">
+      <UniqueIdentifier>{d75cd620-44d6-4ec9-911b-06bd25aa794f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PlayStates">
+      <UniqueIdentifier>{aa12f7b8-3913-4cde-bbb7-847b034400f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OtherGameStates">
+      <UniqueIdentifier>{fb8535f8-22ee-4083-a3a0-ae680b016ef4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector3.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObject.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Application.cpp">
+      <Filter>FrameWork</Filter>
     </ClCompile>
     <ClCompile Include="GameStateManager.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>FrameWork</Filter>
     </ClCompile>
-    <ClCompile Include="PlayState.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="InGameStateManager.cpp">
+      <Filter>FrameWork</Filter>
     </ClCompile>
-    <ClCompile Include="Application.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="Input.cpp">
+      <Filter>FrameWork</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector3.cpp">
+      <Filter>FrameWork</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>FrameWork</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>FrameWork</Filter>
     </ClCompile>
     <ClCompile Include="Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Input.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="PlayState.cpp">
+      <Filter>PlayStates</Filter>
     </ClCompile>
-    <ClCompile Include="Timer.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="EndOfDayState.cpp">
+      <Filter>PlayStates</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuState.cpp">
+      <Filter>OtherGameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="StartOfDayState.cpp">
+      <Filter>PlayStates</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GameObject.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MyMath.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector3.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="GameStateManager.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Application.h">
+      <Filter>FrameWork</Filter>
     </ClInclude>
     <ClInclude Include="GameState.h">
-      <Filter>Header Files</Filter>
+      <Filter>FrameWork</Filter>
     </ClInclude>
-    <ClInclude Include="PlayState.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="GameStateManager.h">
+      <Filter>FrameWork</Filter>
     </ClInclude>
-    <ClInclude Include="Application.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="InGameState.h">
+      <Filter>FrameWork</Filter>
+    </ClInclude>
+    <ClInclude Include="InGameStateManager.h">
+      <Filter>FrameWork</Filter>
+    </ClInclude>
+    <ClInclude Include="Global.h">
+      <Filter>FrameWork</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>FrameWork</Filter>
+    </ClInclude>
+    <ClInclude Include="MyMath.h">
+      <Filter>FrameWork</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector3.h">
+      <Filter>FrameWork</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>FrameWork</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Input.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="PlayState.h">
+      <Filter>PlayStates</Filter>
     </ClInclude>
-    <ClInclude Include="Timer.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="EndOfDayState.h">
+      <Filter>PlayStates</Filter>
     </ClInclude>
-    <ClInclude Include="Global.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="MenuState.h">
+      <Filter>OtherGameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="StartOfDayState.h">
+      <Filter>PlayStates</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -2,20 +2,18 @@
 #include <iostream>
 #include <vector>
 #include "GameState.h"
-#include "InGameState.h"
 #include "GameStateManager.h"
-#include "InGameStateManager.h"
-#include "Global.h"
 #include "Input.h"
+#include "Global.h"
 
 using namespace std;
 
 class CInputSystem;
 
-class CPlayState : public CGameState
+class CMenuState : public CGameState
 {
 protected:
-	CPlayState(void) {};
+	CMenuState(void) {};
 
 public:
 	void Init();
@@ -29,15 +27,15 @@ public:
 	void Draw(CGameStateManager* GSM);
 	void keyboardUpdate(void);
 
-	//Game State Manager
-	CInGameStateManager *IGSM;
-
-	static CPlayState* Instance() {
-		return &thePlayState;
+	static CMenuState* Instance() {
+		return &theMenuState;
 	}
 
 private:
-	static CPlayState thePlayState;
+	static CMenuState theMenuState;
+
+	//Input System
+	CInputSystem* InputSystem;
 
 };
 

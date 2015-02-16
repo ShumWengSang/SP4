@@ -38,11 +38,12 @@ void CGameStateManager::Cleanup()
 
 void CGameStateManager::ChangeState(CGameState* state) 
 {
-	// cleanup the current state
-	if ( !StackOfStates.empty() ) {
+	// cleanup the current state (Calls Destructor, destroys InputSystem, causes crash)
+	/*if ( !StackOfStates.empty() ) {
 		StackOfStates.back()->Cleanup();
 		StackOfStates.pop_back();
-	}
+	}*/
+
 	// store and init the new state
 	StackOfStates.push_back(state);
 	StackOfStates.back()->Init();
