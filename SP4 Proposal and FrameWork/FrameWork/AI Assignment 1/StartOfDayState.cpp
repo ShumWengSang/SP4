@@ -1,5 +1,5 @@
 #include "StartOfDayState.h"
-#include "EndOfDayState.h"
+#include "GamePlayState.h"
 #include "PlayState.h"
 
 CStartOfDayState CStartOfDayState::theStartOfDayState;
@@ -73,7 +73,7 @@ void CStartOfDayState::Draw(CInGameStateManager* theGSM)
 void CStartOfDayState::keyboardUpdate()
 {
 	if(CInputSystem::getInstance()->myKeys['s'])
-		CInGameStateManager::getInstance()->ChangeState(CEndOfDayState::Instance());
+		CInGameStateManager::getInstance()->ChangeState(CGamePlayState::Instance());
 
 	//Esc Key
 	if(CInputSystem::getInstance()->myKeys[VK_ESCAPE]) 

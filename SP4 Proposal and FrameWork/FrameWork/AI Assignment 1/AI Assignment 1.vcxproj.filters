@@ -22,11 +22,11 @@
     <Filter Include="OtherGameStates">
       <UniqueIdentifier>{fb8535f8-22ee-4083-a3a0-ae680b016ef4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Camera">
+      <UniqueIdentifier>{c284114f-0cca-4368-8dca-1b0e611bfcd2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Application.cpp">
-      <Filter>FrameWork</Filter>
-    </ClCompile>
     <ClCompile Include="GameStateManager.cpp">
       <Filter>FrameWork</Filter>
     </ClCompile>
@@ -35,18 +35,6 @@
     </ClCompile>
     <ClCompile Include="Input.cpp">
       <Filter>FrameWork</Filter>
-    </ClCompile>
-    <ClCompile Include="Vector3.cpp">
-      <Filter>FrameWork</Filter>
-    </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>FrameWork</Filter>
-    </ClCompile>
-    <ClCompile Include="Timer.cpp">
-      <Filter>FrameWork</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PlayState.cpp">
       <Filter>PlayStates</Filter>
@@ -60,11 +48,26 @@
     <ClCompile Include="StartOfDayState.cpp">
       <Filter>PlayStates</Filter>
     </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector3.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Application.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GamePlayState.cpp">
+      <Filter>PlayStates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Application.h">
-      <Filter>FrameWork</Filter>
-    </ClInclude>
     <ClInclude Include="GameState.h">
       <Filter>FrameWork</Filter>
     </ClInclude>
@@ -77,23 +80,8 @@
     <ClInclude Include="InGameStateManager.h">
       <Filter>FrameWork</Filter>
     </ClInclude>
-    <ClInclude Include="Global.h">
-      <Filter>FrameWork</Filter>
-    </ClInclude>
     <ClInclude Include="Input.h">
       <Filter>FrameWork</Filter>
-    </ClInclude>
-    <ClInclude Include="MyMath.h">
-      <Filter>FrameWork</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector3.h">
-      <Filter>FrameWork</Filter>
-    </ClInclude>
-    <ClInclude Include="Timer.h">
-      <Filter>FrameWork</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="PlayState.h">
       <Filter>PlayStates</Filter>
@@ -105,6 +93,27 @@
       <Filter>OtherGameStates</Filter>
     </ClInclude>
     <ClInclude Include="StartOfDayState.h">
+      <Filter>PlayStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Global.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector3.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MyMath.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Application.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GamePlayState.h">
       <Filter>PlayStates</Filter>
     </ClInclude>
   </ItemGroup>

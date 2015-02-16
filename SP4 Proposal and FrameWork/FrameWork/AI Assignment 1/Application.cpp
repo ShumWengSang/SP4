@@ -36,6 +36,8 @@ void CApplication::Update()
 
 	//Update GSM
 	GSM->Update();
+
+	theCamera->Update();
 }
 
 void CApplication::renderScene() {
