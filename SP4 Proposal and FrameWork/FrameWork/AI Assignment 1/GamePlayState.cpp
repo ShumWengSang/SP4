@@ -12,8 +12,8 @@ void CGamePlayState::Init()
 	CInputSystem::getInstance()->OrientCam = true;
 
 	//Isometric view
-	CApplication::getInstance()->theCamera->SetPosition(50.0, 25.0, -50.0);
-	Vector3 temp = Vector3(-50,-25,50);
+	CApplication::getInstance()->theCamera->SetPosition(50.0, 50.0, -70.0);
+	Vector3 temp = -CApplication::getInstance()->theCamera->GetPosition();
 	CApplication::getInstance()->theCamera->SetDirection(temp.Normalized().x, temp.Normalized().y, temp.Normalized().z);
 
 }
@@ -85,15 +85,21 @@ void CGamePlayState::Draw(CInGameStateManager* theGSM)
 		glutSolidSphere(1,20,20);
 		glDisable(GL_BLEND);
 	glPopMatrix();
-
+	
 	glPushMatrix();
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 		glColor3f(1,0,0);
 
-		glTranslatef(20,0,-10);
-		glutSolidCube(10);
+		glPushMatrix();
+			glBegin(GL_QUADS);
+				glVertex3f(-25,0,25);
+				glVertex3f(25,0,25);
+				glVertex3f(25,0,-25);
+				glVertex3f(-25,0,-25);
+			glEnd();
+		glPopMatrix();
 		glDisable(GL_BLEND);
 	glPopMatrix();
 }

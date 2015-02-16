@@ -56,7 +56,6 @@ void CEndOfDayState::Draw(CInGameStateManager* theGSM)
 
 		glPushMatrix();
 			glBegin(GL_QUADS);
-				int height = 100 * 1.333/1.5;
 				glVertex2f(0,SCREEN_HEIGHT);
 				glVertex2f(SCREEN_WIDTH,SCREEN_HEIGHT);
 				glVertex2f(SCREEN_WIDTH,0);

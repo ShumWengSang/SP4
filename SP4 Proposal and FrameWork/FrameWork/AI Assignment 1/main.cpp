@@ -31,24 +31,6 @@ void CleanUpUponExit()
 }
 
 int main( int argc, char **argv ){
-
-	/*CGameStateManager GSM;
-
-	// initialize the engine
-	GSM.Init( "Game State Test" );
-
-	// load the intro
-	GSM.ChangeState( CPlayState::Instance() );
-	// main loop
-	while ( GSM.Running() )
-	{
-		GSM.HandleEvents();
-		GSM.Update();
-		GSM.Draw();
-	}
-	// cleanup the GameStateManager
-	GSM.Cleanup();
-	return 0;*/
 	
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);

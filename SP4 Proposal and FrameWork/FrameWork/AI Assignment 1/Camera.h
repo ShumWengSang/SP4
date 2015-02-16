@@ -3,6 +3,7 @@
 
 #include "Vector3.h"
 #include "freeglut.h"
+#include "Global.h"
 
 class Camera
 {

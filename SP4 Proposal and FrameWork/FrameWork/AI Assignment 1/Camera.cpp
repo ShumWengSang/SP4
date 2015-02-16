@@ -92,7 +92,7 @@ void Camera::SetHUD(bool m_bHUDmode)
 		glMatrixMode(GL_PROJECTION);
 		glPushMatrix();
 		glLoadIdentity();
-		glOrtho( 0, 800 , 600, 0, -10, 10 );      
+		glOrtho( 0, SCREEN_WIDTH, SCREEN_HEIGHT, 0, -10, 10 );      
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 		glDisable(GL_DEPTH_TEST);

@@ -34,10 +34,10 @@ void CApplication::Update()
 	//Handle the GSM events
 	GSM->HandleEvents();
 
+	theCamera->Update();
+
 	//Update GSM
 	GSM->Update();
-
-	theCamera->Update();
 }
 
 void CApplication::renderScene() {
