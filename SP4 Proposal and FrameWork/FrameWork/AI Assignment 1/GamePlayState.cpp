@@ -10,8 +10,9 @@ void CGamePlayState::Init()
 
 	//Input System
 	CInputSystem::getInstance()->OrientCam = true;
-
+	
 	//Isometric view
+	CApplication::getInstance()->theCamera->SetCameraType(Camera::AIR_CAM);
 	CApplication::getInstance()->theCamera->SetPosition(50.0, 50.0, -70.0);
 	Vector3 temp = -CApplication::getInstance()->theCamera->GetPosition();
 	CApplication::getInstance()->theCamera->SetDirection(temp.Normalized().x, temp.Normalized().y, temp.Normalized().z);
@@ -112,6 +113,14 @@ void CGamePlayState::keyboardUpdate()
 		cout << "\t" << CApplication::getInstance()->theCamera->GetDirection().x << "\t" << CApplication::getInstance()->theCamera->GetDirection().y << "\t" << CApplication::getInstance()->theCamera->GetDirection().z << endl << endl;
 		cout << "\t" << CApplication::getInstance()->theCamera->GetPosition().x << "\t" << CApplication::getInstance()->theCamera->GetPosition().y << "\t" << CApplication::getInstance()->theCamera->GetPosition().z << endl << endl;
 	}
+	if(CInputSystem::getInstance()->myKeys['j'])
+		CApplication::getInstance()->theCamera->Strafe(-1);
+	if(CInputSystem::getInstance()->myKeys['l'])
+		CApplication::getInstance()->theCamera->Strafe(1);
+	if(CInputSystem::getInstance()->myKeys['i'])
+		CApplication::getInstance()->theCamera->Walk(1);
+	if(CInputSystem::getInstance()->myKeys['k'])
+		CApplication::getInstance()->theCamera->Walk(-1);
 	//Esc Key
 	if(CInputSystem::getInstance()->myKeys[VK_ESCAPE]) 
 		exit(0);
