@@ -121,6 +121,13 @@ void CGamePlayState::keyboardUpdate()
 		CApplication::getInstance()->theCamera->Walk(1);
 	if(CInputSystem::getInstance()->myKeys['k'])
 		CApplication::getInstance()->theCamera->Walk(-1);
+
+	if(CInputSystem::getInstance()->myKeys['b'])
+	{
+		theMoney.setMoneyIncrease(10);
+		cout << theMoney.getCurrentMoney() << endl;
+	}
+
 	//Esc Key
 	if(CInputSystem::getInstance()->myKeys[VK_ESCAPE]) 
 		exit(0);
