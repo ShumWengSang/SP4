@@ -1,0 +1,16 @@
+DONE:
+WQ: Base forecast system. (60%)
+YT: Money + UI<-Keyboard. M(%100) UI(%10)
+Samuel: Game States Manager (%85)
+Amos:Entity (%95)
+Roland: Base Personality.(60%)
+
+ToBeDone:
+WQ: finsish forecast.
+YT:Mouse click
+Samuel: Camera
+Amos: Grid map
+Roland: personality tweaking
+
+Framework improvement: input class requires checking of states.
+Grid: 2D in
