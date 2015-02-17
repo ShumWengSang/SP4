@@ -17,12 +17,7 @@ public:
 
 	virtual void HandleEvents(CInGameStateManager * PS) = 0;
 	virtual void Update(CInGameStateManager * PS) = 0;
-	virtual void Draw(CInGameStateManager * PS) = 0;
-
-	//Inputs
-	virtual void MouseMove (int x, int y) = 0;
-	virtual void MouseClick(int button, int state, int x, int y) = 0;
-	virtual void MouseWheel(int button, int dir, int x, int y) = 0;
+	virtual void Draw(CInGameStateManager * PS) = 0;
 	void ChangeState(CInGameStateManager* PS, CInGameState* state) {
 		PS->ChangeState(state);
 	}
