@@ -49,7 +49,7 @@ int main( int argc, char **argv ){
 
 	glutKeyboardFunc(KeyboardDown);
 	glutKeyboardUpFunc(KeyboardUp);
-	//glutPassiveMotionFunc(MouseMove);
+	glutPassiveMotionFunc(MouseMove);
 	glutMotionFunc(MouseMove);
 	glutMouseFunc(MouseClick);
 	glutMouseWheelFunc(MouseWheel);

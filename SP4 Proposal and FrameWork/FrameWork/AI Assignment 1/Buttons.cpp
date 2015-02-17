@@ -33,13 +33,10 @@ int CButtons::getButtonY()
 
 int CButtons::getWidth()
 {
-	
-	glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &w);
 	return w;
 }
 int CButtons::getHeight()
 {
-	glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT, &h);
 	return h;
 }
 

@@ -182,18 +182,9 @@ void CMenuState::keyboardUpdate()
 {
 	if(InputSystem->myKeys['a'])
 		CGameStateManager::getInstance()->ChangeState(CPlayState::Instance());
-
 	//Esc Key
 	if(InputSystem->myKeys[VK_ESCAPE]) 
 		exit(0);
-}
-
-void CMenuState::mouseClick()
-{
-	int w = glutGet(GLUT_WINDOW_WIDTH);
-	int h = glutGet(GLUT_WINDOW_HEIGHT);
-
-	//if(InputSystem->isClick)
 }
 
 //Inputs
@@ -203,16 +194,26 @@ void CMenuState::MouseMove (int x, int y) {
 }
 
 void CMenuState::MouseClick(int button, int state, int x, int y) {
-	switch (button) {
+	int w = glutGet(GLUT_WINDOW_WIDTH);
+	int h = glutGet(GLUT_WINDOW_HEIGHT);
 
+	switch (button) {
 		case GLUT_LEFT_BUTTON:
-			if (state == 0) 
+			if (state == 0)
+			{
 				CInputSystem::getInstance()->mouseInfo.mLButtonUp = false;
+				CInputSystem::getInstance()->mouseInfo.clickedX = x;
+				CInputSystem::getInstance()->mouseInfo.clickedY = y;
+				cout << "x: " << x << endl;
+				cout << "y: " << y << endl;
+
+				//go to start of the day
+				if((x >= ( theButton[start]->getButtonX()) )&& (x <= (theButton[start]->getButtonX() + theButton[start]->getWidth())) 
+					&& (y >= (theButton[start]->getButtonY())) && (y <= (theButton[start]->getButtonY() + theButton[start]->getHeight())) )
+					CGameStateManager::getInstance()->ChangeState(CPlayState::Instance());
+			}
 			else
 				CInputSystem::getInstance()->mouseInfo.mLButtonUp = true;
-			CInputSystem::getInstance()->mouseInfo.clickedX = x;
-			CInputSystem::getInstance()->mouseInfo.clickedY = y;
-
 			break;
 
 		case GLUT_RIGHT_BUTTON:

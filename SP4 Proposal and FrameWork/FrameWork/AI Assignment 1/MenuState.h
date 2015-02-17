@@ -41,7 +41,6 @@ public:
 	void DrawButtons();
 	void DrawBackground();
 	void keyboardUpdate(void);
-	void mouseClick(void);
 
 	//Inputs
 	void MouseMove (int x, int y);
