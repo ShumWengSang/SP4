@@ -103,6 +103,24 @@ void CInputSystem::MouseMove (int x, int y) {
 	}*/
 }
 
+void CInputSystem::MouseWheel(int button, int dir, int x, int y) {
+	
+	if(typeid(CApplication::getInstance()->GSM->GetCurrentState()).name() == typeid(CGameState*).name())
+		cout << typeid(CApplication::getInstance()->GSM->GetCurrentState()).name() << endl;
+
+	if (dir > 0) {//Zoom In
+		/*if(camDist-zoomSpeed*15 > 0)
+			camDist -= zoomSpeed;*/
+		Vector3 temp = CApplication::getInstance()->theCamera->GetPosition() + CApplication::getInstance()->theCamera->GetDirection();
+		CApplication::getInstance()->theCamera->SetPosition(temp.x,temp.y,temp.z);
+	}
+    else {//Zoom Out
+		//camDist += zoomSpeed;
+		Vector3 temp = CApplication::getInstance()->theCamera->GetPosition() - CApplication::getInstance()->theCamera->GetDirection();
+		CApplication::getInstance()->theCamera->SetPosition(temp.x,temp.y,temp.z);
+	}
+}
+
 void CInputSystem::MouseClick(int button, int state, int x, int y) {
 	switch (button) {
 

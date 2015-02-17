@@ -108,6 +108,7 @@
     <ClInclude Include="MyMath.h" />
     <ClInclude Include="PlayState.h" />
     <ClInclude Include="StartOfDayState.h" />
+    <ClInclude Include="TextureImage.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Vector3.h" />
   </ItemGroup>

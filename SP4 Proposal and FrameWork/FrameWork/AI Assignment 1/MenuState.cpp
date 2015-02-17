@@ -7,6 +7,10 @@ void CMenuState::Init()
 {
 	cout << "CMenuState::Init\n" << endl;
 
+	glEnable(GL_TEXTURE_2D);
+		CApplication::getInstance()->LoadTGA(&bg[0],"SkyBox/skybox_near.tga");
+	glDisable(GL_TEXTURE_2D);
+
 	//Input System
 	InputSystem = CInputSystem::getInstance();
 

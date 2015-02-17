@@ -2,6 +2,7 @@
 #define INPUT_H
 
 #include <iostream>
+#include <typeinfo>
 #include "Application.h"
 #include "Global.h"
 #include "Math.h"
@@ -42,6 +43,7 @@ public:
 	void KeyboardUp(unsigned char key, int x, int y);
 	void MouseMove (int x, int y);
 	void MouseClick(int button, int state, int x, int y);
+	void MouseWheel(int button, int dir, int x, int y);
 
 	//Movement Functions
 	void moveMeForward(bool mode, float timeDiff);

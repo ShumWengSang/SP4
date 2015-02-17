@@ -7,6 +7,7 @@
 #include "Camera.h"
 #include "Timer.h"
 #include "MenuState.h"
+#include "TextureImage.h"
 
 class CApplication
 {
@@ -30,6 +31,8 @@ public:
 
 	//Render the Environment
 	void renderScene();
+	
+	bool LoadTGA(TextureImage *texture, char *filename);
 
 private:
 	static CApplication *instance;

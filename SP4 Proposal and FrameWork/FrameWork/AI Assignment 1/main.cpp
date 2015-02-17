@@ -25,6 +25,10 @@ void MouseClick(int button, int state, int x, int y){
 	CInputSystem::getInstance()->MouseClick(button, state, x, y);
 }
 
+void MouseWheel(int button, int dir, int x, int y) {
+	CInputSystem::getInstance()->MouseWheel(button, dir, x, y);
+}
+
 void CleanUpUponExit()
 {
 	CApplication::getInstance()->drop();
@@ -48,6 +52,7 @@ int main( int argc, char **argv ){
 	//glutPassiveMotionFunc(MouseMove);
 	glutMotionFunc(MouseMove);
 	glutMouseFunc(MouseClick);
+	glutMouseWheelFunc(MouseWheel);
 
 	atexit(CleanUpUponExit);
 

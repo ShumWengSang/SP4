@@ -99,3 +99,8 @@ void CGameStateManager::Draw()
 	//cout << "CGameStateManager::Draw\n" << endl;
 }
 
+CGameState* CGameStateManager::GetCurrentState()
+{
+	return StackOfStates.back();
+}
+

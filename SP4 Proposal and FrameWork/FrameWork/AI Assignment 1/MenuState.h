@@ -5,6 +5,7 @@
 #include "GameStateManager.h"
 #include "Input.h"
 #include "Global.h"
+#include "TextureImage.h"
 
 using namespace std;
 
@@ -30,6 +31,8 @@ public:
 	static CMenuState* Instance() {
 		return &theMenuState;
 	}
+	
+	TextureImage bg[2];
 
 private:
 	static CMenuState theMenuState;

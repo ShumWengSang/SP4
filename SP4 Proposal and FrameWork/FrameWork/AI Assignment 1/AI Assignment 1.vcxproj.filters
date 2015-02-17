@@ -116,5 +116,8 @@
     <ClInclude Include="GamePlayState.h">
       <Filter>PlayStates</Filter>
     </ClInclude>
+    <ClInclude Include="TextureImage.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
