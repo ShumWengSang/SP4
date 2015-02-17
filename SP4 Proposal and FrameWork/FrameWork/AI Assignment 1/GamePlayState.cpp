@@ -135,7 +135,39 @@ void CGamePlayState::keyboardUpdate()
 
 //Inputs
 void CGamePlayState::MouseMove (int x, int y) {
+
+	int w = glutGet(GLUT_WINDOW_WIDTH);
+	int h = glutGet(GLUT_WINDOW_HEIGHT);
+
+
+	//Checking mouse boundary. (Width)
+	if  (CInputSystem::getInstance()->mouseInfo.lastX > w-50)
+	{
+		CInputSystem::getInstance()->mouseInfo.lastX = w-50;
+		glutWarpPointer(CInputSystem::getInstance()->mouseInfo.lastX, CInputSystem::getInstance()->mouseInfo.lastY);
+		CApplication::getInstance()->theCamera->Strafe(1);
+	}
+	else if  (CInputSystem::getInstance()->mouseInfo.lastX < 50)
+	{
+		CInputSystem::getInstance()->mouseInfo.lastX = 50;
+		glutWarpPointer(CInputSystem::getInstance()->mouseInfo.lastX, CInputSystem::getInstance()->mouseInfo.lastY);
+		CApplication::getInstance()->theCamera->Strafe(-1);
+	}else
 	CInputSystem::getInstance()->mouseInfo.lastX = x;
+
+	//Checking mouse boundary. (Height)
+	if  (CInputSystem::getInstance()->mouseInfo.lastY > h-50)
+	{
+		CInputSystem::getInstance()->mouseInfo.lastY = h-50;
+		glutWarpPointer(CInputSystem::getInstance()->mouseInfo.lastX, CInputSystem::getInstance()->mouseInfo.lastY);
+		CApplication::getInstance()->theCamera->Walk(-1);
+	}
+	else if  (CInputSystem::getInstance()->mouseInfo.lastY < 50)
+	{
+		CInputSystem::getInstance()->mouseInfo.lastY = 50;
+		glutWarpPointer(CInputSystem::getInstance()->mouseInfo.lastX, CInputSystem::getInstance()->mouseInfo.lastY);
+		CApplication::getInstance()->theCamera->Walk(1);
+	}else
 	CInputSystem::getInstance()->mouseInfo.lastY = y;
 }
 
@@ -161,9 +193,6 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 }
 
 void CGamePlayState::MouseWheel(int button, int dir, int x, int y) {
-
-	if(typeid(CApplication::getInstance()->GSM->GetCurrentState()).name() == typeid(CGameState*).name())
-		cout << typeid(CApplication::getInstance()->GSM->GetCurrentState()).name() << endl;
 
 	if (dir > 0) {//Zoom In
 		/*if(camDist-zoomSpeed*15 > 0)
