@@ -124,12 +124,18 @@ void CStartOfDayState::MouseClick(int button, int state, int x, int y) {
 	switch (button) {
 
 		case GLUT_LEFT_BUTTON:
-			if (state == 0) 
+			if (state == 0)
+			{
 				CInputSystem::getInstance()->mouseInfo.mLButtonUp = false;
+				CInputSystem::getInstance()->mouseInfo.clickedX = x;
+				CInputSystem::getInstance()->mouseInfo.clickedY = y;
+
+				//go to start of the day
+				if(theButton[start]->isInside(x, y))
+					CInGameStateManager::getInstance()->ChangeState(CGamePlayState::Instance());
+			}
 			else
 				CInputSystem::getInstance()->mouseInfo.mLButtonUp = true;
-			CInputSystem::getInstance()->mouseInfo.clickedX = x;
-			CInputSystem::getInstance()->mouseInfo.clickedY = y;
 
 			break;
 

@@ -204,12 +204,9 @@ void CMenuState::MouseClick(int button, int state, int x, int y) {
 				CInputSystem::getInstance()->mouseInfo.mLButtonUp = false;
 				CInputSystem::getInstance()->mouseInfo.clickedX = x;
 				CInputSystem::getInstance()->mouseInfo.clickedY = y;
-				cout << "x: " << x << endl;
-				cout << "y: " << y << endl;
 
 				//go to start of the day
-				if((x >= ( theButton[start]->getButtonX()) )&& (x <= (theButton[start]->getButtonX() + theButton[start]->getWidth())) 
-					&& (y >= (theButton[start]->getButtonY())) && (y <= (theButton[start]->getButtonY() + theButton[start]->getHeight())) )
+				if(theButton[start]->isInside(x, y))
 					CGameStateManager::getInstance()->ChangeState(CPlayState::Instance());
 			}
 			else

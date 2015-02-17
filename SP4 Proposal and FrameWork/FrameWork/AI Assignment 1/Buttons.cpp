@@ -63,3 +63,14 @@ void CButtons::setButtonTexture(int bt)
 {
 	button = bt;
 }
+
+bool CButtons::isInside(int mx, int my)
+{
+	int width = glutGet(GLUT_WINDOW_WIDTH);
+	int height = glutGet(GLUT_WINDOW_HEIGHT);
+
+	if( (mx >= ( x * (double)width/ SCREEN_WIDTH) ) && ( mx <= ((x + w)*(double)width/SCREEN_WIDTH) ) 
+		&& ( my >= (y*(double)height/SCREEN_HEIGHT) ) && ( my <= ((y + h)*(double)height/SCREEN_HEIGHT)) )
+		return true;
+	return false;
+}

@@ -1,5 +1,6 @@
 #pragma once
 #include "freeglut.h"
+#include "Global.h"
 
 class CButtons
 {
@@ -23,5 +24,7 @@ public:
 	void setHeight(int h);
 
 	void setButtonTexture(int bt);
+
+	bool isInside(int mx, int my);
 };
 
