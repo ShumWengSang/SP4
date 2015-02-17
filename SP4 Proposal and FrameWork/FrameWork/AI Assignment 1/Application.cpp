@@ -54,7 +54,9 @@ void CApplication::renderScene() {
 	//Render
 	GSM->Draw();
 	
-	//CTimer::getInstance()->drawFPS();
+	theCamera->SetHUD(true);
+	CTimer::getInstance()->drawFPS();
+	theCamera->SetHUD(false);
 
 	//Flush off any entity which is not drawn yet, so that we maintain the frame rate.
 	glFlush();
