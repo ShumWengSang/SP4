@@ -8,6 +8,15 @@ void CStartOfDayState::Init()
 {
 	cout << "CStartOfDayState::Init\n" << endl;
 
+	//Textures
+	//background
+	CApplication::getInstance()->LoadTGA(&background[0],"images/background.tga");
+
+	//buttons
+	CApplication::getInstance()->LoadTGA(&button[0],"images/startState/go.tga");
+	theButton[go] = new CButtons(go);
+	theButton[go]->setButtonTexture(button[0].texID);
+
 	//Input System
 	CInputSystem::getInstance()->OrientCam = true;
 
@@ -47,26 +56,53 @@ void CStartOfDayState::Update(CInGameStateManager* theGSM)
 void CStartOfDayState::Draw(CInGameStateManager* theGSM) 
 {
 	CApplication::getInstance()->theCamera->SetHUD(true);
+	DrawBackground();
+	DrawButtons();
+	CApplication::getInstance()->theCamera->SetHUD(false);
+}
 
-	// Draw Background image
+void CStartOfDayState::DrawButtons()
+{
+	//start game
 	glPushMatrix();
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-		glColor3f(0,0,1);
-
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, theButton[go]->getButton());
+		glColor3f(1, 1, 1);
 		glPushMatrix();
+		glTranslatef(SCREEN_WIDTH/2 - 50, SCREEN_HEIGHT - 100, 0);
+			glScalef(0.2, 0.1, 1);
 			glBegin(GL_QUADS);
-				glVertex2f(0,SCREEN_HEIGHT);
-				glVertex2f(SCREEN_WIDTH,SCREEN_HEIGHT);
-				glVertex2f(SCREEN_WIDTH,0);
-				glVertex2f(0,0);				
+				glTexCoord2f(0, 0);	glVertex2f(0, SCREEN_HEIGHT);
+				glTexCoord2f(1, 0);	glVertex2f(SCREEN_WIDTH, SCREEN_HEIGHT);
+				glTexCoord2f(1, 1);	glVertex2f(SCREEN_WIDTH, 0);
+				glTexCoord2f(0, 1);	glVertex2f(0, 0);			
 			glEnd();
 		glPopMatrix();
+		glDisable(GL_TEXTURE_2D);
 		glDisable(GL_BLEND);
 	glPopMatrix();
+}
 
-	CApplication::getInstance()->theCamera->SetHUD(false);
+void CStartOfDayState::DrawBackground()
+{
+	glPushMatrix();
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, background[0].texID);
+		glPushMatrix();
+			glBegin(GL_QUADS);
+				glTexCoord2f(0, 0);	glVertex2f(0, SCREEN_HEIGHT);
+				glTexCoord2f(1, 0);	glVertex2f(SCREEN_WIDTH, SCREEN_HEIGHT);
+				glTexCoord2f(1, 1);	glVertex2f(SCREEN_WIDTH, 0);
+				glTexCoord2f(0, 1);	glVertex2f(0, 0);			
+			glEnd();
+		glPopMatrix();
+		glDisable(GL_TEXTURE_2D);
+		glDisable(GL_BLEND);
+	glPopMatrix();
 }
 
 void CStartOfDayState::keyboardUpdate()

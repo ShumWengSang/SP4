@@ -6,8 +6,17 @@
 #include "Input.h"
 #include "Global.h"
 #include "TextureImage.h"
+#include "Buttons.h"
 
 using namespace std;
+
+enum MENU_BUTTON
+{
+	start,
+	loadGame,
+	options,
+	quit
+};
 
 class CInputSystem;
 
@@ -15,6 +24,9 @@ class CMenuState : public CGameState
 {
 protected:
 	CMenuState(void) {};
+
+	TextureImage button[4];
+	TextureImage background[1];
 
 public:
 	void Init();
@@ -26,19 +38,20 @@ public:
 	void HandleEvents(CGameStateManager* GSM);
 	void Update(CGameStateManager* GSM);
 	void Draw(CGameStateManager* GSM);
+	void DrawButtons();
+	void DrawBackground();
 	void keyboardUpdate(void);
+	void mouseClick(void);
 
 	static CMenuState* Instance() {
 		return &theMenuState;
 	}
-	
-	TextureImage bg[2];
 
 private:
 	static CMenuState theMenuState;
 
 	//Input System
 	CInputSystem* InputSystem;
-
+	CButtons* theButton[4];
 };
 

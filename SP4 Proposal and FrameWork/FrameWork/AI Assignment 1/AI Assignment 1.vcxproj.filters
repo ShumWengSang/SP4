@@ -66,6 +66,15 @@
     <ClCompile Include="GamePlayState.cpp">
       <Filter>PlayStates</Filter>
     </ClCompile>
+    <ClCompile Include="Buttons.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Money.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Stalls.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameState.h">
@@ -117,6 +126,15 @@
       <Filter>PlayStates</Filter>
     </ClInclude>
     <ClInclude Include="TextureImage.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Buttons.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Money.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Stalls.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
   </ItemGroup>

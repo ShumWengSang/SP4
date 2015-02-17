@@ -6,6 +6,7 @@
 #include "Global.h"
 #include "Input.h"
 #include "InGameState.h"
+#include "Money.h"
 
 using namespace std;
 
@@ -34,6 +35,8 @@ public:
 
 private:
 	static CGamePlayState theGamePlayState;
+
+	CMoney theMoney;
 
 };
 

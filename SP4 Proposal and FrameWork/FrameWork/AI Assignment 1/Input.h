@@ -30,7 +30,7 @@ public:
 
 	//Mouse Input
 	theMouseInfo mouseInfo;
-
+	bool isClick;
 	//Camera Variables
 	float angle;
 	bool OrientCam;
