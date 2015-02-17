@@ -14,7 +14,7 @@ void CStartOfDayState::Init()
 
 	//buttons
 	CApplication::getInstance()->LoadTGA(&button[0],"images/startState/go.tga");
-	theButton[go] = new CButtons(go);
+	theButton[go] = new CButtons(SCREEN_WIDTH/2, SCREEN_HEIGHT - 100, 200, 100, go);
 	theButton[go]->setButtonTexture(button[0].texID);
 
 	//Input System
@@ -71,12 +71,11 @@ void CStartOfDayState::DrawButtons()
 		glBindTexture(GL_TEXTURE_2D, theButton[go]->getButton());
 		glColor3f(1, 1, 1);
 		glPushMatrix();
-		glTranslatef(SCREEN_WIDTH/2 - 50, SCREEN_HEIGHT - 100, 0);
-			glScalef(0.2, 0.1, 1);
+		glTranslatef(theButton[go]->getButtonX(), theButton[go]->getButtonY(), 0);
 			glBegin(GL_QUADS);
-				glTexCoord2f(0, 0);	glVertex2f(0, SCREEN_HEIGHT);
-				glTexCoord2f(1, 0);	glVertex2f(SCREEN_WIDTH, SCREEN_HEIGHT);
-				glTexCoord2f(1, 1);	glVertex2f(SCREEN_WIDTH, 0);
+			glTexCoord2f(0, 0);	glVertex2f(0,  theButton[go]->getHeight());
+			glTexCoord2f(1, 0);	glVertex2f(theButton[go]->getWidth(), theButton[go]->getHeight());
+				glTexCoord2f(1, 1);	glVertex2f(theButton[go]->getWidth(), 0);
 				glTexCoord2f(0, 1);	glVertex2f(0, 0);			
 			glEnd();
 		glPopMatrix();
