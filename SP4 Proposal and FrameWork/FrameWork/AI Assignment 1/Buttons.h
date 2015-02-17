@@ -8,7 +8,7 @@ class CButtons
 	int button;
 public:
 	CButtons(void);
-	CButtons(int x , int y, int w, int h, int button);
+	CButtons(int button);
 	~CButtons(void);
 
 	int getButton();
@@ -19,8 +19,6 @@ public:
 
 	void setButtonX(int x);
 	void setButtonY(int y);
-	void setWidth(int w);
-	void setHeight(int h);
 
 	void setButtonTexture(int bt);
 };

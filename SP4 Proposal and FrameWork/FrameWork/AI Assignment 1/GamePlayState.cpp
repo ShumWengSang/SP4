@@ -10,8 +10,9 @@ void CGamePlayState::Init()
 
 	//Input System
 	CInputSystem::getInstance()->OrientCam = true;
-
+	
 	//Isometric view
+	CApplication::getInstance()->theCamera->SetCameraType(Camera::AIR_CAM);
 	CApplication::getInstance()->theCamera->SetPosition(50.0, 50.0, -70.0);
 	Vector3 temp = -CApplication::getInstance()->theCamera->GetPosition();
 	CApplication::getInstance()->theCamera->SetDirection(temp.Normalized().x, temp.Normalized().y, temp.Normalized().z);
@@ -112,13 +113,68 @@ void CGamePlayState::keyboardUpdate()
 		cout << "\t" << CApplication::getInstance()->theCamera->GetDirection().x << "\t" << CApplication::getInstance()->theCamera->GetDirection().y << "\t" << CApplication::getInstance()->theCamera->GetDirection().z << endl << endl;
 		cout << "\t" << CApplication::getInstance()->theCamera->GetPosition().x << "\t" << CApplication::getInstance()->theCamera->GetPosition().y << "\t" << CApplication::getInstance()->theCamera->GetPosition().z << endl << endl;
 	}
+	if(CInputSystem::getInstance()->myKeys['j'])
+		CApplication::getInstance()->theCamera->Strafe(-1);
+	if(CInputSystem::getInstance()->myKeys['l'])
+		CApplication::getInstance()->theCamera->Strafe(1);
+	if(CInputSystem::getInstance()->myKeys['i'])
+		CApplication::getInstance()->theCamera->Walk(1);
+	if(CInputSystem::getInstance()->myKeys['k'])
+		CApplication::getInstance()->theCamera->Walk(-1);
 
 	if(CInputSystem::getInstance()->myKeys['b'])
 	{
 		theMoney.setMoneyIncrease(10);
 		cout << theMoney.getCurrentMoney() << endl;
 	}
+
 	//Esc Key
 	if(CInputSystem::getInstance()->myKeys[VK_ESCAPE]) 
 		exit(0);
 }
+
+//Inputs
+void CGamePlayState::MouseMove (int x, int y) {
+	CInputSystem::getInstance()->mouseInfo.lastX = x;
+	CInputSystem::getInstance()->mouseInfo.lastY = y;
+}
+
+void CGamePlayState::MouseClick(int button, int state, int x, int y) {
+	switch (button) {
+
+		case GLUT_LEFT_BUTTON:
+			if (state == 0) 
+				CInputSystem::getInstance()->mouseInfo.mLButtonUp = false;
+			else
+				CInputSystem::getInstance()->mouseInfo.mLButtonUp = true;
+			CInputSystem::getInstance()->mouseInfo.clickedX = x;
+			CInputSystem::getInstance()->mouseInfo.clickedY = y;
+
+			break;
+
+		case GLUT_RIGHT_BUTTON:
+			break;
+
+		case GLUT_MIDDLE_BUTTON:
+			break;
+	}
+}
+
+void CGamePlayState::MouseWheel(int button, int dir, int x, int y) {
+
+	if(typeid(CApplication::getInstance()->GSM->GetCurrentState()).name() == typeid(CGameState*).name())
+		cout << typeid(CApplication::getInstance()->GSM->GetCurrentState()).name() << endl;
+
+	if (dir > 0) {//Zoom In
+		/*if(camDist-zoomSpeed*15 > 0)
+			camDist -= zoomSpeed;*/
+		Vector3 temp = CApplication::getInstance()->theCamera->GetPosition() + CApplication::getInstance()->theCamera->GetDirection();
+		CApplication::getInstance()->theCamera->SetPosition(temp.x,temp.y,temp.z);
+	}
+    else {//Zoom Out
+		//camDist += zoomSpeed;
+		Vector3 temp = CApplication::getInstance()->theCamera->GetPosition() - CApplication::getInstance()->theCamera->GetDirection();
+		CApplication::getInstance()->theCamera->SetPosition(temp.x,temp.y,temp.z);
+	}
+}
+

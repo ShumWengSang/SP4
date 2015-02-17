@@ -71,8 +71,10 @@ void Camera::Walk(GLfloat delta)
 {
 	if (delta > MAXSPEED_MOVE)
 		delta = MAXSPEED_MOVE;
-
-	Position.Set( Position.x + Forward.x * delta, Position.y + Forward.y * delta, Position.z + Forward.z * delta );
+	if(CameraType == CAM_TYPE::LAND_CAM)
+		Position.Set( Position.x + Forward.x * delta, Position.y + Forward.y * delta, Position.z + Forward.z * delta );
+	else
+		Position.Set( Position.x + Forward.x * delta, Position.y, Position.z + Forward.z * delta );
 }
 void Camera::Strafe(GLfloat delta)
 {

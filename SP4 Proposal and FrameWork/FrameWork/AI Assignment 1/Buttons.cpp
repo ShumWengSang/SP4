@@ -2,14 +2,15 @@
 
 CButtons::CButtons(void)
 {
+	x = 0;
+	y = 0;
+	w = 0;
+	h = 0;
+	button = 0;
 }
 
-CButtons::CButtons(int x , int y, int w, int h, int button)
+CButtons::CButtons(int button)
 {
-	this-> x = x;
-	this-> y = y;
-	this-> w = w;
-	this-> h = h;
 	this->button = button;
 }
 
@@ -33,13 +34,12 @@ int CButtons::getButtonY()
 
 int CButtons::getWidth()
 {
-	
 	glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &w);
 	return w;
 }
 int CButtons::getHeight()
 {
-	glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_HEIGHT, &h);
+	glGetTexLevelParameteriv(GL_TEXTURE_2D, 0, GL_TEXTURE_WIDTH, &h);
 	return h;
 }
 
@@ -51,16 +51,6 @@ void CButtons::setButtonY(int y)
 {
 	y = y;
 }
-
-void CButtons::setWidth(int w)
-{
-	w = w;
-}
-void CButtons::setHeight(int h)
-{
-	h = h;
-}
-
 
 void CButtons::setButtonTexture(int bt)
 {

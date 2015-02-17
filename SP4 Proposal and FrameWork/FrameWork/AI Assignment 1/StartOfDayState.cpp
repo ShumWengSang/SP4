@@ -14,7 +14,7 @@ void CStartOfDayState::Init()
 
 	//buttons
 	CApplication::getInstance()->LoadTGA(&button[0],"images/startState/go.tga");
-	theButton[go] = new CButtons(SCREEN_WIDTH/2, SCREEN_HEIGHT - 100, 200, 100, go);
+	theButton[go] = new CButtons(go);
 	theButton[go]->setButtonTexture(button[0].texID);
 
 	//Input System
@@ -71,11 +71,12 @@ void CStartOfDayState::DrawButtons()
 		glBindTexture(GL_TEXTURE_2D, theButton[go]->getButton());
 		glColor3f(1, 1, 1);
 		glPushMatrix();
-		glTranslatef(theButton[go]->getButtonX(), theButton[go]->getButtonY(), 0);
+		glTranslatef(SCREEN_WIDTH/2 - 50, SCREEN_HEIGHT - 100, 0);
+			glScalef(0.2, 0.1, 1);
 			glBegin(GL_QUADS);
-			glTexCoord2f(0, 0);	glVertex2f(0,  theButton[go]->getHeight());
-			glTexCoord2f(1, 0);	glVertex2f(theButton[go]->getWidth(), theButton[go]->getHeight());
-				glTexCoord2f(1, 1);	glVertex2f(theButton[go]->getWidth(), 0);
+				glTexCoord2f(0, 0);	glVertex2f(0, SCREEN_HEIGHT);
+				glTexCoord2f(1, 0);	glVertex2f(SCREEN_WIDTH, SCREEN_HEIGHT);
+				glTexCoord2f(1, 1);	glVertex2f(SCREEN_WIDTH, 0);
 				glTexCoord2f(0, 1);	glVertex2f(0, 0);			
 			glEnd();
 		glPopMatrix();
@@ -112,4 +113,49 @@ void CStartOfDayState::keyboardUpdate()
 	//Esc Key
 	if(CInputSystem::getInstance()->myKeys[VK_ESCAPE]) 
 		exit(0);
+}
+
+//Inputs
+void CStartOfDayState::MouseMove (int x, int y) {
+	CInputSystem::getInstance()->mouseInfo.lastX = x;
+	CInputSystem::getInstance()->mouseInfo.lastY = y;
+}
+
+void CStartOfDayState::MouseClick(int button, int state, int x, int y) {
+	switch (button) {
+
+		case GLUT_LEFT_BUTTON:
+			if (state == 0) 
+				CInputSystem::getInstance()->mouseInfo.mLButtonUp = false;
+			else
+				CInputSystem::getInstance()->mouseInfo.mLButtonUp = true;
+			CInputSystem::getInstance()->mouseInfo.clickedX = x;
+			CInputSystem::getInstance()->mouseInfo.clickedY = y;
+
+			break;
+
+		case GLUT_RIGHT_BUTTON:
+			break;
+
+		case GLUT_MIDDLE_BUTTON:
+			break;
+	}
+}
+
+void CStartOfDayState::MouseWheel(int button, int dir, int x, int y) {
+
+	if(typeid(CApplication::getInstance()->GSM->GetCurrentState()).name() == typeid(CGameState*).name())
+		cout << typeid(CApplication::getInstance()->GSM->GetCurrentState()).name() << endl;
+
+	if (dir > 0) {//Zoom In
+		/*if(camDist-zoomSpeed*15 > 0)
+			camDist -= zoomSpeed;*/
+		Vector3 temp = CApplication::getInstance()->theCamera->GetPosition() + CApplication::getInstance()->theCamera->GetDirection();
+		CApplication::getInstance()->theCamera->SetPosition(temp.x,temp.y,temp.z);
+	}
+    else {//Zoom Out
+		//camDist += zoomSpeed;
+		Vector3 temp = CApplication::getInstance()->theCamera->GetPosition() - CApplication::getInstance()->theCamera->GetDirection();
+		CApplication::getInstance()->theCamera->SetPosition(temp.x,temp.y,temp.z);
+	}
 }

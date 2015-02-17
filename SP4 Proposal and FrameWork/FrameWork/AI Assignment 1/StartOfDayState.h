@@ -41,6 +41,11 @@ public:
 	void keyboardUpdate(void);
 	void mouseClick(void);
 
+	//Inputs
+	void MouseMove (int x, int y);
+	void MouseClick(int button, int state, int x, int y);
+	void MouseWheel(int button, int dir, int x, int y);
+
 	static CStartOfDayState* Instance() {
 		return &theStartOfDayState;
 	}
