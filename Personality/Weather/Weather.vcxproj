@@ -11,9 +11,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{C7624547-8E8A-4B4C-989D-4EC377BD2E3F}</ProjectGuid>
+    <ProjectGuid>{D0E87227-F548-417F-8F3E-8733EB8BD25C}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>Personality</RootNamespace>
+    <RootNamespace>Weather</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -78,11 +78,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Personality.h" />
+    <ClInclude Include="WeatherGenerator.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Personality.cpp" />
-    <ClCompile Include="Source.cpp" />
+    <ClCompile Include="WeatherGenerator.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
