@@ -99,3 +99,8 @@ void CInGameStateManager::Draw()
 	//cout << "CInGameStateManager::Draw\n" << endl;
 }
 
+CInGameState* CInGameStateManager::GetCurrentState()
+{
+	return StackOfStates_InGame.back();
+}
+

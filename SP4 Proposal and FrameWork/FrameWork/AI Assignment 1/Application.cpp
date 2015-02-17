@@ -118,6 +118,22 @@ void CApplication::drop()
 	}
 }
 
+//Inputs
+void CApplication::MouseMove (int x, int y) {
+
+	GSM->GetCurrentState()->MouseMove(x,y);
+}
+
+void CApplication::MouseClick(int button, int state, int x, int y) {
+
+	GSM->GetCurrentState()->MouseClick(button, state, x, y);
+}
+
+void CApplication::MouseWheel(int button, int dir, int x, int y) {
+
+	GSM->GetCurrentState()->MouseWheel(button, dir, x, y);
+}
+
 bool CApplication::LoadTGA(TextureImage *texture, char *filename)			// Loads A TGA File Into Memory
 {    
 	GLubyte		TGAheader[12]={0,0,2,0,0,0,0,0,0,0,0,0};	// Uncompressed TGA Header

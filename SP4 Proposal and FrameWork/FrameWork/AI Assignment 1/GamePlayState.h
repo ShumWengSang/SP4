@@ -29,6 +29,11 @@ public:
 	void Draw(CInGameStateManager* GSM);
 	void keyboardUpdate(void);
 
+	//Inputs
+	void MouseMove (int x, int y);
+	void MouseClick(int button, int state, int x, int y);
+	void MouseWheel(int button, int dir, int x, int y);
+
 	static CGamePlayState* Instance() {
 		return &theGamePlayState;
 	}

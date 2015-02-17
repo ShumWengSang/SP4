@@ -74,4 +74,22 @@ void CPlayState::keyboardUpdate()
 		//CGameStateManager::getInstance()->ChangeState(CMenuState::Instance());
 }
 
+//Inputs
+void CPlayState::MouseMove (int x, int y) {
+
+	IGSM->GetCurrentState()->MouseMove(x, y);
+
+}
+
+void CPlayState::MouseClick(int button, int state, int x, int y) {
+
+	IGSM->GetCurrentState()->MouseClick(button, state, x, y);
+
+}
+
+void CPlayState::MouseWheel(int button, int dir, int x, int y) {
+
+	IGSM->GetCurrentState()->MouseWheel(button, dir, x, y);
+
+}
 

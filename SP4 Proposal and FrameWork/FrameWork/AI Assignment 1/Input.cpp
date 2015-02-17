@@ -85,8 +85,8 @@ void CInputSystem::MouseMove (int x, int y) {
 	if (OrientCam)
 		CApplication::getInstance()->theCamera->Yaw(-angle);*/
 
-	mouseInfo.lastX = x;
-	mouseInfo.lastY = y;
+	//mouseInfo.lastX = x;
+	//mouseInfo.lastY = y;
 
 	//Checking mouse boundary. (Width)
 	/*if  (mouseInfo.lastX > SCREEN_WIDTH-20 || mouseInfo.lastX < 20)
@@ -101,28 +101,12 @@ void CInputSystem::MouseMove (int x, int y) {
 		mouseInfo.lastY = (SCREEN_HEIGHT >> 1);
 		glutWarpPointer(mouseInfo.lastX, mouseInfo.lastY);
 	}*/
-}
 
-void CInputSystem::MouseWheel(int button, int dir, int x, int y) {
-	
-	if(typeid(CApplication::getInstance()->GSM->GetCurrentState()).name() == typeid(CGameState*).name())
-		cout << typeid(CApplication::getInstance()->GSM->GetCurrentState()).name() << endl;
-
-	if (dir > 0) {//Zoom In
-		/*if(camDist-zoomSpeed*15 > 0)
-			camDist -= zoomSpeed;*/
-		Vector3 temp = CApplication::getInstance()->theCamera->GetPosition() + CApplication::getInstance()->theCamera->GetDirection();
-		CApplication::getInstance()->theCamera->SetPosition(temp.x,temp.y,temp.z);
-	}
-    else {//Zoom Out
-		//camDist += zoomSpeed;
-		Vector3 temp = CApplication::getInstance()->theCamera->GetPosition() - CApplication::getInstance()->theCamera->GetDirection();
-		CApplication::getInstance()->theCamera->SetPosition(temp.x,temp.y,temp.z);
-	}
+	CApplication::getInstance()->MouseMove(x, y);
 }
 
 void CInputSystem::MouseClick(int button, int state, int x, int y) {
-	switch (button) {
+	/*switch (button) {
 
 		case GLUT_LEFT_BUTTON:
 			if (state == 0) 
@@ -139,7 +123,29 @@ void CInputSystem::MouseClick(int button, int state, int x, int y) {
 
 		case GLUT_MIDDLE_BUTTON:
 			break;
-	}
+	}*/
+
+	CApplication::getInstance()->MouseClick(button, state, x, y);
+}
+
+void CInputSystem::MouseWheel(int button, int dir, int x, int y) {
+	
+	//if(typeid(CApplication::getInstance()->GSM->GetCurrentState()).name() == typeid(CGameState*).name())
+	//	cout << typeid(CApplication::getInstance()->GSM->GetCurrentState()).name() << endl;
+
+	//if (dir > 0) {//Zoom In
+	//	/*if(camDist-zoomSpeed*15 > 0)
+	//		camDist -= zoomSpeed;*/
+	//	Vector3 temp = CApplication::getInstance()->theCamera->GetPosition() + CApplication::getInstance()->theCamera->GetDirection();
+	//	CApplication::getInstance()->theCamera->SetPosition(temp.x,temp.y,temp.z);
+	//}
+ //   else {//Zoom Out
+	//	//camDist += zoomSpeed;
+	//	Vector3 temp = CApplication::getInstance()->theCamera->GetPosition() - CApplication::getInstance()->theCamera->GetDirection();
+	//	CApplication::getInstance()->theCamera->SetPosition(temp.x,temp.y,temp.z);
+	//}
+
+	CApplication::getInstance()->MouseWheel(button, dir, x, y);
 }
 
 float CInputSystem::calculateDistanceMoved(float acceleration, float maxVelocity, float timeDiff)
