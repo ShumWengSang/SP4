@@ -83,10 +83,12 @@
     <ClCompile Include="Buttons.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="EndOfDayState.cpp" />
+    <ClCompile Include="Entity.cpp" />
     <ClCompile Include="GamePlayState.cpp" />
     <ClCompile Include="GameStateManager.cpp" />
     <ClCompile Include="InGameStateManager.cpp" />
     <ClCompile Include="Input.cpp" />
+    <ClCompile Include="Location.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MenuState.cpp" />
     <ClCompile Include="Money.cpp" />
@@ -101,6 +103,7 @@
     <ClInclude Include="Buttons.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="EndOfDayState.h" />
+    <ClInclude Include="Entity.h" />
     <ClInclude Include="GamePlayState.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GameStateManager.h" />
@@ -108,6 +111,7 @@
     <ClInclude Include="InGameState.h" />
     <ClInclude Include="InGameStateManager.h" />
     <ClInclude Include="Input.h" />
+    <ClInclude Include="Location.h" />
     <ClInclude Include="MenuState.h" />
     <ClInclude Include="Money.h" />
     <ClInclude Include="MyMath.h" />

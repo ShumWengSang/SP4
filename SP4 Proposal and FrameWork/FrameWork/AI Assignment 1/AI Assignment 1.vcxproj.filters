@@ -75,6 +75,12 @@
     <ClCompile Include="Stalls.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Location.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameState.h">
@@ -135,6 +141,12 @@
       <Filter>Resource Files</Filter>
     </ClInclude>
     <ClInclude Include="Stalls.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Location.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
   </ItemGroup>
