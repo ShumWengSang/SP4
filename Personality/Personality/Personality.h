@@ -27,7 +27,7 @@ public:
 	}
 	float Vector3::Length(void) const
 	{
-		return sqrt(x * x + y * y );
+		return sqrt((double)x * x + y * y );
 	}
 };
 

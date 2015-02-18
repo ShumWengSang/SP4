@@ -109,7 +109,7 @@ public:
 		}
 		if (LeastNumber )
 		std::cout << "LeastNumber " << LeastNumber << std::endl;
-		if (LeastNumber < 80)
+		if (LeastNumber < 50)
 			return NULL;
 		return ProbabilitytoBuyMask.find(LeastNumber)->second;
 	}
@@ -135,11 +135,12 @@ void main()
 	{
 		theStall = new Stall();
 		theStall->Location = Vector3(rand() % 21, rand() % 21);
-		theStall->Price = rand()% 11;
+		//theStall->Price = rand()% 11;
+		theStall->Price = 10;
 		theListofStalls.push_back(theStall);
 	}
 
-	int Haze = 150;
+	int Haze = 200;
 	int WillBuy = 0;
 
 	Buyer TestBuyer[500];

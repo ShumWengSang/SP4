@@ -64,6 +64,8 @@ void CGamePlayState::Draw(CInGameStateManager* theGSM)
 	//DrawButtons();//pause button here
 
 	//CApplication::getInstance()->theCamera->SetHUD(false);
+	
+	myLoc.renderMap();
 
 	glPushMatrix();
 		glEnable(GL_BLEND);

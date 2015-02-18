@@ -34,8 +34,6 @@ void CApplication::Update()
 	//Handle the GSM events
 	GSM->HandleEvents();
 
-	theCamera->Update();
-
 	//Update GSM
 	GSM->Update();
 }
@@ -50,6 +48,8 @@ void CApplication::renderScene() {
 	//Constrain Update
 	if ((timeGetTime()-timelastcall) > 1000.f / frequency) //"timeGetTime()-timelastcall" is DeltaTime
 		Update(); //Update Game
+
+	theCamera->Update();
 
 	//Render
 	GSM->Draw();
