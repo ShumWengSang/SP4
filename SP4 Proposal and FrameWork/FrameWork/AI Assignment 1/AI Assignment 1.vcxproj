@@ -83,6 +83,7 @@
     <ClCompile Include="Buttons.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="EndOfDayState.cpp" />
+    <ClCompile Include="Entity.cpp" />
     <ClCompile Include="GamePlayState.cpp" />
     <ClCompile Include="GameStateManager.cpp" />
     <ClCompile Include="InGameStateManager.cpp" />
@@ -101,6 +102,7 @@
     <ClInclude Include="Buttons.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="EndOfDayState.h" />
+    <ClInclude Include="Entity.h" />
     <ClInclude Include="GamePlayState.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GameStateManager.h" />

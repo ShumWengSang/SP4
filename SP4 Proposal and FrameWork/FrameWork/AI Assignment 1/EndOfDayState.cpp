@@ -7,6 +7,15 @@ void CEndOfDayState::Init()
 {
 	cout << "CEndOfDayState::Init\n" << endl;
 
+	//Textures
+	//background
+	CApplication::getInstance()->LoadTGA(&background[0],"images/background.tga");
+
+	//buttons
+	CApplication::getInstance()->LoadTGA(&button[0],"images/endState/save.tga");
+	theButton[save] = new CButtons(SCREEN_WIDTH/2, SCREEN_HEIGHT - 100, 200, 100, save);
+	theButton[save]->setButtonTexture(button[0].texID);
+
 	//Input System
 	CInputSystem::getInstance()->OrientCam = true;
 
@@ -46,26 +55,52 @@ void CEndOfDayState::Update(CInGameStateManager* theGSM)
 void CEndOfDayState::Draw(CInGameStateManager* theGSM) 
 {
 	CApplication::getInstance()->theCamera->SetHUD(true);
+	DrawBackground();
+	DrawButtons();
+	CApplication::getInstance()->theCamera->SetHUD(false);
+}
 
-	// Draw Background image
+void CEndOfDayState::DrawButtons()
+{
+	//save game
 	glPushMatrix();
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-		glColor3f(0,1,0);
-
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, theButton[save]->getButton());
+		glColor3f(1, 1, 1);
 		glPushMatrix();
+		glTranslatef(theButton[save]->getButtonX(), theButton[save]->getButtonY(), 0);
 			glBegin(GL_QUADS);
-				glVertex2f(0,SCREEN_HEIGHT);
-				glVertex2f(SCREEN_WIDTH,SCREEN_HEIGHT);
-				glVertex2f(SCREEN_WIDTH,0);
-				glVertex2f(0,0);				
+			glTexCoord2f(0, 0);	glVertex2f(0,  theButton[save]->getHeight());
+			glTexCoord2f(1, 0);	glVertex2f(theButton[save]->getWidth(), theButton[save]->getHeight());
+				glTexCoord2f(1, 1);	glVertex2f(theButton[save]->getWidth(), 0);
+				glTexCoord2f(0, 1);	glVertex2f(0, 0);			
 			glEnd();
 		glPopMatrix();
+		glDisable(GL_TEXTURE_2D);
 		glDisable(GL_BLEND);
 	glPopMatrix();
+}
 
-	CApplication::getInstance()->theCamera->SetHUD(false);
+void CEndOfDayState::DrawBackground()
+{
+	glPushMatrix();
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, background[0].texID);
+		glPushMatrix();
+			glBegin(GL_QUADS);
+				glTexCoord2f(0, 0);	glVertex2f(0, SCREEN_HEIGHT);
+				glTexCoord2f(1, 0);	glVertex2f(SCREEN_WIDTH, SCREEN_HEIGHT);
+				glTexCoord2f(1, 1);	glVertex2f(SCREEN_WIDTH, 0);
+				glTexCoord2f(0, 1);	glVertex2f(0, 0);			
+			glEnd();
+		glPopMatrix();
+		glDisable(GL_TEXTURE_2D);
+		glDisable(GL_BLEND);
+	glPopMatrix();
 }
 
 void CEndOfDayState::keyboardUpdate()
@@ -86,11 +121,17 @@ void CEndOfDayState::MouseClick(int button, int state, int x, int y) {
 
 		case GLUT_LEFT_BUTTON:
 			if (state == 0) 
+			{
 				CInputSystem::getInstance()->mouseInfo.mLButtonUp = false;
+				CInputSystem::getInstance()->mouseInfo.clickedX = x;
+				CInputSystem::getInstance()->mouseInfo.clickedY = y;
+
+				//go to start of the day
+				if(theButton[save]->isInside(x, y))
+					CGameStateManager::getInstance()->ChangeState(CMenuState::Instance());
+			}
 			else
 				CInputSystem::getInstance()->mouseInfo.mLButtonUp = true;
-			CInputSystem::getInstance()->mouseInfo.clickedX = x;
-			CInputSystem::getInstance()->mouseInfo.clickedY = y;
 
 			break;
 

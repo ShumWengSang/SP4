@@ -208,6 +208,10 @@ void CMenuState::MouseClick(int button, int state, int x, int y) {
 				//go to start of the day
 				if(theButton[start]->isInside(x, y))
 					CGameStateManager::getInstance()->ChangeState(CPlayState::Instance());
+
+				//quit game
+				if(theButton[quit]->isInside(x, y))
+					exit(0);
 			}
 			else
 				CInputSystem::getInstance()->mouseInfo.mLButtonUp = true;

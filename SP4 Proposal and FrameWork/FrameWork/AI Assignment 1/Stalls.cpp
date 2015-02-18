@@ -9,6 +9,15 @@ CStalls::~CStalls(void)
 {
 }
 
+int CStalls::getMaskNo()
+{
+	return gasMaskAmount;
+}
+void CStalls::setMaskNo(int mn)
+{
+	gasMaskAmount = mn;
+}
+
 void CStalls::buyMask(int amt)
 {
 	cout << "buy mask here" << endl;

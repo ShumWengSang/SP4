@@ -17,6 +17,18 @@ void CStartOfDayState::Init()
 	theButton[go] = new CButtons(SCREEN_WIDTH/2, SCREEN_HEIGHT - 100, 200, 100, go);
 	theButton[go]->setButtonTexture(button[0].texID);
 
+	CApplication::getInstance()->LoadTGA(&button[1],"images/startState/50.tga");
+	theButton[fifty] = new CButtons(50, 100, 50, 30, fifty);
+	theButton[fifty]->setButtonTexture(button[1].texID);
+
+	CApplication::getInstance()->LoadTGA(&button[2],"images/startState/100.tga");
+	theButton[hundred] = new CButtons(101, 100, 50, 30, hundred);
+	theButton[hundred]->setButtonTexture(button[2].texID);
+
+	CApplication::getInstance()->LoadTGA(&button[3],"images/startState/200.tga");
+	theButton[twohundred] = new CButtons(152, 100, 50, 30, twohundred);
+	theButton[twohundred]->setButtonTexture(button[3].texID);
+
 	//Input System
 	CInputSystem::getInstance()->OrientCam = true;
 
@@ -82,6 +94,66 @@ void CStartOfDayState::DrawButtons()
 		glDisable(GL_TEXTURE_2D);
 		glDisable(GL_BLEND);
 	glPopMatrix();
+
+	//50 mask
+	glPushMatrix();
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, theButton[fifty]->getButton());
+		glColor3f(1, 1, 1);
+		glPushMatrix();
+		glTranslatef(theButton[fifty]->getButtonX(), theButton[fifty]->getButtonY(), 0);
+			glBegin(GL_QUADS);
+			glTexCoord2f(0, 0);	glVertex2f(0,  theButton[fifty]->getHeight());
+			glTexCoord2f(1, 0);	glVertex2f(theButton[fifty]->getWidth(), theButton[fifty]->getHeight());
+				glTexCoord2f(1, 1);	glVertex2f(theButton[fifty]->getWidth(), 0);
+				glTexCoord2f(0, 1);	glVertex2f(0, 0);			
+			glEnd();
+		glPopMatrix();
+		glDisable(GL_TEXTURE_2D);
+		glDisable(GL_BLEND);
+	glPopMatrix();
+
+	//100 mask
+	glPushMatrix();
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, theButton[hundred]->getButton());
+		glColor3f(1, 1, 1);
+		glPushMatrix();
+		glTranslatef(theButton[hundred]->getButtonX(), theButton[hundred]->getButtonY(), 0);
+			glBegin(GL_QUADS);
+			glTexCoord2f(0, 0);	glVertex2f(0,  theButton[hundred]->getHeight());
+			glTexCoord2f(1, 0);	glVertex2f(theButton[hundred]->getWidth(), theButton[hundred]->getHeight());
+				glTexCoord2f(1, 1);	glVertex2f(theButton[hundred]->getWidth(), 0);
+				glTexCoord2f(0, 1);	glVertex2f(0, 0);			
+			glEnd();
+		glPopMatrix();
+		glDisable(GL_TEXTURE_2D);
+		glDisable(GL_BLEND);
+	glPopMatrix();
+
+	//200 mask
+	glPushMatrix();
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, theButton[twohundred]->getButton());
+		glColor3f(1, 1, 1);
+		glPushMatrix();
+		glTranslatef(theButton[twohundred]->getButtonX(), theButton[twohundred]->getButtonY(), 0);
+			glBegin(GL_QUADS);
+			glTexCoord2f(0, 0);	glVertex2f(0,  theButton[twohundred]->getHeight());
+			glTexCoord2f(1, 0);	glVertex2f(theButton[twohundred]->getWidth(), theButton[twohundred]->getHeight());
+				glTexCoord2f(1, 1);	glVertex2f(theButton[twohundred]->getWidth(), 0);
+				glTexCoord2f(0, 1);	glVertex2f(0, 0);			
+			glEnd();
+		glPopMatrix();
+		glDisable(GL_TEXTURE_2D);
+		glDisable(GL_BLEND);
+	glPopMatrix();
 }
 
 void CStartOfDayState::DrawBackground()
@@ -133,6 +205,13 @@ void CStartOfDayState::MouseClick(int button, int state, int x, int y) {
 				//go to start of the day
 				if(theButton[start]->isInside(x, y))
 					CInGameStateManager::getInstance()->ChangeState(CGamePlayState::Instance());
+
+				if(theButton[fifty]->isInside(x, y))
+				{
+					/*theStall[0]->setMaskNo(50);
+					cout << theStall[0]->getMaskNo() << endl;*/
+					cout << "50" << endl;
+				}
 			}
 			else
 				CInputSystem::getInstance()->mouseInfo.mLButtonUp = true;

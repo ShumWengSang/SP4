@@ -22,9 +22,11 @@ public:
 	//Inputs
 	virtual void MouseMove (int x, int y) = 0;
 	virtual void MouseClick(int button, int state, int x, int y) = 0;
-	virtual void MouseWheel(int button, int dir, int x, int y) = 0;
+	virtual void MouseWheel(int button, int dir, int x, int y) = 0;
+
 	void ChangeState(CGameStateManager* GSM, CGameState* state) {
 		GSM->ChangeState(state);
-	}	
+	}
+	
 };
 

@@ -7,8 +7,15 @@
 #include "Input.h"
 #include "InGameState.h"
 #include "Money.h"
+#include "TextureImage.h"
+#include "Buttons.h"
 
 using namespace std;
+
+enum PLAYSTATE_BUTTON
+{
+	pause
+};
 
 class CInputSystem;
 
@@ -16,6 +23,8 @@ class CGamePlayState : public CInGameState
 {
 private:
 	CGamePlayState(void) {};
+
+	TextureImage button[4];
 
 public:
 	void Init();
@@ -28,6 +37,7 @@ public:
 	void Update(CInGameStateManager* GSM);
 	void Draw(CInGameStateManager* GSM);
 	void keyboardUpdate(void);
+	void DrawButtons();
 
 	//Inputs
 	void MouseMove (int x, int y);
@@ -42,6 +52,7 @@ private:
 	static CGamePlayState theGamePlayState;
 
 	CMoney theMoney;
+	CButtons* theButton[4];
 
 };
 

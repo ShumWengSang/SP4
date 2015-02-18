@@ -8,6 +8,12 @@ void CGamePlayState::Init()
 {
 	cout << "CGamePlayState::Init\n" << endl;
 
+	//Textures
+	//buttons
+	CApplication::getInstance()->LoadTGA(&button[0],"images/playState/pause.tga");
+	theButton[pause] = new CButtons(SCREEN_WIDTH - 64, 0, 64, 64, pause);
+	theButton[pause]->setButtonTexture(button[0].texID);
+
 	//Input System
 	CInputSystem::getInstance()->OrientCam = true;
 	
@@ -55,24 +61,7 @@ void CGamePlayState::Draw(CInGameStateManager* theGSM)
 
 	//CApplication::getInstance()->theCamera->SetHUD(true);
 
-	//// Draw Background image
-	//glPushMatrix();
-	//	glEnable(GL_BLEND);
-	//	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-	//	glColor3f(1,0,0);
-
-	//	glPushMatrix();
-	//		glBegin(GL_QUADS);
-	//			int height = 100 * 1.333/1.5;
-	//			glVertex2f(0,SCREEN_HEIGHT);
-	//			glVertex2f(SCREEN_WIDTH,SCREEN_HEIGHT);
-	//			glVertex2f(SCREEN_WIDTH,0);
-	//			glVertex2f(0,0);				
-	//		glEnd();
-	//	glPopMatrix();
-	//	glDisable(GL_BLEND);
-	//glPopMatrix();
+	//DrawButtons();//pause button here
 
 	//CApplication::getInstance()->theCamera->SetHUD(false);
 
@@ -101,6 +90,29 @@ void CGamePlayState::Draw(CInGameStateManager* theGSM)
 				glVertex3f(-25,0,-25);
 			glEnd();
 		glPopMatrix();
+		glDisable(GL_BLEND);
+	glPopMatrix();
+}
+
+void CGamePlayState::DrawButtons()
+{
+	//pause game
+	glPushMatrix();
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, theButton[pause]->getButton());
+		glColor3f(1, 1, 1);
+		glPushMatrix();
+		glTranslatef(theButton[pause]->getButtonX(), theButton[pause]->getButtonY(), 0);
+			glBegin(GL_QUADS);
+			glTexCoord2f(0, 0);	glVertex2f(0,  theButton[pause]->getHeight());
+			glTexCoord2f(1, 0);	glVertex2f(theButton[pause]->getWidth(), theButton[pause]->getHeight());
+				glTexCoord2f(1, 1);	glVertex2f(theButton[pause]->getWidth(), 0);
+				glTexCoord2f(0, 1);	glVertex2f(0, 0);			
+			glEnd();
+		glPopMatrix();
+		glDisable(GL_TEXTURE_2D);
 		glDisable(GL_BLEND);
 	glPopMatrix();
 }
@@ -206,4 +218,3 @@ void CGamePlayState::MouseWheel(int button, int dir, int x, int y) {
 		CApplication::getInstance()->theCamera->SetPosition(temp.x,temp.y,temp.z);
 	}
 }
-

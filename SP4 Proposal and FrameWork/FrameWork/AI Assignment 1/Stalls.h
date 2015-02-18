@@ -13,6 +13,9 @@ public:
 
 	CMoney theStoreMoney;
 
+	int getMaskNo();
+	void setMaskNo(int mn);
+
 	void buyMask(int amt);
 	void moveStall();
 };

@@ -6,8 +6,15 @@
 #include "Global.h"
 #include "Input.h"
 #include "InGameState.h"
+#include "TextureImage.h"
+#include "Buttons.h"
 
 using namespace std;
+
+enum ENDSTATE_BUTTON
+{
+	save
+};
 
 class CInputSystem;
 
@@ -15,6 +22,9 @@ class CEndOfDayState : public CInGameState
 {
 private:
 	CEndOfDayState(void) {};
+
+	TextureImage button[1];
+	TextureImage background[1];
 
 public:
 	void Init();
@@ -26,6 +36,8 @@ public:
 	void HandleEvents(CInGameStateManager* GSM);
 	void Update(CInGameStateManager* GSM);
 	void Draw(CInGameStateManager* GSM);
+	void DrawButtons();
+	void DrawBackground();
 	void keyboardUpdate(void);
 
 	//Inputs
@@ -39,6 +51,6 @@ public:
 
 private:
 	static CEndOfDayState theEndOfDayState;
-
+	CButtons* theButton[4];
 };
 
