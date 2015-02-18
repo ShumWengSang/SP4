@@ -1,0 +1,46 @@
+Day 3 --- 18/2/15
+-------------------------
+END OF WEEK 1 REPORT
+-----------------------
+Samuel:
+
+Game State: 90%
+2.5D Camera: 80%
+
+
+Amos:
+
+Win Lose Condition: 0%
+Sound: 0%
+Entity Class: 90%
+Grid/Location: 50%
+
+
+WQ:
+
+Forecast: 99%
+Load/Save: 0%
+
+
+YT:
+
+UI: 30%
+Money System: 80%
+
+
+
+Roland:
+
+Buyer: 30%
+Weather: 10%
+
+-----------------------------------------
+Added works:
+Clicking on stalls: Samuel
+-----------------------------------------
+Estimates:
+Clicking --- this week. Monday see.
+Grid/Location -- 19/2
+UI --- this week. Monday see.
+LoadSave --- Next Wedesday.
+
