@@ -7,6 +7,7 @@
 #include "Input.h"
 #include "InGameState.h"
 #include "Money.h"
+#include "Location.h"
 
 using namespace std;
 
@@ -42,6 +43,6 @@ private:
 	static CGamePlayState theGamePlayState;
 
 	CMoney theMoney;
-
+	Location myLoc;
 };
 

@@ -75,6 +75,8 @@ void CGamePlayState::Draw(CInGameStateManager* theGSM)
 	//glPopMatrix();
 
 	//CApplication::getInstance()->theCamera->SetHUD(false);
+	
+	myLoc.renderMap();
 
 	glPushMatrix();
 		glEnable(GL_BLEND);
