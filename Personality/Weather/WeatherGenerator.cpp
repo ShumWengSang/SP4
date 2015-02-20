@@ -22,12 +22,16 @@ void WeatherGenerator::PrintOutHourly()
 	}
 }
 
+double interpolate(double a, double b, double x)
+{
+	double ft = x * 3.1415927;
+	double f = (1.0 - cos(ft))* 0.5;
+	return a*(1.0 - f) + b*f;
+}
+
 void WeatherGenerator::PrintOutGraph()
 {
-	for (int j = 0; j < noiseWidth; j++)
-	{
-		std::cout << "values " << turbulence(j, 4) << std::endl;
-	}
+
 	std::cout << std::endl;
 	for (int i = 0; i < HazeGraph.size(); i++)
 	{
@@ -38,7 +42,10 @@ void WeatherGenerator::PrintOutGraph()
 		//std::cout << HazeGraph[i] << std::endl;
 		std::cout << "0" << std::endl;
 	}
+
 }
+
+
 
 double WeatherGenerator::turbulence(double x, double size)
 {
@@ -47,7 +54,7 @@ double WeatherGenerator::turbulence(double x, double size)
 
 	while (size >= 1)		//ADD TOGETHER ALL THE ZOOMS TO MAKE TURBULANCE
 	{
-		value += /*interpolation(x / size) **/ size;
+		//value += interpolation(x / size) * size;
 		size /= 2.0;
 	}
 
@@ -55,31 +62,27 @@ double WeatherGenerator::turbulence(double x, double size)
 
 }
 
-double WeatherGenerator::interpolation(double x)
-{
-	//get fractional part of x and y
-	double fractX = x - int(x);
+/* --- My harmonic summing functions - PDB --------------------------*/
+
+/*
+In what follows "alpha" is the weight when the sum is formed.
+Typically it is 2, As this approaches 1 the function is noisier.
+"beta" is the harmonic scaling/spacing, typically 2.
+*/
 
 
-	//wrap around
-	int x1 = (int(x) + noiseWidth) % noiseWidth;
-
-
-	//neighbor values
-	int x2 = (x1 + noiseWidth - 1) % noiseWidth;
-
-
-	//smooth the noise with bilinear interpolation
-	double value = 0.0;
-	value += fractX * HazeGraph[x1];
-	value += fractX * HazeGraph[x1];
-	value += (1 - fractX) * HazeGraph[x2];
-	value += (1 - fractX) * HazeGraph[x2];
-
-	value += fractX * HazeGraph[x1];
-	value += fractX * HazeGraph[x1];
-	value += (1 - fractX) * HazeGraph[x2];
-	value += (1 - fractX) * HazeGraph[x2];
-
-	return value;
-}
+//double PerlinNoise1D(double x, double alpha, double beta, int n)
+//{
+//	int i;
+//	double val, sum = 0;
+//	double p, scale = 1;
+//
+//	p = x;
+//	for (i = 0; i<n; i++) {
+//		val = noise1(p);
+//		sum += val / scale;
+//		scale *= alpha;
+//		p *= beta;
+//	}
+//	return(sum);
+//}
