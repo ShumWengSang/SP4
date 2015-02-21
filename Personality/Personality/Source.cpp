@@ -140,7 +140,7 @@ void main()
 		theListofStalls.push_back(theStall);
 	}
 
-	int Haze = 200;
+	int Haze = 150;
 	int WillBuy = 0;
 
 	Buyer TestBuyer[500];

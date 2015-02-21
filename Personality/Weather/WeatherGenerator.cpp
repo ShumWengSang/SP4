@@ -1,12 +1,41 @@
 #include "WeatherGenerator.h"
 
-
+//15 - 24
 WeatherGenerator::WeatherGenerator()
 {
-	for (float i = 0; i < 42; i++)
+	for (float i = 0; i < noiseWidth; i++)
 	{
-		HazeGraph.push_back(i /2 + i/4 * sin((float)i));
+		HazeGraph.push_back(i /2 + i/4 * sin((float) 0.7 * i));
 	}
+
+	for (int i = 0; i < DayTime; i++)
+	{
+		HazeGraph[i] = HazeGraph[15 + i];
+	}
+	for (int i = DayTime; i < DayTime * 2; i++)
+	{
+		HazeGraph[i] = HazeGraph[15 + i];
+	}
+	PerlineNoise thePerlineNoise;
+
+	for (int i = 0; i < HazeGraph.size(); i++)
+	{
+		double Result = thePerlineNoise.PerlinNoise_1D(HazeGraph[i]);
+
+		std::cout << "Result: " << i << " " << Result + HazeGraph[i] * 13 << std::endl;
+
+		HazeGraph[i] += Result;
+
+		if (i % 9 == 0)
+		{
+			std::cout << "END OF DAY -----------------" << std::endl;
+		}
+	}
+
+	//for (int i = 0; i < DayTime * 2; i++)
+	//{
+	//	HazeGraph[i] = HazeGraph[i + DayTime * 2];
+	//}
 }
 
 
@@ -43,6 +72,26 @@ void WeatherGenerator::PrintOutGraph()
 		std::cout << "0" << std::endl;
 	}
 
+	std::cout << std::endl;
+	for (int i = 0; i < HazeAveragePerDay.size(); i++)
+	{
+		std::cout << "Haze Average Number: " << i << " " << HazeAveragePerDay[i] << std::endl;
+	}
+
+}
+
+std::vector<float> WeatherGenerator::GetHazeAvg()
+{
+	for (int i = 0; i < 7; i++)
+	{
+		float temp = 0;
+		for (int j = 0; j < DayTime; j++)
+		{
+			temp += HazeGraph[j + i * DayTime];
+		}
+		HazeAveragePerDay.push_back(temp);
+	}
+	return HazeAveragePerDay;
 }
 
 
