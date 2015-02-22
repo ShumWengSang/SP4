@@ -31,11 +31,6 @@ WeatherGenerator::WeatherGenerator()
 			std::cout << "END OF DAY -----------------" << std::endl;
 		}
 	}
-
-	//for (int i = 0; i < DayTime * 2; i++)
-	//{
-	//	HazeGraph[i] = HazeGraph[i + DayTime * 2];
-	//}
 }
 
 
@@ -110,28 +105,3 @@ double WeatherGenerator::turbulence(double x, double size)
 	return((128.0 * value / initialSize));
 
 }
-
-/* --- My harmonic summing functions - PDB --------------------------*/
-
-/*
-In what follows "alpha" is the weight when the sum is formed.
-Typically it is 2, As this approaches 1 the function is noisier.
-"beta" is the harmonic scaling/spacing, typically 2.
-*/
-
-
-//double PerlinNoise1D(double x, double alpha, double beta, int n)
-//{
-//	int i;
-//	double val, sum = 0;
-//	double p, scale = 1;
-//
-//	p = x;
-//	for (i = 0; i<n; i++) {
-//		val = noise1(p);
-//		sum += val / scale;
-//		scale *= alpha;
-//		p *= beta;
-//	}
-//	return(sum);
-//}
