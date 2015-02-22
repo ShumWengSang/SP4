@@ -18,7 +18,13 @@ enum STARTSTATE_BUTTON
 	go,
 	fifty,
 	hundred,
-	twohundred
+	twohundred,
+	fifty2,
+	hundred2,
+	twohundred2,
+	fifty3,
+	hundred3,
+	twohundred3
 };
 
 class CInputSystem;
@@ -58,7 +64,7 @@ public:
 private:
 	static CStartOfDayState theStartOfDayState;
 	CMoney theMoney;
-	CButtons* theButton[4];
+	CButtons* theButton[10];
 	CStalls* theStall[3];
 
 };
