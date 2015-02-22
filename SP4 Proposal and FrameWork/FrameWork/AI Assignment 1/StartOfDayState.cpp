@@ -29,6 +29,8 @@ void CStartOfDayState::Init()
 	theButton[twohundred] = new CButtons(152, 100, 50, 30, twohundred);
 	theButton[twohundred]->setButtonTexture(button[3].texID);
 
+	theStall[0] = new CStalls();
+
 	//Input System
 	CInputSystem::getInstance()->OrientCam = true;
 
@@ -208,9 +210,19 @@ void CStartOfDayState::MouseClick(int button, int state, int x, int y) {
 
 				if(theButton[fifty]->isInside(x, y))
 				{
-					/*theStall[0]->setMaskNo(50);
-					cout << theStall[0]->getMaskNo() << endl;*/
-					cout << "50" << endl;
+					theStall[0]->setMaskNo(50);
+					cout << "the mask no of mask is: " << theStall[0]->getMaskNo() << endl;
+				}
+
+				if(theButton[hundred]->isInside(x, y))
+				{
+					theStall[0]->setMaskNo(100);
+					cout << "the mask no of mask is: " << theStall[0]->getMaskNo() << endl;
+				}
+				if(theButton[twohundred]->isInside(x, y))
+				{
+					theStall[0]->setMaskNo(200);
+					cout << "the mask no of mask is: " << theStall[0]->getMaskNo() << endl;
 				}
 			}
 			else

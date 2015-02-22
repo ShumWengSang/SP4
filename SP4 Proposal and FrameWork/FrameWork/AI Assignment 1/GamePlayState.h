@@ -9,6 +9,8 @@
 #include "Money.h"
 #include "TextureImage.h"
 #include "Buttons.h"
+#include "Location.h"
+#include "Stalls.h"
 
 using namespace std;
 
@@ -53,6 +55,7 @@ private:
 
 	CMoney theMoney;
 	CButtons* theButton[4];
-
+	CStalls* theStall[3];
+	Location myLoc;
 };
 

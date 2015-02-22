@@ -14,6 +14,8 @@ void CGamePlayState::Init()
 	theButton[pause] = new CButtons(SCREEN_WIDTH - 64, 0, 64, 64, pause);
 	theButton[pause]->setButtonTexture(button[0].texID);
 
+	theStall[0] = new CStalls();
+
 	//Input System
 	CInputSystem::getInstance()->OrientCam = true;
 	

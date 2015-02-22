@@ -21,6 +21,7 @@ void CStalls::setMaskNo(int mn)
 void CStalls::buyMask(int amt)
 {
 	cout << "buy mask here" << endl;
+	gasMaskAmount -= amt;
 }
 void CStalls::moveStall()
 {
