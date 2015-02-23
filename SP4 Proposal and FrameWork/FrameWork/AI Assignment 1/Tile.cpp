@@ -1,9 +1,9 @@
 #include "Tile.h"
 
-void Tiles::drawGrid(int x, int y, int z, int tileWidth, int tileHeight, bool isPicking)
+void Tiles::drawTile(int x, int y, int z, int tileWidth, int tileHeight, bool isPicking)
 {
 	glBegin(GL_LINES);
-	glColor3f(0,1,0);
+	glColor3f(color.x,color.y,color.z);
 	glPushMatrix();
 	
 	//Top left to top right
@@ -23,4 +23,13 @@ void Tiles::drawGrid(int x, int y, int z, int tileWidth, int tileHeight, bool is
 	glVertex3i(x,0,z+tileWidth);
 	glPopMatrix();
 	glEnd();
+
+	glPushMatrix();
+		glBegin(GL_QUADS);
+			glVertex3f(x,0,z+tileWidth);
+			glVertex3f(x+tileHeight,0,z+tileWidth);
+			glVertex3f(x+tileHeight,0,z);
+			glVertex3f(x,0,z);
+		glEnd();
+	glPopMatrix();
 }

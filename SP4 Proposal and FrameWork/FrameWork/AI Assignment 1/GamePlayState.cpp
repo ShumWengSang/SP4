@@ -67,7 +67,7 @@ void CGamePlayState::Draw(CInGameStateManager* theGSM)
 
 	//CApplication::getInstance()->theCamera->SetHUD(false);
 
-	myLoc.renderMap(false);
+	myLoc.renderGrid(false);
 
 	//Center
 	glPushMatrix();
@@ -156,33 +156,35 @@ void CGamePlayState::MouseMove (int x, int y) {
 
 
 	//Checking mouse boundary. (Width)
-	if  (CInputSystem::getInstance()->mouseInfo.lastX > w-50)
-	{
-		CInputSystem::getInstance()->mouseInfo.lastX = w-50;
-		glutWarpPointer(CInputSystem::getInstance()->mouseInfo.lastX, CInputSystem::getInstance()->mouseInfo.lastY);
-		CApplication::getInstance()->theCamera->Strafe(1);
-	}
-	else if  (CInputSystem::getInstance()->mouseInfo.lastX < 50)
-	{
-		CInputSystem::getInstance()->mouseInfo.lastX = 50;
-		glutWarpPointer(CInputSystem::getInstance()->mouseInfo.lastX, CInputSystem::getInstance()->mouseInfo.lastY);
-		CApplication::getInstance()->theCamera->Strafe(-1);
-	}else
-	CInputSystem::getInstance()->mouseInfo.lastX = x;
+	//if  (CInputSystem::getInstance()->mouseInfo.lastX > w-50)
+	//{
+	//	CInputSystem::getInstance()->mouseInfo.lastX = w-50;
+	//	glutWarpPointer(CInputSystem::getInstance()->mouseInfo.lastX, CInputSystem::getInstance()->mouseInfo.lastY);
+	//	CApplication::getInstance()->theCamera->Strafe(1);
+	//}
+	//else if  (CInputSystem::getInstance()->mouseInfo.lastX < 50)
+	//{
+	//	CInputSystem::getInstance()->mouseInfo.lastX = 50;
+	//	glutWarpPointer(CInputSystem::getInstance()->mouseInfo.lastX, CInputSystem::getInstance()->mouseInfo.lastY);
+	//	CApplication::getInstance()->theCamera->Strafe(-1);
+	//}else
+	//CInputSystem::getInstance()->mouseInfo.lastX = x;
 
-	//Checking mouse boundary. (Height)
-	if  (CInputSystem::getInstance()->mouseInfo.lastY > h-50)
-	{
-		CInputSystem::getInstance()->mouseInfo.lastY = h-50;
-		glutWarpPointer(CInputSystem::getInstance()->mouseInfo.lastX, CInputSystem::getInstance()->mouseInfo.lastY);
-		CApplication::getInstance()->theCamera->Walk(-1);
-	}
-	else if  (CInputSystem::getInstance()->mouseInfo.lastY < 50)
-	{
-		CInputSystem::getInstance()->mouseInfo.lastY = 50;
-		glutWarpPointer(CInputSystem::getInstance()->mouseInfo.lastX, CInputSystem::getInstance()->mouseInfo.lastY);
-		CApplication::getInstance()->theCamera->Walk(1);
-	}else
+	////Checking mouse boundary. (Height)
+	//if  (CInputSystem::getInstance()->mouseInfo.lastY > h-50)
+	//{
+	//	CInputSystem::getInstance()->mouseInfo.lastY = h-50;
+	//	glutWarpPointer(CInputSystem::getInstance()->mouseInfo.lastX, CInputSystem::getInstance()->mouseInfo.lastY);
+	//	CApplication::getInstance()->theCamera->Walk(-1);
+	//}
+	//else if  (CInputSystem::getInstance()->mouseInfo.lastY < 50)
+	//{
+	//	CInputSystem::getInstance()->mouseInfo.lastY = 50;
+	//	glutWarpPointer(CInputSystem::getInstance()->mouseInfo.lastX, CInputSystem::getInstance()->mouseInfo.lastY);
+	//	CApplication::getInstance()->theCamera->Walk(1);
+	//}else
+	//CInputSystem::getInstance()->mouseInfo.lastY = y;
+	CInputSystem::getInstance()->mouseInfo.lastX = x;
 	CInputSystem::getInstance()->mouseInfo.lastY = y;
 }
 
@@ -200,11 +202,16 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 				GLint window_width = glutGet(GLUT_WINDOW_WIDTH);
 				GLint window_height = glutGet(GLUT_WINDOW_HEIGHT);
  
-				GLbyte color[4];
+				unsigned char color[3];
  
-				glReadPixels(x, window_height - y - 1, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, color);
+				glReadPixels(x, window_height - y - 1, 1, 1, GL_RGB, GL_UNSIGNED_BYTE, color);
  
-				printf("Clicked on pixel %d, %d, color %d%d%d%d\n", x, y, -color[0], -color[1], -color[2], -color[3]);
+				float colorf[3];
+				colorf[0] = (float)color[0]/255;
+				colorf[1] = (float)color[1]/255;
+				colorf[2] = (float)color[2]/255;
+
+				printf("Clicked on pixel %d, %d, color %0.2f %0.2f %0.2f\n", x, y, colorf[0], colorf[1], colorf[2]);
 
 			}
 			CInputSystem::getInstance()->mouseInfo.clickedX = x;

@@ -87,6 +87,7 @@
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="GamePlayState.cpp" />
     <ClCompile Include="GameStateManager.cpp" />
+    <ClCompile Include="tempmain.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="InGameStateManager.cpp" />
     <ClCompile Include="Input.cpp" />

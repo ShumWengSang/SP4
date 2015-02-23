@@ -14,8 +14,7 @@ public:
 	~Grid(void);
 
 	void InitGrid(void);
-	void renderMap(bool);
-	void drawGrid(int, int, int, bool);
+	void renderGrid(bool);
 	
 	void setX(int x);
 	void setY(int y);
@@ -25,7 +24,7 @@ public:
 	int getY();
 	int getZ();
 
-	Tiles temp[1][1];
+	Tiles temp[50][50];
 
 };
 

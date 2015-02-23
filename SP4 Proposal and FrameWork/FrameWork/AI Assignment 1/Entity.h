@@ -8,7 +8,8 @@ enum EntityType
 {
 	NONE = 0,
 	STALLS,
-	BUYER
+	BUYER,
+	TILE
 };
 
 class Entity
