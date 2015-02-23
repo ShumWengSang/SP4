@@ -81,6 +81,7 @@
   <ItemGroup>
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Buttons.cpp" />
+    <ClCompile Include="Buyer.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="EndOfDayState.cpp" />
     <ClCompile Include="Entity.cpp" />

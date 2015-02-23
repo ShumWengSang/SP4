@@ -21,7 +21,3 @@ public:
 
 };
 
-//Haze factors
-//Distance Factors
-//Money factors
-

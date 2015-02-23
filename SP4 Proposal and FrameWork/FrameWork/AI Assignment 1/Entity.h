@@ -7,10 +7,8 @@
 enum EntityType
 {
 	NONE = 0,
-	//PLAYER = 1,
-	//HorizontalWall,
-	//ENEMY,
-	EXIT
+	STALLS,
+	BUYER
 };
 
 class Entity

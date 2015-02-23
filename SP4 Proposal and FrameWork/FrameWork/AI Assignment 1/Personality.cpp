@@ -19,6 +19,7 @@ Personality::Personality()
 	{
 		HazePreference = rand() % 298;
 		DistancePreference = rand() % 299;
+		//the below would put money in inverse to haze and distance preference
 		MoneyPreference = total - (HazePreference + DistancePreference);
 		if (MoneyPreference > 0 && InBetween(HazePreference, 50, 150) && InBetween(DistancePreference, 50, 150) && InBetween(MoneyPreference,50,150))
 			break;

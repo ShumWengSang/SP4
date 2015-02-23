@@ -93,6 +93,9 @@
     <ClCompile Include="Source.cpp">
       <Filter>Useless files for reference</Filter>
     </ClCompile>
+    <ClCompile Include="Buyer.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameState.h">

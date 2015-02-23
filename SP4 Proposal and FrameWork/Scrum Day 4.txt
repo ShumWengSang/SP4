@@ -1,0 +1,25 @@
+2/23
+Things Done:
+
+Roland:
+Haze data -- data of arrays that dictate the haze of the game. Generated with a sine curve with Perlin Noise.
+
+-----------------------------------------------------------------------
+Things to do:
+
+Roland:
+Implementing Buyer
+
+Samuel:
+Clicking on object.
+
+Amos:
+Grid Entity
+Sound
+
+YT:
+Finish UI for start and end of day
+Textures for grids.
+
+WQ:
+Save and Load

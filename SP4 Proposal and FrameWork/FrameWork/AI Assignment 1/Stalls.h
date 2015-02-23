@@ -4,7 +4,7 @@
 #include "Entity.h"
 using namespace std;
 
-class CStalls : Entity
+class CStalls : public Entity
 {
 	int gasMaskAmount;
 	int maskPrice;
@@ -22,5 +22,8 @@ public:
 
 	void buyMask(int amt);
 	void moveStall();
+
+	float Price;
+
 };
 
