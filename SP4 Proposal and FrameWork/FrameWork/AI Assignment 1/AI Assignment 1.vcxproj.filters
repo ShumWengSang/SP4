@@ -105,6 +105,9 @@
     <ClCompile Include="Source2.cpp">
       <Filter>Useless files for reference</Filter>
     </ClCompile>
+    <ClCompile Include="AudioPlayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameState.h">
@@ -184,6 +187,9 @@
     </ClInclude>
     <ClInclude Include="WeatherGenerator.h">
       <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioPlayer.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
