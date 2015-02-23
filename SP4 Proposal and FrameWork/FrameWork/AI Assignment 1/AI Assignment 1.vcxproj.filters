@@ -25,6 +25,12 @@
     <Filter Include="Camera">
       <UniqueIdentifier>{c284114f-0cca-4368-8dca-1b0e611bfcd2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Entities">
+      <UniqueIdentifier>{1b4e0ca9-c078-4799-a2df-75bbc2f72799}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Useless files for reference">
+      <UniqueIdentifier>{198409cb-6135-45cb-9e89-6d91210f69a4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameStateManager.cpp">
@@ -77,6 +83,15 @@
     </ClCompile>
     <ClCompile Include="Entity.cpp">
       <Filter>FrameWork</Filter>
+    </ClCompile>
+    <ClCompile Include="Location.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Personality.cpp">
+      <Filter>Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Source.cpp">
+      <Filter>Useless files for reference</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -142,6 +157,15 @@
     </ClInclude>
     <ClInclude Include="Entity.h">
       <Filter>FrameWork</Filter>
+    </ClInclude>
+    <ClInclude Include="Location.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Personality.h">
+      <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Buyer.h">
+      <Filter>Entities</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

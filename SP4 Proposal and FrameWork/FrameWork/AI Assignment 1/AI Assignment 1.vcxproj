@@ -92,7 +92,9 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MenuState.cpp" />
     <ClCompile Include="Money.cpp" />
+    <ClCompile Include="Personality.cpp" />
     <ClCompile Include="PlayState.cpp" />
+    <ClCompile Include="Source.cpp" />
     <ClCompile Include="Stalls.cpp" />
     <ClCompile Include="StartOfDayState.cpp" />
     <ClCompile Include="Timer.cpp" />
@@ -101,6 +103,7 @@
   <ItemGroup>
     <ClInclude Include="Application.h" />
     <ClInclude Include="Buttons.h" />
+    <ClInclude Include="Buyer.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="EndOfDayState.h" />
     <ClInclude Include="Entity.h" />
@@ -115,6 +118,7 @@
     <ClInclude Include="MenuState.h" />
     <ClInclude Include="Money.h" />
     <ClInclude Include="MyMath.h" />
+    <ClInclude Include="Personality.h" />
     <ClInclude Include="PlayState.h" />
     <ClInclude Include="Stalls.h" />
     <ClInclude Include="StartOfDayState.h" />

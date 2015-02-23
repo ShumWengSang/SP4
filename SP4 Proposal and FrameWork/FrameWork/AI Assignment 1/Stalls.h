@@ -1,10 +1,10 @@
 #pragma once
 #include <iostream>
 #include "Money.h"
-
+#include "Entity.h"
 using namespace std;
 
-class CStalls
+class CStalls : Entity
 {
 	int gasMaskAmount;
 public:

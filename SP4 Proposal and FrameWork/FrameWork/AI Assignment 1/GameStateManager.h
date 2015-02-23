@@ -21,7 +21,10 @@ public:
 
 	void HandleEvents();
 	void Update();
-	void Draw();	CGameState* GetCurrentState();
+	void Draw();
+
+	CGameState* GetCurrentState();
+
 	bool Running() {
 		return m_running; 
 	}
