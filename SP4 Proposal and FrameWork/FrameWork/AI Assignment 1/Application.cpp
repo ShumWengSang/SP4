@@ -40,8 +40,9 @@ void CApplication::Update()
 
 void CApplication::renderScene() {
 
+	glClearStencil(0); // this is the default value
 	//Clear the Buffer
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 	glLoadIdentity();
 	glEnable(GL_DEPTH_TEST);
 

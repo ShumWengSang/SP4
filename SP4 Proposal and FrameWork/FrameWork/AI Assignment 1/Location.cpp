@@ -19,6 +19,7 @@ void Location::renderMap(void)
 	{
 		for(int l = 0; l < 50; ++l)
 		{
+			glStencilFunc(GL_ALWAYS, l + 1, -1);
 			drawGrid(k*tileHeight, 0, l*tileWidth);
 		}
 	}

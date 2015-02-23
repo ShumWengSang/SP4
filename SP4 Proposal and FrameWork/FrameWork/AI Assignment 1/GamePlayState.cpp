@@ -67,14 +67,18 @@ void CGamePlayState::Draw(CInGameStateManager* theGSM)
 
 	//CApplication::getInstance()->theCamera->SetHUD(false);
 	
+	glEnable(GL_STENCIL_TEST);
+	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
+
 	myLoc.renderMap();
 
+	glDisable(GL_STENCIL_TEST);
+
+	//Center
 	glPushMatrix();
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-		glColor3f(1,0,0);
-
+		glColor3f(1,1,1);
 		glTranslatef(0,0,0);
 		glutSolidSphere(1,20,20);
 		glDisable(GL_BLEND);
@@ -191,10 +195,26 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 	switch (button) {
 
 		case GLUT_LEFT_BUTTON:
-			if (state == 0) 
+			if (state == GLUT_UP) 
 				CInputSystem::getInstance()->mouseInfo.mLButtonUp = false;
-			else
+			else {
 				CInputSystem::getInstance()->mouseInfo.mLButtonUp = true;
+
+				GLint window_width = glutGet(GLUT_WINDOW_WIDTH);
+				GLint window_height = glutGet(GLUT_WINDOW_HEIGHT);
+ 
+				GLbyte color[4];
+				GLfloat depth;
+				GLuint index;
+ 
+				glReadPixels(x, window_height - y - 1, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, color);
+				glReadPixels(x, window_height - y - 1, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &depth);
+				glReadPixels(x, window_height - y - 1, 1, 1, GL_STENCIL_INDEX, GL_UNSIGNED_INT, &index);
+ 
+				printf("Clicked on pixel %d, %d, color %02hhx%02hhx%02hhx%02hhx, depth %f, stencil index %u\n",
+					x, y, color[0], color[1], color[2], color[3], depth, index);
+
+			}
 			CInputSystem::getInstance()->mouseInfo.clickedX = x;
 			CInputSystem::getInstance()->mouseInfo.clickedY = y;
 
