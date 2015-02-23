@@ -25,6 +25,8 @@ public:
 
 	void setButtonTexture(int bt);
 
+	void drawButton();
+
 	bool isInside(int mx, int my);
 };
 

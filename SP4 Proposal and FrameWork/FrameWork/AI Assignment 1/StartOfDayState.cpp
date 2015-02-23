@@ -4,31 +4,42 @@
 
 CStartOfDayState CStartOfDayState::theStartOfDayState;
 
-void CStartOfDayState::Init()
+void CStartOfDayState::LoadTextures()
 {
-	cout << "CStartOfDayState::Init\n" << endl;
-
 	//Textures
-	//background
 	CApplication::getInstance()->LoadTGA(&background[0],"images/background.tga");
-
-	//buttons
 	CApplication::getInstance()->LoadTGA(&button[0],"images/startState/go.tga");
+	CApplication::getInstance()->LoadTGA(&button[1],"images/startState/50.tga");
+	CApplication::getInstance()->LoadTGA(&button[2],"images/startState/100.tga");
+	CApplication::getInstance()->LoadTGA(&button[3],"images/startState/200.tga");
+	CApplication::getInstance()->LoadTGA(&button[4],"images/startState/10.tga");
+	CApplication::getInstance()->LoadTGA(&button[5],"images/startState/12.tga");
+	CApplication::getInstance()->LoadTGA(&button[6],"images/startState/15.tga");
+}
+void CStartOfDayState::LoadButtons()
+{
+	//buttons
 	theButton[go] = new CButtons(SCREEN_WIDTH/2, SCREEN_HEIGHT - 100, 200, 100, go);
 	theButton[go]->setButtonTexture(button[0].texID);
 
 	//For shop 1
-	CApplication::getInstance()->LoadTGA(&button[1],"images/startState/50.tga");
 	theButton[fifty] = new CButtons(50, 100, 50, 30, fifty);
 	theButton[fifty]->setButtonTexture(button[1].texID);
-
-	CApplication::getInstance()->LoadTGA(&button[2],"images/startState/100.tga");
+	
 	theButton[hundred] = new CButtons(101, 100, 50, 30, hundred);
 	theButton[hundred]->setButtonTexture(button[2].texID);
-
-	CApplication::getInstance()->LoadTGA(&button[3],"images/startState/200.tga");
+	
 	theButton[twohundred] = new CButtons(152, 100, 50, 30, twohundred);
 	theButton[twohundred]->setButtonTexture(button[3].texID);
+
+	theButton[ten] = new CButtons(50, 150, 50, 30, fifty);
+	theButton[ten]->setButtonTexture(button[4].texID);
+	
+	theButton[twelve] = new CButtons(101, 150, 50, 30, hundred);
+	theButton[twelve]->setButtonTexture(button[5].texID);
+	
+	theButton[fifteen] = new CButtons(152, 150, 50, 30, twohundred);
+	theButton[fifteen]->setButtonTexture(button[6].texID);
 
 	//For shop 2
 	theButton[fifty2] = new CButtons(300, 100, 50, 30, fifty2);
@@ -40,6 +51,15 @@ void CStartOfDayState::Init()
 	theButton[twohundred2] = new CButtons(402, 100, 50, 30, twohundred2);
 	theButton[twohundred2]->setButtonTexture(button[3].texID);
 
+	theButton[ten2] = new CButtons(300, 150, 50, 30, fifty);
+	theButton[ten2]->setButtonTexture(button[4].texID);
+	
+	theButton[twelve2] = new CButtons(351, 150, 50, 30, hundred);
+	theButton[twelve2]->setButtonTexture(button[5].texID);
+	
+	theButton[fifteen2] = new CButtons(402, 150, 50, 30, twohundred);
+	theButton[fifteen2]->setButtonTexture(button[6].texID);
+
 	//For shop 3
 	theButton[fifty3] = new CButtons(550, 100, 50, 30, fifty3);
 	theButton[fifty3]->setButtonTexture(button[1].texID);
@@ -50,7 +70,22 @@ void CStartOfDayState::Init()
 	theButton[twohundred3] = new CButtons(652, 100, 50, 30, twohundred3);
 	theButton[twohundred3]->setButtonTexture(button[3].texID);
 
-	theStall[0] = new CStalls();
+	theButton[ten3] = new CButtons(550, 150, 50, 30, fifty);
+	theButton[ten3]->setButtonTexture(button[4].texID);
+	
+	theButton[twelve3] = new CButtons(601, 150, 50, 30, hundred);
+	theButton[twelve3]->setButtonTexture(button[5].texID);
+	
+	theButton[fifteen3] = new CButtons(652, 150, 50, 30, twohundred);
+	theButton[fifteen3]->setButtonTexture(button[6].texID);
+}
+
+void CStartOfDayState::Init()
+{
+	cout << "CStartOfDayState::Init\n" << endl;
+
+	LoadTextures();
+	LoadButtons();
 
 	//Input System
 	CInputSystem::getInstance()->OrientCam = true;
@@ -85,7 +120,6 @@ void CStartOfDayState::Update(CInGameStateManager* theGSM)
 {
 	//cout << "CStartOfDayState::Update\n" << Startl;
 	keyboardUpdate();
-
 }
 
 void CStartOfDayState::Draw(CInGameStateManager* theGSM) 
@@ -93,210 +127,39 @@ void CStartOfDayState::Draw(CInGameStateManager* theGSM)
 	CApplication::getInstance()->theCamera->SetHUD(true);
 	DrawBackground();
 	DrawButtons();
+	//drawWords();
 	CApplication::getInstance()->theCamera->SetHUD(false);
 }
 
 void CStartOfDayState::DrawButtons()
 {
-	//start game
-	glPushMatrix();
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, theButton[go]->getButton());
-		glColor3f(1, 1, 1);
-		glPushMatrix();
-		glTranslatef(theButton[go]->getButtonX(), theButton[go]->getButtonY(), 0);
-			glBegin(GL_QUADS);
-			glTexCoord2f(0, 0);	glVertex2f(0,  theButton[go]->getHeight());
-			glTexCoord2f(1, 0);	glVertex2f(theButton[go]->getWidth(), theButton[go]->getHeight());
-				glTexCoord2f(1, 1);	glVertex2f(theButton[go]->getWidth(), 0);
-				glTexCoord2f(0, 1);	glVertex2f(0, 0);			
-			glEnd();
-		glPopMatrix();
-		glDisable(GL_TEXTURE_2D);
-		glDisable(GL_BLEND);
-	glPopMatrix();
+	theButton[go]->drawButton();
 
-	//50 mask
-	glPushMatrix();
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, theButton[fifty]->getButton());
-		glColor3f(1, 1, 1);
-		glPushMatrix();
-		glTranslatef(theButton[fifty]->getButtonX(), theButton[fifty]->getButtonY(), 0);
-			glBegin(GL_QUADS);
-			glTexCoord2f(0, 0);	glVertex2f(0,  theButton[fifty]->getHeight());
-			glTexCoord2f(1, 0);	glVertex2f(theButton[fifty]->getWidth(), theButton[fifty]->getHeight());
-				glTexCoord2f(1, 1);	glVertex2f(theButton[fifty]->getWidth(), 0);
-				glTexCoord2f(0, 1);	glVertex2f(0, 0);			
-			glEnd();
-		glPopMatrix();
-		glDisable(GL_TEXTURE_2D);
-		glDisable(GL_BLEND);
-	glPopMatrix();
+	theButton[fifty]->drawButton();
+	theButton[hundred]->drawButton();
+	theButton[twohundred]->drawButton();
 
-	//100 mask
-	glPushMatrix();
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, theButton[hundred]->getButton());
-		glColor3f(1, 1, 1);
-		glPushMatrix();
-		glTranslatef(theButton[hundred]->getButtonX(), theButton[hundred]->getButtonY(), 0);
-			glBegin(GL_QUADS);
-			glTexCoord2f(0, 0);	glVertex2f(0,  theButton[hundred]->getHeight());
-			glTexCoord2f(1, 0);	glVertex2f(theButton[hundred]->getWidth(), theButton[hundred]->getHeight());
-				glTexCoord2f(1, 1);	glVertex2f(theButton[hundred]->getWidth(), 0);
-				glTexCoord2f(0, 1);	glVertex2f(0, 0);			
-			glEnd();
-		glPopMatrix();
-		glDisable(GL_TEXTURE_2D);
-		glDisable(GL_BLEND);
-	glPopMatrix();
+	theButton[ten]->drawButton();
+	theButton[twelve]->drawButton();
+	theButton[fifteen]->drawButton();
 
-	//200 mask
-	glPushMatrix();
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, theButton[twohundred]->getButton());
-		glColor3f(1, 1, 1);
-		glPushMatrix();
-		glTranslatef(theButton[twohundred]->getButtonX(), theButton[twohundred]->getButtonY(), 0);
-			glBegin(GL_QUADS);
-			glTexCoord2f(0, 0);	glVertex2f(0,  theButton[twohundred]->getHeight());
-			glTexCoord2f(1, 0);	glVertex2f(theButton[twohundred]->getWidth(), theButton[twohundred]->getHeight());
-				glTexCoord2f(1, 1);	glVertex2f(theButton[twohundred]->getWidth(), 0);
-				glTexCoord2f(0, 1);	glVertex2f(0, 0);			
-			glEnd();
-		glPopMatrix();
-		glDisable(GL_TEXTURE_2D);
-		glDisable(GL_BLEND);
-	glPopMatrix();
 
-	//50 mask shop 2
-	glPushMatrix();
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, theButton[fifty2]->getButton());
-		glColor3f(1, 1, 1);
-		glPushMatrix();
-		glTranslatef(theButton[fifty2]->getButtonX(), theButton[fifty2]->getButtonY(), 0);
-			glBegin(GL_QUADS);
-			glTexCoord2f(0, 0);	glVertex2f(0,  theButton[fifty2]->getHeight());
-			glTexCoord2f(1, 0);	glVertex2f(theButton[fifty2]->getWidth(), theButton[fifty2]->getHeight());
-				glTexCoord2f(1, 1);	glVertex2f(theButton[fifty2]->getWidth(), 0);
-				glTexCoord2f(0, 1);	glVertex2f(0, 0);			
-			glEnd();
-		glPopMatrix();
-		glDisable(GL_TEXTURE_2D);
-		glDisable(GL_BLEND);
-	glPopMatrix();
+	theButton[fifty2]->drawButton();
+	theButton[hundred2]->drawButton();
+	theButton[twohundred2]->drawButton();
 
-	//100 mask
-	glPushMatrix();
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, theButton[hundred2]->getButton());
-		glColor3f(1, 1, 1);
-		glPushMatrix();
-		glTranslatef(theButton[hundred2]->getButtonX(), theButton[hundred2]->getButtonY(), 0);
-			glBegin(GL_QUADS);
-			glTexCoord2f(0, 0);	glVertex2f(0,  theButton[hundred2]->getHeight());
-			glTexCoord2f(1, 0);	glVertex2f(theButton[hundred2]->getWidth(), theButton[hundred2]->getHeight());
-				glTexCoord2f(1, 1);	glVertex2f(theButton[hundred2]->getWidth(), 0);
-				glTexCoord2f(0, 1);	glVertex2f(0, 0);			
-			glEnd();
-		glPopMatrix();
-		glDisable(GL_TEXTURE_2D);
-		glDisable(GL_BLEND);
-	glPopMatrix();
+	theButton[ten2]->drawButton();
+	theButton[twelve2]->drawButton();
+	theButton[fifteen2]->drawButton();
 
-	//200 mask
-	glPushMatrix();
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, theButton[twohundred2]->getButton());
-		glColor3f(1, 1, 1);
-		glPushMatrix();
-		glTranslatef(theButton[twohundred2]->getButtonX(), theButton[twohundred2]->getButtonY(), 0);
-			glBegin(GL_QUADS);
-			glTexCoord2f(0, 0);	glVertex2f(0,  theButton[twohundred2]->getHeight());
-			glTexCoord2f(1, 0);	glVertex2f(theButton[twohundred2]->getWidth(), theButton[twohundred2]->getHeight());
-				glTexCoord2f(1, 1);	glVertex2f(theButton[twohundred2]->getWidth(), 0);
-				glTexCoord2f(0, 1);	glVertex2f(0, 0);			
-			glEnd();
-		glPopMatrix();
-		glDisable(GL_TEXTURE_2D);
-		glDisable(GL_BLEND);
-	glPopMatrix();
 
-	//50 mask shop 3
-	glPushMatrix();
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, theButton[fifty3]->getButton());
-		glColor3f(1, 1, 1);
-		glPushMatrix();
-		glTranslatef(theButton[fifty3]->getButtonX(), theButton[fifty3]->getButtonY(), 0);
-			glBegin(GL_QUADS);
-			glTexCoord2f(0, 0);	glVertex2f(0,  theButton[fifty3]->getHeight());
-			glTexCoord2f(1, 0);	glVertex2f(theButton[fifty3]->getWidth(), theButton[fifty3]->getHeight());
-				glTexCoord2f(1, 1);	glVertex2f(theButton[fifty3]->getWidth(), 0);
-				glTexCoord2f(0, 1);	glVertex2f(0, 0);			
-			glEnd();
-		glPopMatrix();
-		glDisable(GL_TEXTURE_2D);
-		glDisable(GL_BLEND);
-	glPopMatrix();
+	theButton[fifty3]->drawButton();
+	theButton[hundred3]->drawButton();
+	theButton[twohundred3]->drawButton();
 
-	//100 mask
-	glPushMatrix();
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, theButton[hundred3]->getButton());
-		glColor3f(1, 1, 1);
-		glPushMatrix();
-		glTranslatef(theButton[hundred3]->getButtonX(), theButton[hundred3]->getButtonY(), 0);
-			glBegin(GL_QUADS);
-			glTexCoord2f(0, 0);	glVertex2f(0,  theButton[hundred3]->getHeight());
-			glTexCoord2f(1, 0);	glVertex2f(theButton[hundred3]->getWidth(), theButton[hundred3]->getHeight());
-				glTexCoord2f(1, 1);	glVertex2f(theButton[hundred3]->getWidth(), 0);
-				glTexCoord2f(0, 1);	glVertex2f(0, 0);			
-			glEnd();
-		glPopMatrix();
-		glDisable(GL_TEXTURE_2D);
-		glDisable(GL_BLEND);
-	glPopMatrix();
-
-	//200 mask
-	glPushMatrix();
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, theButton[twohundred3]->getButton());
-		glColor3f(1, 1, 1);
-		glPushMatrix();
-		glTranslatef(theButton[twohundred3]->getButtonX(), theButton[twohundred3]->getButtonY(), 0);
-			glBegin(GL_QUADS);
-			glTexCoord2f(0, 0);	glVertex2f(0,  theButton[twohundred3]->getHeight());
-			glTexCoord2f(1, 0);	glVertex2f(theButton[twohundred3]->getWidth(), theButton[twohundred3]->getHeight());
-				glTexCoord2f(1, 1);	glVertex2f(theButton[twohundred3]->getWidth(), 0);
-				glTexCoord2f(0, 1);	glVertex2f(0, 0);			
-			glEnd();
-		glPopMatrix();
-		glDisable(GL_TEXTURE_2D);
-		glDisable(GL_BLEND);
-	glPopMatrix();
+	theButton[ten3]->drawButton();
+	theButton[twelve3]->drawButton();
+	theButton[fifteen3]->drawButton();
 }
 
 void CStartOfDayState::DrawBackground()
@@ -345,64 +208,42 @@ void CStartOfDayState::MouseClick(int button, int state, int x, int y) {
 				CInputSystem::getInstance()->mouseInfo.clickedX = x;
 				CInputSystem::getInstance()->mouseInfo.clickedY = y;
 
-				//go to start of the day
-				if(theButton[start]->isInside(x, y))
+				//start the day
+				if(theButton[go]->isInside(x, y))
 					CInGameStateManager::getInstance()->ChangeState(CGamePlayState::Instance());
 
+				//For Shop 1 no. of mask setting
 				if(theButton[fifty]->isInside(x, y))
-				{
-					theStall[0]->setMaskNo(50);
-					cout << "1. the no of mask is: " << theStall[0]->getMaskNo() << endl;
-				}
+					CPlayState::Instance()->theStall[0]->setMaskNo(50);
 
 				if(theButton[hundred]->isInside(x, y))
-				{
-					theStall[0]->setMaskNo(100);
-					cout << "1. the no of mask is: " << theStall[0]->getMaskNo() << endl;
-				}
-				if(theButton[twohundred]->isInside(x, y))
-				{
-					theStall[0]->setMaskNo(200);
-					cout << "1. the no of mask is: " << theStall[0]->getMaskNo() << endl;
-				}
+					CPlayState::Instance()->theStall[0]->setMaskNo(100);
 
+				if(theButton[twohundred]->isInside(x, y))
+					CPlayState::Instance()->theStall[0]->setMaskNo(200);
+
+				//For Shop 2 no. of mask setting
 				if(theButton[fifty2]->isInside(x, y))
-				{
-					theStall[0]->setMaskNo(50);
-					cout << "2. the no of mask is: " << theStall[0]->getMaskNo() << endl;
-				}
+					CPlayState::Instance()->theStall[1]->setMaskNo(50);
 
 				if(theButton[hundred2]->isInside(x, y))
-				{
-					theStall[0]->setMaskNo(100);
-					cout << "2. the no of mask is: " << theStall[0]->getMaskNo() << endl;
-				}
-				if(theButton[twohundred2]->isInside(x, y))
-				{
-					theStall[0]->setMaskNo(200);
-					cout << "2. the no of mask is: " << theStall[0]->getMaskNo() << endl;
-				}
+					CPlayState::Instance()->theStall[1]->setMaskNo(100);
 
+				if(theButton[twohundred2]->isInside(x, y))
+					CPlayState::Instance()->theStall[1]->setMaskNo(200);
+
+				//For Shop 3 no. of mask setting
 				if(theButton[fifty3]->isInside(x, y))
-				{
-					theStall[0]->setMaskNo(50);
-					cout << "3. the no of mask is: " << theStall[0]->getMaskNo() << endl;
-				}
+					CPlayState::Instance()->theStall[2]->setMaskNo(50);
 
 				if(theButton[hundred3]->isInside(x, y))
-				{
-					theStall[0]->setMaskNo(100);
-					cout << "3. the no of mask is: " << theStall[0]->getMaskNo() << endl;
-				}
+					CPlayState::Instance()->theStall[2]->setMaskNo(100);
+
 				if(theButton[twohundred3]->isInside(x, y))
-				{
-					theStall[0]->setMaskNo(200);
-					cout << "3. the no of mask is: " << theStall[0]->getMaskNo() << endl;
-				}
+					CPlayState::Instance()->theStall[2]->setMaskNo(200);
 			}
 			else
 				CInputSystem::getInstance()->mouseInfo.mLButtonUp = true;
-
 			break;
 
 		case GLUT_RIGHT_BUTTON:
@@ -426,4 +267,52 @@ void CStartOfDayState::MouseWheel(int button, int dir, int x, int y) {
 		Vector3 temp = CApplication::getInstance()->theCamera->GetPosition() - CApplication::getInstance()->theCamera->GetDirection();
 		CApplication::getInstance()->theCamera->SetPosition(temp.x,temp.y,temp.z);
 	}
+}
+
+void CStartOfDayState::drawWords()
+{
+	glPushMatrix();
+		glLoadIdentity ();
+		glPushAttrib(GL_DEPTH_TEST);
+		glDisable(GL_DEPTH_TEST);
+			
+			printw (25.0, 25.0, 0, "Shop 1");
+		glPopAttrib();
+		glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+}
+
+void CStartOfDayState::printw (float x, float y, float z, char* format, ...)
+{
+	va_list args;	//  Variable argument list
+	int len;		//	String length
+	int i;			//  Iterator
+	char * text;	//	Text
+
+	//  Initialize a variable argument list
+	va_start(args, format);
+
+	//  Return the number of characters in the string referenced the list of arguments.
+	//  _vscprintf doesn't count terminating '\0' (that's why +1)
+	len = _vscprintf(format, args) + 1; 
+
+	//  Allocate memory for a string of the specified size
+	text = (char *)malloc(len * sizeof(char));
+
+	//  Write formatted output using a pointer to the list of arguments
+	vsprintf_s(text, len, format, args);
+
+	//  End using variable argument list 
+	va_end(args);
+
+	//  Specify the raster position for pixel operations.
+	glRasterPos3f (x, y, z);
+
+
+	//  Draw the characters one by one
+	for (i = 0; text[i] != '\0'; i++)
+		glutBitmapCharacter(font_style, text[i]);
+
+	//  Free the allocated memory for the string
+	free(text);
 }

@@ -24,7 +24,16 @@ enum STARTSTATE_BUTTON
 	twohundred2,
 	fifty3,
 	hundred3,
-	twohundred3
+	twohundred3,
+	ten,
+	twelve,
+	fifteen,
+	ten2,
+	twelve2,
+	fifteen2,
+	ten3,
+	twelve3,
+	fifteen3
 };
 
 class CInputSystem;
@@ -34,7 +43,7 @@ class CStartOfDayState : public CInGameState
 private:
 	CStartOfDayState(void) {};
 
-	TextureImage button[4];
+	TextureImage button[7];
 	TextureImage background[1];
 
 public:
@@ -47,10 +56,13 @@ public:
 	void HandleEvents(CInGameStateManager* GSM);
 	void Update(CInGameStateManager* GSM);
 	void Draw(CInGameStateManager* GSM);
+	void LoadTextures();
+	void LoadButtons();
 	void DrawButtons();
 	void DrawBackground();
 	void keyboardUpdate(void);
 	void mouseClick(void);
+	void drawWords();
 
 	//Inputs
 	void MouseMove (int x, int y);
@@ -61,11 +73,12 @@ public:
 		return &theStartOfDayState;
 	}
 
+	void *font_style;
+	void printw(float x, float y, float z, char* format, ...);
+
 private:
 	static CStartOfDayState theStartOfDayState;
 	CMoney theMoney;
-	CButtons* theButton[10];
-	CStalls* theStall[3];
-
+	CButtons* theButton[20];
 };
 

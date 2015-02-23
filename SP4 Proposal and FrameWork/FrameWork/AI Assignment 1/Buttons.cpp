@@ -58,10 +58,31 @@ void CButtons::setHeight(int h)
 	h = h;
 }
 
-
 void CButtons::setButtonTexture(int bt)
 {
 	button = bt;
+}
+
+void CButtons::drawButton()
+{
+	glPushMatrix();
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, button);
+		glColor3f(1, 1, 1);
+		glPushMatrix();
+		glTranslatef(x, y, 0);
+			glBegin(GL_QUADS);
+			glTexCoord2f(0, 0);	glVertex2f(0,  h);
+			glTexCoord2f(1, 0);	glVertex2f(w, h);
+				glTexCoord2f(1, 1);	glVertex2f(w, 0);
+				glTexCoord2f(0, 1);	glVertex2f(0, 0);			
+			glEnd();
+		glPopMatrix();
+		glDisable(GL_TEXTURE_2D);
+		glDisable(GL_BLEND);
+	glPopMatrix();
 }
 
 bool CButtons::isInside(int mx, int my)

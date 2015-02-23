@@ -7,6 +7,7 @@
 #include "InGameStateManager.h"
 #include "Global.h"
 #include "Input.h"
+#include "Stalls.h"
 
 using namespace std;
 
@@ -39,12 +40,13 @@ public:
 	//Game State Manager
 	CInGameStateManager *IGSM;
 
+	CStalls *theStall[3];
+
 	static CPlayState* Instance() {
 		return &thePlayState;
 	}
 
 private:
 	static CPlayState thePlayState;
-
 };
 

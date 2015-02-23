@@ -38,6 +38,8 @@ public:
 	void HandleEvents(CGameStateManager* GSM);
 	void Update(CGameStateManager* GSM);
 	void Draw(CGameStateManager* GSM);
+	void LoadTextures();
+	void LoadButtons();
 	void DrawButtons();
 	void DrawBackground();
 	void keyboardUpdate(void);

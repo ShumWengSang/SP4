@@ -10,6 +10,10 @@ void CPlayState::Init()
 	//Enable Camera Orientation on Mouse Move
 	CInputSystem::getInstance()->OrientCam = true;
 
+	theStall[0] = new CStalls();
+	theStall[1] = new CStalls();
+	theStall[2] = new CStalls();
+
 	//Game State Manager
 	IGSM = CInGameStateManager::getInstance();
 	IGSM->Init("In Game State Manager");

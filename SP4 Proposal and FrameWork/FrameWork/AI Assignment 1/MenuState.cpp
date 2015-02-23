@@ -3,30 +3,37 @@
 
 CMenuState CMenuState::theMenuState;
 
+void CMenuState::LoadTextures()
+{
+	//Textures
+	CApplication::getInstance()->LoadTGA(&background[0],"images/background.tga");
+	CApplication::getInstance()->LoadTGA(&button[0],"images/menuState/start.tga");
+	CApplication::getInstance()->LoadTGA(&button[1],"images/menuState/loadGame.tga");
+	CApplication::getInstance()->LoadTGA(&button[2],"images/menuState/options.tga");
+	CApplication::getInstance()->LoadTGA(&button[3],"images/menuState/quit.tga");
+}
+void CMenuState::LoadButtons()
+{
+	//buttons
+	theButton[start] = new CButtons(SCREEN_WIDTH/2, 100, 200, 100, start);
+	theButton[start]->setButtonTexture(button[0].texID);
+	
+	theButton[loadGame] = new CButtons(SCREEN_WIDTH/2, 200, 200, 100, loadGame);
+	theButton[loadGame]->setButtonTexture(button[1].texID);
+	
+	theButton[options] = new CButtons(SCREEN_WIDTH/2, 300, 200, 100, options);
+	theButton[options]->setButtonTexture(button[2].texID);
+	
+	theButton[quit] = new CButtons(SCREEN_WIDTH/2, 400, 200, 100, quit);
+	theButton[quit]->setButtonTexture(button[3].texID);
+}
+
 void CMenuState::Init()
 {
 	cout << "CMenuState::Init\n" << endl;
 
-	//Textures
-	//background
-	CApplication::getInstance()->LoadTGA(&background[0],"images/background.tga");
-
-	//buttons
-	CApplication::getInstance()->LoadTGA(&button[0],"images/menuState/start.tga");
-	theButton[start] = new CButtons(SCREEN_WIDTH/2, 100, 200, 100, start);
-	theButton[start]->setButtonTexture(button[0].texID);
-
-	CApplication::getInstance()->LoadTGA(&button[1],"images/menuState/loadGame.tga");
-	theButton[loadGame] = new CButtons(SCREEN_WIDTH/2, 200, 200, 100, loadGame);
-	theButton[loadGame]->setButtonTexture(button[1].texID);
-
-	CApplication::getInstance()->LoadTGA(&button[2],"images/menuState/options.tga");
-	theButton[options] = new CButtons(SCREEN_WIDTH/2, 300, 200, 100, options);
-	theButton[options]->setButtonTexture(button[2].texID);
-
-	CApplication::getInstance()->LoadTGA(&button[3],"images/menuState/quit.tga");
-	theButton[quit] = new CButtons(SCREEN_WIDTH/2, 400, 200, 100, quit);
-	theButton[quit]->setButtonTexture(button[3].texID);
+	LoadTextures();
+	LoadButtons();
 
 	//Input System
 	InputSystem = CInputSystem::getInstance();
@@ -79,83 +86,10 @@ void CMenuState::Draw(CGameStateManager* theGSM)
 
 void CMenuState::DrawButtons()
 {
-	//start game
-	glPushMatrix();
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, theButton[start]->getButton());
-		glColor3f(1, 1, 1);
-		glTranslatef(theButton[start]->getButtonX(), theButton[start]->getButtonY(), 0);
-		glPushMatrix();
-			glBegin(GL_QUADS);
-				glTexCoord2f(0, 0);	glVertex2f(0, theButton[start]->getHeight());
-				glTexCoord2f(1, 0);	glVertex2f(theButton[start]->getWidth(), theButton[start]->getHeight());
-				glTexCoord2f(1, 1);	glVertex2f(theButton[start]->getWidth(), 0);
-				glTexCoord2f(0, 1);	glVertex2f(0, 0);			
-			glEnd();
-		glPopMatrix();
-		glDisable(GL_TEXTURE_2D);
-		glDisable(GL_BLEND);
-	glPopMatrix();
-
-	//load game
-	glPushMatrix();
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, theButton[loadGame]->getButton());
-		glColor3f(1, 1, 1);
-		glTranslatef(theButton[loadGame]->getButtonX(), theButton[loadGame]->getButtonY(), 0);
-		glPushMatrix();
-			glBegin(GL_QUADS);
-				glTexCoord2f(0, 0);	glVertex2f(0, theButton[loadGame]->getHeight());
-				glTexCoord2f(1, 0);	glVertex2f(theButton[loadGame]->getWidth(), theButton[loadGame]->getHeight());
-				glTexCoord2f(1, 1);	glVertex2f(theButton[loadGame]->getWidth(), 0);
-				glTexCoord2f(0, 1);	glVertex2f(0, 0);			
-			glEnd();
-		glPopMatrix();
-		glDisable(GL_TEXTURE_2D);
-		glDisable(GL_BLEND);
-	glPopMatrix();
-	//optins
-	glPushMatrix();
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, theButton[options]->getButton());
-		glColor3f(1, 1, 1);
-		glTranslatef(theButton[options]->getButtonX(), theButton[options]->getButtonY(), 0);
-		glPushMatrix();
-			glBegin(GL_QUADS);
-				glTexCoord2f(0, 0);	glVertex2f(0, theButton[options]->getHeight());
-				glTexCoord2f(1, 0);	glVertex2f(theButton[options]->getWidth(), theButton[options]->getHeight());
-				glTexCoord2f(1, 1);	glVertex2f(theButton[options]->getWidth(), 0);
-				glTexCoord2f(0, 1);	glVertex2f(0, 0);			
-			glEnd();
-		glPopMatrix();
-		glDisable(GL_TEXTURE_2D);
-		glDisable(GL_BLEND);
-	glPopMatrix();
-	//quit
-	glPushMatrix();
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, theButton[quit]->getButton());
-		glColor3f(1, 1, 1);
-		glTranslatef(theButton[quit]->getButtonX(), theButton[quit]->getButtonY(), 0);
-		glPushMatrix();
-			glBegin(GL_QUADS);
-				glTexCoord2f(0, 0);	glVertex2f(0, theButton[quit]->getHeight());
-				glTexCoord2f(1, 0);	glVertex2f(theButton[quit]->getWidth(), theButton[quit]->getHeight());
-				glTexCoord2f(1, 1);	glVertex2f(theButton[quit]->getWidth(), 0);
-				glTexCoord2f(0, 1);	glVertex2f(0, 0);		
-			glEnd();
-		glPopMatrix();
-		glDisable(GL_TEXTURE_2D);
-		glDisable(GL_BLEND);
-	glPopMatrix();
+	theButton[start]->drawButton();
+	theButton[loadGame]->drawButton();
+	theButton[options]->drawButton();
+	theButton[quit]->drawButton();
 }
 
 void CMenuState::DrawBackground()
