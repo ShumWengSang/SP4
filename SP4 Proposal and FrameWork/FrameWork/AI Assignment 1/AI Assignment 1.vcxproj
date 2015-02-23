@@ -83,6 +83,7 @@
     <ClCompile Include="AudioPlayer.cpp" />
     <ClCompile Include="Buttons.cpp" />
     <ClCompile Include="Buyer.cpp" />
+    <ClCompile Include="BuyMaskState.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="EndOfDayState.cpp" />
     <ClCompile Include="Entity.cpp" />
@@ -110,6 +111,7 @@
     <ClInclude Include="AudioPlayer.h" />
     <ClInclude Include="Buttons.h" />
     <ClInclude Include="Buyer.h" />
+    <ClInclude Include="BuyMaskState.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="EndOfDayState.h" />
     <ClInclude Include="Entity.h" />

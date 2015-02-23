@@ -1,5 +1,6 @@
 #include "PlayState.h"
 #include "StartOfDayState.h"
+#include "BuyMaskState.h"
 
 CPlayState CPlayState::thePlayState;
 
@@ -17,7 +18,7 @@ void CPlayState::Init()
 	//Game State Manager
 	IGSM = CInGameStateManager::getInstance();
 	IGSM->Init("In Game State Manager");
-	IGSM->ChangeState(CStartOfDayState::Instance());
+	IGSM->ChangeState(CBuyMaskState::Instance());
 
 }
 
