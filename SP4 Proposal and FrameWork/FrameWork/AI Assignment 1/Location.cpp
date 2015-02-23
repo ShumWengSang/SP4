@@ -12,6 +12,21 @@ Location::~Location(void)
 {
 }
 
+void Location::InitGrid (void) {
+
+	for (float i = 0.00; i <= 1; i+= 0.05)
+	{
+		for (float j = 0.00; j <= 1; j+= 0.05)
+		{
+			for (float k = 0.00; k <= 1; k+= 0.05)
+			{
+				// Make loop through all grid (VectorList?)
+				temp[0][0].getColor.Set(i,j,k);
+			}
+		}
+	}
+
+}
 
 void Location::renderMap(bool isPicking)
 {

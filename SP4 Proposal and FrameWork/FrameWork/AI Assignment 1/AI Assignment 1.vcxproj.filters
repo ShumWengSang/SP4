@@ -93,6 +93,9 @@
     <ClCompile Include="Source.cpp">
       <Filter>Useless files for reference</Filter>
     </ClCompile>
+    <ClCompile Include="Grid.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameState.h">
@@ -166,6 +169,9 @@
     </ClInclude>
     <ClInclude Include="Buyer.h">
       <Filter>Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Grid.h">
+      <Filter>Resource Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

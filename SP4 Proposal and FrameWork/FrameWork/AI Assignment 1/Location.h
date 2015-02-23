@@ -1,5 +1,7 @@
 #pragma once
 #include <iostream>
+#include "Grid.h"
+
 class Location
 {
 private:
@@ -11,6 +13,7 @@ public:
 	Location(void);
 	~Location(void);
 
+	void InitGrid(void);
 	void renderMap(bool);
 	void drawGrid(int, int, int, bool);
 	
@@ -21,5 +24,8 @@ public:
 	int getX();
 	int getY();
 	int getZ();
+
+	CGrid temp[1][1];
+
 };
 
