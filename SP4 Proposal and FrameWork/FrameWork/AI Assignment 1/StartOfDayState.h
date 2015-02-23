@@ -8,7 +8,6 @@
 #include "InGameState.h"
 #include "TextureImage.h"
 #include "Buttons.h"
-#include "Money.h"
 #include "Stalls.h"
 
 using namespace std;
@@ -16,6 +15,7 @@ using namespace std;
 enum STARTSTATE_BUTTON
 {
 	go,
+	back,
 	fifty,
 	hundred,
 	twohundred,
@@ -43,8 +43,8 @@ class CStartOfDayState : public CInGameState
 private:
 	CStartOfDayState(void) {};
 
-	TextureImage button[7];
-	TextureImage background[1];
+	TextureImage button[8];
+	TextureImage background[2];
 
 public:
 	void Init();
@@ -78,7 +78,6 @@ public:
 
 private:
 	static CStartOfDayState theStartOfDayState;
-	CMoney theMoney;
 	CButtons* theButton[20];
 };
 

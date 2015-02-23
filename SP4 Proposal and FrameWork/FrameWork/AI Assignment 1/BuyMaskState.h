@@ -8,12 +8,16 @@
 #include "InGameState.h"
 #include "TextureImage.h"
 #include "Buttons.h"
+#include "Money.h"
 
 using namespace std;
 
 enum BUYSTATE_BUTTON
 {
-	nextPage
+	nextPage,
+	bFifty,
+	bHundred,
+	bTwohundred
 };
 
 class CInputSystem;
@@ -23,8 +27,10 @@ class CBuyMaskState : public CInGameState
 private:
 	CBuyMaskState(void) {};
 
-	TextureImage button[1];
-	TextureImage background[1];
+	TextureImage button[4];
+	TextureImage background[2];
+
+	bool needMoney;
 public:
 
 	void Init();
@@ -58,6 +64,6 @@ public:
 
 private:
 	static CBuyMaskState theBuyMaskState;
-	
+	CMoney theMoney;
 	CButtons* theButton[4];
 };

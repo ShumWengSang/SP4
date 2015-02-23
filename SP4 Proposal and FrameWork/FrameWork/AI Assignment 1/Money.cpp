@@ -22,7 +22,7 @@ void CMoney:: setPrice(int p)
 {
 	price = p;
 }
-void CMoney:: setCurrentPrice(int cm)
+void CMoney:: setCurrentMoney(int cm)
 {
 	currentMoney = cm;
 }
