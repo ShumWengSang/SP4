@@ -11,4 +11,6 @@ void main()
 	{
 		std::cout << " AVG Day " << i << " " << theWeather.GetHazeAvg()[i] << std::endl;
 	}
+
+	system("pause");
 }

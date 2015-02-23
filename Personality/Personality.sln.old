@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual C++ Express 2010
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2010
+VisualStudioVersion = 10.0.21005.1
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Personality", "Personality\Personality.vcxproj", "{C7624547-8E8A-4B4C-989D-4EC377BD2E3F}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Weather", "Weather\Weather.vcxproj", "{D0E87227-F548-417F-8F3E-8733EB8BD25C}"
