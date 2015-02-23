@@ -43,6 +43,7 @@ void Grid::InitGrid (void) {
 
 void Grid::renderGrid(bool isPicking)
 {
+	glPushMatrix();
 	for (int k = 0; k < TILE_NO_X; ++k)
 	{
 		for(int l = 0; l < TILE_NO_Y; ++l)
@@ -51,6 +52,7 @@ void Grid::renderGrid(bool isPicking)
 			temp[k][l].drawTile(k*tileHeight, 0, l*tileWidth, tileWidth, tileHeight, isPicking);
 		}
 	}
+	glPopMatrix();
 
 }
 

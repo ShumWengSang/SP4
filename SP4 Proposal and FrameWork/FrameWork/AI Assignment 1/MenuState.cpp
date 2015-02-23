@@ -181,7 +181,7 @@ void CMenuState::MouseWheel(int button, int dir, int x, int y) {
 
 void CMenuState::playSound()
 {
-	sound.setFileName("audio/Sims.mp3");
+	sound.setFileName("audio/sims.mp3");
 	sound.playSoundThreaded();
 }
 

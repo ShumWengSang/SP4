@@ -78,32 +78,6 @@ void CGamePlayState::Draw(CInGameStateManager* theGSM)
 
 	myLoc.renderGrid(false);
 
-	//Center
-	glPushMatrix();
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glColor3f(1,1,1);
-		glTranslatef(0,0,0);
-		glutSolidSphere(1,20,20);
-		glDisable(GL_BLEND);
-	glPopMatrix();
-	
-	glPushMatrix();
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-		glColor3f(1,0,0);
-
-		glPushMatrix();
-			glBegin(GL_QUADS);
-				glVertex3f(-25,0,25);
-				glVertex3f(25,0,25);
-				glVertex3f(25,0,-25);
-				glVertex3f(-25,0,-25);
-			glEnd();
-		glPopMatrix();
-		glDisable(GL_BLEND);
-	glPopMatrix();
 }
 
 void CGamePlayState::DrawButtons()
