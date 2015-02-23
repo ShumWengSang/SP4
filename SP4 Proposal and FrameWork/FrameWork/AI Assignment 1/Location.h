@@ -11,8 +11,8 @@ public:
 	Location(void);
 	~Location(void);
 
-	void renderMap(void);
-	void drawGrid(int, int, int);
+	void renderMap(bool);
+	void drawGrid(int, int, int, bool);
 	
 	void setX(int x);
 	void setY(int y);

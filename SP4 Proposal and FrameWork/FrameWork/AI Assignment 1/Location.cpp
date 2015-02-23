@@ -13,21 +13,20 @@ Location::~Location(void)
 }
 
 
-void Location::renderMap(void)
+void Location::renderMap(bool isPicking)
 {
 	for (int k = 0; k < 50; ++k)
 	{
 		for(int l = 0; l < 50; ++l)
 		{
-			glStencilFunc(GL_ALWAYS, l + 1, -1);
-			drawGrid(k*tileHeight, 0, l*tileWidth);
+			drawGrid(k*tileHeight, 0, l*tileWidth, isPicking);
 		}
 	}
 
 }
 	
 
-void Location::drawGrid(int x, int y, int z)
+void Location::drawGrid(int x, int y, int z, bool isPicking)
 {
 	glBegin(GL_LINES);
 	glColor3f(0,1,0);

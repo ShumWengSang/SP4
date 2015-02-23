@@ -66,13 +66,8 @@ void CGamePlayState::Draw(CInGameStateManager* theGSM)
 	//DrawButtons();//pause button here
 
 	//CApplication::getInstance()->theCamera->SetHUD(false);
-	
-	glEnable(GL_STENCIL_TEST);
-	glStencilOp(GL_KEEP, GL_KEEP, GL_REPLACE);
 
-	myLoc.renderMap();
-
-	glDisable(GL_STENCIL_TEST);
+	myLoc.renderMap(false);
 
 	//Center
 	glPushMatrix();
@@ -208,11 +203,8 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 				GLuint index;
  
 				glReadPixels(x, window_height - y - 1, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, color);
-				glReadPixels(x, window_height - y - 1, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, &depth);
-				glReadPixels(x, window_height - y - 1, 1, 1, GL_STENCIL_INDEX, GL_UNSIGNED_INT, &index);
  
-				printf("Clicked on pixel %d, %d, color %02hhx%02hhx%02hhx%02hhx, depth %f, stencil index %u\n",
-					x, y, color[0], color[1], color[2], color[3], depth, index);
+				printf("Clicked on pixel %d, %d, color %d%d%d%d\n", x, y, -color[0], -color[1], -color[2], -color[3]);
 
 			}
 			CInputSystem::getInstance()->mouseInfo.clickedX = x;
