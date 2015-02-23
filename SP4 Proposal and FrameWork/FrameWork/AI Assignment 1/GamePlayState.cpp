@@ -184,6 +184,7 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 				CInputSystem::getInstance()->mouseInfo.mLButtonUp = true;
 
 				// Render Objects to be selected in the color scheme
+				myLoc.renderGrid(true);
 
 				GLint window_width = glutGet(GLUT_WINDOW_WIDTH);
 				GLint window_height = glutGet(GLUT_WINDOW_HEIGHT);
@@ -198,6 +199,23 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 				colorf[2] = (float)color[2]/255;
 
 				printf("Clicked on pixel %d, %d, color %0.2f %0.2f %0.2f\n", x, y, colorf[0], colorf[1], colorf[2]);
+
+				//Check color scheme for grids
+				int a = 0;
+				int s = 0;
+				int maxa = TILE_NO_X;
+				int maxs = TILE_NO_Y;
+				while(a == maxa) {
+					if(s == maxs) {
+						s = 0;
+						a++;
+					}
+
+					if(myLoc.temp[a][s].getColor() == Vector3(colorf[0], colorf[1], colorf[2]))
+						printf("Confirmed grid clicked %0.2f %0.2f %0.2f\n\n", colorf[0], colorf[1], colorf[2]);
+						
+					s++;
+				}
 
 			}
 			CInputSystem::getInstance()->mouseInfo.clickedX = x;

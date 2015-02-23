@@ -3,8 +3,9 @@
 void Tiles::drawTile(int x, int y, int z, int tileWidth, int tileHeight, bool isPicking)
 {
 	glBegin(GL_LINES);
-	glColor3f(color.x,color.y,color.z);
 	glPushMatrix();
+	//glColor3f(color.x,color.y,color.z);
+	glColor3f(0,0,0);
 	
 	//Top left to top right
 	glVertex3i(x,0,z+tileWidth);
@@ -25,6 +26,10 @@ void Tiles::drawTile(int x, int y, int z, int tileWidth, int tileHeight, bool is
 	glEnd();
 
 	glPushMatrix();
+		if(isPicking)
+			glColor3f(color.x,color.y,color.z);
+		else
+			glColor3f(1,1,1);
 		glBegin(GL_QUADS);
 			glVertex3f(x,0,z+tileWidth);
 			glVertex3f(x+tileHeight,0,z+tileWidth);
