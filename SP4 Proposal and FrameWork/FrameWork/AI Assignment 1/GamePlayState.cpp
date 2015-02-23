@@ -4,17 +4,25 @@
 
 CGamePlayState CGamePlayState::theGamePlayState;
 
+void CGamePlayState::LoadTextures()
+{
+	//Textures
+	CApplication::getInstance()->LoadTGA(&map[0],"images/playState/map.tga");
+	CApplication::getInstance()->LoadTGA(&button[0],"images/playState/pause.tga");
+}
+void CGamePlayState::LoadButtons()
+{
+	//buttons
+	theButton[pause] = new CButtons(SCREEN_WIDTH - 64, 32, 32, 32, pause);
+	theButton[pause]->setButtonTexture(button[0].texID);
+}
+
 void CGamePlayState::Init()
 {
 	cout << "CGamePlayState::Init\n" << endl;
 
-	//Textures
-	//buttons
-	CApplication::getInstance()->LoadTGA(&button[0],"images/playState/pause.tga");
-	theButton[pause] = new CButtons(SCREEN_WIDTH - 64, 0, 64, 64, pause);
-	theButton[pause]->setButtonTexture(button[0].texID);
-
-	theStall[0] = new CStalls();
+	LoadTextures();
+	LoadButtons();
 
 	//Input System
 	CInputSystem::getInstance()->OrientCam = true;
@@ -60,13 +68,6 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 
 void CGamePlayState::Draw(CInGameStateManager* theGSM) 
 {
-
-	//CApplication::getInstance()->theCamera->SetHUD(true);
-
-	//DrawButtons();//pause button here
-
-	//CApplication::getInstance()->theCamera->SetHUD(false);
-
 	myLoc.renderMap(false);
 
 	//Center
@@ -78,46 +79,35 @@ void CGamePlayState::Draw(CInGameStateManager* theGSM)
 		glutSolidSphere(1,20,20);
 		glDisable(GL_BLEND);
 	glPopMatrix();
-	
+
 	glPushMatrix();
 		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
-		glColor3f(1,0,0);
-
-		glPushMatrix();
-			glBegin(GL_QUADS);
-				glVertex3f(-25,0,25);
-				glVertex3f(25,0,25);
-				glVertex3f(25,0,-25);
-				glVertex3f(-25,0,-25);
-			glEnd();
-		glPopMatrix();
+		glEnable(GL_TEXTURE_2D);
+		glTranslatef( -150.0f, -0.1f, -250.0f );
+		glScalef(1.3f, 1.3f, 1.3f);
+		glColor3f(1.0,1.0,1.0);
+		glBindTexture(GL_TEXTURE_2D, map[0].texID);
+		glBegin(GL_QUADS);
+			glTexCoord2f(0, 0);  glVertex3f(SCREEN_WIDTH, 0.0f, 0);
+			glTexCoord2f(1, 0);  glVertex3f(0, 0.0f, 0);
+			glTexCoord2f(1, 1);	 glVertex3f(0, 0.0f, SCREEN_HEIGHT);
+			glTexCoord2f(0, 1);	 glVertex3f(SCREEN_WIDTH, 0.0f, SCREEN_HEIGHT);
+		glEnd();
+		glDisable(GL_TEXTURE_2D);
 		glDisable(GL_BLEND);
 	glPopMatrix();
+
+	CApplication::getInstance()->theCamera->SetHUD(true);
+
+	DrawButtons();//pause button here
+
+	CApplication::getInstance()->theCamera->SetHUD(false);
 }
 
 void CGamePlayState::DrawButtons()
 {
 	//pause game
-	glPushMatrix();
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, theButton[pause]->getButton());
-		glColor3f(1, 1, 1);
-		glPushMatrix();
-		glTranslatef(theButton[pause]->getButtonX(), theButton[pause]->getButtonY(), 0);
-			glBegin(GL_QUADS);
-			glTexCoord2f(0, 0);	glVertex2f(0,  theButton[pause]->getHeight());
-			glTexCoord2f(1, 0);	glVertex2f(theButton[pause]->getWidth(), theButton[pause]->getHeight());
-				glTexCoord2f(1, 1);	glVertex2f(theButton[pause]->getWidth(), 0);
-				glTexCoord2f(0, 1);	glVertex2f(0, 0);			
-			glEnd();
-		glPopMatrix();
-		glDisable(GL_TEXTURE_2D);
-		glDisable(GL_BLEND);
-	glPopMatrix();
+	theButton[pause]->drawButton();
 }
 
 void CGamePlayState::keyboardUpdate()
@@ -136,12 +126,6 @@ void CGamePlayState::keyboardUpdate()
 		CApplication::getInstance()->theCamera->Walk(1);
 	if(CInputSystem::getInstance()->myKeys['k'])
 		CApplication::getInstance()->theCamera->Walk(-1);
-
-	if(CInputSystem::getInstance()->myKeys['b'])
-	{
-		theMoney.setMoneyIncrease(10);
-		cout << theMoney.getCurrentMoney() << endl;
-	}
 
 	//Esc Key
 	if(CInputSystem::getInstance()->myKeys[VK_ESCAPE]) 

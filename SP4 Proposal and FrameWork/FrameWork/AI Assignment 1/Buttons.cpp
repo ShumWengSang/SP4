@@ -76,8 +76,8 @@ void CButtons::drawButton()
 			glBegin(GL_QUADS);
 			glTexCoord2f(0, 0);	glVertex2f(0,  h);
 			glTexCoord2f(1, 0);	glVertex2f(w, h);
-				glTexCoord2f(1, 1);	glVertex2f(w, 0);
-				glTexCoord2f(0, 1);	glVertex2f(0, 0);			
+			glTexCoord2f(1, 1);	glVertex2f(w, 0);
+			glTexCoord2f(0, 1);	glVertex2f(0, 0);			
 			glEnd();
 		glPopMatrix();
 		glDisable(GL_TEXTURE_2D);

@@ -3,8 +3,8 @@
 
 Grid::Grid(void)
 {
-	tileHeight = 10;
-	tileWidth = 10;
+	tileHeight = 8;
+	tileWidth = 8;
 }
 
 
@@ -30,9 +30,9 @@ void Grid::InitGrid (void) {
 
 void Grid::renderMap(bool isPicking)
 {
-	for (int k = 0; k < 50; ++k)
+	for (int k = 0; k < 99; ++k)
 	{
-		for(int l = 0; l < 50; ++l)
+		for(int l = 0; l < 29; ++l)
 		{
 			drawGrid(k*tileHeight, 0, l*tileWidth, isPicking);
 		}
@@ -44,7 +44,7 @@ void Grid::renderMap(bool isPicking)
 void Grid::drawGrid(int x, int y, int z, bool isPicking)
 {
 	glBegin(GL_LINES);
-	glColor3f(0,1,0);
+	glColor3f(1,0,0);
 	glPushMatrix();
 	
 	//Top left to top right
