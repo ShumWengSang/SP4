@@ -3,8 +3,8 @@
 
 Grid::Grid(void)
 {
-	tileHeight = 10;
-	tileWidth = 10;
+	tileHeight = 8;
+	tileWidth = 8;
 	InitGrid();
 }
 
@@ -44,9 +44,9 @@ void Grid::InitGrid (void) {
 
 void Grid::renderGrid(bool isPicking)
 {
-	for (int k = 0; k < 50; ++k)
+	for (int k = 0; k < 99; ++k)
 	{
-		for(int l = 0; l < 50; ++l)
+		for(int l = 0; l < 29; ++l)
 		{
 			//drawTile(k*tileHeight, 0, l*tileWidth, isPicking);
 			temp[k][l].drawTile(k*tileHeight, 0, l*tileWidth, tileWidth, tileHeight, isPicking);

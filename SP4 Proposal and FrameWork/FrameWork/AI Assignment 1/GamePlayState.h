@@ -27,6 +27,7 @@ private:
 	CGamePlayState(void) {};
 
 	TextureImage button[4];
+	TextureImage map[1];
 
 public:
 	void Init();
@@ -39,6 +40,8 @@ public:
 	void Update(CInGameStateManager* GSM);
 	void Draw(CInGameStateManager* GSM);
 	void keyboardUpdate(void);
+	void LoadTextures();
+	void LoadButtons();
 	void DrawButtons();
 
 	//Inputs

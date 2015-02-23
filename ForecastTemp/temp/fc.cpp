@@ -4,18 +4,12 @@
 fc::fc(void)
 {
 }
-
 fc::~fc(void)
 {
 }
 
 void fc::init()
 {
-	//forecastNum[7] = 0,0,0,0,0,0,0;
-	//forecastNumRange[7] = 0,0,0,0,0,0,0;
-	//actualNum[7] = 0,0,0,0,0,0,0;
-	//actualNumRange[7] = 0,0,0,0,0,0,0;
-	
 	setCurrentDay(1);
 
 	for(int i=0; i<7; i++){
@@ -25,7 +19,7 @@ void fc::init()
 		actualNumRange[i] = 0;
 	}
 
-
+	maxRange = 5;
 }
 
 
@@ -69,7 +63,7 @@ int fc::checkDay(int curDay)
 	}
 	else
 	{
-		return setForecastNumRange(1, 10, 0);
+		return setForecastNumRange(1, maxRange, 0);
 	}
 }
 
@@ -88,9 +82,9 @@ int fc::setForecastNumRange(int lowRange, int highRange, int higherChance)
 		{
 			lR = 1;
 		}
-		if (highRange >= 10)
+		if (highRange >= maxRange)
 		{
-			hR = 10;
+			hR = maxRange;
 		}
 	}
 	else if (higherChance > 0)
@@ -99,10 +93,10 @@ int fc::setForecastNumRange(int lowRange, int highRange, int higherChance)
 		hR = highRange+1;
 		hC = highRange+1;
 
-		if (highRange+1 > 10)
+		if (highRange+1 > maxRange)
 		{
-			hR = 10;
-			hC = 10;
+			hR = maxRange;
+			hC = maxRange;
 		}
 	}
 	else if (higherChance < 0)
@@ -158,27 +152,31 @@ int fc::setForecastNumRange(int lowRange, int highRange, int higherChance)
 
 int fc::prediction(int lowRange, int highRange, int highestChance)
 {
-	int temp[11] = {0,0,0,0,0,0,0,0,0,0,0};
-	int max = 10;
+	int temp[6] = {0,0,0,0,0,0};
+		//,0,0,0,0,0};
 
-	for(int start = 0; start < max; start++)
+	for(int start = 0; start < maxRange; start++)
 	{
+			//temp[start] += 1;
+
+		if(start >= lowRange-1 && start <= highRange-1)
 			temp[start] += 1;
-
-		if(start >= lowRange && start <= highRange)
-			temp[start] += 2;
 		if(start == highestChance-1)
-			temp[start] += 3;
+			temp[start] += 2;
 
-		temp[10] += temp[start];
+		temp[maxRange] += temp[start];
 	}
+	
+	int x1 = rand() % temp[maxRange] + 1;
+	int x2 = rand() % temp[maxRange] + 1;
+	int x3 = rand() % temp[maxRange] + 1;
+	int x = (x1 + x2 + x3)/3;
 
-	int x = rand() % temp[10] + 1;
 	int sum = temp[0];
 
  	if( 0 < x && x <= sum)
 		return 1;
-	for (int i = 1; i < max; i++)
+	for (int i = 1; i < maxRange; i++)
 	{
 		if( sum < x && x <= sum+temp[i])
 			return i+1;

@@ -12,7 +12,7 @@ void CEndOfDayState::LoadTextures()
 void CEndOfDayState::LoadButtons()
 {
 	//buttons
-	theButton[save] = new CButtons(SCREEN_WIDTH/2, SCREEN_HEIGHT - 100, 200, 100, save);
+	theButton[save] = new CButtons(SCREEN_WIDTH/2 - 100, SCREEN_HEIGHT - 100, 200, 100, save);
 	theButton[save]->setButtonTexture(button[0].texID);
 }
 
@@ -22,7 +22,7 @@ void CEndOfDayState::Init()
 
 	LoadTextures();
 	LoadButtons();
-
+	font_style = GLUT_BITMAP_HELVETICA_18;
 	//Input System
 	CInputSystem::getInstance()->OrientCam = true;
 
@@ -64,6 +64,7 @@ void CEndOfDayState::Draw(CInGameStateManager* theGSM)
 	CApplication::getInstance()->theCamera->SetHUD(true);
 	DrawBackground();
 	DrawButtons();
+	drawInfo();
 	CApplication::getInstance()->theCamera->SetHUD(false);
 }
 
@@ -145,5 +146,63 @@ void CEndOfDayState::MouseWheel(int button, int dir, int x, int y) {
 		Vector3 temp = CApplication::getInstance()->theCamera->GetPosition() - CApplication::getInstance()->theCamera->GetDirection();
 		CApplication::getInstance()->theCamera->SetPosition(temp.x,temp.y,temp.z);
 	}
+}
+
+void CEndOfDayState::drawInfo()
+{
+	glPushMatrix();
+		glPushAttrib(GL_DEPTH_TEST);
+			//print shop number
+			glColor3f( 0.0f, 0.0f, 0.0f);
+			printw (50.0, 100, 0, "Mask sold: %d", 0);
+			printw (50.0, 130.0, 0, "Profit: %d", 0);
+
+			printw (300.0, 100, 0, "Mask sold: %d", 0);
+			printw (300.0, 130.0, 0, "Profit: %d", 0);
+
+			printw (550.0, 100, 0, "Mask sold: %d", 0);
+			printw (550.0, 130.0, 0, "Profit: %d", 0);
+
+			printw ((SCREEN_WIDTH / 2) - 200, SCREEN_HEIGHT/2, 0, "Mask Left: %d", 0);
+
+			printw ((SCREEN_WIDTH/2)+50, SCREEN_HEIGHT/2, 0, "$: %d", 0);
+
+		glPopAttrib();
+	glPopMatrix();
+}
+
+void CEndOfDayState::printw (float x, float y, float z, char* format, ...)
+{
+	va_list args;	//  Variable argument list
+	int len;		//	String length
+	int i;			//  Iterator
+	char * text;	//	Text
+
+	//  Initialize a variable argument list
+	va_start(args, format);
+
+	//  Return the number of characters in the string referenced the list of arguments.
+	//  _vscprintf doesn't count terminating '\0' (that's why +1)
+	len = _vscprintf(format, args) + 1; 
+
+	//  Allocate memory for a string of the specified size
+	text = (char *)malloc(len * sizeof(char));
+
+	//  Write formatted output using a pointer to the list of arguments
+	vsprintf_s(text, len, format, args);
+
+	//  End using variable argument list 
+	va_end(args);
+
+	//  Specify the raster position for pixel operations.
+	glRasterPos3f (x, y, z);
+
+
+	//  Draw the characters one by one
+	for (i = 0; text[i] != '\0'; i++)
+		glutBitmapCharacter(font_style, text[i]);
+
+	//  Free the allocated memory for the string
+	free(text);
 }
 

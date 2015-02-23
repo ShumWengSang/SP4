@@ -15,16 +15,16 @@ void CMenuState::LoadTextures()
 void CMenuState::LoadButtons()
 {
 	//buttons
-	theButton[start] = new CButtons(SCREEN_WIDTH/2, 100, 200, 100, start);
+	theButton[start] = new CButtons(SCREEN_WIDTH/2 - 100, 100, 200, 100, start);
 	theButton[start]->setButtonTexture(button[0].texID);
 	
-	theButton[loadGame] = new CButtons(SCREEN_WIDTH/2, 200, 200, 100, loadGame);
+	theButton[loadGame] = new CButtons(SCREEN_WIDTH/2 - 100, 200, 200, 100, loadGame);
 	theButton[loadGame]->setButtonTexture(button[1].texID);
 	
-	theButton[options] = new CButtons(SCREEN_WIDTH/2, 300, 200, 100, options);
+	theButton[options] = new CButtons(SCREEN_WIDTH/2 - 100, 300, 200, 100, options);
 	theButton[options]->setButtonTexture(button[2].texID);
 	
-	theButton[quit] = new CButtons(SCREEN_WIDTH/2, 400, 200, 100, quit);
+	theButton[quit] = new CButtons(SCREEN_WIDTH/2 - 100, 400, 200, 100, quit);
 	theButton[quit]->setButtonTexture(button[3].texID);
 }
 

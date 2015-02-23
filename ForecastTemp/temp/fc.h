@@ -15,6 +15,8 @@ private:
 
 	int currentDay;
 
+	int maxRange;
+
 public:
 	fc();
 	~fc();

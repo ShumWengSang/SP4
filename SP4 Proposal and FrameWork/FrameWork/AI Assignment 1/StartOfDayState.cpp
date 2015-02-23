@@ -314,6 +314,13 @@ void CStartOfDayState::drawInfo()
 
 			printw (550.0, 180.0, 0, "Number of mask: %d", CPlayState::Instance()->theStall[2]->getMaskNo());
 			printw (550.0, 200.0, 0, "Price of mask: %d", CPlayState::Instance()->theStall[2]->getMaskPrice());
+
+			printw (50.0, SCREEN_HEIGHT/2, 0, "Weather Forecast");
+			printw (50.0, SCREEN_HEIGHT/2 +0100, 0, "Money Left: %d", 0);
+
+			printw (SCREEN_WIDTH - 250, SCREEN_HEIGHT/2, 0, "Mask in Stock");
+			printw (SCREEN_WIDTH - 250, SCREEN_HEIGHT/2 + 100, 0, "Mask Sold", 0);
+
 		glPopAttrib();
 	glPopMatrix();
 }
