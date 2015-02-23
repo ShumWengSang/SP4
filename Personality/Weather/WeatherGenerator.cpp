@@ -25,6 +25,7 @@ WeatherGenerator::WeatherGenerator()
 		std::cout << "Result: " << i << " " << Result + HazeGraph[i] * 13 << std::endl;
 
 		HazeGraph[i] += Result;
+		HazeGraph[i] *= 13;
 
 		if (i % 9 == 0)
 		{
@@ -59,7 +60,7 @@ void WeatherGenerator::PrintOutGraph()
 	std::cout << std::endl;
 	for (int i = 0; i < HazeGraph.size(); i++)
 	{
-		for (int j = 0; j < HazeGraph[i]; j++)
+		for (int j = 0; j < HazeGraph[i] / 13; j++)
 		{
 			std::cout << " ";
 		}
@@ -77,6 +78,7 @@ void WeatherGenerator::PrintOutGraph()
 
 std::vector<float> WeatherGenerator::GetHazeAvg()
 {
+	HazeAveragePerDay.clear();
 	for (int i = 0; i < 7; i++)
 	{
 		float temp = 0;
@@ -84,6 +86,7 @@ std::vector<float> WeatherGenerator::GetHazeAvg()
 		{
 			temp += HazeGraph[j + i * DayTime];
 		}
+		temp /= DayTime;
 		HazeAveragePerDay.push_back(temp);
 	}
 	return HazeAveragePerDay;
