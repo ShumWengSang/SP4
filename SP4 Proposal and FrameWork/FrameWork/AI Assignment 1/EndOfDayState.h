@@ -41,6 +41,7 @@ public:
 	void DrawButtons();
 	void DrawBackground();
 	void keyboardUpdate(void);
+	void drawInfo();
 
 	//Inputs
 	void MouseMove (int x, int y);
@@ -50,6 +51,9 @@ public:
 	static CEndOfDayState* Instance() {
 		return &theEndOfDayState;
 	}
+
+	void *font_style;
+	void printw(float x, float y, float z, char* format, ...);
 
 private:
 	static CEndOfDayState theEndOfDayState;
