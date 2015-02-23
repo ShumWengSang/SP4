@@ -11,6 +11,7 @@ class CForecast
 	int actualNumRange[7]; //value of actual PSI in a range of numbers
 	
 	int currentDay;
+	int maxRange;
 
 public:
 	CForecast(void);
