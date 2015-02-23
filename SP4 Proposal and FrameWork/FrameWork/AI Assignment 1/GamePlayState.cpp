@@ -25,7 +25,15 @@ void CGamePlayState::Init()
 	Vector3 temp = -CApplication::getInstance()->theCamera->GetPosition();
 	CApplication::getInstance()->theCamera->SetDirection(temp.Normalized().x, temp.Normalized().y, temp.Normalized().z);
 
+	CPlayState * PlayState = CPlayState::Instance();
 
+	for (int i = 0; i < SEEDCOUNT; i++)
+	{
+		int x = rand() % 21;
+		int y = rand() % 21;
+	}
+
+	PlayState->theHaze;
 }
 
 void CGamePlayState::Cleanup()
