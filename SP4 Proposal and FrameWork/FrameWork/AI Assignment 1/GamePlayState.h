@@ -14,6 +14,8 @@
 
 using namespace std;
 
+#define SEEDCOUNT 5
+
 enum PLAYSTATE_BUTTON
 {
 	pause

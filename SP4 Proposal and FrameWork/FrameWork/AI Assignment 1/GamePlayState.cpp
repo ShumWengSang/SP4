@@ -25,6 +25,7 @@ void CGamePlayState::Init()
 	Vector3 temp = -CApplication::getInstance()->theCamera->GetPosition();
 	CApplication::getInstance()->theCamera->SetDirection(temp.Normalized().x, temp.Normalized().y, temp.Normalized().z);
 
+
 }
 
 void CGamePlayState::Cleanup()

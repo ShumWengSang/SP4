@@ -8,6 +8,9 @@
 #include "Global.h"
 #include "Input.h"
 #include "Stalls.h"
+#include "WeatherGenerator.h"
+
+#define SEEDCOUNT 5
 
 using namespace std;
 
@@ -40,7 +43,9 @@ public:
 	//Game State Manager
 	CInGameStateManager *IGSM;
 
+	//Variables that persists throughout the days.
 	CStalls *theStall[3];
+	WeatherGenerator theHaze;
 
 	static CPlayState* Instance() {
 		return &thePlayState;
