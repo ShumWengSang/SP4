@@ -87,6 +87,7 @@
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="GamePlayState.cpp" />
     <ClCompile Include="GameStateManager.cpp" />
+    <ClCompile Include="Grid.cpp" />
     <ClCompile Include="InGameStateManager.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Location.cpp" />
@@ -112,6 +113,7 @@
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GameStateManager.h" />
     <ClInclude Include="Global.h" />
+    <ClInclude Include="Grid.h" />
     <ClInclude Include="InGameState.h" />
     <ClInclude Include="InGameStateManager.h" />
     <ClInclude Include="Input.h" />

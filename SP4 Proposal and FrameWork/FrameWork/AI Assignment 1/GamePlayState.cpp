@@ -195,12 +195,12 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 			else {
 				CInputSystem::getInstance()->mouseInfo.mLButtonUp = true;
 
+				// Render Objects to be selected in the color scheme
+
 				GLint window_width = glutGet(GLUT_WINDOW_WIDTH);
 				GLint window_height = glutGet(GLUT_WINDOW_HEIGHT);
  
 				GLbyte color[4];
-				GLfloat depth;
-				GLuint index;
  
 				glReadPixels(x, window_height - y - 1, 1, 1, GL_RGBA, GL_UNSIGNED_BYTE, color);
  
