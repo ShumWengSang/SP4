@@ -29,9 +29,12 @@ void CGamePlayState::Init()
 
 	for (int i = 0; i < SEEDCOUNT; i++)
 	{
-		int x = rand() % 21;
-		int y = rand() % 21;
+		Vector3 theSeedLocation(rand() % TILE_NO_X, 0, rand() % TILE_NO_Y);
+		//GET TILE INFO FROM POSITION
+		//SET THE HAZE
 	}
+
+
 
 	PlayState->theHaze;
 }
