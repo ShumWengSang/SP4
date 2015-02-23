@@ -99,11 +99,16 @@
     <ClCompile Include="Grid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="tempmain.cpp">
+    <ClCompile Include="WeatherGenerator.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source2.cpp">
       <Filter>Useless files for reference</Filter>
     </ClCompile>
     <ClCompile Include="WeatherGenerator.cpp">
       <Filter>Resource Files</Filter>
+    <ClCompile Include="AudioPlayer.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -184,6 +189,9 @@
     </ClInclude>
     <ClInclude Include="WeatherGenerator.h">
       <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioPlayer.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

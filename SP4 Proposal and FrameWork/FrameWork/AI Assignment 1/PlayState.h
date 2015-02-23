@@ -10,7 +10,6 @@
 #include "Stalls.h"
 #include "WeatherGenerator.h"
 
-#define SEEDCOUNT 5
 
 using namespace std;
 
