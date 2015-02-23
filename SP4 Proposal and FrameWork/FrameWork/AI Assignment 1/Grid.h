@@ -1,20 +1,31 @@
 #pragma once
-#include "Vector3.h"
-#include "freeglut.h"
+#include <iostream>
+#include "Tile.h"
 
-class CGrid
+class Grid
 {
 private:
-	Vector3 color;
-	Vector3 pos;
-	
-public:
-	Vector3 getColor;
-	Vector3 getPos;
-	CGrid():color(0,0,0),pos(0,0,0){};
-	~CGrid(void){};
+	int x, y,z;
 
-	void drawGrid(int, int, int, int, int, bool);
+	int tileHeight, tileWidth;
+
+public:
+	Grid(void);
+	~Grid(void);
+
+	void InitGrid(void);
+	void renderMap(bool);
+	void drawGrid(int, int, int, bool);
+	
+	void setX(int x);
+	void setY(int y);
+	void setZ(int z);
+
+	int getX();
+	int getY();
+	int getZ();
+
+	Tiles temp[1][1];
 
 };
 

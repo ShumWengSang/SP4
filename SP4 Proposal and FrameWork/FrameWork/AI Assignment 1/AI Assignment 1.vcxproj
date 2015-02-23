@@ -87,10 +87,10 @@
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="GamePlayState.cpp" />
     <ClCompile Include="GameStateManager.cpp" />
-    <ClCompile Include="Grid.cpp" />
+    <ClCompile Include="Tile.cpp" />
     <ClCompile Include="InGameStateManager.cpp" />
     <ClCompile Include="Input.cpp" />
-    <ClCompile Include="Location.cpp" />
+    <ClCompile Include="Grid.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MenuState.cpp" />
     <ClCompile Include="Money.cpp" />
@@ -113,11 +113,11 @@
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GameStateManager.h" />
     <ClInclude Include="Global.h" />
-    <ClInclude Include="Grid.h" />
+    <ClInclude Include="Tile.h" />
     <ClInclude Include="InGameState.h" />
     <ClInclude Include="InGameStateManager.h" />
     <ClInclude Include="Input.h" />
-    <ClInclude Include="Location.h" />
+    <ClInclude Include="Grid.h" />
     <ClInclude Include="MenuState.h" />
     <ClInclude Include="Money.h" />
     <ClInclude Include="MyMath.h" />
