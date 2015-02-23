@@ -2,8 +2,8 @@
 #include <iostream>
 #include "Tile.h"
 
-#define TILE_NO_X 100
-#define TILE_NO_Y 30
+#define TILE_NO_X 99
+#define TILE_NO_Y 29
 #define TILE_SIZE_X 8
 #define TILE_SIZE_Y 8
 

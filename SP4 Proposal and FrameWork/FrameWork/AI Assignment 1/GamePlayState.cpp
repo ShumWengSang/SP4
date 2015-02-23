@@ -4,17 +4,40 @@
 
 CGamePlayState CGamePlayState::theGamePlayState;
 
+void CGamePlayState::LoadTextures()
+{
+	//Textures
+	CApplication::getInstance()->LoadTGA(&map[0],"images/playState/map.tga");
+	CApplication::getInstance()->LoadTGA(&button[0],"images/playState/pause.tga");
+	CApplication::getInstance()->LoadTGA(&button[1], "images/playState/shop.tga");
+}
+void CGamePlayState::LoadButtons()
+{
+	//buttons
+	theButton[pause] = new CButtons(SCREEN_WIDTH - 50, 32, 32, 32, pause);
+	theButton[pause]->setButtonTexture(button[0].texID);
+
+	theButton[shop] = new CButtons(0, SCREEN_HEIGHT - 50, 70, 50, shop);
+	theButton[shop]->setButtonTexture(button[1].texID);
+
+	theButton[shop2] = new CButtons(80, SCREEN_HEIGHT - 50, 70, 50, shop2);
+	theButton[shop2]->setButtonTexture(button[1].texID);
+
+	theButton[shop3] = new CButtons(160, SCREEN_HEIGHT - 50, 70, 50, shop3);
+	theButton[shop3]->setButtonTexture(button[1].texID);
+}
+
 void CGamePlayState::Init()
 {
 	cout << "CGamePlayState::Init\n" << endl;
 
-	//Textures
-	//buttons
-	CApplication::getInstance()->LoadTGA(&button[0],"images/playState/pause.tga");
-	theButton[pause] = new CButtons(SCREEN_WIDTH - 64, 0, 64, 64, pause);
-	theButton[pause]->setButtonTexture(button[0].texID);
+	isPause = false;
+	shopSelected = false;
+	shop2Selected = false;
+	shop3Selected = false;
 
-	theStall[0] = new CStalls();
+	LoadTextures();
+	LoadButtons();
 
 	//Input System
 	CInputSystem::getInstance()->OrientCam = true;
@@ -34,8 +57,6 @@ void CGamePlayState::Init()
 		//SET THE HAZE
 	}
 
-
-
 	PlayState->theHaze;
 }
 
@@ -51,12 +72,14 @@ void CGamePlayState::Cleanup()
 
 void CGamePlayState::Pause()
 {
-	//cout << "CGamePlayState::Pause\n" << endl;
+	if(isPause == false)
+		isPause = true;
 }
 
 void CGamePlayState::Resume()
 {
-	//cout << "CGamePlayState::Resume\n" << endl;
+	if(isPause == true)
+		isPause = false;
 }
 
 void CGamePlayState::HandleEvents(CInGameStateManager* theGSM)
@@ -65,45 +88,48 @@ void CGamePlayState::HandleEvents(CInGameStateManager* theGSM)
 
 void CGamePlayState::Update(CInGameStateManager* theGSM) 
 {
-	//cout << "CGamePlayState::Update\n" << endl;
-	keyboardUpdate();
-
+	if(!isPause)
+		keyboardUpdate();
+	else{}
 }
 
 void CGamePlayState::Draw(CInGameStateManager* theGSM) 
 {
-
-	//CApplication::getInstance()->theCamera->SetHUD(true);
-
-	//DrawButtons();//pause button here
-
-	//CApplication::getInstance()->theCamera->SetHUD(false);
+	glPushMatrix();
+		glEnable(GL_BLEND);
+		glEnable(GL_TEXTURE_2D);
+		glTranslatef( -150.0f, -0.1f, -250.0f );
+		glScalef(1.3f, 1.3f, 1.3f);
+		glColor3f(1.0,1.0,1.0);
+		glBindTexture(GL_TEXTURE_2D, map[0].texID);
+		glBegin(GL_QUADS);
+			glTexCoord2f(0, 0);  glVertex3f(SCREEN_WIDTH, 0.0f, 0);
+			glTexCoord2f(1, 0);  glVertex3f(0, 0.0f, 0);
+			glTexCoord2f(1, 1);	 glVertex3f(0, 0.0f, SCREEN_HEIGHT);
+			glTexCoord2f(0, 1);	 glVertex3f(SCREEN_WIDTH, 0.0f, SCREEN_HEIGHT);
+		glEnd();
+		glDisable(GL_TEXTURE_2D);
+		glDisable(GL_BLEND);
+	glPopMatrix();
 
 	myLoc.renderGrid(false);
 
+	CApplication::getInstance()->theCamera->SetHUD(true);
+
+	DrawButtons();//pause button here
+
+	CApplication::getInstance()->theCamera->SetHUD(false);
 }
 
 void CGamePlayState::DrawButtons()
 {
 	//pause game
-	glPushMatrix();
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, theButton[pause]->getButton());
-		glColor3f(1, 1, 1);
-		glPushMatrix();
-		glTranslatef(theButton[pause]->getButtonX(), theButton[pause]->getButtonY(), 0);
-			glBegin(GL_QUADS);
-			glTexCoord2f(0, 0);	glVertex2f(0,  theButton[pause]->getHeight());
-			glTexCoord2f(1, 0);	glVertex2f(theButton[pause]->getWidth(), theButton[pause]->getHeight());
-				glTexCoord2f(1, 1);	glVertex2f(theButton[pause]->getWidth(), 0);
-				glTexCoord2f(0, 1);	glVertex2f(0, 0);			
-			glEnd();
-		glPopMatrix();
-		glDisable(GL_TEXTURE_2D);
-		glDisable(GL_BLEND);
-	glPopMatrix();
+	theButton[pause]->drawButton();
+
+	//shop
+	theButton[shop]->drawButton();
+	theButton[shop2]->drawButton();
+	theButton[shop3]->drawButton();
 }
 
 void CGamePlayState::keyboardUpdate()
@@ -122,12 +148,6 @@ void CGamePlayState::keyboardUpdate()
 		CApplication::getInstance()->theCamera->Walk(1);
 	if(CInputSystem::getInstance()->myKeys['k'])
 		CApplication::getInstance()->theCamera->Walk(-1);
-
-	if(CInputSystem::getInstance()->myKeys['b'])
-	{
-		theMoney.setMoneyIncrease(10);
-		cout << theMoney.getCurrentMoney() << endl;
-	}
 
 	//Esc Key
 	if(CInputSystem::getInstance()->myKeys[VK_ESCAPE]) 
@@ -182,6 +202,26 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 				CInputSystem::getInstance()->mouseInfo.mLButtonUp = false;
 			else {
 				CInputSystem::getInstance()->mouseInfo.mLButtonUp = true;
+
+				
+				if(theButton[pause]->isInside(x, y) && isPause == false)
+				{
+					Pause();
+					cout << "pppp" << endl;
+				}
+				else if(theButton[pause]->isInside(x, y) && isPause == true)
+				{
+					Resume();
+				}
+
+				//shop 1 clicked
+				if(theButton[shop]->isInside(x, y))
+				{
+					shopSelected = true;
+					cout << "ssss" << endl;
+				}
+				else
+					shopSelected = false;
 
 				// Render Objects to be selected in the color scheme
 				myLoc.renderGrid(true);
