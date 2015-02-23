@@ -3,8 +3,8 @@
 
 Grid::Grid(void)
 {
-	tileHeight = 8;
-	tileWidth = 8;
+	tileHeight = TILE_SIZE_X;
+	tileWidth = TILE_SIZE_Y;
 	InitGrid();
 }
 
@@ -16,8 +16,8 @@ void Grid::InitGrid (void) {
 
 	int a = 0;
 	int s = 0;
-	int maxa = 50;
-	int maxs = 50;
+	int maxa = TILE_NO_X;
+	int maxs = TILE_NO_Y;
 
 	for (float i = 1.00f; i >= 0.00f; i -= 0.05f)
 	{
@@ -25,7 +25,6 @@ void Grid::InitGrid (void) {
 		{
 			for (float k = 1.00f; k >= 0.00f; k -= 0.05f)
 			{
-				// Make loop through all grid (VectorList?)
 				if(s == maxs) {
 					s = 0;
 					a++;
@@ -44,9 +43,9 @@ void Grid::InitGrid (void) {
 
 void Grid::renderGrid(bool isPicking)
 {
-	for (int k = 0; k < 99; ++k)
+	for (int k = 0; k < TILE_NO_X; ++k)
 	{
-		for(int l = 0; l < 29; ++l)
+		for(int l = 0; l < TILE_NO_Y; ++l)
 		{
 			//drawTile(k*tileHeight, 0, l*tileWidth, isPicking);
 			temp[k][l].drawTile(k*tileHeight, 0, l*tileWidth, tileWidth, tileHeight, isPicking);

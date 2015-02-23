@@ -102,6 +102,7 @@
     <ClCompile Include="StartOfDayState.cpp" />
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Vector3.cpp" />
+    <ClCompile Include="WeatherGenerator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
@@ -129,6 +130,7 @@
     <ClInclude Include="TextureImage.h" />
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Vector3.h" />
+    <ClInclude Include="WeatherGenerator.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

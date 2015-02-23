@@ -102,6 +102,9 @@
     <ClCompile Include="tempmain.cpp">
       <Filter>Useless files for reference</Filter>
     </ClCompile>
+    <ClCompile Include="WeatherGenerator.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameState.h">
@@ -178,6 +181,9 @@
     </ClInclude>
     <ClInclude Include="Grid.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WeatherGenerator.h">
+      <Filter>Resource Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
