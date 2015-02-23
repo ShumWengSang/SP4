@@ -62,7 +62,7 @@ public:
 	void DrawBackground();
 	void keyboardUpdate(void);
 	void mouseClick(void);
-	void drawWords();
+	void drawInfo();
 
 	//Inputs
 	void MouseMove (int x, int y);

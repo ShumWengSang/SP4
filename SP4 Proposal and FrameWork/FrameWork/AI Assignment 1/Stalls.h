@@ -7,6 +7,7 @@ using namespace std;
 class CStalls : Entity
 {
 	int gasMaskAmount;
+	int maskPrice;
 public:
 	CStalls(void);
 	~CStalls(void);
@@ -14,7 +15,10 @@ public:
 	CMoney theStoreMoney;
 
 	int getMaskNo();
+	int getMaskPrice();
+
 	void setMaskNo(int mn);
+	void setMaskPrice(int mp);
 
 	void buyMask(int amt);
 	void moveStall();

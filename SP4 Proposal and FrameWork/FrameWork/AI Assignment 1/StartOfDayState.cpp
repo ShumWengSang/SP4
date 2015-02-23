@@ -19,64 +19,64 @@ void CStartOfDayState::LoadTextures()
 void CStartOfDayState::LoadButtons()
 {
 	//buttons
-	theButton[go] = new CButtons(SCREEN_WIDTH/2, SCREEN_HEIGHT - 100, 200, 100, go);
+	theButton[go] = new CButtons(SCREEN_WIDTH/2 - 100, SCREEN_HEIGHT - 100, 200, 100, go);
 	theButton[go]->setButtonTexture(button[0].texID);
 
 	//For shop 1
-	theButton[fifty] = new CButtons(50, 100, 50, 30, fifty);
+	theButton[fifty] = new CButtons(50, 50, 50, 30, fifty);
 	theButton[fifty]->setButtonTexture(button[1].texID);
 	
-	theButton[hundred] = new CButtons(101, 100, 50, 30, hundred);
+	theButton[hundred] = new CButtons(101, 50, 50, 30, hundred);
 	theButton[hundred]->setButtonTexture(button[2].texID);
 	
-	theButton[twohundred] = new CButtons(152, 100, 50, 30, twohundred);
+	theButton[twohundred] = new CButtons(152, 50, 50, 30, twohundred);
 	theButton[twohundred]->setButtonTexture(button[3].texID);
 
-	theButton[ten] = new CButtons(50, 150, 50, 30, fifty);
+	theButton[ten] = new CButtons(50, 100, 50, 30, fifty);
 	theButton[ten]->setButtonTexture(button[4].texID);
 	
-	theButton[twelve] = new CButtons(101, 150, 50, 30, hundred);
+	theButton[twelve] = new CButtons(101, 100, 50, 30, hundred);
 	theButton[twelve]->setButtonTexture(button[5].texID);
 	
-	theButton[fifteen] = new CButtons(152, 150, 50, 30, twohundred);
+	theButton[fifteen] = new CButtons(152, 100, 50, 30, twohundred);
 	theButton[fifteen]->setButtonTexture(button[6].texID);
 
 	//For shop 2
-	theButton[fifty2] = new CButtons(300, 100, 50, 30, fifty2);
+	theButton[fifty2] = new CButtons(300, 50, 50, 30, fifty2);
 	theButton[fifty2]->setButtonTexture(button[1].texID);
 
-	theButton[hundred2] = new CButtons(351, 100, 50, 30, hundred2);
+	theButton[hundred2] = new CButtons(351, 50, 50, 30, hundred2);
 	theButton[hundred2]->setButtonTexture(button[2].texID);
 
-	theButton[twohundred2] = new CButtons(402, 100, 50, 30, twohundred2);
+	theButton[twohundred2] = new CButtons(402, 50, 50, 30, twohundred2);
 	theButton[twohundred2]->setButtonTexture(button[3].texID);
 
-	theButton[ten2] = new CButtons(300, 150, 50, 30, fifty);
+	theButton[ten2] = new CButtons(300, 100, 50, 30, fifty);
 	theButton[ten2]->setButtonTexture(button[4].texID);
 	
-	theButton[twelve2] = new CButtons(351, 150, 50, 30, hundred);
+	theButton[twelve2] = new CButtons(351, 100, 50, 30, hundred);
 	theButton[twelve2]->setButtonTexture(button[5].texID);
 	
-	theButton[fifteen2] = new CButtons(402, 150, 50, 30, twohundred);
+	theButton[fifteen2] = new CButtons(402, 100, 50, 30, twohundred);
 	theButton[fifteen2]->setButtonTexture(button[6].texID);
 
 	//For shop 3
-	theButton[fifty3] = new CButtons(550, 100, 50, 30, fifty3);
+	theButton[fifty3] = new CButtons(550, 50, 50, 30, fifty3);
 	theButton[fifty3]->setButtonTexture(button[1].texID);
 
-	theButton[hundred3] = new CButtons(601, 100, 50, 30, hundred3);
+	theButton[hundred3] = new CButtons(601, 50, 50, 30, hundred3);
 	theButton[hundred3]->setButtonTexture(button[2].texID);
 
-	theButton[twohundred3] = new CButtons(652, 100, 50, 30, twohundred3);
+	theButton[twohundred3] = new CButtons(652, 50, 50, 30, twohundred3);
 	theButton[twohundred3]->setButtonTexture(button[3].texID);
 
-	theButton[ten3] = new CButtons(550, 150, 50, 30, fifty);
+	theButton[ten3] = new CButtons(550, 100, 50, 30, fifty);
 	theButton[ten3]->setButtonTexture(button[4].texID);
 	
-	theButton[twelve3] = new CButtons(601, 150, 50, 30, hundred);
+	theButton[twelve3] = new CButtons(601, 100, 50, 30, hundred);
 	theButton[twelve3]->setButtonTexture(button[5].texID);
 	
-	theButton[fifteen3] = new CButtons(652, 150, 50, 30, twohundred);
+	theButton[fifteen3] = new CButtons(652, 100, 50, 30, twohundred);
 	theButton[fifteen3]->setButtonTexture(button[6].texID);
 }
 
@@ -87,6 +87,7 @@ void CStartOfDayState::Init()
 	LoadTextures();
 	LoadButtons();
 
+	font_style = GLUT_BITMAP_HELVETICA_18;
 	//Input System
 	CInputSystem::getInstance()->OrientCam = true;
 
@@ -127,7 +128,7 @@ void CStartOfDayState::Draw(CInGameStateManager* theGSM)
 	CApplication::getInstance()->theCamera->SetHUD(true);
 	DrawBackground();
 	DrawButtons();
-	//drawWords();
+	drawInfo();
 	CApplication::getInstance()->theCamera->SetHUD(false);
 }
 
@@ -222,6 +223,16 @@ void CStartOfDayState::MouseClick(int button, int state, int x, int y) {
 				if(theButton[twohundred]->isInside(x, y))
 					CPlayState::Instance()->theStall[0]->setMaskNo(200);
 
+				//price
+				if(theButton[ten]->isInside(x, y))
+					CPlayState::Instance()->theStall[0]->setMaskPrice(10);
+
+				if(theButton[twelve]->isInside(x, y))
+					CPlayState::Instance()->theStall[0]->setMaskPrice(12);
+
+				if(theButton[fifteen]->isInside(x, y))
+					CPlayState::Instance()->theStall[0]->setMaskPrice(15);
+
 				//For Shop 2 no. of mask setting
 				if(theButton[fifty2]->isInside(x, y))
 					CPlayState::Instance()->theStall[1]->setMaskNo(50);
@@ -232,6 +243,16 @@ void CStartOfDayState::MouseClick(int button, int state, int x, int y) {
 				if(theButton[twohundred2]->isInside(x, y))
 					CPlayState::Instance()->theStall[1]->setMaskNo(200);
 
+				//price
+				if(theButton[ten2]->isInside(x, y))
+					CPlayState::Instance()->theStall[1]->setMaskPrice(10);
+
+				if(theButton[twelve2]->isInside(x, y))
+					CPlayState::Instance()->theStall[1]->setMaskPrice(12);
+
+				if(theButton[fifteen2]->isInside(x, y))
+					CPlayState::Instance()->theStall[1]->setMaskPrice(15);
+
 				//For Shop 3 no. of mask setting
 				if(theButton[fifty3]->isInside(x, y))
 					CPlayState::Instance()->theStall[2]->setMaskNo(50);
@@ -241,6 +262,16 @@ void CStartOfDayState::MouseClick(int button, int state, int x, int y) {
 
 				if(theButton[twohundred3]->isInside(x, y))
 					CPlayState::Instance()->theStall[2]->setMaskNo(200);
+
+				//price
+				if(theButton[ten3]->isInside(x, y))
+					CPlayState::Instance()->theStall[2]->setMaskPrice(10);
+
+				if(theButton[twelve3]->isInside(x, y))
+					CPlayState::Instance()->theStall[2]->setMaskPrice(12);
+
+				if(theButton[fifteen3]->isInside(x, y))
+					CPlayState::Instance()->theStall[2]->setMaskPrice(15);
 			}
 			else
 				CInputSystem::getInstance()->mouseInfo.mLButtonUp = true;
@@ -269,16 +300,21 @@ void CStartOfDayState::MouseWheel(int button, int dir, int x, int y) {
 	}
 }
 
-void CStartOfDayState::drawWords()
+void CStartOfDayState::drawInfo()
 {
 	glPushMatrix();
-		glLoadIdentity ();
 		glPushAttrib(GL_DEPTH_TEST);
-		glDisable(GL_DEPTH_TEST);
-			
-			printw (25.0, 25.0, 0, "Shop 1");
+			//print shop number
+			glColor3f( 0.0f, 0.0f, 0.0f);
+			printw (50.0, 180.0, 0, "Number of mask: %d", CPlayState::Instance()->theStall[0]->getMaskNo());
+			printw (50.0, 200.0, 0, "Price of mask: %d", CPlayState::Instance()->theStall[0]->getMaskPrice());
+
+			printw (300.0, 180.0, 0, "Number of mask: %d", CPlayState::Instance()->theStall[1]->getMaskNo());
+			printw (300.0, 200.0, 0, "Price of mask: %d", CPlayState::Instance()->theStall[1]->getMaskPrice());
+
+			printw (550.0, 180.0, 0, "Number of mask: %d", CPlayState::Instance()->theStall[2]->getMaskNo());
+			printw (550.0, 200.0, 0, "Price of mask: %d", CPlayState::Instance()->theStall[2]->getMaskPrice());
 		glPopAttrib();
-		glMatrixMode(GL_PROJECTION);
 	glPopMatrix();
 }
 
