@@ -79,9 +79,13 @@ class WeatherGenerator
 public:
 	WeatherGenerator();
 	~WeatherGenerator();
-	std::vector<float> HourlyHaze;
+	
+
 	std::vector<float> HazeAveragePerDay;
 	std::vector<float> HazeGraph;
+
+	std::vector<float> DailyStartHaze;
+
 	void PrintOutHourly();
 	void PrintOutGraph();
 

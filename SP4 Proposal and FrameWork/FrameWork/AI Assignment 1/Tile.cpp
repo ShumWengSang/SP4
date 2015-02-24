@@ -28,6 +28,10 @@ void Tiles::drawTile(int x, int y, int z, int tileWidth, int tileHeight, bool is
 	glPushMatrix();
 		if(isPicking)
 			glColor3f(color.x,color.y,color.z);
+		else if (TileHazeValue > 50)
+		{
+			glColor3f(1, 1, 0);
+		}
 		else
 			glColor3f(1,1,1);
 		glBegin(GL_QUADS);
@@ -55,4 +59,36 @@ bool Tiles::isWithin(Vector3 pos)
 bool Tiles::glRenderObject()
 {
 	return true;
+}
+
+void Tiles::Pressure(Tiles &currentCell, Tiles &neighbourCell)
+{
+	//if there is more pressure in cell than in neighbour
+	if (currentCell.TileHazeValue > neighbourCell.TileHazeValue)
+	{
+		//get the pressure ratio between the cells
+		float Pressure_ratio = currentCell.TileHazeValue / neighbourCell.TileHazeValue;
+
+	}
+	//Pressure difference
+	float PressureFlow = currentCell.TileHazeValue - neighbourCell.TileHazeValue;
+
+	//pressure diffuse to neightbour
+	neighbourCell.TileHazeValue += PressureFlow * 0.25;
+	currentCell.TileHazeValue -= PressureFlow * 0.25;
+
+	//detect and remove oscillations
+	if ((PressureFlow > 0) && (neighbourCell.TileHazeValue < currentCell.TileHazeValue))
+	{
+		//calculate the average pressure of currentcell and neighbourcell and distribute evenly
+		float TotalPressure = currentCell.TileHazeValue + neighbourCell.TileHazeValue;
+		float AveragePressure = TotalPressure / 2;
+		currentCell.TileHazeValue = AveragePressure;
+		neighbourCell.TileHazeValue = AveragePressure;
+	}
+}
+
+void Tiles::Update()
+{
+
 }
