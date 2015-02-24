@@ -40,10 +40,12 @@ void CBuyMaskState::Init()
 	LoadButtons();
 	font_style = GLUT_BITMAP_HELVETICA_18;
 
+
 	if (CLoadState::Instance()->getLoaded())
 		CPlayState::Instance()->theMoney.setCurrentMoney(CLoadState::Instance()->getLoadData()->getMoney());
 	else
-	CPlayState::Instance()->theMoney.setCurrentMoney(500);
+		CPlayState::Instance()->theMoney.setCurrentMoney(1000);
+
 	needMoney = false;
 
 	//Input System
@@ -137,7 +139,7 @@ void CBuyMaskState::MouseClick(int button, int state, int x, int y) {
 						needMoney = true;
 					else{
 						CPlayState::Instance()->theMoney.setCurrentMoney(CPlayState::Instance()->theMoney.getCurrentMoney() - 250);
-						CPlayState::Instance()->theMask += 50;
+						CPlayState::Instance()->maskInStock += 50;
 						needMoney = false;
 					}
 				}
@@ -148,7 +150,7 @@ void CBuyMaskState::MouseClick(int button, int state, int x, int y) {
 						needMoney = true;
 					else{
 						CPlayState::Instance()->theMoney.setCurrentMoney(CPlayState::Instance()->theMoney.getCurrentMoney() - 450);
-						CPlayState::Instance()->theMask += 100;
+						CPlayState::Instance()->maskInStock += 100;
 						needMoney = false;
 					}
 				}
@@ -159,7 +161,7 @@ void CBuyMaskState::MouseClick(int button, int state, int x, int y) {
 						needMoney = true;
 					else{
 						CPlayState::Instance()->theMoney.setCurrentMoney(CPlayState::Instance()->theMoney.getCurrentMoney() - 900);
-						CPlayState::Instance()->theMask += 200;
+						CPlayState::Instance()->maskInStock += 200;
 						needMoney = false;
 					}
 				}
@@ -190,7 +192,7 @@ void CBuyMaskState::drawInfo()
 			if(needMoney)
 				printw ((SCREEN_WIDTH/2)-100, SCREEN_HEIGHT/2 - 50, 0, "You need more money!!!");
 
-			printw ((SCREEN_WIDTH / 2) - 200, SCREEN_HEIGHT/2 + 50, 0, "Mask in Stock: %d", CPlayState::Instance()->theMask);
+			printw ((SCREEN_WIDTH / 2) - 200, SCREEN_HEIGHT/2 + 50, 0, "Mask in Stock: %d", CPlayState::Instance()->maskInStock);
 			printw ((SCREEN_WIDTH/2)+50, SCREEN_HEIGHT/2 + 50, 0, "$: %d", CPlayState::Instance()->theMoney.getCurrentMoney());
 		glPopAttrib();
 	glPopMatrix();

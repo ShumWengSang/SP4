@@ -38,3 +38,21 @@ void Tiles::drawTile(int x, int y, int z, int tileWidth, int tileHeight, bool is
 		glEnd();
 	glPopMatrix();
 }
+
+bool Tiles::isWithin(Vector3 pos)
+{
+	if(pos.x > this->pos.x && pos.x < this->pos.x + TILE_SIZE_X && pos.z > this->pos.z && pos.z < this->pos.z + TILE_SIZE_Y)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+
+}
+
+bool Tiles::glRenderObject()
+{
+	return true;
+}

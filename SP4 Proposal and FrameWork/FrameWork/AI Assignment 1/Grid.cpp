@@ -68,7 +68,7 @@ void Grid::setY(int y)
 
 void Grid::setZ(int z)
 {
-
+	this->z = z;
 }
 
 int Grid::getX()

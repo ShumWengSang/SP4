@@ -4,6 +4,7 @@ CStalls::CStalls(void)
 {
 	gasMaskAmount = 0;
 	maskPrice = 0;
+	maskSold = 0;
 }
 
 CStalls::~CStalls(void)
@@ -18,6 +19,10 @@ int CStalls::getMaskPrice()
 {
 	return maskPrice;
 }
+int CStalls::getMaskSold()
+{
+	return maskSold;
+}
 
 void CStalls::setMaskNo(int mn)
 {
@@ -27,13 +32,43 @@ void CStalls::setMaskPrice(int mp)
 {
 	maskPrice = mp;
 }
+void CStalls::setMaskSold(int ms)
+{
+	maskSold = ms;
+}
 
 void CStalls::buyMask(int amt)
 {
 	cout << "buy mask here" << endl;
 	gasMaskAmount -= amt;
 }
+
 void CStalls::moveStall()
 {
 	//moveeeeee
 }
+
+bool CStalls::glRenderObject() {
+
+}
+
+EntityType CStalls::getObjectType(void) {
+
+}
+
+Vector3 CStalls::getPosition(void) {
+
+}
+
+bool CStalls::operator== (Entity& o) {
+
+}
+
+Vector3 CStalls::GetScale() {
+
+}
+
+void CStalls::Update() {
+
+}
+

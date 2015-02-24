@@ -20,25 +20,23 @@ void CLoadState::LoadTextures()
 {
 	//Textures
 	CApplication::getInstance()->LoadTGA(&background[0],"images/background.tga");
-	CApplication::getInstance()->LoadTGA(&button[0],"images/menuState/start.tga");
-	CApplication::getInstance()->LoadTGA(&button[1],"images/menuState/loadGame.tga");
-	CApplication::getInstance()->LoadTGA(&button[2],"images/menuState/options.tga");
-	CApplication::getInstance()->LoadTGA(&button[3],"images/menuState/quit.tga");
+	CApplication::getInstance()->LoadTGA(&button[0],"images/buyMaskState/box.tga");
+	CApplication::getInstance()->LoadTGA(&button[1],"images/startState/back.tga");
 }
 void CLoadState::LoadButtons()
 {
 	//buttons
-	theButton[save1] = new CButtons(SCREEN_WIDTH/2 - 150, 200, 300, 100, save1);
+	theButton[save1] = new CButtons(SCREEN_WIDTH/2 - 150, 200, 350, 100, save1);
 	theButton[save1]->setButtonTexture(button[0].texID);
 	
-	theButton[save2] = new CButtons(SCREEN_WIDTH/2 - 150, 300, 300, 100, save2);
-	theButton[save2]->setButtonTexture(button[1].texID);
+	theButton[save2] = new CButtons(SCREEN_WIDTH/2 - 150, 300, 350, 100, save2);
+	theButton[save2]->setButtonTexture(button[0].texID);
 	
-	theButton[save3] = new CButtons(SCREEN_WIDTH/2 - 150, 400, 300, 100, save3);
-	theButton[save3]->setButtonTexture(button[2].texID);
+	theButton[save3] = new CButtons(SCREEN_WIDTH/2 - 150, 400, 350, 100, save3);
+	theButton[save3]->setButtonTexture(button[0].texID);
 	
-	theButton[backToMenu] = new CButtons(0, 0, 100, 100, backToMenu);
-	theButton[backToMenu]->setButtonTexture(button[3].texID);
+	theButton[backToMenu] = new CButtons(0, 0, 64, 64, backToMenu);
+	theButton[backToMenu] >setButtonTexture(button[1].texID);
 }
 void CLoadState::LoadLoadData()
 {
@@ -122,37 +120,38 @@ void CLoadState::DrawLoadInfo()
 		glPushAttrib(GL_DEPTH_TEST);
 
 			glColor3f( 0.0f, 0.0f, 0.0f);
+
 			if (loadedFiles[0]->getHere())
 			{
-			printw (SCREEN_WIDTH/2 - 150, 225.0, 0, "Day: %d", loadedFiles[0]->getDay());
-			printw (SCREEN_WIDTH/2 - 150, 275.0, 0, "Money: %d", loadedFiles[0]->getMoney());
+			printw (SCREEN_WIDTH/2 - 145, 225.0, 0, "Day: %d", loadedFiles[0]->getDay());
+			printw (SCREEN_WIDTH/2 - 145, 275.0, 0, "Money: %d", loadedFiles[0]->getMoney());
 			}
 			else
 			{
-			printw (SCREEN_WIDTH/2 - 150, 225.0, 0, "Day: ---");
-			printw (SCREEN_WIDTH/2 - 150, 275.0, 0, "Money: ---");
+			printw (SCREEN_WIDTH/2 - 145, 225.0, 0, "Day: ---");
+			printw (SCREEN_WIDTH/2 - 145, 275.0, 0, "Money: ---");
 			}
 
 			if (loadedFiles[1]->getHere())
 			{
-			printw (SCREEN_WIDTH/2 - 150, 325.0, 0, "Day: %d", loadedFiles[1]->getDay());
-			printw (SCREEN_WIDTH/2 - 150, 375.0, 0, "Money: %d", loadedFiles[1]->getMoney());
+			printw (SCREEN_WIDTH/2 - 145, 325.0, 0, "Day: %d", loadedFiles[1]->getDay());
+			printw (SCREEN_WIDTH/2 - 145, 375.0, 0, "Money: %d", loadedFiles[1]->getMoney());
 			}
 			else
 			{
-			printw (SCREEN_WIDTH/2 - 150, 325.0, 0, "Day: ---");
-			printw (SCREEN_WIDTH/2 - 150, 375.0, 0, "Money: ---");
+			printw (SCREEN_WIDTH/2 - 145, 325.0, 0, "Day: ---");
+			printw (SCREEN_WIDTH/2 - 145, 375.0, 0, "Money: ---");
 			}
 
 			if (loadedFiles[2]->getHere())
 			{
-			printw (SCREEN_WIDTH/2 - 150, 425.0, 0, "Day: %d", loadedFiles[2]->getDay());
-			printw (SCREEN_WIDTH/2 - 150, 475.0, 0, "Money: %d", loadedFiles[2]->getMoney());
+			printw (SCREEN_WIDTH/2 - 145, 425.0, 0, "Day: %d", loadedFiles[2]->getDay());
+			printw (SCREEN_WIDTH/2 - 145, 475.0, 0, "Money: %d", loadedFiles[2]->getMoney());
 			}
 			else
 			{
-			printw (SCREEN_WIDTH/2 - 150, 425.0, 0, "Day: ---");
-			printw (SCREEN_WIDTH/2 - 150, 475.0, 0, "Money: ---");
+			printw (SCREEN_WIDTH/2 - 145, 425.0, 0, "Day: ---");
+			printw (SCREEN_WIDTH/2 - 145, 475.0, 0, "Money: ---");
 			}
 
 		glPopAttrib();

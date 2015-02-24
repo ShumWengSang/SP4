@@ -246,31 +246,28 @@ void CStartOfDayState::MouseClick(int button, int state, int x, int y) {
 				//For Shop 1 no. of mask setting
 				if(theButton[fifty]->isInside(x, y))
 				{
-					if(!(CPlayState::Instance()->theMask < 50))
+					if(!(CPlayState::Instance()->maskInStock < 50))
 					{
-						CPlayState::Instance()->theStall[0]->setMaskNo(50);
-						CPlayState::Instance()->theMask -= 50;
+						CPlayState::Instance()->theStall[0]->setMaskNo(CPlayState::Instance()->theStall[0]->getMaskNo() + 50);
+						CPlayState::Instance()->maskInStock -= 50;
 					}
 				}
-
 				if(theButton[hundred]->isInside(x, y))
 				{
-					if(!(CPlayState::Instance()->theMask < 100))
+					if(!(CPlayState::Instance()->maskInStock < 100))
 					{
-						CPlayState::Instance()->theStall[0]->setMaskNo(100);
-						CPlayState::Instance()->theMask -= 100;
+						CPlayState::Instance()->theStall[0]->setMaskNo(CPlayState::Instance()->theStall[0]->getMaskNo() + 100);
+						CPlayState::Instance()->maskInStock -= 100;
 					}
 				}
-
 				if(theButton[twohundred]->isInside(x, y))
 				{
-					if(!(CPlayState::Instance()->theMask < 200))
+					if(!(CPlayState::Instance()->maskInStock < 200))
 					{
-						CPlayState::Instance()->theStall[0]->setMaskNo(200);
-						CPlayState::Instance()->theMask -= 200;
+						CPlayState::Instance()->theStall[0]->setMaskNo(CPlayState::Instance()->theStall[0]->getMaskNo() + 200);
+						CPlayState::Instance()->maskInStock -= 200;
 					}
 				}
-
 				//price
 				if(theButton[ten]->isInside(x, y))
 					CPlayState::Instance()->theStall[0]->setMaskPrice(10);
@@ -283,13 +280,29 @@ void CStartOfDayState::MouseClick(int button, int state, int x, int y) {
 
 				//For Shop 2 no. of mask setting
 				if(theButton[fifty2]->isInside(x, y))
-					CPlayState::Instance()->theStall[1]->setMaskNo(50);
-
+				{
+					if(!(CPlayState::Instance()->maskInStock < 50))
+					{
+						CPlayState::Instance()->theStall[1]->setMaskNo(CPlayState::Instance()->theStall[1]->getMaskNo() + 50);
+						CPlayState::Instance()->maskInStock -= 50;
+					}
+				}
 				if(theButton[hundred2]->isInside(x, y))
-					CPlayState::Instance()->theStall[1]->setMaskNo(100);
-
+				{
+					if(!(CPlayState::Instance()->maskInStock < 100))
+					{
+						CPlayState::Instance()->theStall[1]->setMaskNo(CPlayState::Instance()->theStall[1]->getMaskNo() + 100);
+						CPlayState::Instance()->maskInStock -= 100;
+					}
+				}
 				if(theButton[twohundred2]->isInside(x, y))
-					CPlayState::Instance()->theStall[1]->setMaskNo(200);
+				{
+					if(!(CPlayState::Instance()->maskInStock < 200))
+					{
+						CPlayState::Instance()->theStall[1]->setMaskNo(CPlayState::Instance()->theStall[1]->getMaskNo() + 200);
+						CPlayState::Instance()->maskInStock -= 200;
+					}
+				}
 
 				//price
 				if(theButton[ten2]->isInside(x, y))
@@ -303,13 +316,29 @@ void CStartOfDayState::MouseClick(int button, int state, int x, int y) {
 
 				//For Shop 3 no. of mask setting
 				if(theButton[fifty3]->isInside(x, y))
-					CPlayState::Instance()->theStall[2]->setMaskNo(50);
-
+				{
+					if(!(CPlayState::Instance()->maskInStock < 50))
+					{
+						CPlayState::Instance()->theStall[2]->setMaskNo(CPlayState::Instance()->theStall[2]->getMaskNo() + 50);
+						CPlayState::Instance()->maskInStock -= 50;
+					}
+				}
 				if(theButton[hundred3]->isInside(x, y))
-					CPlayState::Instance()->theStall[2]->setMaskNo(100);
-
+				{
+					if(!(CPlayState::Instance()->maskInStock < 100))
+					{
+						CPlayState::Instance()->theStall[2]->setMaskNo(CPlayState::Instance()->theStall[2]->getMaskNo() + 100);
+						CPlayState::Instance()->maskInStock -= 100;
+					}
+				}
 				if(theButton[twohundred3]->isInside(x, y))
-					CPlayState::Instance()->theStall[2]->setMaskNo(200);
+				{
+					if(!(CPlayState::Instance()->maskInStock < 200))
+					{
+						CPlayState::Instance()->theStall[2]->setMaskNo(CPlayState::Instance()->theStall[2]->getMaskNo() + 200);
+						CPlayState::Instance()->maskInStock -= 200;
+					}
+				}
 
 				//price
 				if(theButton[ten3]->isInside(x, y))
@@ -368,7 +397,7 @@ void CStartOfDayState::drawInfo()
 
 			printw (SCREEN_WIDTH/2 - 200, SCREEN_HEIGHT/2 + 100, 0, "Weather Forecast");
 
-			printw (SCREEN_WIDTH / 2 + 100, SCREEN_HEIGHT/2 + 100, 0, "Mask in Stock: %d", CPlayState::Instance()->theMask);
+			printw (SCREEN_WIDTH / 2 + 100, SCREEN_HEIGHT/2 + 100, 0, "Mask in Stock: %d", CPlayState::Instance()->maskInStock);
 
 		glPopAttrib();
 	glPopMatrix();
