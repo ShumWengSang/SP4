@@ -21,9 +21,9 @@ void CPlayState::Init()
 	newMoneyValue = 0;
 	firstDay = true;
 
-	theStall[0] = new CStalls();
-	theStall[1] = new CStalls();
-	theStall[2] = new CStalls();
+	theStall[0] = new CStalls(Vector3(20,0,20));
+	theStall[1] = new CStalls(Vector3(10,0,40));
+	theStall[2] = new CStalls(Vector3(40,0,10));
 
 	forecasting = new CForecast;
 	forecasting->init();

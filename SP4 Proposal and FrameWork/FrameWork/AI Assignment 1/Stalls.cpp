@@ -65,12 +65,6 @@ bool CStalls::glRenderObject() {
 		glTranslatef( pos.x, pos.y+scale.y/2, pos.z );
 		glScalef(scale.x, scale.y, scale.z);
 		glColor3f(1.0,0.0,0.0);
-		/*glBegin(GL_QUADS);
-			glVertex3f(0.5, -0.5, 0);
-			glVertex3f(-0.5, -0.5, 0);
-			glVertex3f(-0.5, 0.5, 0);
-			glVertex3f(0.5, 0.5, 0);
-		glEnd();*/
 		glutSolidCube(1);
 		glDisable(GL_BLEND);
 	glPopMatrix();

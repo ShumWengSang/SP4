@@ -3,7 +3,7 @@
 
 Grid::Grid(void)
 {
-	
+	x = y = z = 0;
 	tileHeight = TILE_SIZE_X;
 	tileWidth = TILE_SIZE_Y;
 	InitGrid();
@@ -45,11 +45,6 @@ void Grid::InitGrid (void) {
 	}
 	SetPointers();
 }
-
-//void Grid::glRenderObject()
-//{
-//	renderGrid(false); 
-//}
 
 void Grid::renderGrid(bool isPicking)
 {
@@ -94,6 +89,10 @@ int Grid::getY()
 int Grid::getZ()
 {
 	return z;
+}
+
+EntityType Grid::getObjectType(void) {
+	return EntityType::GRID;
 }
 
 bool Grid::glRenderObject()

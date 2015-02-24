@@ -9,7 +9,8 @@ enum EntityType
 	NONE = 0,
 	STALLS,
 	BUYER,
-	TILE
+	TILE,
+	GRID
 };
 
 class Entity

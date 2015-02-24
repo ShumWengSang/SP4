@@ -58,6 +58,7 @@ public:
 	void SetPointers();
 
 	//entity functions
+	EntityType getObjectType(void);
 	bool glRenderObject();
 	void Update();
 };
