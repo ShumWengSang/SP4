@@ -55,27 +55,40 @@ void CStalls::moveStall()
 	//moveeeeee
 }
 
-//bool CStalls::glRenderObject() {
-//
-//}
-//
-//EntityType CStalls::getObjectType(void) {
-//
-//}
-//
-//Vector3 CStalls::getPosition(void) {
-//
-//}
-//
-//bool CStalls::operator== (Entity& o) {
-//
-//}
-//
-//Vector3 CStalls::GetScale() {
-//
-//}
-//
-//void CStalls::Update() {
-//
-//}
+//Entity Functions
+bool CStalls::glRenderObject() {
+	glPushMatrix();
+		glEnable(GL_BLEND);
+		glTranslatef( pos.x, pos.y, pos.z );
+		glScalef(scale.x, scale.y, scale.z);
+		glColor3f(1.0,1.0,1.0);
+		glBegin(GL_QUADS);
+			glVertex3f(5, 0, 0);
+			glVertex3f(0, 0, 0);
+			glVertex3f(0, 5, 0);
+			glVertex3f(5, 5, 0);
+		glEnd();
+		glDisable(GL_BLEND);
+	glPopMatrix();
+	return true;
+}
 
+EntityType CStalls::getObjectType(void) {
+	return EntityType::STALLS;
+}
+
+Vector3 CStalls::getPosition(void) {
+	return pos;
+}
+
+bool CStalls::operator== (Entity& o) {
+	return bool(getObjectType() == o.getObjectType() && getPosition() == o.getPosition());
+}
+
+Vector3 CStalls::GetScale() {
+	return scale;
+}
+
+void CStalls::Update() {
+
+}
