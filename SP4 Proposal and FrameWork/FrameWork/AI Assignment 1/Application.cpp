@@ -62,7 +62,8 @@ void CApplication::renderScene() {
 	glFlush();
 
 	//Swapping the buffers causes the rendering above to be shown
-	glutSwapBuffers();
+	if(!clickCheck)
+		glutSwapBuffers();
 }
 
 void CApplication::changeSize(int w, int h) {
@@ -213,5 +214,13 @@ bool CApplication::LoadTGA(TextureImage *texture, char *filename)			// Loads A T
 	glTexImage2D(GL_TEXTURE_2D, 0, type, texture[0].width, texture[0].height, 0, type, GL_UNSIGNED_BYTE, texture[0].imageData);
 
 	return true;											// Texture Building Went Ok, Return True
+}
+
+bool CApplication::getClickCheck() {
+	return clickCheck;
+}
+
+void CApplication::setClickCheck(bool clickChecking) {
+	clickCheck = clickChecking;
 }
 

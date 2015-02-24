@@ -209,25 +209,14 @@ void CSaveState::MouseClick(int button, int state, int x, int y) {
 
 				//load files
 				if(theButton[save1]->isInside(x, y))
-					if(loadedFiles[0]->getHere())
-					loadedFiles[0]->overwriteData("save01.txt",9,9,9);
-					else
-					loadedFiles[0]->overwriteData("save01.txt",8,8,8);
-					//CGameStateManager::getInstance()->ChangeState(CPlayState::Instance());
-				
+					loadedFiles[0]->overwriteData("save01.txt", CPlayState::Instance()->day,CPlayState::Instance()->theMoney.getCurrentMoney(), CPlayState::Instance()->maskInStock);
+					
 				if(theButton[save2]->isInside(x, y))
-					if(loadedFiles[1]->getHere())
-					loadedFiles[1]->overwriteData("save02.txt",9,9,9);
-					else
-					loadedFiles[1]->overwriteData("save02.txt",8,8,8);
-					//CGameStateManager::getInstance()->ChangeState(CPlayState::Instance());
-
+					loadedFiles[1]->overwriteData("save02.txt", CPlayState::Instance()->day,CPlayState::Instance()->theMoney.getCurrentMoney(), CPlayState::Instance()->maskInStock);
+					
 				if(theButton[save3]->isInside(x, y))
-					if(loadedFiles[2]->getHere())
-					loadedFiles[2]->overwriteData("save03.txt",9,9,9);
-					else
-					loadedFiles[2]->overwriteData("save03.txt",8,8,8);
-
+					loadedFiles[2]->overwriteData("save03.txt", CPlayState::Instance()->day,CPlayState::Instance()->theMoney.getCurrentMoney(), CPlayState::Instance()->maskInStock);
+					
 
 				//go back
 				if(theButton[back]->isInside(x, y))

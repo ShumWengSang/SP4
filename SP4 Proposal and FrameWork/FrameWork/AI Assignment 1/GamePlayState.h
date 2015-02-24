@@ -53,6 +53,7 @@ public:
 	void LoadTextures();
 	void LoadButtons();
 	void DrawButtons();
+	void drawInfo();
 
 	void buyMask(int stall, int maskNo);
 
@@ -68,6 +69,9 @@ public:
 	int DayNumber;
 	int HourNumber;
 
+	void *font_style;
+	void printw(float x, float y, float z, char* format, ...);
+
 private:
 	static CGamePlayState theGamePlayState;
 
@@ -78,6 +82,8 @@ private:
 	int TimerKeySeed;
 
 	int TimerKeyDay;
+
+	void ClickCollision();
 
 	CMoney theMoney;
 	CButtons* theButton[4];

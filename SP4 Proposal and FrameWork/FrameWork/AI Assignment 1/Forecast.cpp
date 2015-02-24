@@ -31,8 +31,9 @@ void CForecast::forecasting()
 		cout << "Day: " << getCurrentDay() << endl;
 		cout << "Forecasting: " << getCurrentForecast() << endl;
 		cout << "Actual: " << getActual() << endl;
-		updateCurrentDay();
+		setCurrentDay(day+1);
 	}
+	currentDay = 1;
 }
 
 void CForecast::checkDay(int curDay)
@@ -198,9 +199,9 @@ int CForecast::prediction(int lowRange, int highRange, int highestChance)
 
 
 
-void CForecast::updateCurrentDay()
+void CForecast::setCurrentDay(int day)
 {
-	currentDay++;
+	currentDay = day;
 }
 void CForecast::setActualArray(std::vector<float> actual)
 {

@@ -11,6 +11,8 @@ void CPlayState::Init()
 	//Enable Camera Orientation on Mouse Move
 	CInputSystem::getInstance()->OrientCam = true;
 	
+	day = 1;
+
 	maskInStock = 0;
 	oldMaskValue = 0;
 	earned = 0;

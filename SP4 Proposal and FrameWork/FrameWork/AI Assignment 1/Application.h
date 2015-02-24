@@ -12,7 +12,7 @@
 class CApplication
 {
 protected:
-	CApplication(void)  {};
+	CApplication(void):clickCheck(false)  {};
 	~CApplication(void) {};
 
 public:
@@ -39,6 +39,9 @@ public:
 	
 	bool LoadTGA(TextureImage *texture, char *filename);
 
+	bool getClickCheck();
+	void setClickCheck(bool clickChecking);
+
 private:
 	static CApplication *instance;
 
@@ -48,6 +51,8 @@ private:
 	//Real-Time Loop Control
 	long timelastcall;
 	float frequency;
+
+	bool clickCheck;
 
 };
 

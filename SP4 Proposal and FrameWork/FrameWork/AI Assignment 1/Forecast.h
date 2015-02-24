@@ -26,7 +26,7 @@ public:
 	int prediction(int lowRange, int highRange, int highestChance);
 
 
-	void updateCurrentDay();
+	void setCurrentDay(int day);
 	void setActualArray(std::vector<float> actual); //set range on range X
 
 	int getCurrentDay();

@@ -33,6 +33,8 @@ public:
 	void Draw(CGameStateManager* GSM);
 	void keyboardUpdate(void);
 
+	int day;
+
 	int maskInStock;
 	int oldMaskValue;
 	int totalMaskForSell;

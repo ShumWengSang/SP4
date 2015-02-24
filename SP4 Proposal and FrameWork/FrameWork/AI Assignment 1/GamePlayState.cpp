@@ -40,6 +40,8 @@ void CGamePlayState::Init()
 	LoadTextures();
 	LoadButtons();
 
+	font_style = GLUT_BITMAP_HELVETICA_18;
+
 	//Input System
 	CInputSystem::getInstance()->OrientCam = true;
 	
@@ -131,13 +133,10 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 		DayNumber++;
 		CInGameStateManager::getInstance()->ChangeState(CEndOfDayState::Instance());
 	}
-}
+
 
 void CGamePlayState::Draw(CInGameStateManager* theGSM) 
 {
-
-
-
 	glPushMatrix();
 		glEnable(GL_BLEND);
 		glEnable(GL_TEXTURE_2D);
@@ -164,16 +163,22 @@ void CGamePlayState::Draw(CInGameStateManager* theGSM)
 
 	// Render Objects to be selected in the color scheme
 	if(CInputSystem::getInstance()->mouseInfo.mLButtonUp == false) {
+		/*CApplication::getInstance()->setClickCheck(true);
+		theGrid.renderGrid(true);
+		ClickCollision();
+	}else {
+		CApplication::getInstance()->setClickCheck(false);
+		theGrid.renderGrid(false);
+	}*/
 		theGrid->Click = true;
-		cout << endl;
+		ClickCollision();
 	}else
 		theGrid->Click = false;
-
 
 	CApplication::getInstance()->theCamera->SetHUD(true);
 
 	DrawButtons();//pause button here
-	//drawInfo();
+	drawInfo();
 
 	CApplication::getInstance()->theCamera->SetHUD(false);
 }
@@ -308,7 +313,6 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 				if(theButton[pause]->isInside(x, y) && isPause == false)
 				{
 					Pause();
-					cout << "pppp" << endl;
 				}
 				else if(theButton[pause]->isInside(x, y) && isPause == true)
 				{
@@ -329,7 +333,7 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 				//theGrid.renderGrid(true);
 
 
-				GLint window_width = glutGet(GLUT_WINDOW_WIDTH);
+				/*GLint window_width = glutGet(GLUT_WINDOW_WIDTH);
 				GLint window_height = glutGet(GLUT_WINDOW_HEIGHT);
  
 				unsigned char color[3];
@@ -358,7 +362,7 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 						printf("Confirmed grid clicked %0.2f %0.2f %0.2f\n\n", colorf[0], colorf[1], colorf[2]);
 						
 					s++;
-				}
+				}*/
 
 			}
 			CInputSystem::getInstance()->mouseInfo.clickedX = x;
@@ -388,3 +392,100 @@ void CGamePlayState::MouseWheel(int button, int dir, int x, int y) {
 		CApplication::getInstance()->theCamera->SetPosition(temp.x,temp.y,temp.z);
 	}
 }
+
+void CGamePlayState::ClickCollision() {
+
+	GLint window_width = glutGet(GLUT_WINDOW_WIDTH);
+	GLint window_height = glutGet(GLUT_WINDOW_HEIGHT);
+
+	int x = CInputSystem::getInstance()->mouseInfo.clickedX;
+	int y = CInputSystem::getInstance()->mouseInfo.clickedY;
+
+	unsigned char color[3];
+ 
+	glReadPixels(x, window_height - y, 1, 1, GL_RGB, GL_UNSIGNED_BYTE, color);
+ 
+	float colorf[3];
+	colorf[0] = (float)color[0]/255;
+	colorf[1] = (float)color[1]/255;
+	colorf[2] = (float)color[2]/255;
+
+	printf("Clicked on pixel %d, %d, color %0.2f %0.2f %0.2f\n", x, y, colorf[0], colorf[1], colorf[2]);
+
+	//Check color scheme for grids
+	/*int a = 0;
+	int s = 0;
+	int maxa = TILE_NO_X;
+	int maxs = TILE_NO_Y;
+	while(a != maxa) {
+		if(s == maxs) {
+			s = 0;
+			a++;
+		}
+
+		if(theGrid.temp[a][s].getColor() == Vector3(colorf[0], colorf[1], colorf[2]))
+				printf("Confirmed grid clicked %d %d\n\n", a, s);
+						
+		s++;
+	}*/
+
+	for(int a = 0; a < TILE_NO_X; a++)
+	{
+		for(int s = 0; s < TILE_NO_Y; s++)
+		{
+			if(theGrid.temp[a][s].getColor() == Vector3(colorf[0], colorf[1], colorf[2])) {
+				printf("Confirmed grid clicked %d %d\n\n", a, s);
+				break;
+			}
+		}
+	}
+}
+
+void CGamePlayState::drawInfo()
+{
+	glPushMatrix();
+		glPushAttrib(GL_DEPTH_TEST);
+			//print shop number
+			glColor3f( 1.0f, 0.0f, 0.0f);
+			printw (SCREEN_WIDTH - 100, 96, 0, "PSI: ");
+			printw (SCREEN_WIDTH - 100, 128, 0,  "Day: ");
+			printw (SCREEN_WIDTH - 100, 160, 0,  "Time: ");
+		glPopAttrib();
+	glPopMatrix();
+}
+
+void CGamePlayState::printw (float x, float y, float z, char* format, ...)
+{
+	va_list args;	//  Variable argument list
+	int len;		//	String length
+	int i;			//  Iterator
+	char * text;	//	Text
+
+	//  Initialize a variable argument list
+	va_start(args, format);
+
+	//  Return the number of characters in the string referenced the list of arguments.
+	//  _vscprintf doesn't count terminating '\0' (that's why +1)
+	len = _vscprintf(format, args) + 1; 
+
+	//  Allocate memory for a string of the specified size
+	text = (char *)malloc(len * sizeof(char));
+
+	//  Write formatted output using a pointer to the list of arguments
+	vsprintf_s(text, len, format, args);
+
+	//  End using variable argument list 
+	va_end(args);
+
+	//  Specify the raster position for pixel operations.
+	glRasterPos3f (x, y, z);
+
+
+	//  Draw the characters one by one
+	for (i = 0; text[i] != '\0'; i++)
+		glutBitmapCharacter(font_style, text[i]);
+
+	//  Free the allocated memory for the string
+	free(text);
+}
+
