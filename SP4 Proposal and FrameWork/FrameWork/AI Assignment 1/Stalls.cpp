@@ -74,6 +74,7 @@ bool CStalls::glRenderObject() {
 		glEnd();
 		glDisable(GL_BLEND);
 	glPopMatrix();
+	return true;
 }
 
 EntityType CStalls::getObjectType(void) {

@@ -36,7 +36,7 @@ void CLoadState::LoadButtons()
 	theButton[save3]->setButtonTexture(button[0].texID);
 	
 	theButton[backToMenu] = new CButtons(0, 0, 64, 64, backToMenu);
-	theButton[backToMenu] >setButtonTexture(button[1].texID);
+	theButton[backToMenu]->setButtonTexture(button[1].texID);
 }
 void CLoadState::LoadLoadData()
 {
