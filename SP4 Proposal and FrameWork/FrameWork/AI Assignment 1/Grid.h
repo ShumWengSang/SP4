@@ -1,14 +1,15 @@
 #pragma once
 #include <iostream>
 #include "Tile.h"
+#include "Timer.h"
 
 
-#define TILE_NO_X 99
-#define TILE_NO_Y 29
+#define TILE_NO_X 20
+#define TILE_NO_Y 20
 
 class Tiles;
 
-class Grid
+class Grid : public Entity
 {
 private:
 	int x, y,z;
@@ -37,7 +38,7 @@ public:
 
 
 	}
-
+	int TimerKeyHazeDiffusal;
 
 	void InitGrid(void);
 	void renderGrid(bool isPicking);
@@ -52,5 +53,12 @@ public:
 
 	Tiles temp[TILE_NO_X][TILE_NO_Y];
 
+	bool Click;
+	void CalculateDiffuse();
+	void SetPointers();
+
+	//entity functions
+	bool glRenderObject();
+	void Update();
 };
 
