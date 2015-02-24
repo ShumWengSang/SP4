@@ -21,7 +21,7 @@ public:
 	virtual ~Entity();
 
 	virtual bool glRenderObject(Vector3 theCameraPosition);
-	virtual bool glRenderObject(int RESOLUTION);
+	virtual bool glRenderObject();
 	// Designed to render the specified object.  Returns TRUE if the object is successfully
 	// rendered, otherwise FALSE.  All derived objects are expected to override this
 	// function.
@@ -53,6 +53,8 @@ public:
 	{
 		return Vector3(0, 0, 0);
 	}
+
+	virtual void Update();
 
 private:
 };

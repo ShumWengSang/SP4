@@ -41,7 +41,7 @@ bool Entity::operator == (Entity& o)
 }
 
 
-bool Entity::glRenderObject(int RESOLUTION)
+bool Entity::glRenderObject()
 {
 	return false;
 }
@@ -49,4 +49,9 @@ bool Entity::glRenderObject(int RESOLUTION)
 Vector3 Entity::GetScale()
 {
 	return Vector3(1, 1, 1);
+}
+
+void Entity::Update()
+{
+
 }

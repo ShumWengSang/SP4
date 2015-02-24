@@ -22,6 +22,8 @@ void CPlayState::Init()
 	IGSM->Init("In Game State Manager");
 	IGSM->ChangeState(CBuyMaskState::Instance());
 
+	theHaze.GetHazeAvg();
+
 }
 
 void CPlayState::Cleanup()

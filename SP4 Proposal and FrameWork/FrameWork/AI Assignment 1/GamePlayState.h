@@ -66,9 +66,11 @@ public:
 private:
 	static CGamePlayState theGamePlayState;
 
+	std::vector<Entity*> theListofEntities;
+
 	CMoney theMoney;
 	CButtons* theButton[4];
 	CStalls* theStall[3];
-	Grid myLoc;
+	Grid theGrid;
 };
 

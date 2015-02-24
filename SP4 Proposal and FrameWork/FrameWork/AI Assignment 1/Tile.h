@@ -2,7 +2,10 @@
 #include "Vector3.h"
 #include "freeglut.h"
 #include "Entity.h"
-#include "Grid.h"
+//#include "Grid.h"
+
+#define TILE_SIZE_X 8
+#define TILE_SIZE_Y 8
 
 class Tiles : public Entity
 {
@@ -21,6 +24,9 @@ public:
 	bool isWithin(Vector3);
 
 	void drawTile(int x, int y, int z, int tileWidth, int tileHeight, bool isPicking);
+
+	//Entity functions
+	bool glRenderObject();
 
 };
 

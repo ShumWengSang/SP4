@@ -53,11 +53,13 @@ void CGamePlayState::Init()
 	for (int i = 0; i < SEEDCOUNT; i++)
 	{
 		Vector3 theSeedLocation(rand() % TILE_NO_X, 0, rand() % TILE_NO_Y);
+
 		//GET TILE INFO FROM POSITION
 		//SET THE HAZE
 	}
 
 	PlayState->theHaze;
+
 }
 
 void CGamePlayState::Cleanup()
@@ -91,10 +93,21 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 	if(!isPause)
 		keyboardUpdate();
 	else{}
+
+	for (auto i = theListofEntities.begin(); i != theListofEntities.end(); i++)
+	{
+		(*i)->Update();
+	}
 }
 
 void CGamePlayState::Draw(CInGameStateManager* theGSM) 
 {
+
+	for (auto i = theListofEntities.begin(); i != theListofEntities.end(); i++)
+	{
+		(*i)->glRenderObject();
+	}
+
 	glPushMatrix();
 		glEnable(GL_BLEND);
 		glEnable(GL_TEXTURE_2D);
@@ -112,7 +125,7 @@ void CGamePlayState::Draw(CInGameStateManager* theGSM)
 		glDisable(GL_BLEND);
 	glPopMatrix();
 
-	myLoc.renderGrid(false);
+	theGrid.renderGrid(false);
 
 	CApplication::getInstance()->theCamera->SetHUD(true);
 
@@ -224,7 +237,7 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 					shopSelected = false;
 
 				// Render Objects to be selected in the color scheme
-				myLoc.renderGrid(true);
+				theGrid.renderGrid(true);
 
 				GLint window_width = glutGet(GLUT_WINDOW_WIDTH);
 				GLint window_height = glutGet(GLUT_WINDOW_HEIGHT);
@@ -251,7 +264,7 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 						a++;
 					}
 
-					if(myLoc.temp[a][s].getColor() == Vector3(colorf[0], colorf[1], colorf[2]))
+					if(theGrid.temp[a][s].getColor() == Vector3(colorf[0], colorf[1], colorf[2]))
 						printf("Confirmed grid clicked %0.2f %0.2f %0.2f\n\n", colorf[0], colorf[1], colorf[2]);
 						
 					s++;

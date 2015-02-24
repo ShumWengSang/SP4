@@ -52,3 +52,7 @@ bool Tiles::isWithin(Vector3 pos)
 
 }
 
+bool Tiles::glRenderObject()
+{
+	return true;
+}

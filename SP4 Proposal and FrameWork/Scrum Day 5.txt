@@ -1,0 +1,23 @@
+24/2|
+-----
+
+roland: nearly done intergrating. last part of intergration + testing + rendering. for both weather and buyer. Weather adding diffusal function.
+
+samuel: 65% done with clicking. Continuning with stalls.
+
+Amos: Finished sound class. Changing it to singleton.
+
+YT: UI is done except for gameplay. Left with: testing money calculation.
+
+WQ: Linked save and load state with menu and end of day. Intergration of loading into game terms.
+----------------------------------------
+
+TO DO:
+R: Weather adding diffusal function.
+S: Continuning with stalls.
+A: Changing sound to singleton.
+YT: testing money calculation. UI for gameplay.
+WQ: Intergration of loading into game terms.
+
+-----------------------------------------------
+
