@@ -7,6 +7,10 @@ Grid::Grid(void)
 	tileHeight = TILE_SIZE_X;
 	tileWidth = TILE_SIZE_Y;
 	InitGrid();
+	Click = false;
+
+	CTimer * theTimer = CTimer::getInstance();
+	TimerKeyHazeDiffusal = theTimer->insertNewTime(200);
 }
 
 Grid::~Grid(void)
@@ -39,8 +43,13 @@ void Grid::InitGrid (void) {
 			}
 		}
 	}
-
+	SetPointers();
 }
+
+//void Grid::glRenderObject()
+//{
+//	renderGrid(false); 
+//}
 
 void Grid::renderGrid(bool isPicking)
 {
@@ -85,4 +94,103 @@ int Grid::getY()
 int Grid::getZ()
 {
 	return z;
+}
+
+bool Grid::glRenderObject()
+{
+	renderGrid(Click);
+	return true;
+}
+
+void Grid::Update()
+{
+	CalculateDiffuse();
+}
+
+void Grid::CalculateDiffuse()
+{
+	CTimer * theTimer = CTimer::getInstance();
+	if (theTimer->executeTime(TimerKeyHazeDiffusal))
+	{
+		for (int i = 0; i < TILE_NO_X; i++)
+		{
+			for (int j = 0; j < TILE_NO_Y; j++)
+			{
+				temp[i][j].Update();
+			}
+		}
+	}
+}
+
+void Grid::SetPointers()
+{
+	//Do all four sides. Start with top, than left, than bot, and right.
+	//Than do middle.
+
+	//LEFT
+	for (int i = 0; i < TILE_NO_Y; i++)
+	{
+		if (i != 0)
+		{
+			temp[0][i].top = &temp[0][i - 1];
+		}
+		else if (i != TILE_NO_Y - 1)
+		{
+			temp[0][i].bottom = &temp[0][i + 1];
+		}
+		temp[0][i].right = &temp[1][i];
+	}
+
+	//TOP
+	for (int i = 0; i < TILE_NO_X; i++)
+	{
+		if (i != 0)
+		{
+			temp[i][0].left = &temp[i - 1][0];
+		}
+		else if (i != TILE_NO_X - 1)
+		{
+			temp[i][0].right = &temp[1 + i][0];
+		}
+		temp[i][0].bottom = &temp[i][1];
+	}
+
+	//RIGHT
+	for (int i = 0; i < TILE_NO_Y; i++)
+	{
+		if (i != 0)
+		{
+			temp[TILE_NO_X - 1][i].top = &temp[TILE_NO_X - 1][i - 1];
+		}
+		else if (i != TILE_NO_Y - 1)
+		{
+			temp[TILE_NO_X - 1][i].bottom = &temp[TILE_NO_X - 1][i + 1];
+		}
+		temp[TILE_NO_X - 1][i].left = &temp[TILE_NO_X - 2][i];
+	}
+
+	//BOTTOM
+	for (int i = 0; i < TILE_NO_X; i++)
+	{
+		if (i != 0)
+		{
+			temp[i][TILE_NO_Y - 1].left = &temp[i - 1][TILE_NO_Y - 1];
+		}
+		else if (i != TILE_NO_X - 1)
+		{
+			temp[i][TILE_NO_Y - 1].right = &temp[1 + i][TILE_NO_Y - 1];
+		}
+		temp[i][TILE_NO_Y - 1].top = &temp[i][TILE_NO_Y - 2];
+	}
+
+	for (int i = 1; i < TILE_NO_X - 1; i++)
+	{
+		for (int j = 1; j < TILE_NO_Y - 1; j++)
+		{
+			temp[i][j].top = &temp[i][j - 1];
+			temp[i][j].left = &temp[i - 1][j];
+			temp[i][j].right = &temp[i + 1][j];
+			temp[i][j].bottom = &temp[i][j + 1];
+		}
+	}
 }

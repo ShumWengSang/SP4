@@ -54,6 +54,8 @@ public:
 	void LoadButtons();
 	void DrawButtons();
 
+	void buyMask(int stall, int maskNo);
+
 	//Inputs
 	void MouseMove (int x, int y);
 	void MouseClick(int button, int state, int x, int y);
@@ -65,6 +67,7 @@ public:
 
 	int DayNumber;
 	int HourNumber;
+
 private:
 	static CGamePlayState theGamePlayState;
 
@@ -81,6 +84,6 @@ private:
 	CMoney theMoney;
 	CButtons* theButton[4];
 	CStalls* theStall[3];
-	Grid theGrid;
+	Grid* theGrid;
 };
 

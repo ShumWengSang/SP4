@@ -414,7 +414,7 @@ void CStartOfDayState::drawInfo()
 			printw (550.0, 250.0, 0, "Number of mask for sell: %d", CPlayState::Instance()->theStall[2]->getMaskNo());
 			printw (550.0, 270.0, 0, "Price of mask for sell: %d", CPlayState::Instance()->theStall[2]->getMaskPrice());
 
-			printw (SCREEN_WIDTH/2 - 200, SCREEN_HEIGHT/2 + 100, 0, "Weather Forecast");
+			printw (SCREEN_WIDTH/2 - 200, SCREEN_HEIGHT/2 + 100, 0, "Weather Forecast: %d", CPlayState::Instance()->forecasting->getCurrentForecast());
 
 			printw (SCREEN_WIDTH / 2 + 100, SCREEN_HEIGHT/2 + 100, 0, "Mask in Stock: %d", CPlayState::Instance()->maskInStock);
 

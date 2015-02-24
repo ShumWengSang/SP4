@@ -30,6 +30,7 @@ void CGamePlayState::LoadButtons()
 void CGamePlayState::Init()
 {
 	cout << "CGamePlayState::Init\n" << endl;
+	theGrid = new Grid();
 
 	isPause = false;
 	shopSelected = false;
@@ -55,8 +56,8 @@ void CGamePlayState::Init()
 		int x = rand() % TILE_NO_X;
 		int y = rand() % TILE_NO_Y;
 
-		theGrid.temp[x][y].TileHazeValue = CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime];
-		theSeededTiles.push_back(&theGrid.temp[x][y]);
+		theGrid->temp[x][y].TileHazeValue = CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime];
+		theSeededTiles.push_back(&theGrid->temp[x][y]);
 		//GET TILE INFO FROM POSITION
 		//SET THE HAZE
 	}
@@ -65,6 +66,8 @@ void CGamePlayState::Init()
 	TimerKeySeed = theTimerInstance->insertNewTime(3000);
 	TimerKeyDay = theTimerInstance->insertNewTime(27000);
 	HourNumber = 0;
+
+	theListofEntities.push_back(theGrid);
 
 }
 
@@ -105,21 +108,21 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 		(*i)->Update();
 	}
 
+	//if (theTimerInstance->executeTime(TimerKeyDay))
+	//{
+		//DayNumber++;
+		//CInGameStateManager::getInstance()->ChangeState(CEndOfDayState::Instance());
+		//HourNumber = 0;
+	//}
 	if (theTimerInstance->executeTime(TimerKeySeed))
 	{
 		HourNumber++;
-		for (auto i = theSeededTiles.begin(); i != theSeededTiles.end(); i++)
+		if (!(HourNumber * DayTime >= noiseWidth))
 		{
-			(*i)->TileHazeValue = CPlayState::Instance()->theHaze.HazeGraph[HourNumber * DayTime];
-		}
-	}
-
-	if (theTimerInstance->executeTime(TimerKeySeed))
-	{
-		HourNumber++;
-		for (auto i = theSeededTiles.begin(); i != theSeededTiles.end(); i++)
-		{
-			(*i)->TileHazeValue = CPlayState::Instance()->theHaze.HazeGraph[HourNumber * DayTime];
+			for (auto i = theSeededTiles.begin(); i != theSeededTiles.end(); i++)
+			{
+				(*i)->TileHazeValue = CPlayState::Instance()->theHaze.HazeGraph[HourNumber + DayNumber * DayTime] * 8;
+			}
 		}
 	}
 
@@ -129,16 +132,12 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 		CInGameStateManager::getInstance()->ChangeState(CEndOfDayState::Instance());
 	}
 
-
 }
 
 void CGamePlayState::Draw(CInGameStateManager* theGSM) 
 {
 
-	for (auto i = theListofEntities.begin(); i != theListofEntities.end(); i++)
-	{
-		(*i)->glRenderObject();
-	}
+
 
 	glPushMatrix();
 		glEnable(GL_BLEND);
@@ -158,19 +157,30 @@ void CGamePlayState::Draw(CInGameStateManager* theGSM)
 	glPopMatrix();
 
 
+	//theGrid.renderGrid(false);
+	for (auto i = theListofEntities.begin(); i != theListofEntities.end(); i++)
+	{
+		(*i)->glRenderObject();
+	}
+
 	// Render Objects to be selected in the color scheme
 	if(CInputSystem::getInstance()->mouseInfo.mLButtonUp == false) {
-		CApplication::getInstance()->setClickCheck(true);
+		/*CApplication::getInstance()->setClickCheck(true);
 		theGrid.renderGrid(true);
 		ClickCollision();
 	}else {
 		CApplication::getInstance()->setClickCheck(false);
 		theGrid.renderGrid(false);
-	}
+	}*/
+		theGrid->Click = true;
+		ClickCollision();
+	}else
+		theGrid->Click = false;
 
 	CApplication::getInstance()->theCamera->SetHUD(true);
 
 	DrawButtons();//pause button here
+	//drawInfo();
 
 	CApplication::getInstance()->theCamera->SetHUD(false);
 }
@@ -184,6 +194,16 @@ void CGamePlayState::DrawButtons()
 	theButton[shop]->drawButton();
 	theButton[shop2]->drawButton();
 	theButton[shop3]->drawButton();
+}
+
+void CGamePlayState::buyMask(int stall, int maskNo) //0 is first stall
+{
+	CPlayState::Instance()->theStall[stall]->setMaskSold(2);
+	CPlayState::Instance()->theStall[stall]->setTotalMaskSold(CPlayState::Instance()->theStall[stall]->getMaskSold());
+	CPlayState::Instance()->theStall[stall]->setMaskNo(CPlayState::Instance()->theStall[stall]->getMaskNo() - CPlayState::Instance()->theStall[stall]->getMaskSold());
+	cout << "mask sold " << CPlayState::Instance()->theStall[stall]->getMaskSold() << endl;
+	cout << "mask in stall: " << CPlayState::Instance()->theStall[stall]->getMaskNo() << endl;
+	cout << "total mask sold: " << CPlayState::Instance()->theStall[stall]->getTotalMaskSold() << endl;
 }
 
 void CGamePlayState::keyboardUpdate()
@@ -207,13 +227,8 @@ void CGamePlayState::keyboardUpdate()
 	{
 		if(CPlayState::Instance()->theStall[0]->getMaskNo() >= CPlayState::Instance()->theStall[0]->getMaskSold())
 		{
-			CPlayState::Instance()->theStall[0]->setMaskSold(2);
-			CPlayState::Instance()->theStall[0]->setTotalMaskSold(CPlayState::Instance()->theStall[0]->getMaskSold());
-			CPlayState::Instance()->theStall[0]->setMaskNo(CPlayState::Instance()->theStall[0]->getMaskNo() - CPlayState::Instance()->theStall[0]->getMaskSold());
+			buyMask(0, 2);
 			CPlayState::Instance()->earned = CPlayState::Instance()->theStall[0]->getTotalMaskSold() * CPlayState::Instance()->theStall[0]->getMaskPrice();
-			cout << "1. mask sold " << CPlayState::Instance()->theStall[0]->getMaskSold() << endl;
-			cout << "mask in stall: " << CPlayState::Instance()->theStall[0]->getMaskNo() << endl;
-			cout << "total mask sold: " << CPlayState::Instance()->theStall[0]->getTotalMaskSold() << endl;
 			cout << CPlayState::Instance()->earned << endl;
 		}
 		else
@@ -223,13 +238,8 @@ void CGamePlayState::keyboardUpdate()
 	{
 		if(CPlayState::Instance()->theStall[1]->getMaskNo() >= CPlayState::Instance()->theStall[1]->getMaskSold())
 		{
-			CPlayState::Instance()->theStall[1]->setMaskSold(2);
-			CPlayState::Instance()->theStall[1]->setTotalMaskSold(CPlayState::Instance()->theStall[1]->getMaskSold());
-			CPlayState::Instance()->theStall[1]->setMaskNo(CPlayState::Instance()->theStall[1]->getMaskNo() - CPlayState::Instance()->theStall[1]->getMaskSold());
+			buyMask(1, 2);
 			CPlayState::Instance()->earned2 = CPlayState::Instance()->theStall[1]->getTotalMaskSold() * CPlayState::Instance()->theStall[1]->getMaskPrice();
-			cout << "2. mask sold " << CPlayState::Instance()->theStall[1]->getMaskSold() << endl;
-			cout << "mask in stall: " << CPlayState::Instance()->theStall[1]->getMaskNo() << endl;
-			cout << "total mask sold: " << CPlayState::Instance()->theStall[1]->getTotalMaskSold() << endl;
 			cout << CPlayState::Instance()->earned2 << endl;
 		}
 		else
@@ -237,16 +247,11 @@ void CGamePlayState::keyboardUpdate()
 	}
 	if(CInputSystem::getInstance()->myKeys['c'])
 	{
-		if(CPlayState::Instance()->theStall[2]->getMaskNo() > 0)
+		if(CPlayState::Instance()->theStall[2]->getMaskNo() >= CPlayState::Instance()->theStall[2]->getMaskSold())
 		{
-			CPlayState::Instance()->theStall[2]->setMaskSold(2);
-			CPlayState::Instance()->theStall[2]->setTotalMaskSold(CPlayState::Instance()->theStall[2]->getMaskSold());
-			CPlayState::Instance()->theStall[2]->setMaskNo(CPlayState::Instance()->theStall[2]->getMaskNo() - CPlayState::Instance()->theStall[2]->getMaskSold());
+			buyMask(2, 2);
 			CPlayState::Instance()->earned3 = CPlayState::Instance()->theStall[2]->getTotalMaskSold() * CPlayState::Instance()->theStall[2]->getMaskPrice();
-			cout << "2. mask sold " << CPlayState::Instance()->theStall[2]->getMaskSold() << endl;
-			cout << "mask in stall: " << CPlayState::Instance()->theStall[2]->getMaskNo() << endl;
-			cout << "total mask sold: " << CPlayState::Instance()->theStall[2]->getTotalMaskSold() << endl;
-			cout << CPlayState::Instance()->earned2 << endl;
+			cout << CPlayState::Instance()->earned3 << endl;
 		}
 		else
 			cout << "no mask" << endl;
@@ -325,6 +330,42 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 				}
 				else
 					shopSelected = false;
+
+				// Render Objects to be selected in the color scheme
+				theGrid->Click = true;
+				//theGrid.renderGrid(true);
+
+
+				/*GLint window_width = glutGet(GLUT_WINDOW_WIDTH);
+				GLint window_height = glutGet(GLUT_WINDOW_HEIGHT);
+ 
+				unsigned char color[3];
+ 
+				glReadPixels(x, window_height - y, 1, 1, GL_RGB, GL_UNSIGNED_BYTE, color);
+ 
+				float colorf[3];
+				colorf[0] = (float)color[0]/255;
+				colorf[1] = (float)color[1]/255;
+				colorf[2] = (float)color[2]/255;
+
+				printf("Clicked on pixel %d, %d, color %0.2f %0.2f %0.2f\n", x, y, colorf[0], colorf[1], colorf[2]);
+
+				//Check color scheme for grids
+				int a = 0;
+				int s = 0;
+				int maxa = TILE_NO_X;
+				int maxs = TILE_NO_Y;
+				while(a == maxa) {
+					if(s == maxs) {
+						s = 0;
+						a++;
+					}
+
+					if(theGrid->temp[a][s].getColor() == Vector3(colorf[0], colorf[1], colorf[2]))
+						printf("Confirmed grid clicked %0.2f %0.2f %0.2f\n\n", colorf[0], colorf[1], colorf[2]);
+						
+					s++;
+				}*/
 
 			}
 			CInputSystem::getInstance()->mouseInfo.clickedX = x;

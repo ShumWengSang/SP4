@@ -1,40 +1,6 @@
 #include "Forecast.h"
 
 
-/*
-#include "Forecast.h"
-
-#include <iostream>
-#include "time.h"
-using namespace std;
-
-CForecast *forecasr;
-
-void main (void)
-{
-	srand(time(NULL));
-	int psi[7];
-	forecasr = new CForecast;
-	forecasr->init();
-
-	for ( int i = 0; i < 7; i++)
-	{
-		psi[i] = rand() % 10 + 1;
-
-		cout << forecasr->forecasting(i+1) << ", " << psi[i] << endl;
-		cout << forecasr->getCurrentDay() << endl;
-
-		forecasr->setCurrentDay(i+2);
-		forecasr->setActualRange(psi[i], i+1);
-		
-		cout << endl;
-	}
-
-	system("pause");
-}
-*/
-
-
 CForecast::CForecast(void)
 {
 }
@@ -45,7 +11,7 @@ CForecast::~CForecast(void)
 
 void CForecast::init()
 {
-	setCurrentDay(1);
+	currentDay = 1;
 
 	for(int i=0; i<7; i++){
 		forecastNum[i] = 0;
@@ -53,55 +19,61 @@ void CForecast::init()
 		actualNumRange[i] = 0;
 	}
 
-	maxRange = 5;
+	maxRange = 10;
 }
 
 
-int CForecast::forecasting(int day)
+void CForecast::forecasting()
 {
-	//if (currentDay == day)
-		return checkDay(day);
-}
-
-int CForecast::checkDay(int curDay)
-{
-	if(curDay == 2)
+	for (int day = 1; day < 8; day++)
 	{
-		return setForecastNumRange(actualNumRange[0], actualNumRange[0], 0);
+		checkDay(day);
+		cout << "Day: " << getCurrentDay() << endl;
+		cout << "Forecasting: " << getCurrentForecast() << endl;
+		cout << "Actual: " << getActual() << endl;
+		updateCurrentDay();
 	}
-	else if(curDay == 3)
+}
+
+void CForecast::checkDay(int curDay)
+{
+	if(curDay == 2) //day 2
+	{
+		setForecastNumRange(actualNumRange[0], actualNumRange[0], 1, curDay);
+	}
+	else if(curDay == 3) //day 3
 	{
 		if (actualNumRange[0] < actualNumRange[1]) //going up
-			return setForecastNumRange(actualNumRange[0], actualNumRange[1], 1);
+			setForecastNumRange(actualNumRange[0], actualNumRange[1], 1, curDay);
 		
 		else if (actualNumRange[1] < actualNumRange[0]) //going down
-			return setForecastNumRange(actualNumRange[1], actualNumRange[0],-1);
+			setForecastNumRange(actualNumRange[1], actualNumRange[0],-1, curDay);
 		
 		else if (actualNumRange[0] == actualNumRange[1])//same
-			return setForecastNumRange(actualNumRange[0], actualNumRange[1], 0);
+			setForecastNumRange(actualNumRange[0], actualNumRange[1], 0, curDay);
 	}
-	else if(curDay > 3)
+	else if(curDay > 3) //day 4++
 	{
 		int sum = 0;
 	
 		sum += actualNumRange[curDay-2] - actualNumRange[curDay-4];
 		
 		if (actualNumRange[curDay-3] < actualNumRange[curDay-2]) //going up
-			return setForecastNumRange(actualNumRange[curDay-3], actualNumRange[curDay-2], sum);
+			setForecastNumRange(actualNumRange[curDay-3], actualNumRange[curDay-2], sum, curDay);
 		
 		else if (actualNumRange[curDay-2] < actualNumRange[curDay-3]) //going down
-			return setForecastNumRange(actualNumRange[curDay-2], actualNumRange[curDay-3], sum);
+			setForecastNumRange(actualNumRange[curDay-2], actualNumRange[curDay-3], sum, curDay);
 	
 		else if (actualNumRange[curDay-2] == actualNumRange[curDay-3]) //same
-			return setForecastNumRange(actualNumRange[curDay-3], actualNumRange[curDay-2], sum);
+			setForecastNumRange(actualNumRange[curDay-3], actualNumRange[curDay-2], sum, curDay);
 	}
-	else
+	else //day 1
 	{
-		return setForecastNumRange(1, 10, 0);
+		setForecastNumRange(2, 2, 1, curDay);
 	}
 }
 
-int CForecast::setForecastNumRange(int lowRange, int highRange, int higherChance)
+void CForecast::setForecastNumRange(int lowRange, int highRange, int higherChance, int day)
 {
 	int lR, hR, hC;
 	int result;
@@ -148,45 +120,51 @@ int CForecast::setForecastNumRange(int lowRange, int highRange, int higherChance
 
 	result= prediction(lR, hR, hC);
 
-	forecastNumRange[currentDay-1] = result;
+	forecastNumRange[day-1] = result;
 
 	/*
 	1= 1-50
 	2= 51-100
 	3= 101-150
 	4= 151-200
-	5= 201-300
+	5= 201-250
+	6= 251-300
+	7= 301-350
+	8= 351-400
+	9= 401-450
+	10=451-500
 	*/
-	switch ( result )
-	{
-	case 1:
-		//forecastNumRange[day-1] = 1;
-		forecastNum[currentDay-1] = rand() % 50 +1;
-		break;
-	case 2:
-		//forecastNumRange[day-1] = 2;
-		forecastNum[currentDay-1] = rand() % 50 +51;
-		break;
-	case 3:
-		//forecastNumRange[day-1] = 3;
-		forecastNum[currentDay-1] = rand() % 50 +101;
-		break;
-	case 4:
-		//forecastNumRange[day-1] = 4;
-		forecastNum[currentDay-1] = rand() % 50 +151;
-		break;
-	case 5:
-		//forecastNumRange[day-1] = 5;
-		forecastNum[currentDay-1] = rand() % 100 +201;
-		break;
-	}
 
-	return forecastNumRange[currentDay-1];
+	forecastNum[day-1] = rand() % 50 + ((result-1)*50+1);
+
+	//switch ( result )
+	//{
+	//case 1:
+	//	//forecastNumRange[day-1] = 1;
+	//	forecastNum[day-1] = rand() % 50 +1;
+	//	break;
+	//case 2:
+	//	//forecastNumRange[day-1] = 2;
+	//	forecastNum[day-1] = rand() % 50 +51;
+	//	break;
+	//case 3:
+	//	//forecastNumRange[day-1] = 3;
+	//	forecastNum[day-1] = rand() % 50 +101;
+	//	break;
+	//case 4:
+	//	//forecastNumRange[day-1] = 4;
+	//	forecastNum[day-1] = rand() % 50 +151;
+	//	break;
+	//case 5:
+	//	//forecastNumRange[day-1] = 5;
+	//	forecastNum[day-1] = rand() % 100 +201;
+	//	break;
+	//}
 }
 
 int CForecast::prediction(int lowRange, int highRange, int highestChance)
 {
-	int temp[6] = {0,0,0,0,0,0};
+	int temp[11] = {0,0,0,0,0,0,0,0,0,0,0};
 
 	for(int start = 0; start < maxRange; start++)
 	{
@@ -220,21 +198,34 @@ int CForecast::prediction(int lowRange, int highRange, int highestChance)
 
 
 
-void CForecast::setCurrentDay(int day)
+void CForecast::updateCurrentDay()
 {
-	currentDay = day;
+	currentDay++;
 }
-void CForecast::setActualRange(std::vector<float> actual)
+void CForecast::setActualArray(std::vector<float> actual)
 {
 	for (int i = 0; i < 7; i++)
-	actualNumRange[i] = actual.at(i);
+	{
+		actualNum[i] = actual.at(i);
+		cout << "A: " << actualNum[i] << endl;
+		for (int j = 1; j < 11; j++)
+		{
+			if (actualNum[i] > (j-1)*50 && actualNum[i] < j*50)
+				actualNumRange[i] = j;
+				continue;
+		}
+	}
 }
 
 int CForecast::getCurrentDay()
 {
 	return currentDay;
 }
-float CForecast::getCurrentForecast()
+int CForecast::getCurrentForecast()
 {
 	return forecastNum[currentDay-1];
+}
+float CForecast::getActual()
+{
+	return actualNum[currentDay-1];
 }
