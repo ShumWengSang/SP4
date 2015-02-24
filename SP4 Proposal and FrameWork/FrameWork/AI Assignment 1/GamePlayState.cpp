@@ -157,7 +157,13 @@ void CGamePlayState::Draw(CInGameStateManager* theGSM)
 		glDisable(GL_BLEND);
 	glPopMatrix();
 
-	theGrid.renderGrid(false);
+
+	// Render Objects to be selected in the color scheme
+	if(CInputSystem::getInstance()->mouseInfo.mLButtonUp == false) {
+		theGrid.renderGrid(true);
+		cout << endl;
+	}else
+		theGrid.renderGrid(false);
 
 	CApplication::getInstance()->theCamera->SetHUD(true);
 
@@ -293,9 +299,9 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 
 		case GLUT_LEFT_BUTTON:
 			if (state == GLUT_UP) 
-				CInputSystem::getInstance()->mouseInfo.mLButtonUp = false;
-			else {
 				CInputSystem::getInstance()->mouseInfo.mLButtonUp = true;
+			else {
+				CInputSystem::getInstance()->mouseInfo.mLButtonUp = false;
 
 				
 				if(theButton[pause]->isInside(x, y) && isPause == false)
@@ -317,15 +323,12 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 				else
 					shopSelected = false;
 
-				// Render Objects to be selected in the color scheme
-				theGrid.renderGrid(true);
-
 				GLint window_width = glutGet(GLUT_WINDOW_WIDTH);
 				GLint window_height = glutGet(GLUT_WINDOW_HEIGHT);
  
 				unsigned char color[3];
  
-				glReadPixels(x, window_height - y - 1, 1, 1, GL_RGB, GL_UNSIGNED_BYTE, color);
+				glReadPixels(x, window_height - y, 1, 1, GL_RGB, GL_UNSIGNED_BYTE, color);
  
 				float colorf[3];
 				colorf[0] = (float)color[0]/255;
