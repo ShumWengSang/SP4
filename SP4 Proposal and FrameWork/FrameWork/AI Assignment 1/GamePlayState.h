@@ -64,6 +64,7 @@ public:
 	}
 
 	int DayNumber;
+	int HourNumber;
 private:
 	static CGamePlayState theGamePlayState;
 
@@ -71,7 +72,7 @@ private:
 	std::vector<Tiles *> theSeededTiles;
 
 	CTimer * theTimerInstance;
-	int TimerKey;
+	int TimerKeySeed;
 
 	CMoney theMoney;
 	CButtons* theButton[4];
