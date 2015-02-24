@@ -5,6 +5,7 @@ CStalls::CStalls(void)
 	gasMaskAmount = 0;
 	maskPrice = 0;
 	maskSold = 0;
+	totalMaskSold = 0;
 }
 
 CStalls::~CStalls(void)
@@ -23,6 +24,10 @@ int CStalls::getMaskSold()
 {
 	return maskSold;
 }
+int CStalls::getTotalMaskSold()
+{
+	return totalMaskSold;
+}
 
 void CStalls::setMaskNo(int mn)
 {
@@ -35,6 +40,11 @@ void CStalls::setMaskPrice(int mp)
 void CStalls::setMaskSold(int ms)
 {
 	maskSold = ms;
+}
+
+void CStalls::setTotalMaskSold(int ms)
+{
+	totalMaskSold += ms;
 }
 
 void CStalls::buyMask(int amt)

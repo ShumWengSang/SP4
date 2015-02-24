@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <vector>
 using namespace std;
 
 
@@ -7,7 +8,6 @@ class CForecast
 {
 	int forecastNum[7]; //value of forecasts
 	int forecastNumRange[7]; //value of forecasts in a range of numbers
-	int actualNum[7]; //value of actual PSI
 	int actualNumRange[7]; //value of actual PSI in a range of numbers
 	
 	int currentDay;
@@ -25,8 +25,7 @@ public:
 	int prediction(int lowRange, int highRange, int highestChance);
 
 	void setCurrentDay(int day);
-	void setActual(float value, int day); //set value on day X
-	void setActualRange(float value, int range); //set range on range X
+	void setActualRange(std::vector<float> actual); //set range on range X
 
 	int getCurrentDay();
 	float getCurrentForecast();

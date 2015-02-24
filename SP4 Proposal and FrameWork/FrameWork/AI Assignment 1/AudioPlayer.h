@@ -19,10 +19,9 @@ private:
 	string fileName;
 	int volume;
 	int position;
-
+	
+	
 public:
-	AudioPlayer();
-	AudioPlayer(string soundFile); // Doesn't play sound, only initializes fileName
 	~AudioPlayer();
 	/* All play functions STOP execution of the program except
 	* playSoundThreaded(). Note: It isn't really multi-threaded.
@@ -51,6 +50,21 @@ public:
 	void decreaseVolume();
 	void decreaseVolume(int increment);
 	int getCurrentVolume();
-};
 
+
+	static AudioPlayer* Instance() {
+		if(theAPlayer == NULL)
+			theAPlayer = new AudioPlayer();
+		return theAPlayer;
+	}
+
+
+
+	
+private:
+	static AudioPlayer* theAPlayer;
+	AudioPlayer();
+	AudioPlayer(string soundFile); // Doesn't play sound, only initializes fileName
+
+};
 #endif

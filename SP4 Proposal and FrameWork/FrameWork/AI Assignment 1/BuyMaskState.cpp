@@ -1,6 +1,7 @@
 #include "BuyMaskState.h"
 #include "PlayState.h"
 #include "StartOfDayState.h"
+#include "LoadState.h"
 
 CBuyMaskState CBuyMaskState::theBuyMaskState;
 
@@ -39,7 +40,12 @@ void CBuyMaskState::Init()
 	LoadButtons();
 	font_style = GLUT_BITMAP_HELVETICA_18;
 
-	CPlayState::Instance()->theMoney.setCurrentMoney(1000);
+
+	if (CLoadState::Instance()->getLoaded())
+		CPlayState::Instance()->theMoney.setCurrentMoney(CLoadState::Instance()->getLoadData()->getMoney());
+	else
+		CPlayState::Instance()->theMoney.setCurrentMoney(1000);
+
 	needMoney = false;
 
 	//Input System
@@ -125,7 +131,10 @@ void CBuyMaskState::MouseClick(int button, int state, int x, int y) {
 
 				//go to sell setting
 				if(theButton[nextPage]->isInside(x, y))
+				{
 					CInGameStateManager::getInstance()->ChangeState(CStartOfDayState::Instance());
+					CPlayState::Instance()->oldMaskValue = CPlayState::Instance()->maskInStock;
+				}
 
 				if(theButton[bFifty]->isInside(x, y))
 				{

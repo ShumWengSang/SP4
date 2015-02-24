@@ -13,7 +13,7 @@ private:
 	int maskSold;
 	Vector3 pos;
 	Vector3 scale;
-
+	int totalMaskSold;
 public:
 	CStalls(void);
 	~CStalls(void);
@@ -23,10 +23,12 @@ public:
 	int getMaskNo();
 	int getMaskPrice();
 	int getMaskSold();
+	int getTotalMaskSold();
 
 	void setMaskNo(int mn);
 	void setMaskPrice(int mp);
 	void setMaskSold(int ms);
+	void setTotalMaskSold(int tms);
 
 	void buyMask(int amt);
 	void moveStall();

@@ -13,6 +13,7 @@ void CSaveLoad::init()
 	day = 0;
 	money = 0;
 	mask = 0;
+	here = false;
 }
 
 void CSaveLoad::Load(string fileName)
@@ -36,11 +37,15 @@ void CSaveLoad::Load(string fileName)
 
 			getline (inData, data[3]);
 			mask = stoi(data[3].c_str());
+
+			here = true;
 		}	
 
 		inData.close ();
 	}
-	//else cout << "Failed opening" << endl;
+	else
+		here = false;
+		//cout << "Failed opening" << endl;
 }
 
 void CSaveLoad::Save(string fileName)
@@ -84,4 +89,9 @@ int CSaveLoad::getMoney()
 int CSaveLoad::getMask()
 {
 	return mask;
+}
+
+bool CSaveLoad::getHere()
+{
+	return here;
 }
