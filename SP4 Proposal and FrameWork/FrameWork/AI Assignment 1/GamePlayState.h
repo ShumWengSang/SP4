@@ -76,6 +76,8 @@ private:
 
 	int TimerKeyDay;
 
+	void ClickCollision();
+
 	CMoney theMoney;
 	CButtons* theButton[4];
 	CStalls* theStall[3];

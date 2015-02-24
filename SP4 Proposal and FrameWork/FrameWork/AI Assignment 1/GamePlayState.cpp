@@ -160,10 +160,13 @@ void CGamePlayState::Draw(CInGameStateManager* theGSM)
 
 	// Render Objects to be selected in the color scheme
 	if(CInputSystem::getInstance()->mouseInfo.mLButtonUp == false) {
+		CApplication::getInstance()->setClickCheck(true);
 		theGrid.renderGrid(true);
-		cout << endl;
-	}else
+		ClickCollision();
+	}else {
+		CApplication::getInstance()->setClickCheck(false);
 		theGrid.renderGrid(false);
+	}
 
 	CApplication::getInstance()->theCamera->SetHUD(true);
 
@@ -323,37 +326,6 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 				else
 					shopSelected = false;
 
-				GLint window_width = glutGet(GLUT_WINDOW_WIDTH);
-				GLint window_height = glutGet(GLUT_WINDOW_HEIGHT);
- 
-				unsigned char color[3];
- 
-				glReadPixels(x, window_height - y, 1, 1, GL_RGB, GL_UNSIGNED_BYTE, color);
- 
-				float colorf[3];
-				colorf[0] = (float)color[0]/255;
-				colorf[1] = (float)color[1]/255;
-				colorf[2] = (float)color[2]/255;
-
-				printf("Clicked on pixel %d, %d, color %0.2f %0.2f %0.2f\n", x, y, colorf[0], colorf[1], colorf[2]);
-
-				//Check color scheme for grids
-				int a = 0;
-				int s = 0;
-				int maxa = TILE_NO_X;
-				int maxs = TILE_NO_Y;
-				while(a == maxa) {
-					if(s == maxs) {
-						s = 0;
-						a++;
-					}
-
-					if(theGrid.temp[a][s].getColor() == Vector3(colorf[0], colorf[1], colorf[2]))
-						printf("Confirmed grid clicked %0.2f %0.2f %0.2f\n\n", colorf[0], colorf[1], colorf[2]);
-						
-					s++;
-				}
-
 			}
 			CInputSystem::getInstance()->mouseInfo.clickedX = x;
 			CInputSystem::getInstance()->mouseInfo.clickedY = y;
@@ -382,3 +354,52 @@ void CGamePlayState::MouseWheel(int button, int dir, int x, int y) {
 		CApplication::getInstance()->theCamera->SetPosition(temp.x,temp.y,temp.z);
 	}
 }
+
+void CGamePlayState::ClickCollision() {
+
+	GLint window_width = glutGet(GLUT_WINDOW_WIDTH);
+	GLint window_height = glutGet(GLUT_WINDOW_HEIGHT);
+
+	int x = CInputSystem::getInstance()->mouseInfo.clickedX;
+	int y = CInputSystem::getInstance()->mouseInfo.clickedY;
+
+	unsigned char color[3];
+ 
+	glReadPixels(x, window_height - y, 1, 1, GL_RGB, GL_UNSIGNED_BYTE, color);
+ 
+	float colorf[3];
+	colorf[0] = (float)color[0]/255;
+	colorf[1] = (float)color[1]/255;
+	colorf[2] = (float)color[2]/255;
+
+	printf("Clicked on pixel %d, %d, color %0.2f %0.2f %0.2f\n", x, y, colorf[0], colorf[1], colorf[2]);
+
+	//Check color scheme for grids
+	/*int a = 0;
+	int s = 0;
+	int maxa = TILE_NO_X;
+	int maxs = TILE_NO_Y;
+	while(a != maxa) {
+		if(s == maxs) {
+			s = 0;
+			a++;
+		}
+
+		if(theGrid.temp[a][s].getColor() == Vector3(colorf[0], colorf[1], colorf[2]))
+				printf("Confirmed grid clicked %d %d\n\n", a, s);
+						
+		s++;
+	}*/
+
+	for(int a = 0; a < TILE_NO_X; a++)
+	{
+		for(int s = 0; s < TILE_NO_Y; s++)
+		{
+			if(theGrid.temp[a][s].getColor() == Vector3(colorf[0], colorf[1], colorf[2])) {
+				printf("Confirmed grid clicked %d %d\n\n", a, s);
+				break;
+			}
+		}
+	}
+}
+
