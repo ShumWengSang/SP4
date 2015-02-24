@@ -128,8 +128,6 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 		DayNumber++;
 		CInGameStateManager::getInstance()->ChangeState(CEndOfDayState::Instance());
 	}
-
-
 }
 
 void CGamePlayState::Draw(CInGameStateManager* theGSM) 
@@ -162,6 +160,7 @@ void CGamePlayState::Draw(CInGameStateManager* theGSM)
 	CApplication::getInstance()->theCamera->SetHUD(true);
 
 	DrawButtons();//pause button here
+	//drawInfo();
 
 	CApplication::getInstance()->theCamera->SetHUD(false);
 }
@@ -175,6 +174,16 @@ void CGamePlayState::DrawButtons()
 	theButton[shop]->drawButton();
 	theButton[shop2]->drawButton();
 	theButton[shop3]->drawButton();
+}
+
+void CGamePlayState::buyMask(int stall, int maskNo) //0 is first stall
+{
+	CPlayState::Instance()->theStall[stall]->setMaskSold(2);
+	CPlayState::Instance()->theStall[stall]->setTotalMaskSold(CPlayState::Instance()->theStall[stall]->getMaskSold());
+	CPlayState::Instance()->theStall[stall]->setMaskNo(CPlayState::Instance()->theStall[stall]->getMaskNo() - CPlayState::Instance()->theStall[stall]->getMaskSold());
+	cout << "mask sold " << CPlayState::Instance()->theStall[stall]->getMaskSold() << endl;
+	cout << "mask in stall: " << CPlayState::Instance()->theStall[stall]->getMaskNo() << endl;
+	cout << "total mask sold: " << CPlayState::Instance()->theStall[stall]->getTotalMaskSold() << endl;
 }
 
 void CGamePlayState::keyboardUpdate()
@@ -198,13 +207,8 @@ void CGamePlayState::keyboardUpdate()
 	{
 		if(CPlayState::Instance()->theStall[0]->getMaskNo() >= CPlayState::Instance()->theStall[0]->getMaskSold())
 		{
-			CPlayState::Instance()->theStall[0]->setMaskSold(2);
-			CPlayState::Instance()->theStall[0]->setTotalMaskSold(CPlayState::Instance()->theStall[0]->getMaskSold());
-			CPlayState::Instance()->theStall[0]->setMaskNo(CPlayState::Instance()->theStall[0]->getMaskNo() - CPlayState::Instance()->theStall[0]->getMaskSold());
+			buyMask(0, 2);
 			CPlayState::Instance()->earned = CPlayState::Instance()->theStall[0]->getTotalMaskSold() * CPlayState::Instance()->theStall[0]->getMaskPrice();
-			cout << "1. mask sold " << CPlayState::Instance()->theStall[0]->getMaskSold() << endl;
-			cout << "mask in stall: " << CPlayState::Instance()->theStall[0]->getMaskNo() << endl;
-			cout << "total mask sold: " << CPlayState::Instance()->theStall[0]->getTotalMaskSold() << endl;
 			cout << CPlayState::Instance()->earned << endl;
 		}
 		else
@@ -214,13 +218,8 @@ void CGamePlayState::keyboardUpdate()
 	{
 		if(CPlayState::Instance()->theStall[1]->getMaskNo() >= CPlayState::Instance()->theStall[1]->getMaskSold())
 		{
-			CPlayState::Instance()->theStall[1]->setMaskSold(2);
-			CPlayState::Instance()->theStall[1]->setTotalMaskSold(CPlayState::Instance()->theStall[1]->getMaskSold());
-			CPlayState::Instance()->theStall[1]->setMaskNo(CPlayState::Instance()->theStall[1]->getMaskNo() - CPlayState::Instance()->theStall[1]->getMaskSold());
+			buyMask(1, 2);
 			CPlayState::Instance()->earned2 = CPlayState::Instance()->theStall[1]->getTotalMaskSold() * CPlayState::Instance()->theStall[1]->getMaskPrice();
-			cout << "2. mask sold " << CPlayState::Instance()->theStall[1]->getMaskSold() << endl;
-			cout << "mask in stall: " << CPlayState::Instance()->theStall[1]->getMaskNo() << endl;
-			cout << "total mask sold: " << CPlayState::Instance()->theStall[1]->getTotalMaskSold() << endl;
 			cout << CPlayState::Instance()->earned2 << endl;
 		}
 		else
@@ -228,16 +227,11 @@ void CGamePlayState::keyboardUpdate()
 	}
 	if(CInputSystem::getInstance()->myKeys['c'])
 	{
-		if(CPlayState::Instance()->theStall[2]->getMaskNo() > 0)
+		if(CPlayState::Instance()->theStall[2]->getMaskNo() >= CPlayState::Instance()->theStall[2]->getMaskSold())
 		{
-			CPlayState::Instance()->theStall[2]->setMaskSold(2);
-			CPlayState::Instance()->theStall[2]->setTotalMaskSold(CPlayState::Instance()->theStall[2]->getMaskSold());
-			CPlayState::Instance()->theStall[2]->setMaskNo(CPlayState::Instance()->theStall[2]->getMaskNo() - CPlayState::Instance()->theStall[2]->getMaskSold());
+			buyMask(2, 2);
 			CPlayState::Instance()->earned3 = CPlayState::Instance()->theStall[2]->getTotalMaskSold() * CPlayState::Instance()->theStall[2]->getMaskPrice();
-			cout << "2. mask sold " << CPlayState::Instance()->theStall[2]->getMaskSold() << endl;
-			cout << "mask in stall: " << CPlayState::Instance()->theStall[2]->getMaskNo() << endl;
-			cout << "total mask sold: " << CPlayState::Instance()->theStall[2]->getTotalMaskSold() << endl;
-			cout << CPlayState::Instance()->earned2 << endl;
+			cout << CPlayState::Instance()->earned3 << endl;
 		}
 		else
 			cout << "no mask" << endl;
