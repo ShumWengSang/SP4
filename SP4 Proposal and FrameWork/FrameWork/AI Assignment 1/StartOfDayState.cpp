@@ -248,7 +248,7 @@ void CStartOfDayState::MouseClick(int button, int state, int x, int y) {
 				{
 					if(!(CPlayState::Instance()->maskInStock < 50))
 					{
-						CPlayState::Instance()->theStall[0]->setMaskNo(50);
+						CPlayState::Instance()->theStall[0]->setMaskNo(CPlayState::Instance()->theStall[0]->getMaskNo() + 50);
 						CPlayState::Instance()->maskInStock -= 50;
 					}
 				}
@@ -256,7 +256,7 @@ void CStartOfDayState::MouseClick(int button, int state, int x, int y) {
 				{
 					if(!(CPlayState::Instance()->maskInStock < 100))
 					{
-						CPlayState::Instance()->theStall[0]->setMaskNo(100);
+						CPlayState::Instance()->theStall[0]->setMaskNo(CPlayState::Instance()->theStall[0]->getMaskNo() + 100);
 						CPlayState::Instance()->maskInStock -= 100;
 					}
 				}
@@ -264,7 +264,7 @@ void CStartOfDayState::MouseClick(int button, int state, int x, int y) {
 				{
 					if(!(CPlayState::Instance()->maskInStock < 200))
 					{
-						CPlayState::Instance()->theStall[0]->setMaskNo(200);
+						CPlayState::Instance()->theStall[0]->setMaskNo(CPlayState::Instance()->theStall[0]->getMaskNo() + 200);
 						CPlayState::Instance()->maskInStock -= 200;
 					}
 				}
@@ -283,7 +283,7 @@ void CStartOfDayState::MouseClick(int button, int state, int x, int y) {
 				{
 					if(!(CPlayState::Instance()->maskInStock < 50))
 					{
-						CPlayState::Instance()->theStall[1]->setMaskNo(50);
+						CPlayState::Instance()->theStall[1]->setMaskNo(CPlayState::Instance()->theStall[1]->getMaskNo() + 50);
 						CPlayState::Instance()->maskInStock -= 50;
 					}
 				}
@@ -291,16 +291,15 @@ void CStartOfDayState::MouseClick(int button, int state, int x, int y) {
 				{
 					if(!(CPlayState::Instance()->maskInStock < 100))
 					{
-						CPlayState::Instance()->theStall[1]->setMaskNo(100);
+						CPlayState::Instance()->theStall[1]->setMaskNo(CPlayState::Instance()->theStall[1]->getMaskNo() + 100);
 						CPlayState::Instance()->maskInStock -= 100;
 					}
 				}
-
 				if(theButton[twohundred2]->isInside(x, y))
 				{
 					if(!(CPlayState::Instance()->maskInStock < 200))
 					{
-						CPlayState::Instance()->theStall[1]->setMaskNo(200);
+						CPlayState::Instance()->theStall[1]->setMaskNo(CPlayState::Instance()->theStall[1]->getMaskNo() + 200);
 						CPlayState::Instance()->maskInStock -= 200;
 					}
 				}
@@ -320,7 +319,7 @@ void CStartOfDayState::MouseClick(int button, int state, int x, int y) {
 				{
 					if(!(CPlayState::Instance()->maskInStock < 50))
 					{
-						CPlayState::Instance()->theStall[2]->setMaskNo(50);
+						CPlayState::Instance()->theStall[2]->setMaskNo(CPlayState::Instance()->theStall[2]->getMaskNo() + 50);
 						CPlayState::Instance()->maskInStock -= 50;
 					}
 				}
@@ -328,7 +327,7 @@ void CStartOfDayState::MouseClick(int button, int state, int x, int y) {
 				{
 					if(!(CPlayState::Instance()->maskInStock < 100))
 					{
-						CPlayState::Instance()->theStall[2]->setMaskNo(100);
+						CPlayState::Instance()->theStall[2]->setMaskNo(CPlayState::Instance()->theStall[2]->getMaskNo() + 100);
 						CPlayState::Instance()->maskInStock -= 100;
 					}
 				}
@@ -336,7 +335,7 @@ void CStartOfDayState::MouseClick(int button, int state, int x, int y) {
 				{
 					if(!(CPlayState::Instance()->maskInStock < 200))
 					{
-						CPlayState::Instance()->theStall[2]->setMaskNo(200);
+						CPlayState::Instance()->theStall[2]->setMaskNo(CPlayState::Instance()->theStall[2]->getMaskNo() + 200);
 						CPlayState::Instance()->maskInStock -= 200;
 					}
 				}

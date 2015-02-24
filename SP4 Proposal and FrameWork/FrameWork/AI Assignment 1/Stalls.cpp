@@ -42,7 +42,33 @@ void CStalls::buyMask(int amt)
 	cout << "buy mask here" << endl;
 	gasMaskAmount -= amt;
 }
+
 void CStalls::moveStall()
 {
 	//moveeeeee
 }
+
+bool CStalls::glRenderObject() {
+
+}
+
+EntityType CStalls::getObjectType(void) {
+
+}
+
+Vector3 CStalls::getPosition(void) {
+
+}
+
+bool CStalls::operator== (Entity& o) {
+
+}
+
+Vector3 CStalls::GetScale() {
+
+}
+
+void CStalls::Update() {
+
+}
+
