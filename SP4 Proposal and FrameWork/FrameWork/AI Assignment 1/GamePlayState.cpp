@@ -234,7 +234,13 @@ void CGamePlayState::keyboardUpdate()
 			CPlayState::Instance()->theStall[2]->setTotalMaskSold(CPlayState::Instance()->theStall[2]->getMaskSold());
 			CPlayState::Instance()->theStall[2]->setMaskNo(CPlayState::Instance()->theStall[2]->getMaskNo() - CPlayState::Instance()->theStall[2]->getMaskSold());
 			CPlayState::Instance()->earned3 = CPlayState::Instance()->theStall[2]->getTotalMaskSold() * CPlayState::Instance()->theStall[2]->getMaskPrice();
+			cout << "2. mask sold " << CPlayState::Instance()->theStall[2]->getMaskSold() << endl;
+			cout << "mask in stall: " << CPlayState::Instance()->theStall[2]->getMaskNo() << endl;
+			cout << "total mask sold: " << CPlayState::Instance()->theStall[2]->getTotalMaskSold() << endl;
+			cout << CPlayState::Instance()->earned2 << endl;
 		}
+		else
+			cout << "no mask" << endl;
 	}
 
 	//Esc Key
