@@ -162,10 +162,10 @@ void CGamePlayState::Draw(CInGameStateManager* theGSM)
 
 	// Render Objects to be selected in the color scheme
 	if(CInputSystem::getInstance()->mouseInfo.mLButtonUp == false) {
-		theGrid.Click = true;
+		theGrid->Click = true;
 		cout << endl;
 	}else
-		theGrid.Click = false;
+		theGrid->Click = false;
 
 
 	CApplication::getInstance()->theCamera->SetHUD(true);
