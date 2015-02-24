@@ -1,20 +1,23 @@
 #include "EndOfDayState.h"
 #include "PlayState.h"
 #include "SaveState.h"
+#include "BuyMaskState.h"
 
 CEndOfDayState CEndOfDayState::theEndOfDayState;
 
 void CEndOfDayState::LoadTextures()
 {
-	//Textures
 	CApplication::getInstance()->LoadTGA(&background[0],"images/background.tga");
 	CApplication::getInstance()->LoadTGA(&button[0],"images/endState/save.tga");
+	CApplication::getInstance()->LoadTGA(&button[1],"images/endState/next.tga");
 }
 void CEndOfDayState::LoadButtons()
 {
-	//buttons
-	theButton[save] = new CButtons(SCREEN_WIDTH/2 - 100, SCREEN_HEIGHT - 100, 200, 100, save);
+	theButton[save] = new CButtons(SCREEN_WIDTH/2 - 200, SCREEN_HEIGHT - 100, 200, 100, save);
 	theButton[save]->setButtonTexture(button[0].texID);
+
+	theButton[eNext] = new CButtons(SCREEN_WIDTH/2 + 100, SCREEN_HEIGHT - 100, 200, 100, eNext);
+	theButton[eNext]->setButtonTexture(button[1].texID);
 }
 
 void CEndOfDayState::Init()
@@ -73,6 +76,7 @@ void CEndOfDayState::Draw(CInGameStateManager* theGSM)
 void CEndOfDayState::DrawButtons()
 {
 	theButton[save]->drawButton();
+	theButton[eNext]->drawButton();
 }
 
 void CEndOfDayState::DrawBackground()
@@ -121,6 +125,16 @@ void CEndOfDayState::MouseClick(int button, int state, int x, int y) {
 				//save the game
 				if(theButton[save]->isInside(x, y))
 					CGameStateManager::getInstance()->ChangeState(CSaveState::Instance());
+
+				//back to buyMaskState
+				if(theButton[eNext]->isInside(x, y))
+				{
+					CPlayState::Instance()->firstDay = false;
+					CPlayState::Instance()->theStall[0]->setMaskNo(0);
+					CPlayState::Instance()->theStall[1]->setMaskNo(0);
+					CPlayState::Instance()->theStall[2]->setMaskNo(0);
+					CInGameStateManager::getInstance()->ChangeState(CBuyMaskState::Instance());
+				}
 			}
 			else
 				CInputSystem::getInstance()->mouseInfo.mLButtonUp = true;
@@ -156,21 +170,24 @@ void CEndOfDayState::drawInfo()
 		glPushAttrib(GL_DEPTH_TEST);
 			//print shop number
 			glColor3f( 0.0f, 0.0f, 0.0f);
-			printw (50.0, 100, 0, "Mask sold: %d", CPlayState::Instance()->theStall[0]->getTotalMaskSold());
-			printw (50.0, 130.0, 0, "Monemy earned: %d", CPlayState::Instance()->earned);
+			printw (50.0, 100, 0, "Mask Sold: %d", CPlayState::Instance()->theStall[0]->getTotalMaskSold());
+			printw (50.0, 130.0, 0, "Money Earned: %d", CPlayState::Instance()->earned);
 
-			printw (300.0, 100, 0, "Mask sold: %d", CPlayState::Instance()->theStall[1]->getTotalMaskSold());
-			printw (300.0, 130.0, 0, "Monemy earned: %d", CPlayState::Instance()->earned2);
+			printw (300.0, 100, 0, "Mask Sold: %d", CPlayState::Instance()->theStall[1]->getTotalMaskSold());
+			printw (300.0, 130.0, 0, "Money Earned: %d", CPlayState::Instance()->earned2);
 
-			printw (550.0, 100, 0, "Mask sold: %d", CPlayState::Instance()->theStall[2]->getTotalMaskSold());
-			printw (550.0, 130.0, 0, "Monemy earned: %d", CPlayState::Instance()->earned3);
+			printw (550.0, 100, 0, "Mask Sold: %d", CPlayState::Instance()->theStall[2]->getTotalMaskSold());
+			printw (550.0, 130.0, 0, "Money Earned: %d", CPlayState::Instance()->earned3);
 			
 			int totalMaskSold = CPlayState::Instance()->theStall[0]->getTotalMaskSold() + CPlayState::Instance()->theStall[1]->getTotalMaskSold() + CPlayState::Instance()->theStall[2]->getTotalMaskSold();
 			int maskLeft = (CPlayState::Instance()->totalMaskForSell - totalMaskSold) + CPlayState::Instance()->maskInStock;
-			printw ((SCREEN_WIDTH / 2) - 200, SCREEN_HEIGHT/2, 0, "Mask Left: %d", maskLeft);
+			printw ((SCREEN_WIDTH / 2) - 200, SCREEN_HEIGHT/2 + 150, 0, "Mask Left: %d", maskLeft);
 
-			int totalMoney = CPlayState::Instance()->earned + CPlayState::Instance()->earned2 + CPlayState::Instance()->earned3 + CPlayState::Instance()->theMoney.getCurrentMoney();
-			printw ((SCREEN_WIDTH/2)+50, SCREEN_HEIGHT/2, 0, "Total $: %d", totalMoney);
+			int totalEarn = CPlayState::Instance()->earned + CPlayState::Instance()->earned2 + CPlayState::Instance()->earned3;
+			printw ((SCREEN_WIDTH/2)-100, SCREEN_HEIGHT/2, 0, "Total Money Earned: %d", totalEarn);
+
+			CPlayState::Instance()->newMoneyValue = totalEarn + CPlayState::Instance()->theMoney.getCurrentMoney();
+			printw ((SCREEN_WIDTH/2)+50, SCREEN_HEIGHT/2 + 150, 0, "Total Money : %d", CPlayState::Instance()->newMoneyValue);
 
 		glPopAttrib();
 	glPopMatrix();

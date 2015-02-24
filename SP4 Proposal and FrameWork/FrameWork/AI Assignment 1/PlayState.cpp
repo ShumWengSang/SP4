@@ -18,6 +18,8 @@ void CPlayState::Init()
 	earned = 0;
 	earned2 = 0;
 	earned3 = 0;
+	newMoneyValue = 0;
+	firstDay = true;
 
 	theStall[0] = new CStalls();
 	theStall[1] = new CStalls();

@@ -49,7 +49,12 @@ void CBuyMaskState::Init()
 		CPlayState::Instance()->forecasting->setCurrentDay(CLoadState::Instance()->getLoadData()->getDay());
 	}
 	else
-		CPlayState::Instance()->theMoney.setCurrentMoney(1000);
+	{
+		if(CPlayState::Instance()->firstDay)
+			CPlayState::Instance()->theMoney.setCurrentMoney(900);
+		else
+			CPlayState::Instance()->theMoney.setCurrentMoney(CPlayState::Instance()->newMoneyValue);
+	}
 
 	needMoney = false;
 
