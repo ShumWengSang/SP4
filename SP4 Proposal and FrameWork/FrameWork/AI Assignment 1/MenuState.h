@@ -61,7 +61,7 @@ private:
 	//Input System
 	CInputSystem* InputSystem;
 	CButtons* theButton[4];
-	AudioPlayer sound;
+	AudioPlayer * sound;
 	ISoundEngine *se;
 };
 

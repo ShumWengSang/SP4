@@ -7,6 +7,9 @@
 
 using namespace irrklang;
 using namespace std;
+
+
+AudioPlayer* AudioPlayer::theAPlayer = NULL;
  
 /*******************************
 		  CONSTRUCTORS
