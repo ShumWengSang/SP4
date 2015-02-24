@@ -16,13 +16,17 @@ void CPlayState::Init()
 	theStall[1] = new CStalls();
 	theStall[2] = new CStalls();
 
+	forecasting = new CForecast;
+	forecasting->init();
+	forecasting->setActualArray(theHaze.GetHazeAvg());
+	forecasting->forecasting();
+
 	//Game State Manager
 	IGSM = CInGameStateManager::getInstance();
 	IGSM->Init("In Game State Manager");
 	IGSM->ChangeState(CBuyMaskState::Instance());
 
 	theHaze.GetHazeAvg();
-
 }
 
 void CPlayState::Cleanup()

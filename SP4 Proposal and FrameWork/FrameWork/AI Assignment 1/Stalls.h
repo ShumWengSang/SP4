@@ -29,12 +29,12 @@ public:
 	float Price;
 
 	// Entity Functions
-	bool glRenderObject();
+	/*bool glRenderObject();
 	EntityType getObjectType(void);
 	Vector3 getPosition(void);
 	bool operator== (Entity& o);
 	Vector3 GetScale();
-	void Update();
+	void Update();*/
 
 };
 

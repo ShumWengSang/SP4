@@ -10,6 +10,7 @@
 #include "Stalls.h"
 #include "WeatherGenerator.h"
 #include "Money.h"
+#include "Forecast.h"
 
 using namespace std;
 
@@ -46,6 +47,7 @@ public:
 	CStalls *theStall[3];
 	CMoney theMoney;
 	WeatherGenerator theHaze;
+	CForecast *forecasting;
 
 	static CPlayState* Instance() {
 		return &thePlayState;
