@@ -2,6 +2,7 @@
 
 void Tiles::drawTile(int x, int y, int z, int tileWidth, int tileHeight, bool isPicking)
 {
+	CalcHazeAlpha();
 	if(!isPicking) {
 		glBegin(GL_LINES);
 		glPushMatrix();
@@ -29,13 +30,13 @@ void Tiles::drawTile(int x, int y, int z, int tileWidth, int tileHeight, bool is
 
 	glPushMatrix();
 		if(isPicking)
-			glColor3f(color.x,color.y,color.z);
+			glColor4f(color.x, color.y, color.z, HazeAlpha);
 		else if (TileHazeValue > 50)
 		{
-			glColor3f(1, 1, 0);
+			glColor4f(1, 1, 0, HazeAlpha);
 		}
 		else
-			glColor3f(1,1,1);
+			glColor4f(1, 1, 1, HazeAlpha);
 		glBegin(GL_QUADS);
 			glVertex3f(x,0,z+tileWidth);
 			glVertex3f(x+tileHeight,0,z+tileWidth);
@@ -107,5 +108,11 @@ void Tiles::Update()
 
 	
 	//this->TileHazeValue -= 1;
+}
+
+void Tiles::CalcHazeAlpha()
+{
+	float temp = TileHazeValue * HAZE_MAX;
+	HazeAlpha = HAZE_MIN / temp;
 }
 
