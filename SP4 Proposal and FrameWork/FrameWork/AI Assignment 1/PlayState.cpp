@@ -12,6 +12,7 @@ void CPlayState::Init()
 	CInputSystem::getInstance()->OrientCam = true;
 	
 	maskInStock = 0;
+	oldMaskValue = 0;
 	theStall[0] = new CStalls();
 	theStall[1] = new CStalls();
 	theStall[2] = new CStalls();

@@ -33,6 +33,8 @@ public:
 	void keyboardUpdate(void);
 
 	int maskInStock;
+	int oldMaskValue;
+	int totalMaskForSell;
 
 	//Inputs
 	void MouseMove (int x, int y);

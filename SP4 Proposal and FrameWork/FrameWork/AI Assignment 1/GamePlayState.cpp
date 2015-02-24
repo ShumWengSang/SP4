@@ -162,6 +162,45 @@ void CGamePlayState::keyboardUpdate()
 	if(CInputSystem::getInstance()->myKeys['k'])
 		CApplication::getInstance()->theCamera->Walk(-1);
 
+	if(CInputSystem::getInstance()->myKeys['z'])
+	{
+		if(CPlayState::Instance()->theStall[0]->getMaskNo() >= CPlayState::Instance()->theStall[0]->getMaskSold())
+		{
+			CPlayState::Instance()->theStall[0]->setMaskSold(2);
+			CPlayState::Instance()->theStall[0]->setTotalMaskSold(CPlayState::Instance()->theStall[0]->getMaskSold());
+			CPlayState::Instance()->theStall[0]->setMaskNo(CPlayState::Instance()->theStall[0]->getMaskNo() - CPlayState::Instance()->theStall[0]->getMaskSold());
+			cout << "1. mask sold " << CPlayState::Instance()->theStall[0]->getMaskSold() << endl;
+			cout << "mask in stall: " << CPlayState::Instance()->theStall[0]->getMaskNo() << endl;
+			cout << "total mask sold: " << CPlayState::Instance()->theStall[0]->getTotalMaskSold() << endl;
+		}
+		else
+			cout << "no mask" << endl;
+	}
+	if(CInputSystem::getInstance()->myKeys['x'])
+	{
+		if(CPlayState::Instance()->theStall[1]->getMaskNo() > 0)
+		{
+			CPlayState::Instance()->theStall[1]->setMaskSold(2);
+			CPlayState::Instance()->theStall[1]->setTotalMaskSold(CPlayState::Instance()->theStall[1]->getMaskSold());
+			CPlayState::Instance()->theStall[1]->setMaskNo(CPlayState::Instance()->theStall[1]->getMaskNo() - CPlayState::Instance()->theStall[1]->getMaskSold());
+			cout << "2. mask sold: " << CPlayState::Instance()->theStall[1]->getMaskSold() << endl;
+			cout << "mask in stall: " << CPlayState::Instance()->theStall[1]->getMaskNo() << endl;
+			cout << "total mask sold: " << CPlayState::Instance()->theStall[1]->getTotalMaskSold() << endl;
+		}
+	}
+	if(CInputSystem::getInstance()->myKeys['c'])
+	{
+		if(CPlayState::Instance()->theStall[2]->getMaskNo() > 0)
+		{
+			CPlayState::Instance()->theStall[2]->setMaskSold(2);
+			CPlayState::Instance()->theStall[2]->setTotalMaskSold(CPlayState::Instance()->theStall[2]->getMaskSold());
+			CPlayState::Instance()->theStall[2]->setMaskNo(CPlayState::Instance()->theStall[2]->getMaskNo() - CPlayState::Instance()->theStall[2]->getMaskSold());
+			cout << "3. mask sold: " << CPlayState::Instance()->theStall[2]->getMaskSold() << endl;
+			cout << "mask in stall: " << CPlayState::Instance()->theStall[2]->getMaskNo() << endl;
+			cout << "total mask sold: " << CPlayState::Instance()->theStall[2]->getTotalMaskSold() << endl;
+		}
+	}
+
 	//Esc Key
 	if(CInputSystem::getInstance()->myKeys[VK_ESCAPE]) 
 		exit(0);
