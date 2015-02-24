@@ -2,6 +2,7 @@
 #include "Vector3.h"
 #include "freeglut.h"
 #include "Entity.h"
+#include "Grid.h"
 
 class Tiles : public Entity
 {
@@ -16,6 +17,8 @@ public:
 	void setPos(float x, float y, float z){pos.Set(x,y,z);}
 	Tiles():color(0,0,0),pos(0,0,0){}
 	~Tiles(void){};
+
+	bool isWithin(Vector3);
 
 	void drawTile(int x, int y, int z, int tileWidth, int tileHeight, bool isPicking);
 
