@@ -1,5 +1,6 @@
 #include "EndOfDayState.h"
 #include "PlayState.h"
+#include "SaveState.h"
 
 CEndOfDayState CEndOfDayState::theEndOfDayState;
 
@@ -118,7 +119,7 @@ void CEndOfDayState::MouseClick(int button, int state, int x, int y) {
 
 				//save the game
 				if(theButton[save]->isInside(x, y))
-					CGameStateManager::getInstance()->ChangeState(CMenuState::Instance());
+					CGameStateManager::getInstance()->ChangeState(CSaveState::Instance());
 			}
 			else
 				CInputSystem::getInstance()->mouseInfo.mLButtonUp = true;

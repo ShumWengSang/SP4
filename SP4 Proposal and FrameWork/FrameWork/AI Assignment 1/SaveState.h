@@ -16,13 +16,13 @@ enum LOAD_BUTTON
 	save1,
 	save2,
 	save3,
-	backToMenu
+	back
 };
 
-class CLoadState : public CGameState
+class CSaveState : public CGameState
 {
 private:
-	CLoadState(void) {};
+	CSaveState(void) {};
 	
 	TextureImage button[4];
 	TextureImage background[1];
@@ -45,30 +45,26 @@ public:
 	void DrawBackground();
 	void DrawLoadInfo();
 	void keyboardUpdate(void);
-
-	CSaveLoad* getLoadData();
-	bool getLoaded();
+	void UpdateLoadData();
 
 	//Inputs
 	void MouseMove (int x, int y);
 	void MouseClick(int button, int state, int x, int y);
 	void MouseWheel(int button, int dir, int x, int y);
 
-	static CLoadState* Instance() {
-		return &theLoadState;
+	static CSaveState* Instance() {
+		return &theSaveState;
 	}
 
 	void *font_style;
 	void printw(float x, float y, float z, char* format, ...);
 
 private:
-	static CLoadState theLoadState;
+	static CSaveState theSaveState;
 
 	//Input System
 	CInputSystem* InputSystem;
 	CButtons* theButton[4];
 
-	int saveNum;
 	CSaveLoad* loadedFiles[3];
 };
-

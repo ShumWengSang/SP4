@@ -92,6 +92,7 @@
     <ClCompile Include="GameStateManager.cpp" />
     <ClCompile Include="LoadState.cpp" />
     <ClCompile Include="SaveLoad.cpp" />
+    <ClCompile Include="SaveState.cpp" />
     <ClCompile Include="Source2.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="InGameStateManager.cpp" />
@@ -125,6 +126,7 @@
     <ClInclude Include="Global.h" />
     <ClInclude Include="LoadState.h" />
     <ClInclude Include="SaveLoad.h" />
+    <ClInclude Include="SaveState.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="InGameState.h" />
     <ClInclude Include="InGameStateManager.h" />

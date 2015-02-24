@@ -120,6 +120,9 @@
     <ClCompile Include="SaveLoad.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
+    <ClCompile Include="SaveState.cpp">
+      <Filter>PlayStates</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameState.h">
@@ -214,6 +217,9 @@
     </ClInclude>
     <ClInclude Include="SaveLoad.h">
       <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveState.h">
+      <Filter>PlayStates</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

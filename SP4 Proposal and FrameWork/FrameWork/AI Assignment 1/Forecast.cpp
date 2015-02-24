@@ -50,7 +50,6 @@ void CForecast::init()
 	for(int i=0; i<7; i++){
 		forecastNum[i] = 0;
 		forecastNumRange[i] = 0;
-		actualNum[i] = 0;
 		actualNumRange[i] = 0;
 	}
 
@@ -225,13 +224,10 @@ void CForecast::setCurrentDay(int day)
 {
 	currentDay = day;
 }
-void CForecast::setActual(float value, int day)
+void CForecast::setActualRange(std::vector<float> actual)
 {
-	actualNum[day-1] = value;
-}
-void CForecast::setActualRange(float value, int range)
-{
-	actualNumRange[range-1] = value;
+	for (int i = 0; i < 7; i++)
+	actualNumRange[i] = actual.at(i);
 }
 
 int CForecast::getCurrentDay()

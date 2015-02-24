@@ -1,22 +1,11 @@
-#include "LoadState.h"
+#include "SaveState.h"
 #include "PlayState.h"
-#include "MenuState.h"
+#include "EndOfDayState.h"
 
-CLoadState CLoadState::theLoadState;
+CSaveState CSaveState::theSaveState;
 
-CSaveLoad* CLoadState::getLoadData()
-{
-	return loadedFiles[saveNum-1];	
-}
-bool CLoadState::getLoaded()
-{
-	if (saveNum > 0)
-		return loadedFiles[saveNum-1]->getHere();
-	else
-		return false;
-}
 
-void CLoadState::LoadTextures()
+void CSaveState::LoadTextures()
 {
 	//Textures
 	CApplication::getInstance()->LoadTGA(&background[0],"images/background.tga");
@@ -25,7 +14,7 @@ void CLoadState::LoadTextures()
 	CApplication::getInstance()->LoadTGA(&button[2],"images/menuState/options.tga");
 	CApplication::getInstance()->LoadTGA(&button[3],"images/menuState/quit.tga");
 }
-void CLoadState::LoadButtons()
+void CSaveState::LoadButtons()
 {
 	//buttons
 	theButton[save1] = new CButtons(SCREEN_WIDTH/2 - 150, 200, 300, 100, save1);
@@ -37,10 +26,10 @@ void CLoadState::LoadButtons()
 	theButton[save3] = new CButtons(SCREEN_WIDTH/2 - 150, 400, 300, 100, save3);
 	theButton[save3]->setButtonTexture(button[2].texID);
 	
-	theButton[backToMenu] = new CButtons(0, 0, 100, 100, backToMenu);
-	theButton[backToMenu]->setButtonTexture(button[3].texID);
+	theButton[back] = new CButtons(0, 0, 100, 100, back);
+	theButton[back]->setButtonTexture(button[3].texID);
 }
-void CLoadState::LoadLoadData()
+void CSaveState::LoadLoadData()
 {
 	loadedFiles[0] = new CSaveLoad();
 	loadedFiles[0]->init();
@@ -57,17 +46,22 @@ void CLoadState::LoadLoadData()
 
 	loadedFiles[2]->Load("save03.txt");
 }
-
-void CLoadState::Init()
+void CSaveState::UpdateLoadData()
 {
-	cout << "CLoadState::Init\n" << endl;
+	loadedFiles[0]->Load("save01.txt");
+
+	loadedFiles[1]->Load("save02.txt");
+
+	loadedFiles[2]->Load("save03.txt");
+}
+
+void CSaveState::Init()
+{
+	cout << "CSaveState::Init\n" << endl;
 
 	LoadTextures();
 	LoadButtons();
 	LoadLoadData();
-
-	saveNum = 0;
-
 	font_style = GLUT_BITMAP_HELVETICA_18;
 
 	//Enable Camera Orientation on Mouse Move
@@ -75,9 +69,9 @@ void CLoadState::Init()
 
 }
 
-void CLoadState::Cleanup()
+void CSaveState::Cleanup()
 {
-	//cout << "CLoadState::Cleanup\n" << endl;
+	//cout << "CSaveState::Cleanup\n" << endl;
 	/*if (InputSystem != NULL)
 	{
 		delete InputSystem;
@@ -85,28 +79,31 @@ void CLoadState::Cleanup()
 	}*/
 }
 
-void CLoadState::Pause()
+void CSaveState::Pause()
 {
-	//cout << "CLoadState::Pause\n" << endl;
+	//cout << "CSaveState::Pause\n" << endl;
 }
 
-void CLoadState::Resume()
+void CSaveState::Resume()
 {
-	//cout << "CLoadState::Resume\n" << endl;
+	//cout << "CSaveState::Resume\n" << endl;
 }
 
-void CLoadState::HandleEvents(CGameStateManager* theGSM)
+void CSaveState::HandleEvents(CGameStateManager* theGSM)
 {
 
 }
 
-void CLoadState::Update(CGameStateManager* theGSM) 
+void CSaveState::Update(CGameStateManager* theGSM) 
 {
-	//cout << "CLoadState::Update\n" << endl;
+	//cout << "CSaveState::Update\n" << endl;
 	keyboardUpdate();
+
+	
+	UpdateLoadData();
 }
 
-void CLoadState::Draw(CGameStateManager* theGSM) 
+void CSaveState::Draw(CGameStateManager* theGSM) 
 {
 	CApplication::getInstance()->theCamera->SetHUD(true);
 
@@ -116,7 +113,7 @@ void CLoadState::Draw(CGameStateManager* theGSM)
 	CApplication::getInstance()->theCamera->SetHUD(false);
 }
 
-void CLoadState::DrawLoadInfo()
+void CSaveState::DrawLoadInfo()
 {
 	glPushMatrix();
 		glPushAttrib(GL_DEPTH_TEST);
@@ -159,15 +156,15 @@ void CLoadState::DrawLoadInfo()
 	glPopMatrix();
 }
 
-void CLoadState::DrawButtons()
+void CSaveState::DrawButtons()
 {
 	theButton[save1]->drawButton();
 	theButton[save2]->drawButton();
 	theButton[save3]->drawButton();
-	theButton[backToMenu]->drawButton();
+	theButton[back]->drawButton();
 }
 
-void CLoadState::DrawBackground()
+void CSaveState::DrawBackground()
 {
 	glPushMatrix();
 		glEnable(GL_BLEND);
@@ -187,7 +184,7 @@ void CLoadState::DrawBackground()
 	glPopMatrix();
 }
 
-void CLoadState::keyboardUpdate()
+void CSaveState::keyboardUpdate()
 {
 	//Esc Key
 	if(CInputSystem::getInstance()->myKeys[VK_ESCAPE]) 
@@ -195,12 +192,12 @@ void CLoadState::keyboardUpdate()
 }
 
 //Inputs
-void CLoadState::MouseMove (int x, int y) {
+void CSaveState::MouseMove (int x, int y) {
 	CInputSystem::getInstance()->mouseInfo.lastX = x;
 	CInputSystem::getInstance()->mouseInfo.lastY = y;
 }
 
-void CLoadState::MouseClick(int button, int state, int x, int y) {
+void CSaveState::MouseClick(int button, int state, int x, int y) {
 	int w = glutGet(GLUT_WINDOW_WIDTH);
 	int h = glutGet(GLUT_WINDOW_HEIGHT);
 
@@ -213,24 +210,29 @@ void CLoadState::MouseClick(int button, int state, int x, int y) {
 				CInputSystem::getInstance()->mouseInfo.clickedY = y;
 
 				//load files
-				if(theButton[save1]->isInside(x, y) && loadedFiles[0]->getHere())
-				{
-					saveNum = 1;
-					CGameStateManager::getInstance()->ChangeState(CPlayState::Instance());
-				}
-				if(theButton[save2]->isInside(x, y) && loadedFiles[1]->getHere())
-				{
-					saveNum = 2;
-					CGameStateManager::getInstance()->ChangeState(CPlayState::Instance());
-				}
-				if(theButton[save3]->isInside(x, y) && loadedFiles[2]->getHere())
-				{
-					saveNum = 3;
-					CGameStateManager::getInstance()->ChangeState(CPlayState::Instance());
-				}
+				if(theButton[save1]->isInside(x, y))
+					if(loadedFiles[0]->getHere())
+					loadedFiles[0]->overwriteData("save01.txt",9,9,9);
+					else
+					loadedFiles[0]->overwriteData("save01.txt",8,8,8);
+					//CGameStateManager::getInstance()->ChangeState(CPlayState::Instance());
+				
+				if(theButton[save2]->isInside(x, y))
+					if(loadedFiles[1]->getHere())
+					loadedFiles[1]->overwriteData("save02.txt",9,9,9);
+					else
+					loadedFiles[1]->overwriteData("save02.txt",8,8,8);
+					//CGameStateManager::getInstance()->ChangeState(CPlayState::Instance());
+
+				if(theButton[save3]->isInside(x, y))
+					if(loadedFiles[2]->getHere())
+					loadedFiles[2]->overwriteData("save03.txt",9,9,9);
+					else
+					loadedFiles[2]->overwriteData("save03.txt",8,8,8);
+
 
 				//go back
-				if(theButton[backToMenu]->isInside(x, y))
+				if(theButton[back]->isInside(x, y))
 					CGameStateManager::getInstance()->PopState();
 
 			}
@@ -246,7 +248,7 @@ void CLoadState::MouseClick(int button, int state, int x, int y) {
 	}
 }
 
-void CLoadState::MouseWheel(int button, int dir, int x, int y) {
+void CSaveState::MouseWheel(int button, int dir, int x, int y) {
 
 	if (dir > 0) {//Zoom In
 		/*if(camDist-zoomSpeed*15 > 0)
@@ -261,7 +263,7 @@ void CLoadState::MouseWheel(int button, int dir, int x, int y) {
 	}
 }
 
-void CLoadState::printw (float x, float y, float z, char* format, ...)
+void CSaveState::printw (float x, float y, float z, char* format, ...)
 {
 	va_list args;	//  Variable argument list
 	int len;		//	String length

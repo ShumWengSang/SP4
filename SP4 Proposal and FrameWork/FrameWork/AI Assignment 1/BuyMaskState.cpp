@@ -1,6 +1,7 @@
 #include "BuyMaskState.h"
 #include "PlayState.h"
 #include "StartOfDayState.h"
+#include "LoadState.h"
 
 CBuyMaskState CBuyMaskState::theBuyMaskState;
 
@@ -39,6 +40,9 @@ void CBuyMaskState::Init()
 	LoadButtons();
 	font_style = GLUT_BITMAP_HELVETICA_18;
 
+	if (CLoadState::Instance()->getLoaded())
+		CPlayState::Instance()->theMoney.setCurrentMoney(CLoadState::Instance()->getLoadData()->getMoney());
+	else
 	CPlayState::Instance()->theMoney.setCurrentMoney(500);
 	needMoney = false;
 

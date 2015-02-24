@@ -23,9 +23,13 @@ public:
 	int getMoney();
 	int getMask();
 
+	bool getHere();
+
 private:
 	int day;
 	int money;
 	int mask;
+
+	bool here;
 	//fc* tempFC;
 };
