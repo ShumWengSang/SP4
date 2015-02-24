@@ -32,7 +32,7 @@ public:
 	void Draw(CGameStateManager* GSM);
 	void keyboardUpdate(void);
 
-	int theMask;
+	int maskInStock;
 
 	//Inputs
 	void MouseMove (int x, int y);

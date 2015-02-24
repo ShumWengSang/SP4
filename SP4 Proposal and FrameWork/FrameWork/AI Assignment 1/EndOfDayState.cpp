@@ -154,16 +154,19 @@ void CEndOfDayState::drawInfo()
 		glPushAttrib(GL_DEPTH_TEST);
 			//print shop number
 			glColor3f( 0.0f, 0.0f, 0.0f);
-			printw (50.0, 100, 0, "Mask sold: %d", 0);
-			printw (50.0, 130.0, 0, "Profit: %d", 0);
+			printw (50.0, 100, 0, "Mask sold: %d", CPlayState::Instance()->theStall[0]->getMaskSold());
+			printw (50.0, 130.0, 0, "Monemy earned: %d", 0);
 
-			printw (300.0, 100, 0, "Mask sold: %d", 0);
-			printw (300.0, 130.0, 0, "Profit: %d", 0);
+			printw (300.0, 100, 0, "Mask sold: %d", CPlayState::Instance()->theStall[1]->getMaskSold());
+			printw (300.0, 130.0, 0, "Monemy earned: %d", 0);
 
-			printw (550.0, 100, 0, "Mask sold: %d", 0);
-			printw (550.0, 130.0, 0, "Profit: %d", 0);
+			printw (550.0, 100, 0, "Mask sold: %d", CPlayState::Instance()->theStall[2]->getMaskSold());
+			printw (550.0, 130.0, 0, "Monemy earned: %d", 0);
 
-			printw ((SCREEN_WIDTH / 2) - 200, SCREEN_HEIGHT/2, 0, "Mask Left: %d", 0);
+			int maskForSell =  CPlayState::Instance()->theStall[0]->getMaskNo() + CPlayState::Instance()->theStall[1]->getMaskNo() + CPlayState::Instance()->theStall[2]->getMaskNo();
+			int totalMaskSold = CPlayState::Instance()->theStall[0]->getMaskSold() + CPlayState::Instance()->theStall[1]->getMaskSold() + CPlayState::Instance()->theStall[2]->getMaskSold();
+			int maskLeft = maskForSell - totalMaskSold;
+			printw ((SCREEN_WIDTH / 2) - 200, SCREEN_HEIGHT/2, 0, "Mask Left: %d", maskLeft);
 
 			printw ((SCREEN_WIDTH/2)+50, SCREEN_HEIGHT/2, 0, "$: %d", 0);
 
