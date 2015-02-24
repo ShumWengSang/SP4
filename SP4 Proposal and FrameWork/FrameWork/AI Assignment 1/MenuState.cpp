@@ -139,7 +139,7 @@ void CMenuState::MouseClick(int button, int state, int x, int y) {
 	switch (button) {
 		case GLUT_LEFT_BUTTON:
 			se->play2D("audio/click.wav",false);
-			if (state == 0)
+			if (state == GLUT_DOWN)
 			{
 				CInputSystem::getInstance()->mouseInfo.mLButtonUp = false;
 				CInputSystem::getInstance()->mouseInfo.clickedX = x;

@@ -30,6 +30,7 @@ void CGamePlayState::LoadButtons()
 void CGamePlayState::Init()
 {
 	cout << "CGamePlayState::Init\n" << endl;
+	theGrid = new Grid();
 
 	isPause = false;
 	shopSelected = false;
@@ -55,8 +56,8 @@ void CGamePlayState::Init()
 		int x = rand() % TILE_NO_X;
 		int y = rand() % TILE_NO_Y;
 
-		theGrid.temp[x][y].TileHazeValue = CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime];
-		theSeededTiles.push_back(&theGrid.temp[x][y]);
+		theGrid->temp[x][y].TileHazeValue = CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime];
+		theSeededTiles.push_back(&theGrid->temp[x][y]);
 		//GET TILE INFO FROM POSITION
 		//SET THE HAZE
 	}
@@ -65,6 +66,8 @@ void CGamePlayState::Init()
 	TimerKeySeed = theTimerInstance->insertNewTime(3000);
 	TimerKeyDay = theTimerInstance->insertNewTime(27000);
 	HourNumber = 0;
+
+	theListofEntities.push_back(theGrid);
 
 }
 
@@ -105,21 +108,21 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 		(*i)->Update();
 	}
 
+	//if (theTimerInstance->executeTime(TimerKeyDay))
+	//{
+		//DayNumber++;
+		//CInGameStateManager::getInstance()->ChangeState(CEndOfDayState::Instance());
+		//HourNumber = 0;
+	//}
 	if (theTimerInstance->executeTime(TimerKeySeed))
 	{
 		HourNumber++;
-		for (auto i = theSeededTiles.begin(); i != theSeededTiles.end(); i++)
+		if (!(HourNumber * DayTime >= noiseWidth))
 		{
-			(*i)->TileHazeValue = CPlayState::Instance()->theHaze.HazeGraph[HourNumber * DayTime];
-		}
-	}
-
-	if (theTimerInstance->executeTime(TimerKeySeed))
-	{
-		HourNumber++;
-		for (auto i = theSeededTiles.begin(); i != theSeededTiles.end(); i++)
-		{
-			(*i)->TileHazeValue = CPlayState::Instance()->theHaze.HazeGraph[HourNumber * DayTime];
+			for (auto i = theSeededTiles.begin(); i != theSeededTiles.end(); i++)
+			{
+				(*i)->TileHazeValue = CPlayState::Instance()->theHaze.HazeGraph[HourNumber + DayNumber * DayTime] * 8;
+			}
 		}
 	}
 
@@ -128,15 +131,16 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 		DayNumber++;
 		CInGameStateManager::getInstance()->ChangeState(CEndOfDayState::Instance());
 	}
+
+
+
+>>>>>>> origin/master
 }
 
 void CGamePlayState::Draw(CInGameStateManager* theGSM) 
 {
 
-	for (auto i = theListofEntities.begin(); i != theListofEntities.end(); i++)
-	{
-		(*i)->glRenderObject();
-	}
+
 
 	glPushMatrix();
 		glEnable(GL_BLEND);
@@ -155,7 +159,20 @@ void CGamePlayState::Draw(CInGameStateManager* theGSM)
 		glDisable(GL_BLEND);
 	glPopMatrix();
 
-	theGrid.renderGrid(false);
+
+	//theGrid.renderGrid(false);
+	for (auto i = theListofEntities.begin(); i != theListofEntities.end(); i++)
+	{
+		(*i)->glRenderObject();
+	}
+
+	// Render Objects to be selected in the color scheme
+	if(CInputSystem::getInstance()->mouseInfo.mLButtonUp == false) {
+		theGrid.Click = true;
+		cout << endl;
+	}else
+		theGrid.Click = false;
+
 
 	CApplication::getInstance()->theCamera->SetHUD(true);
 
@@ -287,9 +304,9 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 
 		case GLUT_LEFT_BUTTON:
 			if (state == GLUT_UP) 
-				CInputSystem::getInstance()->mouseInfo.mLButtonUp = false;
-			else {
 				CInputSystem::getInstance()->mouseInfo.mLButtonUp = true;
+			else {
+				CInputSystem::getInstance()->mouseInfo.mLButtonUp = false;
 
 				
 				if(theButton[pause]->isInside(x, y) && isPause == false)
@@ -312,14 +329,16 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 					shopSelected = false;
 
 				// Render Objects to be selected in the color scheme
-				theGrid.renderGrid(true);
+				theGrid->Click = true;
+				//theGrid.renderGrid(true);
+
 
 				GLint window_width = glutGet(GLUT_WINDOW_WIDTH);
 				GLint window_height = glutGet(GLUT_WINDOW_HEIGHT);
  
 				unsigned char color[3];
  
-				glReadPixels(x, window_height - y - 1, 1, 1, GL_RGB, GL_UNSIGNED_BYTE, color);
+				glReadPixels(x, window_height - y, 1, 1, GL_RGB, GL_UNSIGNED_BYTE, color);
  
 				float colorf[3];
 				colorf[0] = (float)color[0]/255;
@@ -339,7 +358,7 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 						a++;
 					}
 
-					if(theGrid.temp[a][s].getColor() == Vector3(colorf[0], colorf[1], colorf[2]))
+					if(theGrid->temp[a][s].getColor() == Vector3(colorf[0], colorf[1], colorf[2]))
 						printf("Confirmed grid clicked %0.2f %0.2f %0.2f\n\n", colorf[0], colorf[1], colorf[2]);
 						
 					s++;

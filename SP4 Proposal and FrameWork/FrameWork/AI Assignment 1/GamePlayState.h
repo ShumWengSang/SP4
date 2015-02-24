@@ -82,6 +82,6 @@ private:
 	CMoney theMoney;
 	CButtons* theButton[4];
 	CStalls* theStall[3];
-	Grid theGrid;
+	Grid* theGrid;
 };
 

@@ -22,6 +22,10 @@ public:
 	{
 		theType = TILE; 
 		TileHazeValue = 0;
+		top = NULL;
+		left = NULL;
+		right = NULL;
+		bottom = NULL;
 	}
 	~Tiles(void){};
 	static void Pressure(Tiles &currentCell,Tiles &neighborCell);
@@ -31,6 +35,11 @@ public:
 
 	float TileHazeValue;
 
+	//Pointer to neighbour tiles
+	Tiles * top;
+	Tiles * left;
+	Tiles * right;
+	Tiles * bottom;
 
 	//Entity functions
 	bool glRenderObject();
