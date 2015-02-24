@@ -8,11 +8,11 @@ WeatherGenerator::WeatherGenerator()
 		HazeGraph.push_back(i /2 + i/4 * sin((float) 0.7 * i));
 	}
 
-	for (int i = 0; i < DayTime; i++)
+	for (int i = 0; i <= DayTime; i++)
 	{
 		HazeGraph[i] = HazeGraph[15 + i];
 	}
-	for (int i = DayTime; i < DayTime * 2; i++)
+	for (int i = DayTime; i <= DayTime * 2; i++)
 	{
 		HazeGraph[i] = HazeGraph[15 + i];
 	}
@@ -27,11 +27,14 @@ WeatherGenerator::WeatherGenerator()
 		HazeGraph[i] += Result;
 		HazeGraph[i] *= 13;
 
-		if (i % 9 == 0)
+		if ((i+1) % 9 == 0 && i != 0)
 		{
 			std::cout << "END OF DAY -----------------" << std::endl;
+			//DailyStartHaze.push_back
 		}
 	}
+
+
 }
 
 
@@ -41,10 +44,7 @@ WeatherGenerator::~WeatherGenerator()
 
 void WeatherGenerator::PrintOutHourly()
 {
-	for (int i = 0; i < HourlyHaze.size(); i++)
-	{
-		std::cout << HourlyHaze[i] << std::endl;
-	}
+
 }
 
 double interpolate(double a, double b, double x)

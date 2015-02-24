@@ -16,6 +16,7 @@ enum STARTSTATE_BUTTON
 {
 	go,
 	back,
+	reset,
 	fifty,
 	hundred,
 	twohundred,
@@ -43,7 +44,7 @@ class CStartOfDayState : public CInGameState
 private:
 	CStartOfDayState(void) {};
 
-	TextureImage button[8];
+	TextureImage button[9];
 	TextureImage background[2];
 
 public:

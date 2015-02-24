@@ -26,8 +26,3 @@ void CMoney:: setCurrentMoney(int cm)
 {
 	currentMoney = cm;
 }
-
-void CMoney::setMoneyIncrease(int mi)
-{
-	currentMoney += mi;
-}

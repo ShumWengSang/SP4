@@ -111,7 +111,7 @@ void CEndOfDayState::MouseClick(int button, int state, int x, int y) {
 	switch (button) {
 
 		case GLUT_LEFT_BUTTON:
-			if (state == 0) 
+			if (state == GLUT_DOWN) 
 			{
 				CInputSystem::getInstance()->mouseInfo.mLButtonUp = false;
 				CInputSystem::getInstance()->mouseInfo.clickedX = x;
@@ -155,21 +155,21 @@ void CEndOfDayState::drawInfo()
 		glPushAttrib(GL_DEPTH_TEST);
 			//print shop number
 			glColor3f( 0.0f, 0.0f, 0.0f);
-			printw (50.0, 100, 0, "Mask sold: %d", CPlayState::Instance()->theStall[0]->getMaskSold());
-			printw (50.0, 130.0, 0, "Monemy earned: %d", 0);
+			printw (50.0, 100, 0, "Mask sold: %d", CPlayState::Instance()->theStall[0]->getTotalMaskSold());
+			printw (50.0, 130.0, 0, "Monemy earned: %d", CPlayState::Instance()->earned);
 
-			printw (300.0, 100, 0, "Mask sold: %d", CPlayState::Instance()->theStall[1]->getMaskSold());
-			printw (300.0, 130.0, 0, "Monemy earned: %d", 0);
+			printw (300.0, 100, 0, "Mask sold: %d", CPlayState::Instance()->theStall[1]->getTotalMaskSold());
+			printw (300.0, 130.0, 0, "Monemy earned: %d", CPlayState::Instance()->earned2);
 
-			printw (550.0, 100, 0, "Mask sold: %d", CPlayState::Instance()->theStall[2]->getMaskSold());
-			printw (550.0, 130.0, 0, "Monemy earned: %d", 0);
-
-			int maskForSell =  CPlayState::Instance()->theStall[0]->getMaskNo() + CPlayState::Instance()->theStall[1]->getMaskNo() + CPlayState::Instance()->theStall[2]->getMaskNo();
-			int totalMaskSold = CPlayState::Instance()->theStall[0]->getMaskSold() + CPlayState::Instance()->theStall[1]->getMaskSold() + CPlayState::Instance()->theStall[2]->getMaskSold();
-			int maskLeft = maskForSell - totalMaskSold;
+			printw (550.0, 100, 0, "Mask sold: %d", CPlayState::Instance()->theStall[2]->getTotalMaskSold());
+			printw (550.0, 130.0, 0, "Monemy earned: %d", CPlayState::Instance()->earned3);
+			
+			int totalMaskSold = CPlayState::Instance()->theStall[0]->getTotalMaskSold() + CPlayState::Instance()->theStall[1]->getTotalMaskSold() + CPlayState::Instance()->theStall[2]->getTotalMaskSold();
+			int maskLeft = (CPlayState::Instance()->totalMaskForSell - totalMaskSold) + CPlayState::Instance()->maskInStock;
 			printw ((SCREEN_WIDTH / 2) - 200, SCREEN_HEIGHT/2, 0, "Mask Left: %d", maskLeft);
 
-			printw ((SCREEN_WIDTH/2)+50, SCREEN_HEIGHT/2, 0, "$: %d", 0);
+			int totalMoney = CPlayState::Instance()->earned + CPlayState::Instance()->earned2 + CPlayState::Instance()->earned3 + CPlayState::Instance()->theMoney.getCurrentMoney();
+			printw ((SCREEN_WIDTH/2)+50, SCREEN_HEIGHT/2, 0, "Total $: %d", totalMoney);
 
 		glPopAttrib();
 	glPopMatrix();

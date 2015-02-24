@@ -18,6 +18,7 @@ void CStartOfDayState::LoadTextures()
 	CApplication::getInstance()->LoadTGA(&button[5],"images/startState/12.tga");
 	CApplication::getInstance()->LoadTGA(&button[6],"images/startState/15.tga");
 	CApplication::getInstance()->LoadTGA(&button[7],"images/startState/back.tga");
+	CApplication::getInstance()->LoadTGA(&button[8],"images/startState/reset.tga");
 }
 
 void CStartOfDayState::LoadButtons()
@@ -28,6 +29,9 @@ void CStartOfDayState::LoadButtons()
 
 	theButton[back] = new CButtons(0, SCREEN_HEIGHT - 64, 64, 64, back);
 	theButton[back]->setButtonTexture(button[7].texID);
+
+	theButton[reset] = new CButtons(SCREEN_WIDTH - 64, SCREEN_HEIGHT - 64, 64, 64, reset);
+	theButton[reset]->setButtonTexture(button[8].texID);
 
 	//For shop 1
 	theButton[fifty] = new CButtons(50, 100, 50, 30, fifty);
@@ -142,6 +146,7 @@ void CStartOfDayState::DrawButtons()
 {
 	theButton[go]->drawButton();
 	theButton[back]->drawButton();
+	theButton[reset]->drawButton();
 
 	theButton[fifty]->drawButton();
 	theButton[hundred]->drawButton();
@@ -229,7 +234,7 @@ void CStartOfDayState::MouseClick(int button, int state, int x, int y) {
 	switch (button) {
 
 		case GLUT_LEFT_BUTTON:
-			if (state == 0)
+			if (state == GLUT_DOWN)
 			{
 				CInputSystem::getInstance()->mouseInfo.mLButtonUp = false;
 				CInputSystem::getInstance()->mouseInfo.clickedX = x;
@@ -237,11 +242,25 @@ void CStartOfDayState::MouseClick(int button, int state, int x, int y) {
 
 				//start the day
 				if(theButton[go]->isInside(x, y))
+				{
 					CInGameStateManager::getInstance()->ChangeState(CGamePlayState::Instance());
+					CPlayState::Instance()->totalMaskForSell = CPlayState::Instance()->theStall[0]->getMaskNo() + CPlayState::Instance()->theStall[1]->getMaskNo() + CPlayState::Instance()->theStall[2]->getMaskNo();
+				}
 
 				//back to buy mask
 				if(theButton[back]->isInside(x, y))
-					CInGameStateManager::getInstance()->ChangeState(CBuyMaskState::Instance());
+					CInGameStateManager::getInstance()->PopState();
+
+				if(theButton[reset]->isInside(x, y))
+				{
+					CPlayState::Instance()->maskInStock = CPlayState::Instance()->oldMaskValue;
+					CPlayState::Instance()->theStall[0]->setMaskNo(0);
+					CPlayState::Instance()->theStall[1]->setMaskNo(0);
+					CPlayState::Instance()->theStall[2]->setMaskNo(0);
+					CPlayState::Instance()->theStall[0]->setMaskPrice(0);
+					CPlayState::Instance()->theStall[1]->setMaskPrice(0);
+					CPlayState::Instance()->theStall[2]->setMaskPrice(0);
+				}
 
 				//For Shop 1 no. of mask setting
 				if(theButton[fifty]->isInside(x, y))

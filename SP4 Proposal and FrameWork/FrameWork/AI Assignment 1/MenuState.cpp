@@ -41,11 +41,12 @@ void CMenuState::Init()
 
 	//Audio Player
 	se = createIrrKlangDevice();
-	playSound();
+
 
 	//Enable Camera Orientation on Mouse Move
 	InputSystem->OrientCam = true;
-
+	sound = AudioPlayer::Instance();
+	playSound();
 }
 
 void CMenuState::Cleanup()
@@ -138,7 +139,7 @@ void CMenuState::MouseClick(int button, int state, int x, int y) {
 	switch (button) {
 		case GLUT_LEFT_BUTTON:
 			se->play2D("audio/click.wav",false);
-			if (state == 0)
+			if (state == GLUT_DOWN)
 			{
 				CInputSystem::getInstance()->mouseInfo.mLButtonUp = false;
 				CInputSystem::getInstance()->mouseInfo.clickedX = x;
@@ -186,7 +187,7 @@ void CMenuState::MouseWheel(int button, int dir, int x, int y) {
 
 void CMenuState::playSound()
 {
-	sound.setFileName("audio/sims.mp3");
-	sound.playSoundThreaded();
+	sound->setFileName("audio/Sims.mp3");
+	sound->playSoundThreaded();
 }
 
