@@ -74,6 +74,8 @@ private:
 	CTimer * theTimerInstance;
 	int TimerKeySeed;
 
+	int TimerKeyDay;
+
 	CMoney theMoney;
 	CButtons* theButton[4];
 	CStalls* theStall[3];

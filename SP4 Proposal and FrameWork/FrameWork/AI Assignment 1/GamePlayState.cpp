@@ -63,6 +63,7 @@ void CGamePlayState::Init()
 
 	theTimerInstance = CTimer::getInstance();
 	TimerKeySeed = theTimerInstance->insertNewTime(3000);
+	TimerKeyDay = theTimerInstance->insertNewTime(27000);
 	HourNumber = 0;
 
 }
@@ -111,7 +112,21 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 		{
 			(*i)->TileHazeValue = CPlayState::Instance()->theHaze.HazeGraph[HourNumber * DayTime];
 		}
-		
+	}
+
+	if (theTimerInstance->executeTime(TimerKeySeed))
+	{
+		HourNumber++;
+		for (auto i = theSeededTiles.begin(); i != theSeededTiles.end(); i++)
+		{
+			(*i)->TileHazeValue = CPlayState::Instance()->theHaze.HazeGraph[HourNumber * DayTime];
+		}
+	}
+
+	if (theTimerInstance->executeTime(TimerKeyDay))
+	{
+		DayNumber++;
+		CInGameStateManager::getInstance()->ChangeState(CEndOfDayState::Instance());
 	}
 
 
