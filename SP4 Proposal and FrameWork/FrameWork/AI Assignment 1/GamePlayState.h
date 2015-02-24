@@ -33,6 +33,7 @@ private:
 
 	TextureImage button[4];
 	TextureImage map[1];
+	TextureImage skyBox[6];
 
 	bool isPause;
 	bool shopSelected;
@@ -54,6 +55,7 @@ public:
 	void LoadButtons();
 	void DrawButtons();
 	void drawInfo();
+	void DrawSkyBox();
 
 	void buyMask(int stall, int maskNo);
 

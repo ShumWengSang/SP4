@@ -10,6 +10,12 @@ void CGamePlayState::LoadTextures()
 	CApplication::getInstance()->LoadTGA(&map[0],"images/playState/map.tga");
 	CApplication::getInstance()->LoadTGA(&button[0],"images/playState/pause.tga");
 	CApplication::getInstance()->LoadTGA(&button[1], "images/playState/shop.tga");
+	CApplication::getInstance()->LoadTGA(&skyBox[0], "images/playState/SkyBox/front.tga");
+	CApplication::getInstance()->LoadTGA(&skyBox[1], "images/playState/SkyBox/back.tga");
+	CApplication::getInstance()->LoadTGA(&skyBox[2], "images/playState/SkyBox/left.tga");
+	CApplication::getInstance()->LoadTGA(&skyBox[3], "images/playState/SkyBox/right.tga");
+	CApplication::getInstance()->LoadTGA(&skyBox[4], "images/playState/SkyBox/top.tga");
+	CApplication::getInstance()->LoadTGA(&skyBox[5], "images/playState/SkyBox/down.tga");
 }
 void CGamePlayState::LoadButtons()
 {
@@ -182,11 +188,13 @@ void CGamePlayState::Draw(CInGameStateManager* theGSM)
 	}else {
 		// Actual Render Here
 
+		DrawSkyBox();
+
 		glPushMatrix();
 			glEnable(GL_BLEND);
 			glEnable(GL_TEXTURE_2D);
-			glTranslatef( -150.0f, -0.1f, -250.0f );
-			glScalef(1.3f, 1.3f, 1.3f);
+			glTranslatef( -150.0f, -0.1f, -150.0f );
+			glScalef(0.5f, 0.5f, 0.5f);
 			glColor3f(1.0,1.0,1.0);
 			glBindTexture(GL_TEXTURE_2D, map[0].texID);
 			glBegin(GL_QUADS);
@@ -227,6 +235,77 @@ void CGamePlayState::DrawButtons()
 	theButton[shop]->drawButton();
 	theButton[shop2]->drawButton();
 	theButton[shop3]->drawButton();
+}
+
+void CGamePlayState::DrawSkyBox()
+{
+	glPushMatrix();
+		glPushAttrib(GL_ENABLE_BIT);
+		glEnable(GL_TEXTURE_2D);
+		glDisable(GL_LIGHTING);
+		glDisable(GL_BLEND);
+		glColor4f(1,1,1,1);
+		glTranslatef(0, 50, 0);
+
+		// Render the front quad
+		glBindTexture(GL_TEXTURE_2D, skyBox[0].texID);
+		glBegin(GL_QUADS);
+			glTexCoord2f(0, 0); glVertex3f(  100.0f, -100.0f, -100.0f );
+			glTexCoord2f(1, 0); glVertex3f( -100.0f, -100.0f, -100.0f );
+			glTexCoord2f(1, 1); glVertex3f( -100.0f,  100.0f, -100.0f );
+			glTexCoord2f(0, 1); glVertex3f(  100.0f,  100.0f, -100.0f );
+		glEnd();
+
+		// Render the back quad
+		glBindTexture(GL_TEXTURE_2D, skyBox[1].texID);
+		glBegin(GL_QUADS);
+			glTexCoord2f(0, 0); glVertex3f( -100.0f, -100.0f,  100.0f );
+			glTexCoord2f(1, 0); glVertex3f(  100.0f, -100.0f,  100.0f );
+			glTexCoord2f(1, 1); glVertex3f(  100.0f,  100.0f,  100.0f );
+			glTexCoord2f(0, 1); glVertex3f( -100.0f,  100.0f,  100.0f );
+		glEnd();
+
+		// Render the left quad
+		glBindTexture(GL_TEXTURE_2D, skyBox[2].texID);
+		glBegin(GL_QUADS);
+			glTexCoord2f(0, 0); glVertex3f(  100.0f, -100.0f,  100.0f );
+			glTexCoord2f(1, 0); glVertex3f(  100.0f, -100.0f, -100.0f );
+			glTexCoord2f(1, 1); glVertex3f(  100.0f,  100.0f, -100.0f );
+			glTexCoord2f(0, 1); glVertex3f(  100.0f,  100.0f,  100.0f );
+		glEnd();
+
+		// Render the right quad
+		glBindTexture(GL_TEXTURE_2D, skyBox[3].texID);
+		glBegin(GL_QUADS);
+			glTexCoord2f(0, 0); glVertex3f( -100.0f, -100.0f, -100.0f );
+			glTexCoord2f(1, 0); glVertex3f( -100.0f, -100.0f,  100.0f );
+			glTexCoord2f(1, 1); glVertex3f( -100.0f,  100.0f,  100.0f );
+			glTexCoord2f(0, 1); glVertex3f( -100.0f,  100.0f, -100.0f );
+		glEnd();
+
+		// Render the top quad
+		glBindTexture(GL_TEXTURE_2D, skyBox[4].texID);
+		glBegin(GL_QUADS);
+			glTexCoord2f(0, 1); glVertex3f( -100.0f,  100.0f, -100.0f );
+			glTexCoord2f(0, 0); glVertex3f( -100.0f,  100.0f,  100.0f );
+			glTexCoord2f(1, 0); glVertex3f(  100.0f,  100.0f,  100.0f );
+			glTexCoord2f(1, 1); glVertex3f(  100.0f,  100.0f, -100.0f );
+		glEnd();
+
+		// Render the bottom quad
+		glBindTexture(GL_TEXTURE_2D, skyBox[5].texID);
+		glBegin(GL_QUADS);
+			glTexCoord2f(0, 0); glVertex3f( -100.0f, -100.0f, -100.0f );
+			glTexCoord2f(0, 1); glVertex3f( -100.0f, -100.0f,  100.0f );
+			glTexCoord2f(1, 1); glVertex3f(  100.0f, -100.0f,  100.0f );
+			glTexCoord2f(1, 0); glVertex3f(  100.0f, -100.0f, -100.0f );
+		glEnd();
+
+		glDisable(GL_TEXTURE_2D);
+		glEnable(GL_LIGHTING);
+		glEnable(GL_BLEND);
+		glPopAttrib();
+	glPopMatrix();
 }
 
 void CGamePlayState::buyMask(int stall, int maskNo) //0 is first stall
