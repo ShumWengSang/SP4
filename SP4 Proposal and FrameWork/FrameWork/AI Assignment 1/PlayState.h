@@ -10,6 +10,7 @@
 #include "Stalls.h"
 #include "WeatherGenerator.h"
 #include "Money.h"
+#include "Forecast.h"
 
 using namespace std;
 
@@ -32,12 +33,17 @@ public:
 	void Draw(CGameStateManager* GSM);
 	void keyboardUpdate(void);
 
+	int day;
+
 	int maskInStock;
 	int oldMaskValue;
 	int totalMaskForSell;
 	int earned;  //money earned by shop 1
 	int earned2; //money earned by shop 2
 	int earned3; //money earned by shop 3
+	int newMoneyValue;
+
+	bool firstDay;
 
 	//Inputs
 	void MouseMove (int x, int y);
@@ -51,6 +57,7 @@ public:
 	CStalls *theStall[3];
 	CMoney theMoney;
 	WeatherGenerator theHaze;
+	CForecast *forecasting;
 
 	static CPlayState* Instance() {
 		return &thePlayState;

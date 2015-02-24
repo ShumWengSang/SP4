@@ -9,25 +9,23 @@ void CSaveState::LoadTextures()
 {
 	//Textures
 	CApplication::getInstance()->LoadTGA(&background[0],"images/background.tga");
-	CApplication::getInstance()->LoadTGA(&button[0],"images/menuState/start.tga");
-	CApplication::getInstance()->LoadTGA(&button[1],"images/menuState/loadGame.tga");
-	CApplication::getInstance()->LoadTGA(&button[2],"images/menuState/options.tga");
-	CApplication::getInstance()->LoadTGA(&button[3],"images/menuState/quit.tga");
+	CApplication::getInstance()->LoadTGA(&button[0],"images/buyMaskState/box.tga");
+	CApplication::getInstance()->LoadTGA(&button[1],"images/startState/back.tga");
 }
 void CSaveState::LoadButtons()
 {
 	//buttons
-	theButton[save1] = new CButtons(SCREEN_WIDTH/2 - 150, 200, 300, 100, save1);
+	theButton[save1] = new CButtons(SCREEN_WIDTH/2 - 150, 200, 350, 100, save1);
 	theButton[save1]->setButtonTexture(button[0].texID);
 	
-	theButton[save2] = new CButtons(SCREEN_WIDTH/2 - 150, 300, 300, 100, save2);
-	theButton[save2]->setButtonTexture(button[1].texID);
+	theButton[save2] = new CButtons(SCREEN_WIDTH/2 - 150, 300, 350, 100, save2);
+	theButton[save2]->setButtonTexture(button[0].texID);
 	
-	theButton[save3] = new CButtons(SCREEN_WIDTH/2 - 150, 400, 300, 100, save3);
-	theButton[save3]->setButtonTexture(button[2].texID);
+	theButton[save3] = new CButtons(SCREEN_WIDTH/2 - 150, 400, 350, 100, save3);
+	theButton[save3]->setButtonTexture(button[0].texID);
 	
-	theButton[back] = new CButtons(0, 0, 100, 100, back);
-	theButton[back]->setButtonTexture(button[3].texID);
+	theButton[back] = new CButtons(0, 0, 64, 64, back);
+	theButton[back]->setButtonTexture(button[1].texID);
 }
 void CSaveState::LoadLoadData()
 {
@@ -211,25 +209,14 @@ void CSaveState::MouseClick(int button, int state, int x, int y) {
 
 				//load files
 				if(theButton[save1]->isInside(x, y))
-					if(loadedFiles[0]->getHere())
-					loadedFiles[0]->overwriteData("save01.txt",9,9,9);
-					else
-					loadedFiles[0]->overwriteData("save01.txt",8,8,8);
-					//CGameStateManager::getInstance()->ChangeState(CPlayState::Instance());
-				
+					loadedFiles[0]->overwriteData("save01.txt", CPlayState::Instance()->day,CPlayState::Instance()->theMoney.getCurrentMoney(), CPlayState::Instance()->maskInStock);
+					
 				if(theButton[save2]->isInside(x, y))
-					if(loadedFiles[1]->getHere())
-					loadedFiles[1]->overwriteData("save02.txt",9,9,9);
-					else
-					loadedFiles[1]->overwriteData("save02.txt",8,8,8);
-					//CGameStateManager::getInstance()->ChangeState(CPlayState::Instance());
-
+					loadedFiles[1]->overwriteData("save02.txt", CPlayState::Instance()->day,CPlayState::Instance()->theMoney.getCurrentMoney(), CPlayState::Instance()->maskInStock);
+					
 				if(theButton[save3]->isInside(x, y))
-					if(loadedFiles[2]->getHere())
-					loadedFiles[2]->overwriteData("save03.txt",9,9,9);
-					else
-					loadedFiles[2]->overwriteData("save03.txt",8,8,8);
-
+					loadedFiles[2]->overwriteData("save03.txt", CPlayState::Instance()->day,CPlayState::Instance()->theMoney.getCurrentMoney(), CPlayState::Instance()->maskInStock);
+					
 
 				//go back
 				if(theButton[back]->isInside(x, y))

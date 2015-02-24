@@ -13,7 +13,8 @@ using namespace std;
 
 enum ENDSTATE_BUTTON
 {
-	save
+	save,
+	eNext
 };
 
 class CInputSystem;
@@ -23,7 +24,7 @@ class CEndOfDayState : public CInGameState
 private:
 	CEndOfDayState(void) {};
 
-	TextureImage button[1];
+	TextureImage button[2];
 	TextureImage background[1];
 
 public:

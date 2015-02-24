@@ -42,9 +42,19 @@ void CBuyMaskState::Init()
 
 
 	if (CLoadState::Instance()->getLoaded())
+	{
 		CPlayState::Instance()->theMoney.setCurrentMoney(CLoadState::Instance()->getLoadData()->getMoney());
+		CPlayState::Instance()->maskInStock = CLoadState::Instance()->getLoadData()->getMask();
+		CPlayState::Instance()->day = CLoadState::Instance()->getLoadData()->getDay();
+		CPlayState::Instance()->forecasting->setCurrentDay(CLoadState::Instance()->getLoadData()->getDay());
+	}
 	else
-		CPlayState::Instance()->theMoney.setCurrentMoney(1000);
+	{
+		if(CPlayState::Instance()->firstDay)
+			CPlayState::Instance()->theMoney.setCurrentMoney(900);
+		else
+			CPlayState::Instance()->theMoney.setCurrentMoney(CPlayState::Instance()->newMoneyValue);
+	}
 
 	needMoney = false;
 
@@ -197,6 +207,7 @@ void CBuyMaskState::drawInfo()
 
 			printw ((SCREEN_WIDTH / 2) - 200, SCREEN_HEIGHT/2 + 50, 0, "Mask in Stock: %d", CPlayState::Instance()->maskInStock);
 			printw ((SCREEN_WIDTH/2)+50, SCREEN_HEIGHT/2 + 50, 0, "$: %d", CPlayState::Instance()->theMoney.getCurrentMoney());
+			printw ((SCREEN_WIDTH / 2) - 200, SCREEN_HEIGHT/2, 0, "Day: %d", CPlayState::Instance()->day );
 		glPopAttrib();
 	glPopMatrix();
 }

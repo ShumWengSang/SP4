@@ -8,6 +8,7 @@ class CForecast
 {
 	int forecastNum[7]; //value of forecasts
 	int forecastNumRange[7]; //value of forecasts in a range of numbers
+	int actualNum[7]; //value of actual PSI
 	int actualNumRange[7]; //value of actual PSI in a range of numbers
 	
 	int currentDay;
@@ -18,16 +19,20 @@ public:
 	~CForecast(void);
 	
 	void init();
-	int forecasting(int day);
+	void forecasting();
 
-	int checkDay(int curDay);
-	int setForecastNumRange(int lowRange, int highRange, int higherChance);
+	void checkDay(int curDay);
+	void setForecastNumRange(int lowRange, int highRange, int higherChance, int day);
 	int prediction(int lowRange, int highRange, int highestChance);
 
+
 	void setCurrentDay(int day);
-	void setActualRange(std::vector<float> actual); //set range on range X
+	void setActualArray(std::vector<float> actual); //set range on range X
 
 	int getCurrentDay();
-	float getCurrentForecast();
+	int getCurrentForecast();
+
+	
+	float getActual();
 };
 

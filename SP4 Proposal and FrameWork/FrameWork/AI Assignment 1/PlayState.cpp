@@ -11,15 +11,24 @@ void CPlayState::Init()
 	//Enable Camera Orientation on Mouse Move
 	CInputSystem::getInstance()->OrientCam = true;
 	
+	day = 1;
+
 	maskInStock = 0;
 	oldMaskValue = 0;
 	earned = 0;
 	earned2 = 0;
 	earned3 = 0;
+	newMoneyValue = 0;
+	firstDay = true;
 
 	theStall[0] = new CStalls();
 	theStall[1] = new CStalls();
 	theStall[2] = new CStalls();
+
+	forecasting = new CForecast;
+	forecasting->init();
+	forecasting->setActualArray(theHaze.GetHazeAvg());
+	forecasting->forecasting();
 
 	//Game State Manager
 	IGSM = CInGameStateManager::getInstance();

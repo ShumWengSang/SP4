@@ -108,9 +108,6 @@
     <ClCompile Include="AudioPlayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="BuyMaskState.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="LoadState.cpp">
       <Filter>PlayStates</Filter>
     </ClCompile>
@@ -121,6 +118,9 @@
       <Filter>Resource Files</Filter>
     </ClCompile>
     <ClCompile Include="SaveState.cpp">
+      <Filter>PlayStates</Filter>
+    </ClCompile>
+    <ClCompile Include="BuyMaskState.cpp">
       <Filter>PlayStates</Filter>
     </ClCompile>
   </ItemGroup>
@@ -206,9 +206,6 @@
     <ClInclude Include="AudioPlayer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="BuyMaskState.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="LoadState.h">
       <Filter>PlayStates</Filter>
     </ClInclude>
@@ -219,6 +216,9 @@
       <Filter>Resource Files</Filter>
     </ClInclude>
     <ClInclude Include="SaveState.h">
+      <Filter>PlayStates</Filter>
+    </ClInclude>
+    <ClInclude Include="BuyMaskState.h">
       <Filter>PlayStates</Filter>
     </ClInclude>
   </ItemGroup>
