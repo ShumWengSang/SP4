@@ -36,6 +36,7 @@ public:
 	int day;
 
 	int maskInStock;
+	int maskLeft;
 	int oldMaskValue;
 	int totalMaskForSell;
 	int earned;  //money earned by shop 1
@@ -44,6 +45,8 @@ public:
 	int newMoneyValue;
 
 	bool firstDay;
+
+	void resetValues();
 
 	//Inputs
 	void MouseMove (int x, int y);

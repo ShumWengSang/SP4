@@ -14,6 +14,7 @@ void CPlayState::Init()
 	day = 1;
 
 	maskInStock = 0;
+	maskLeft = 0;
 	oldMaskValue = 0;
 	earned = 0;
 	earned2 = 0;
@@ -112,5 +113,17 @@ void CPlayState::MouseWheel(int button, int dir, int x, int y) {
 
 	IGSM->GetCurrentState()->MouseWheel(button, dir, x, y);
 
+}
+
+void CPlayState::resetValues()
+{
+	for(int i = 0; i<3; ++i)
+	{
+		theStall[i]->setMaskNo(0);
+		theStall[i]->setMaskPrice(0);
+		theStall[i]->setMaskSold(0);
+		theStall[i]->totalMaskSold = 0;
+		cout << theStall[i]->getTotalMaskSold() << endl;
+	}
 }
 
