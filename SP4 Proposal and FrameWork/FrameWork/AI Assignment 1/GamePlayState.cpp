@@ -442,8 +442,6 @@ void CGamePlayState::ClickCollision() {
 	colorf[0] = (float)color[0]/255;
 	colorf[1] = (float)color[1]/255;
 	colorf[2] = (float)color[2]/255;
-
-	printf("Clicked on pixel %d, %d, color %0.2f %0.2f %0.2f\n\n", x, y, colorf[0], colorf[1], colorf[2]);
 	
 	//For some reason it only checks tiles with a and s that are multiples of 4
 	//Check color scheme for tiles
@@ -459,6 +457,9 @@ void CGamePlayState::ClickCollision() {
 			a++;
 		}
 
+		if(a == maxa)
+			break;
+
 		if(theGrid->temp[a][s].getColor() == Vector3(colorf[0], colorf[1], colorf[2])) {
 			printf("Confirmed grid clicked %d %d\n\n", a, s);
 			break;
@@ -466,19 +467,6 @@ void CGamePlayState::ClickCollision() {
 						
 		s++;
 	}
-
-	//Using For loop
-	/*for(int a = 0; a < TILE_NO_X; a++)
-	{
-		for(int s = 0; s < TILE_NO_Y; s++)
-		{
-			if(theGrid->temp[a][s].getColor() == Vector3(colorf[0], colorf[1], colorf[2])) {
-				printf("Confirmed grid clicked %d %d\n\n", a, s);
-				break;
-			}
-			
-		}
-	}*/
 }
 
 void CGamePlayState::drawInfo()

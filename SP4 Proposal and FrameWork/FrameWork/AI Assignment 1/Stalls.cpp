@@ -1,10 +1,13 @@
 #include "Stalls.h"
 
-CStalls::CStalls(void)
+CStalls::CStalls(Vector3 pos, Vector3 scale)
 {
 	gasMaskAmount = 0;
 	maskSold = 0;
 	totalMaskSold = 0;
+
+	this->pos = pos;
+	this->scale = scale;
 }
 
 CStalls::~CStalls(void)
@@ -59,15 +62,16 @@ void CStalls::moveStall()
 bool CStalls::glRenderObject() {
 	glPushMatrix();
 		glEnable(GL_BLEND);
-		glTranslatef( pos.x, pos.y, pos.z );
+		glTranslatef( pos.x, pos.y+scale.y/2, pos.z );
 		glScalef(scale.x, scale.y, scale.z);
-		glColor3f(1.0,1.0,1.0);
-		glBegin(GL_QUADS);
-			glVertex3f(5, 0, 0);
-			glVertex3f(0, 0, 0);
-			glVertex3f(0, 5, 0);
-			glVertex3f(5, 5, 0);
-		glEnd();
+		glColor3f(1.0,0.0,0.0);
+		/*glBegin(GL_QUADS);
+			glVertex3f(0.5, -0.5, 0);
+			glVertex3f(-0.5, -0.5, 0);
+			glVertex3f(-0.5, 0.5, 0);
+			glVertex3f(0.5, 0.5, 0);
+		glEnd();*/
+		glutSolidCube(1);
 		glDisable(GL_BLEND);
 	glPopMatrix();
 	return true;
@@ -92,3 +96,4 @@ Vector3 CStalls::GetScale() {
 void CStalls::Update() {
 
 }
+

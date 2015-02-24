@@ -43,9 +43,12 @@ public:
 	Tiles * right;
 	Tiles * bottom;
 
+	//Check if contains a Stall
+	CStalls * ShopOnTop;
+
 	//Entity functions
 	bool glRenderObject();
 	void Update();
-	CStalls * ShopOnTop;
+
 };
 
