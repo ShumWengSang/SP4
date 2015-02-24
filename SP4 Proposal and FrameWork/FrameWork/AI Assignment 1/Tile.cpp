@@ -90,7 +90,7 @@ void Tiles::Pressure(Tiles &currentCell, Tiles &neighbourCell)
 
 void Tiles::Update()
 {
-	if (this->TileHazeValue == 0)
+	if (this->TileHazeValue <= 50)
 	{
 		return;
 	}
@@ -102,4 +102,7 @@ void Tiles::Update()
 		Pressure(*this, *left);
 	if (right != NULL)
 		Pressure(*this, *right);
+
+	
+	//this->TileHazeValue -= 1;
 }

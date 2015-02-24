@@ -2,10 +2,11 @@
 #include "Vector3.h"
 #include "freeglut.h"
 #include "Entity.h"
+#include "Stalls.h"
 //#include "Grid.h"
 
-#define TILE_SIZE_X 8
-#define TILE_SIZE_Y 8
+#define TILE_SIZE_X 1
+#define TILE_SIZE_Y 1
 
 class Tiles : public Entity
 {
@@ -26,6 +27,7 @@ public:
 		left = NULL;
 		right = NULL;
 		bottom = NULL;
+		ShopOnTop = NULL;
 	}
 	~Tiles(void){};
 	static void Pressure(Tiles &currentCell,Tiles &neighborCell);
@@ -44,5 +46,6 @@ public:
 	//Entity functions
 	bool glRenderObject();
 	void Update();
+	CStalls * ShopOnTop;
 };
 

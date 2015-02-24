@@ -58,6 +58,14 @@ void CGamePlayState::Init()
 
 		theGrid->temp[x][y].TileHazeValue = CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime];
 		theSeededTiles.push_back(&theGrid->temp[x][y]);
+		for (int i = 0; i < TILE_NO_X; i++)
+		{
+			for (int k = 0; k < TILE_SIZE_Y; k++)
+			{
+				theGrid->temp[i][k].TileHazeValue = 0;
+			}
+		}
+
 		//GET TILE INFO FROM POSITION
 		//SET THE HAZE
 	}
@@ -110,9 +118,21 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 
 	if (theTimerInstance->executeTime(TimerKeyDay))
 	{
-		//DayNumber++;
+		DayNumber++;
 		//CInGameStateManager::getInstance()->ChangeState(CEndOfDayState::Instance());
-		//HourNumber = 0;
+		HourNumber = 0;
+		theSeededTiles.clear();
+		for (int i = 0; i < SEEDCOUNT; i++)
+		{
+			int x = rand() % TILE_NO_X;
+			int y = rand() % TILE_NO_Y;
+
+			theGrid->temp[x][y].TileHazeValue = CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime];
+			theSeededTiles.push_back(&theGrid->temp[x][y]);
+			//GET TILE INFO FROM POSITION
+			//SET THE HAZE
+		}
+		std::cout << "DAY CHANGE IT IS NOW DAY " << DayNumber << std::endl;
 	}
 	if (theTimerInstance->executeTime(TimerKeySeed))
 	{
@@ -202,6 +222,13 @@ void CGamePlayState::keyboardUpdate()
 		CApplication::getInstance()->theCamera->Walk(1);
 	if(CInputSystem::getInstance()->myKeys['k'])
 		CApplication::getInstance()->theCamera->Walk(-1);
+	if (CInputSystem::getInstance()->myKeys['1'])
+	{
+		for (int i = 0; i < theSeededTiles.size(); i++)
+		{
+			std::cout << "TILE SEED NUMBER : " << i << " : " << theSeededTiles[i]->TileHazeValue << std::endl;
+		}
+	}
 
 	if(CInputSystem::getInstance()->myKeys['z'])
 	{
