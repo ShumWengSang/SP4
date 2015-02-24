@@ -14,9 +14,14 @@
 
 using namespace std;
 
+#define SEEDCOUNT 5
+
 enum PLAYSTATE_BUTTON
 {
-	pause
+	pause,
+	shop,
+	shop2,
+	shop3
 };
 
 class CInputSystem;
@@ -27,6 +32,12 @@ private:
 	CGamePlayState(void) {};
 
 	TextureImage button[4];
+	TextureImage map[1];
+
+	bool isPause;
+	bool shopSelected;
+	bool shop2Selected;
+	bool shop3Selected;
 
 public:
 	void Init();
@@ -39,6 +50,8 @@ public:
 	void Update(CInGameStateManager* GSM);
 	void Draw(CInGameStateManager* GSM);
 	void keyboardUpdate(void);
+	void LoadTextures();
+	void LoadButtons();
 	void DrawButtons();
 
 	//Inputs

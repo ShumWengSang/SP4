@@ -2,6 +2,11 @@
 #include <iostream>
 #include "Tile.h"
 
+#define TILE_NO_X 99
+#define TILE_NO_Y 29
+#define TILE_SIZE_X 8
+#define TILE_SIZE_Y 8
+
 class Grid
 {
 private:
@@ -14,8 +19,7 @@ public:
 	~Grid(void);
 
 	void InitGrid(void);
-	void renderMap(bool);
-	void drawGrid(int, int, int, bool);
+	void renderGrid(bool isPicking);
 	
 	void setX(int x);
 	void setY(int y);
@@ -25,7 +29,7 @@ public:
 	int getY();
 	int getZ();
 
-	Tiles temp[1][1];
+	Tiles temp[TILE_NO_X][TILE_NO_Y];
 
 };
 

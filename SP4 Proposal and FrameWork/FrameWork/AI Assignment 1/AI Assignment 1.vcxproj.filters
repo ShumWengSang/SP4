@@ -99,6 +99,18 @@
     <ClCompile Include="Grid.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="WeatherGenerator.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source2.cpp">
+      <Filter>Useless files for reference</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioPlayer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BuyMaskState.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameState.h">
@@ -174,6 +186,15 @@
       <Filter>Resource Files</Filter>
     </ClInclude>
     <ClInclude Include="Grid.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WeatherGenerator.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioPlayer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="BuyMaskState.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

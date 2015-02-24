@@ -38,6 +38,10 @@ void CMenuState::Init()
 	//Input System
 	InputSystem = CInputSystem::getInstance();
 
+	//Audio Player
+	se = createIrrKlangDevice();
+	playSound();
+
 	//Enable Camera Orientation on Mouse Move
 	InputSystem->OrientCam = true;
 
@@ -77,7 +81,6 @@ void CMenuState::Update(CGameStateManager* theGSM)
 void CMenuState::Draw(CGameStateManager* theGSM) 
 {
 	CApplication::getInstance()->theCamera->SetHUD(true);
-
 	DrawBackground();
 	DrawButtons();
 
@@ -133,6 +136,7 @@ void CMenuState::MouseClick(int button, int state, int x, int y) {
 
 	switch (button) {
 		case GLUT_LEFT_BUTTON:
+			se->play2D("audio/click.wav",false);
 			if (state == 0)
 			{
 				CInputSystem::getInstance()->mouseInfo.mLButtonUp = false;
@@ -172,5 +176,12 @@ void CMenuState::MouseWheel(int button, int dir, int x, int y) {
 		Vector3 temp = CApplication::getInstance()->theCamera->GetPosition() - CApplication::getInstance()->theCamera->GetDirection();
 		CApplication::getInstance()->theCamera->SetPosition(temp.x,temp.y,temp.z);
 	}
+}
+
+
+void CMenuState::playSound()
+{
+	sound.setFileName("audio/sims.mp3");
+	sound.playSoundThreaded();
 }
 

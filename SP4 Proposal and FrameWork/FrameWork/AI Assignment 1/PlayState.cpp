@@ -1,5 +1,6 @@
 #include "PlayState.h"
 #include "StartOfDayState.h"
+#include "BuyMaskState.h"
 
 CPlayState CPlayState::thePlayState;
 
@@ -9,6 +10,8 @@ void CPlayState::Init()
 
 	//Enable Camera Orientation on Mouse Move
 	CInputSystem::getInstance()->OrientCam = true;
+	
+	theMask = 0;
 
 	theStall[0] = new CStalls();
 	theStall[1] = new CStalls();
@@ -17,7 +20,7 @@ void CPlayState::Init()
 	//Game State Manager
 	IGSM = CInGameStateManager::getInstance();
 	IGSM->Init("In Game State Manager");
-	IGSM->ChangeState(CStartOfDayState::Instance());
+	IGSM->ChangeState(CBuyMaskState::Instance());
 
 }
 

@@ -7,6 +7,7 @@
 #include "Global.h"
 #include "TextureImage.h"
 #include "Buttons.h"
+#include "AudioPlayer.h"
 
 using namespace std;
 
@@ -43,6 +44,7 @@ public:
 	void DrawButtons();
 	void DrawBackground();
 	void keyboardUpdate(void);
+	void playSound();
 
 	//Inputs
 	void MouseMove (int x, int y);
@@ -59,5 +61,7 @@ private:
 	//Input System
 	CInputSystem* InputSystem;
 	CButtons* theButton[4];
+	AudioPlayer sound;
+	ISoundEngine *se;
 };
 

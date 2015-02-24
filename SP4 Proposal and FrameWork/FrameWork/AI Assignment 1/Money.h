@@ -15,7 +15,7 @@ public:
 	int getPrice();
 	int getCurrentMoney();
 	void setPrice(int p);
-	void setCurrentPrice(int cm);
+	void setCurrentMoney(int cm);
 	void setMoneyIncrease(int mi);
 };
 

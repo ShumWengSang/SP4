@@ -8,6 +8,8 @@
 #include "Global.h"
 #include "Input.h"
 #include "Stalls.h"
+#include "WeatherGenerator.h"
+#include "Money.h"
 
 using namespace std;
 
@@ -30,7 +32,7 @@ public:
 	void Draw(CGameStateManager* GSM);
 	void keyboardUpdate(void);
 
-
+	int theMask;
 
 	//Inputs
 	void MouseMove (int x, int y);
@@ -40,7 +42,10 @@ public:
 	//Game State Manager
 	CInGameStateManager *IGSM;
 
+	//Variables that persists throughout the days.
 	CStalls *theStall[3];
+	CMoney theMoney;
+	WeatherGenerator theHaze;
 
 	static CPlayState* Instance() {
 		return &thePlayState;
