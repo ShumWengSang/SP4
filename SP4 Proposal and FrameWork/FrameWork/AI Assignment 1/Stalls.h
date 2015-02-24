@@ -2,13 +2,18 @@
 #include <iostream>
 #include "Money.h"
 #include "Entity.h"
+#include "freeglut.h"
 using namespace std;
 
 class CStalls : public Entity
 {
+private:
 	int gasMaskAmount;
 	int maskPrice;
 	int maskSold;
+	Vector3 pos;
+	Vector3 scale;
+
 public:
 	CStalls(void);
 	~CStalls(void);
