@@ -87,8 +87,11 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="EndOfDayState.cpp" />
     <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="Forecast.cpp" />
     <ClCompile Include="GamePlayState.cpp" />
     <ClCompile Include="GameStateManager.cpp" />
+    <ClCompile Include="LoadState.cpp" />
+    <ClCompile Include="SaveLoad.cpp" />
     <ClCompile Include="Source2.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="InGameStateManager.cpp" />
@@ -115,10 +118,13 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="EndOfDayState.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="Forecast.h" />
     <ClInclude Include="GamePlayState.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GameStateManager.h" />
     <ClInclude Include="Global.h" />
+    <ClInclude Include="LoadState.h" />
+    <ClInclude Include="SaveLoad.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="InGameState.h" />
     <ClInclude Include="InGameStateManager.h" />

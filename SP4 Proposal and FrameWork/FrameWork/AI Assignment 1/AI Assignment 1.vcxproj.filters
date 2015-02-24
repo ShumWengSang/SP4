@@ -111,6 +111,15 @@
     <ClCompile Include="BuyMaskState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LoadState.cpp">
+      <Filter>PlayStates</Filter>
+    </ClCompile>
+    <ClCompile Include="Forecast.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SaveLoad.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameState.h">
@@ -196,6 +205,15 @@
     </ClInclude>
     <ClInclude Include="BuyMaskState.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadState.h">
+      <Filter>PlayStates</Filter>
+    </ClInclude>
+    <ClInclude Include="Forecast.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveLoad.h">
+      <Filter>Resource Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -1,5 +1,6 @@
 #include "MenuState.h"
 #include "PlayState.h"
+#include "LoadState.h"
 
 CMenuState CMenuState::theMenuState;
 
@@ -146,6 +147,10 @@ void CMenuState::MouseClick(int button, int state, int x, int y) {
 				//go to start of the day
 				if(theButton[start]->isInside(x, y))
 					CGameStateManager::getInstance()->ChangeState(CPlayState::Instance());
+
+				//load game
+				if(theButton[loadGame]->isInside(x, y))
+					CGameStateManager::getInstance()->ChangeState(CLoadState::Instance());
 
 				//quit game
 				if(theButton[quit]->isInside(x, y))
