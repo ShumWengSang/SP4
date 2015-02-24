@@ -13,6 +13,10 @@ void CPlayState::Init()
 	
 	maskInStock = 0;
 	oldMaskValue = 0;
+	earned = 0;
+	earned2 = 0;
+	earned3 = 0;
+
 	theStall[0] = new CStalls();
 	theStall[1] = new CStalls();
 	theStall[2] = new CStalls();
@@ -23,7 +27,6 @@ void CPlayState::Init()
 	IGSM->ChangeState(CBuyMaskState::Instance());
 
 	theHaze.GetHazeAvg();
-
 }
 
 void CPlayState::Cleanup()
