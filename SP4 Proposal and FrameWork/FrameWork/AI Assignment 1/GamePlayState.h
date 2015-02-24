@@ -14,7 +14,7 @@
 
 using namespace std;
 
-#define SEEDCOUNT 5
+#define SEEDCOUNT 10
 
 enum PLAYSTATE_BUTTON
 {
@@ -29,7 +29,7 @@ class CInputSystem;
 class CGamePlayState : public CInGameState
 {
 private:
-	CGamePlayState(void) {};
+	CGamePlayState(void) { DayNumber = 0; };
 
 	TextureImage button[4];
 	TextureImage map[1];
@@ -63,10 +63,15 @@ public:
 		return &theGamePlayState;
 	}
 
+	int DayNumber;
 private:
 	static CGamePlayState theGamePlayState;
 
 	std::vector<Entity*> theListofEntities;
+	std::vector<Tiles *> theSeededTiles;
+
+	CTimer * theTimerInstance;
+	int TimerKey;
 
 	CMoney theMoney;
 	CButtons* theButton[4];

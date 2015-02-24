@@ -52,13 +52,18 @@ void CGamePlayState::Init()
 
 	for (int i = 0; i < SEEDCOUNT; i++)
 	{
-		Vector3 theSeedLocation(rand() % TILE_NO_X, 0, rand() % TILE_NO_Y);
+		int x = rand() % TILE_NO_X;
+		int y = rand() % TILE_NO_Y;
 
+		theGrid.temp[x][y].TileHazeValue = CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime];
+		theSeededTiles.push_back(&theGrid.temp[x][y]);
 		//GET TILE INFO FROM POSITION
 		//SET THE HAZE
 	}
 
-	PlayState->theHaze;
+	theTimerInstance = CTimer::getInstance();
+	TimerKeySeed = theTimerInstance->insertNewTime(3000);
+	HourNumber = 0;
 
 }
 
@@ -98,6 +103,18 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 	{
 		(*i)->Update();
 	}
+
+	if (theTimerInstance->executeTime(TimerKeySeed))
+	{
+		HourNumber++;
+		for (auto i = theSeededTiles.begin(); i != theSeededTiles.end(); i++)
+		{
+			(*i)->TileHazeValue = CPlayState::Instance()->theHaze.HazeGraph[HourNumber * DayTime];
+		}
+		
+	}
+
+
 }
 
 void CGamePlayState::Draw(CInGameStateManager* theGSM) 

@@ -3,6 +3,7 @@
 
 Grid::Grid(void)
 {
+	
 	tileHeight = TILE_SIZE_X;
 	tileWidth = TILE_SIZE_Y;
 	InitGrid();
