@@ -134,6 +134,7 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 		CInGameStateManager::getInstance()->ChangeState(CEndOfDayState::Instance());
 	}
 
+}
 
 void CGamePlayState::Draw(CInGameStateManager* theGSM) 
 {
