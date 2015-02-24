@@ -9,7 +9,6 @@ class CStalls : public Entity
 {
 private:
 	int gasMaskAmount;
-	int maskPrice;
 	int maskSold;
 	Vector3 pos;
 	Vector3 scale;
@@ -21,17 +20,19 @@ public:
 	CMoney theStoreMoney;
 
 	int getMaskNo();
-	int getMaskPrice();
 	int getMaskSold();
 	int getTotalMaskSold();
+	int getMaskPrice();
 
 	void setMaskNo(int mn);
-	void setMaskPrice(int mp);
 	void setMaskSold(int ms);
 	void setTotalMaskSold(int tms);
+	void setMaskPrice(int mp);
 
 	void buyMask(int amt);
 	void moveStall();
+
+	CMoney theMoney;
 
 	float Price;
 
@@ -42,6 +43,5 @@ public:
 	bool operator== (Entity& o);
 	Vector3 GetScale();
 	void Update();
-
 };
 

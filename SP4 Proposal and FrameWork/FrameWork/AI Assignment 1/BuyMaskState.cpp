@@ -123,7 +123,7 @@ void CBuyMaskState::MouseClick(int button, int state, int x, int y) {
 	switch (button) {
 
 		case GLUT_LEFT_BUTTON:
-			if (state == 0) 
+			if (state == GLUT_DOWN) 
 			{
 				CInputSystem::getInstance()->mouseInfo.mLButtonUp = false;
 				CInputSystem::getInstance()->mouseInfo.clickedX = x;
@@ -160,10 +160,10 @@ void CBuyMaskState::MouseClick(int button, int state, int x, int y) {
 
 				if(theButton[bTwohundred]->isInside(x, y))
 				{
-					if(CPlayState::Instance()->theMoney.getCurrentMoney() < 900)
+					if(CPlayState::Instance()->theMoney.getCurrentMoney() < 850)
 						needMoney = true;
 					else{
-						CPlayState::Instance()->theMoney.setCurrentMoney(CPlayState::Instance()->theMoney.getCurrentMoney() - 900);
+						CPlayState::Instance()->theMoney.setCurrentMoney(CPlayState::Instance()->theMoney.getCurrentMoney() - 850);
 						CPlayState::Instance()->maskInStock += 200;
 						needMoney = false;
 					}
@@ -190,7 +190,7 @@ void CBuyMaskState::drawInfo()
 
 			printw (theButton[bFifty]->getButtonX(), theButton[bFifty]->getButtonY() + 50, 0, "$250");
 			printw (theButton[bHundred]->getButtonX(), theButton[bHundred]->getButtonY() + 50, 0, "$450");
-			printw (theButton[bTwohundred]->getButtonX(), theButton[bTwohundred]->getButtonY() + 50, 0, "$900");
+			printw (theButton[bTwohundred]->getButtonX(), theButton[bTwohundred]->getButtonY() + 50, 0, "$850");
 
 			if(needMoney)
 				printw ((SCREEN_WIDTH/2)-100, SCREEN_HEIGHT/2 - 50, 0, "You need more money!!!");

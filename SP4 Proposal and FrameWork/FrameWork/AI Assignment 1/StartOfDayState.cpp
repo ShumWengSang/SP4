@@ -234,7 +234,7 @@ void CStartOfDayState::MouseClick(int button, int state, int x, int y) {
 	switch (button) {
 
 		case GLUT_LEFT_BUTTON:
-			if (state == 0)
+			if (state == GLUT_DOWN)
 			{
 				CInputSystem::getInstance()->mouseInfo.mLButtonUp = false;
 				CInputSystem::getInstance()->mouseInfo.clickedX = x;
@@ -257,6 +257,9 @@ void CStartOfDayState::MouseClick(int button, int state, int x, int y) {
 					CPlayState::Instance()->theStall[0]->setMaskNo(0);
 					CPlayState::Instance()->theStall[1]->setMaskNo(0);
 					CPlayState::Instance()->theStall[2]->setMaskNo(0);
+					CPlayState::Instance()->theStall[0]->setMaskPrice(0);
+					CPlayState::Instance()->theStall[1]->setMaskPrice(0);
+					CPlayState::Instance()->theStall[2]->setMaskPrice(0);
 				}
 
 				//For Shop 1 no. of mask setting

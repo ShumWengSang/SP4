@@ -36,7 +36,7 @@ void CLoadState::LoadButtons()
 	theButton[save3]->setButtonTexture(button[0].texID);
 	
 	theButton[backToMenu] = new CButtons(0, 0, 64, 64, backToMenu);
-	theButton[backToMenu]->setButtonTexture(button[1].texID);
+	theButton[backToMenu] ->setButtonTexture(button[1].texID);
 }
 void CLoadState::LoadLoadData()
 {
@@ -205,7 +205,7 @@ void CLoadState::MouseClick(int button, int state, int x, int y) {
 
 	switch (button) {
 		case GLUT_LEFT_BUTTON:
-			if (state == 0)
+			if (state == GLUT_DOWN)
 			{
 				CInputSystem::getInstance()->mouseInfo.mLButtonUp = false;
 				CInputSystem::getInstance()->mouseInfo.clickedX = x;

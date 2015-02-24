@@ -153,11 +153,21 @@ void CGamePlayState::Draw(CInGameStateManager* theGSM)
 		glDisable(GL_BLEND);
 	glPopMatrix();
 
+
 	//theGrid.renderGrid(false);
 	for (auto i = theListofEntities.begin(); i != theListofEntities.end(); i++)
 	{
 		(*i)->glRenderObject();
 	}
+
+	// Render Objects to be selected in the color scheme
+	if(CInputSystem::getInstance()->mouseInfo.mLButtonUp == false) {
+		theGrid.Click = true;
+		cout << endl;
+	}else
+		theGrid.Click = false;
+
+
 	CApplication::getInstance()->theCamera->SetHUD(true);
 
 	DrawButtons();//pause button here
@@ -200,24 +210,30 @@ void CGamePlayState::keyboardUpdate()
 			CPlayState::Instance()->theStall[0]->setMaskSold(2);
 			CPlayState::Instance()->theStall[0]->setTotalMaskSold(CPlayState::Instance()->theStall[0]->getMaskSold());
 			CPlayState::Instance()->theStall[0]->setMaskNo(CPlayState::Instance()->theStall[0]->getMaskNo() - CPlayState::Instance()->theStall[0]->getMaskSold());
+			CPlayState::Instance()->earned = CPlayState::Instance()->theStall[0]->getTotalMaskSold() * CPlayState::Instance()->theStall[0]->getMaskPrice();
 			cout << "1. mask sold " << CPlayState::Instance()->theStall[0]->getMaskSold() << endl;
 			cout << "mask in stall: " << CPlayState::Instance()->theStall[0]->getMaskNo() << endl;
 			cout << "total mask sold: " << CPlayState::Instance()->theStall[0]->getTotalMaskSold() << endl;
+			cout << CPlayState::Instance()->earned << endl;
 		}
 		else
 			cout << "no mask" << endl;
 	}
 	if(CInputSystem::getInstance()->myKeys['x'])
 	{
-		if(CPlayState::Instance()->theStall[1]->getMaskNo() > 0)
+		if(CPlayState::Instance()->theStall[1]->getMaskNo() >= CPlayState::Instance()->theStall[1]->getMaskSold())
 		{
 			CPlayState::Instance()->theStall[1]->setMaskSold(2);
 			CPlayState::Instance()->theStall[1]->setTotalMaskSold(CPlayState::Instance()->theStall[1]->getMaskSold());
 			CPlayState::Instance()->theStall[1]->setMaskNo(CPlayState::Instance()->theStall[1]->getMaskNo() - CPlayState::Instance()->theStall[1]->getMaskSold());
-			cout << "2. mask sold: " << CPlayState::Instance()->theStall[1]->getMaskSold() << endl;
+			CPlayState::Instance()->earned2 = CPlayState::Instance()->theStall[1]->getTotalMaskSold() * CPlayState::Instance()->theStall[1]->getMaskPrice();
+			cout << "2. mask sold " << CPlayState::Instance()->theStall[1]->getMaskSold() << endl;
 			cout << "mask in stall: " << CPlayState::Instance()->theStall[1]->getMaskNo() << endl;
 			cout << "total mask sold: " << CPlayState::Instance()->theStall[1]->getTotalMaskSold() << endl;
+			cout << CPlayState::Instance()->earned2 << endl;
 		}
+		else
+			cout << "no mask" << endl;
 	}
 	if(CInputSystem::getInstance()->myKeys['c'])
 	{
@@ -226,10 +242,14 @@ void CGamePlayState::keyboardUpdate()
 			CPlayState::Instance()->theStall[2]->setMaskSold(2);
 			CPlayState::Instance()->theStall[2]->setTotalMaskSold(CPlayState::Instance()->theStall[2]->getMaskSold());
 			CPlayState::Instance()->theStall[2]->setMaskNo(CPlayState::Instance()->theStall[2]->getMaskNo() - CPlayState::Instance()->theStall[2]->getMaskSold());
-			cout << "3. mask sold: " << CPlayState::Instance()->theStall[2]->getMaskSold() << endl;
+			CPlayState::Instance()->earned3 = CPlayState::Instance()->theStall[2]->getTotalMaskSold() * CPlayState::Instance()->theStall[2]->getMaskPrice();
+			cout << "2. mask sold " << CPlayState::Instance()->theStall[2]->getMaskSold() << endl;
 			cout << "mask in stall: " << CPlayState::Instance()->theStall[2]->getMaskNo() << endl;
 			cout << "total mask sold: " << CPlayState::Instance()->theStall[2]->getTotalMaskSold() << endl;
+			cout << CPlayState::Instance()->earned2 << endl;
 		}
+		else
+			cout << "no mask" << endl;
 	}
 
 	//Esc Key
@@ -282,9 +302,9 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 
 		case GLUT_LEFT_BUTTON:
 			if (state == GLUT_UP) 
-				CInputSystem::getInstance()->mouseInfo.mLButtonUp = false;
-			else {
 				CInputSystem::getInstance()->mouseInfo.mLButtonUp = true;
+			else {
+				CInputSystem::getInstance()->mouseInfo.mLButtonUp = false;
 
 				
 				if(theButton[pause]->isInside(x, y) && isPause == false)
@@ -310,12 +330,13 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 				theGrid->Click = true;
 				//theGrid.renderGrid(true);
 
+
 				GLint window_width = glutGet(GLUT_WINDOW_WIDTH);
 				GLint window_height = glutGet(GLUT_WINDOW_HEIGHT);
  
 				unsigned char color[3];
  
-				glReadPixels(x, window_height - y - 1, 1, 1, GL_RGB, GL_UNSIGNED_BYTE, color);
+				glReadPixels(x, window_height - y, 1, 1, GL_RGB, GL_UNSIGNED_BYTE, color);
  
 				float colorf[3];
 				colorf[0] = (float)color[0]/255;
