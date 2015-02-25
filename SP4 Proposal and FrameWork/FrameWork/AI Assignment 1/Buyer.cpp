@@ -99,25 +99,28 @@ void Buyer::Update()
 	AIUpdate();
 
 	Vector3 * Target = &TargettoWalk.back();
-	float TempX = Position.x - Target->x;
-	float TempY = Position.z - Target->z;
-	TempX = abs(TempX);
-	TempY = abs(TempY);
+	float TempX = -Position.x + Target->x;
+	float TempY = -Position.z + Target->z;
+	//TempX = abs(TempX);
+	//TempY = abs(TempY);
 
-	if (TempX > TempY && TempY != 0)
-	{
-		Velocity.Set(0, 0, 1);
-	}
-	else if (TempY > TempX && TempX != 0)
-	{
-		Velocity.Set(1, 0, 0);
-	}
-	else
-	{
-		Velocity.SetZero();
-	}
+	Velocity.Set(TempX, 0, TempY);
+	Velocity.Normalized();
 
-	Position += Velocity * CTimer::getInstance()->getDelta();
+	//if (TempX > TempY && TempY != 0)
+	//{
+	//	Velocity.Set(0, 0, 1);
+	//}
+	//else if (TempY > TempX && TempX != 0)
+	//{
+	//	Velocity.Set(1, 0, 0);
+	//}
+	//else
+	//{
+	//	Velocity.SetZero();
+	//}
+
+	Position += Velocity * CTimer::getInstance()->getDelta() * 0.05;
 
 
 }
@@ -126,7 +129,7 @@ bool Buyer::glRenderObject()
 {
 	glPushMatrix();
 	glTranslatef(Position.x, Position.y, Position.z);
-	glScalef(5, 5, 5);
+	glScalef(3, 3, 3);
 	glBegin(GL_QUADS);
 	glColor3f(1, 1, 1);
 	glVertex3f(0.5, 1, 0.5);
@@ -219,9 +222,9 @@ void Buyer::Init()
 	int i = rand() % 4;
 	switch (i)
 	{
-		case 0:
-		this->Position.Set(rand() % (TILE_NO_X + 1) * TILE_SIZE_X, 0, 0);
-		TargettoWalk.push_back(Vector3(rand() % (TILE_NO_X + 1) * TILE_SIZE_X, 0, TILE_NO_Y * TILE_SIZE_Y));
+		//case 0:
+		//this->Position.Set(rand() % (TILE_NO_X + 1) * TILE_SIZE_X, 0, 0);
+		//TargettoWalk.push_back(Vector3(rand() % (TILE_NO_X + 1) * TILE_SIZE_X, 0, TILE_NO_Y * TILE_SIZE_Y));
 
 		break;
 	/*	case 1:
@@ -239,7 +242,7 @@ void Buyer::Init()
 
 		default:
 		this->Position.Set(rand() % (TILE_NO_X + 1) * TILE_SIZE_X, 0, 0);
-		TargettoWalk.push_back(Vector3(rand() % (TILE_NO_X + 1) * TILE_SIZE_X, 0, TILE_NO_Y * TILE_SIZE_Y));
+		TargettoWalk.push_back(Vector3(0, 0, TILE_NO_Y ));
 		break;
 	}
 }

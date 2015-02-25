@@ -8,6 +8,7 @@ CStalls::CStalls(Vector3 pos, Vector3 scale)
 
 	this->pos = pos;
 	this->scale = scale;
+	Price = 1;
 }
 
 CStalls::~CStalls(void)
