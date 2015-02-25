@@ -37,14 +37,20 @@ void Tiles::drawTile(int x, int y, int z, int tileWidth, int tileHeight, bool is
 			glColor4f(color.x, color.y, color.z, HazeAlpha);
 			tempC = Vector3(color.x, color.y, color.z);
 		}
+		else if(ShopOnTop != NULL)
+		{
+			glColor4f(0, 1, 0, HazeAlpha);
+			tempC = Vector3(0, 1, 0);
+		}
 		else if (TileHazeValue > 50)
 		{
 			glColor4f(1, 1, 0, HazeAlpha);
 			tempC = Vector3(1, 1, 0);
 		}
-		else
+		else {
 			glColor4f(1, 1, 1, HazeAlpha);
 			tempC = Vector3(1, 1, 1);
+		}
 		glBegin(GL_QUADS);
 			glVertex3f(x,0,z+tileWidth);
 			glVertex3f(x+tileHeight,0,z+tileWidth);

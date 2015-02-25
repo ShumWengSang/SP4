@@ -63,7 +63,8 @@ void Grid::renderGrid(bool isPicking)
 		for(int l = 0; l < TILE_NO_Y; ++l)
 		{
 			//drawTile(k*tileHeight, 0, l*tileWidth, isPicking);
-			temp[k][l].drawTile(k*tileHeight, 0, l*tileWidth, tileWidth, tileHeight, isPicking);
+			//temp[k][l].drawTile(k*tileHeight, 0, l*tileWidth, tileWidth, tileHeight, isPicking);
+			temp[k][l].drawTile(temp[k][l].getPos().x, temp[k][l].getPos().y, temp[k][l].getPos().z, tileWidth, tileHeight, isPicking);
 		}
 	}
 	glPopMatrix();
