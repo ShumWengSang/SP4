@@ -12,6 +12,9 @@ void CGamePlayState::LoadTextures()
 	CApplication::getInstance()->LoadTGA(&button[1], "images/playState/shop.tga");
 	CApplication::getInstance()->LoadTGA(&button[2], "images/playState/shop2.tga");
 	CApplication::getInstance()->LoadTGA(&button[3], "images/playState/shop3.tga");
+	CApplication::getInstance()->LoadTGA(&button[4],"images/playState/shopSelected.tga");
+	CApplication::getInstance()->LoadTGA(&button[5],"images/playState/shop2Selected.tga");
+	CApplication::getInstance()->LoadTGA(&button[6],"images/playState/shop3Selected.tga");
 	CApplication::getInstance()->LoadTGA(&skyBox[0], "images/playState/SkyBox/skybox_near.tga");
 	CApplication::getInstance()->LoadTGA(&skyBox[1], "images/playState/SkyBox/skybox_far.tga");
 	CApplication::getInstance()->LoadTGA(&skyBox[2], "images/playState/SkyBox/skybox_left.tga");
@@ -255,8 +258,23 @@ void CGamePlayState::DrawButtons()
 
 	//shop
 	theButton[shop]->drawButton();
+	if(shop1Selected)
+		theButton[shop]->setButtonTexture(button[4].texID);
+	else
+		theButton[shop]->setButtonTexture(button[1].texID);
+
 	theButton[shop2]->drawButton();
+	if(shop2Selected)
+		theButton[shop2]->setButtonTexture(button[5].texID);
+	else
+		theButton[shop2]->setButtonTexture(button[2].texID);
+
 	theButton[shop3]->drawButton();
+	if(shop3Selected)
+		theButton[shop3]->setButtonTexture(button[6].texID);
+	else
+		theButton[shop3]->setButtonTexture(button[3].texID);
+
 }
 
 void CGamePlayState::DrawSkyBox()
@@ -469,7 +487,22 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 				if(theButton[shop]->isInside(x, y))
 				{
 					shop1Selected = true;
+					shop2Selected = false;
+					shop3Selected = false;
 				}
+				if(theButton[shop2]->isInside(x, y))
+				{
+					shop1Selected = false;
+					shop2Selected = true;
+					shop3Selected = false;
+				}
+				if(theButton[shop3]->isInside(x, y))
+				{
+					shop1Selected = false;
+					shop2Selected = false;
+					shop3Selected = true;
+				}
+
 
 				// Render Objects to be selected in the color scheme
 				theGrid->Click = true;

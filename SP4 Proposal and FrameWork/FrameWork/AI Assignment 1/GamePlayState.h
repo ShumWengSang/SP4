@@ -32,7 +32,7 @@ class CGamePlayState : public CInGameState
 private:
 	CGamePlayState(void) { DayNumber = 0; };
 
-	TextureImage button[4];
+	TextureImage button[7];
 	TextureImage map[1];
 	TextureImage skyBox[6];
 
