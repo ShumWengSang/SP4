@@ -75,7 +75,7 @@ CStalls * Buyer::StalltoBuyFrom(int Haze)
 	typedef std::map<long long, CStalls*>::iterator it_type;
 	for (it_type iterator = ProbabilitytoBuyMask.begin(); iterator != ProbabilitytoBuyMask.end(); iterator++)
 	{
-		if (LeastNumber > iterator->first)
+		if (LeastNumber < iterator->first)
 		{
 			LeastNumber = iterator->first;
 		}
@@ -98,34 +98,16 @@ void Buyer::Insert(CStalls * theStall)
 void Buyer::Update()
 {
 	AIUpdate();
+	if (ReachedLocation(TargettoWalk.back()))
+	{
+		Velocity.Set(0, 0, 0);
+	}
+	else
+	{
+		GotoLocation(TargettoWalk.back(), 5);
+	}
 
-	Vector3 * Target = &TargettoWalk.back();
-	float TempX = -Position.x + Target->x;
-	float TempY = -Position.z + Target->z;
-	//TempX = abs(TempX);
-	//TempY = abs(TempY);
-
-	Velocity.Set(TempX, 0, TempY);
-
-	if (Velocity.Length() != 0)
-		Velocity.Normalized();
-
-	//if (TempX > TempY && TempY != 0)
-	//{
-	//	Velocity.Set(0, 0, 1);
-	//}
-	//else if (TempY > TempX && TempX != 0)
-	//{
-	//	Velocity.Set(1, 0, 0);
-	//}
-	//else
-	//{
-	//	Velocity.SetZero();
-	//}
-
-	Position += Velocity * CTimer::getInstance()->getDelta() * 0.5;
-
-
+	Position += Velocity * CTimer::getInstance()->getDelta();
 }
 
 bool Buyer::glRenderObject()
@@ -200,7 +182,7 @@ void Buyer::AIUpdate()
 								   //Check if tile has the shop.
 								   if (theTileTemp->ShopOnTop != NULL)
 								   {
-									   if (theTileTemp->getPosition() == TargettoWalk.back())
+									   if (ReachedLocation(TargettoWalk.back()))
 									   {
 										   HasMask = true;
 										   CurrentState = IDLEWALKING;
@@ -256,4 +238,19 @@ void Buyer::Init()
 		TargettoWalk.push_back(Vector3(0, 0, TILE_NO_Y ));
 		break;
 	}
+}
+
+
+bool Buyer::ReachedLocation(Vector3 thePosReached)
+{
+	return 1 > (thePosReached - this->Position).Length();
+}
+
+
+void Buyer::GotoLocation(Vector3 theNewPos, float speed)
+{
+	Vector3 TheDirection(theNewPos - this->Position);
+	TheDirection.Normalize();
+	TheDirection *= speed;
+	this->Velocity = TheDirection;
 }

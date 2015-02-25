@@ -70,6 +70,7 @@ void CGamePlayState::Init()
 		int y = rand() % TILE_NO_Y;
 
 		theGrid->temp[x][y].childs[0]->HazeTileValue = CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime];
+		theGrid->temp[x][y].TileHazeValue = CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime];
 		theSeededTiles.push_back(&theGrid->temp[x][y]);
 		//for (int m = 0; m < TILE_NO_X; i++)
 		//{
@@ -97,7 +98,7 @@ void CGamePlayState::Init()
 		theListofStalls.push_back(CPlayState::Instance()->theStall[i]);
 	}
 
-	for (int i = 0; i < 50; i++)
+	for (int i = 0; i < 1; i++)
 	{
 		newBuyer = new Buyer(theListofStalls, theGrid);
 		theListofEntities.push_back(newBuyer);
@@ -165,6 +166,7 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 			int y = rand() % TILE_NO_Y;
 
 			theGrid->temp[x][y].childs[0]->HazeTileValue = CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime];
+			theGrid->temp[x][y].TileHazeValue = CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime];
 			theSeededTiles.push_back(&theGrid->temp[x][y]);
 			//GET TILE INFO FROM POSITION
 			//SET THE HAZE
@@ -179,6 +181,7 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 		{
 			for (auto i = theSeededTiles.begin(); i != theSeededTiles.end(); i++)
 			{
+				(*i)->TileHazeValue = CPlayState::Instance()->theHaze.HazeGraph[HourNumber + DayNumber * DayTime] * 8;
 				(*i)->childs[0]->HazeTileValue = CPlayState::Instance()->theHaze.HazeGraph[HourNumber + DayNumber * DayTime] * 8;
 			}
 		}

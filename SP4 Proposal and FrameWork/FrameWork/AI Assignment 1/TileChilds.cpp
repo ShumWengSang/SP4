@@ -63,8 +63,8 @@ void CTileChilds::Update()
 
 void CTileChilds::init()
 {
-	colour = Vector3(0,0,0);
-	ypos = 1;
+	colour = Vector3(1,1, 1);
+	ypos = 10;
 }
 
 void CTileChilds::Pressure(CTileChilds &currentCell, CTileChilds &neighbourCell)
@@ -93,3 +93,4 @@ void CTileChilds::Pressure(CTileChilds &currentCell, CTileChilds &neighbourCell)
 		neighbourCell.HazeTileValue = AveragePressure;
 	}
 }
+
