@@ -11,6 +11,15 @@ Grid::Grid(void)
 
 	CTimer * theTimer = CTimer::getInstance();
 	TimerKeyHazeDiffusal = theTimer->insertNewTime(200);
+
+	for(int a = 0; a < TILE_NO_X; ++a)
+	{
+		for(int b = 0; b < TILE_NO_Y; ++b)
+		{
+			temp [a][b].setPos(a*tileHeight, 0, b*tileWidth);
+		}
+	}
+
 }
 
 Grid::~Grid(void)
