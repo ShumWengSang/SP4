@@ -568,8 +568,7 @@ void CGamePlayState::drawInfo()
 		glPushAttrib(GL_DEPTH_TEST);
 			//print shop number
 			glColor3f( 1.0f, 0.0f, 0.0f);
-			printw (SCREEN_WIDTH - 100, 96, 0, "PSI: ");
-			printw (SCREEN_WIDTH - 100, 128, 0,  "Day: ");
+			printw (SCREEN_WIDTH - 100, 96, 0, "PSI: 123");
 			printw (SCREEN_WIDTH - 100, 160, 0,  "Time: ");
 		glPopAttrib();
 	glPopMatrix();
