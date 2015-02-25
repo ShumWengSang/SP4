@@ -201,14 +201,16 @@ void CEndOfDayState::drawInfo()
 			printw (600, 100, 0, "SHOP3");
 			printw (570, 150, 0, "Mask Sold: %d", CPlayState::Instance()->theStall[2]->getTotalMaskSold());
 			printw (570, 180, 0, "Money Earned: $%d", CPlayState::Instance()->earned3);
+
+			int totalEarn = CPlayState::Instance()->earned + CPlayState::Instance()->earned2 + CPlayState::Instance()->earned3;
+			printw ((SCREEN_WIDTH/2)-150, SCREEN_HEIGHT/2 + 50, 0, "Total Money Earned Today: $%d", totalEarn);
 			
+			glColor3f( 0.0f, 1.0f, 0.0f);
 			int totalMaskSold = CPlayState::Instance()->theStall[0]->getTotalMaskSold() + CPlayState::Instance()->theStall[1]->getTotalMaskSold() + CPlayState::Instance()->theStall[2]->getTotalMaskSold();
 			CPlayState::Instance()->maskLeft = (CPlayState::Instance()->totalMaskForSell - totalMaskSold) + CPlayState::Instance()->maskInStock;
 			printw ((SCREEN_WIDTH / 2) - 200, SCREEN_HEIGHT/2 + 150, 0, "Mask Left: %d", CPlayState::Instance()->maskLeft);
 
-			int totalEarn = CPlayState::Instance()->earned + CPlayState::Instance()->earned2 + CPlayState::Instance()->earned3;
-			printw ((SCREEN_WIDTH/2)-100, SCREEN_HEIGHT/2 + 50, 0, "Total Money Earned: $%d", totalEarn);
-
+			glColor3f( 0.5f, 0.0f, 0.8f);
 			CPlayState::Instance()->newMoneyValue = totalEarn + CPlayState::Instance()->theMoney.getCurrentMoney();
 			printw ((SCREEN_WIDTH/2)+50, SCREEN_HEIGHT/2 + 150, 0, "Total Money: $%d", CPlayState::Instance()->newMoneyValue);
 

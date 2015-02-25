@@ -22,6 +22,9 @@ void CStartOfDayState::LoadTextures()
 	CApplication::getInstance()->LoadTGA(&button[9],"images/startState/shop.tga");
 	CApplication::getInstance()->LoadTGA(&button[10],"images/startState/shop2.tga");
 	CApplication::getInstance()->LoadTGA(&button[11],"images/startState/shop3.tga");
+	CApplication::getInstance()->LoadTGA(&button[12],"images/startState/shopSelected.tga");
+	CApplication::getInstance()->LoadTGA(&button[13],"images/startState/shop2Selected.tga");
+	CApplication::getInstance()->LoadTGA(&button[14],"images/startState/shop3Selected.tga");
 }
 
 void CStartOfDayState::LoadButtons()
@@ -130,9 +133,22 @@ void CStartOfDayState::DrawButtons()
 	theButton[fifteen]->drawButton();
 
 	theButton[sShop1]->drawButton();
-	theButton[sShop2]->drawButton();
-	theButton[sShop3]->drawButton();
+	if(shop1Selected)
+		theButton[sShop1]->setButtonTexture(button[12].texID);
+	else
+		theButton[sShop1]->setButtonTexture(button[9].texID);
 
+	theButton[sShop2]->drawButton();
+	if(shop2Selected)
+		theButton[sShop2]->setButtonTexture(button[13].texID);
+	else
+		theButton[sShop2]->setButtonTexture(button[10].texID);
+
+	theButton[sShop3]->drawButton();
+	if(shop3Selected)
+		theButton[sShop3]->setButtonTexture(button[14].texID);
+	else
+		theButton[sShop3]->setButtonTexture(button[11].texID);
 }
 
 void CStartOfDayState::DrawBackground()
@@ -240,7 +256,6 @@ void CStartOfDayState::MouseClick(int button, int state, int x, int y) {
 					shop2Selected = false;
 					shop3Selected = true;
 				}
-					
 
 				//No. of mask setting
 				if(theButton[fifty]->isInside(x, y))
@@ -372,22 +387,23 @@ void CStartOfDayState::drawInfo()
 			printw (150, 70, 0, "Click the shops and decide the number of mask and price for sell.");
 			printw (100, 120, 0, "SHOP1");
 			printw (50.0, 250.0, 0, "Number of mask for sell: %d", CPlayState::Instance()->theStall[0]->getMaskNo());
-			printw (50.0, 270.0, 0, "Price of mask for sell: %d", CPlayState::Instance()->theStall[0]->getMaskPrice());
+			printw (50.0, 270.0, 0, "Each price for sell: %d", CPlayState::Instance()->theStall[0]->getMaskPrice());
 
 			printw (350, 120, 0, "SHOP2");
 			printw (300.0, 250.0, 0, "Number of mask for sell: %d", CPlayState::Instance()->theStall[1]->getMaskNo());
-			printw (300.0, 270.0, 0, "Price of mask for sell: %d", CPlayState::Instance()->theStall[1]->getMaskPrice());
+			printw (300.0, 270.0, 0, "Each price for sell: %d", CPlayState::Instance()->theStall[1]->getMaskPrice());
 
 			printw (600, 120, 0, "SHOP3");
 			printw (550.0, 250.0, 0, "Number of mask for sell: %d", CPlayState::Instance()->theStall[2]->getMaskNo());
-			printw (550.0, 270.0, 0, "Price of mask for sell: %d", CPlayState::Instance()->theStall[2]->getMaskPrice());
+			printw (550.0, 270.0, 0, "Each price for sell: %d", CPlayState::Instance()->theStall[2]->getMaskPrice());
 
 			printw (50, 350, 0, "Number of mask for sell");
 			printw (SCREEN_WIDTH/2 + 80, 350, 0, "Price of each mask for sell");
 
-			glColor3f( 0.0f, 0.0f, 1.0f);
+			glColor3f( 1.0f, 0.8f, 0.0f);
 			printw (50, SCREEN_HEIGHT/2 + 180, 0, "Weather Forecast: %d - %d - %d", 50*(CPlayState::Instance()->forecasting->getCurrentDayRange()-1)+1 , (CPlayState::Instance()->forecasting->getCurrentForecast()), 50*(CPlayState::Instance()->forecasting->getCurrentDayRange()) );
-
+			
+			glColor3f( 0.0f, 1.0f, 0.0f);
 			printw (SCREEN_WIDTH / 2 + 80, SCREEN_HEIGHT/2 +180, 0, "Mask in Stock: %d", CPlayState::Instance()->maskInStock);
 
 		glPopAttrib();

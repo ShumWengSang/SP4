@@ -35,7 +35,7 @@ class CStartOfDayState : public CInGameState
 private:
 	CStartOfDayState(void) {};
 
-	TextureImage button[14];
+	TextureImage button[17];
 	TextureImage background[2];
 
 	bool shop1Selected;

@@ -204,10 +204,18 @@ void CBuyMaskState::drawInfo()
 			printw (theButton[bTwohundred]->getButtonX(), theButton[bTwohundred]->getButtonY() - 10, 0, "$850");
 
 			if(needMoney)
+			{
+				glColor3f( 1.0f, 0.0f, 0.0f);
 				printw ((SCREEN_WIDTH/2)-100, SCREEN_HEIGHT/2 + 100, 0, "You need more money!!!");
+			}
 
+			glColor3f( 0.0f, 1.0f, 0.0f);
 			printw ((SCREEN_WIDTH / 2) - 200, 120, 0, "Mask in Stock: %d", CPlayState::Instance()->maskInStock);
+
+			glColor3f( 0.5f, 0.0f, 0.8f);
 			printw ((SCREEN_WIDTH/2)+50, 120, 0, "Money: $%d", CPlayState::Instance()->theMoney.getCurrentMoney());
+
+			glColor3f( 0.0f, 0.2f, 1.0f);
 			printw (50, 100, 0, "Day: %d", CPlayState::Instance()->day );
 		glPopAttrib();
 	glPopMatrix();
