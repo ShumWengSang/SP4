@@ -2,6 +2,7 @@
 
 void Tiles::drawTile(int x, int y, int z, int tileWidth, int tileHeight, bool isPicking)
 {
+	pos.Set(x,y,z);
 	CalcHazeAlpha();
 	if(!isPicking) {
 		glBegin(GL_LINES);
@@ -48,7 +49,7 @@ void Tiles::drawTile(int x, int y, int z, int tileWidth, int tileHeight, bool is
 
 bool Tiles::isWithin(Vector3 pos)
 {
-	if(pos.x > this->pos.x && pos.x < this->pos.x + TILE_SIZE_X && pos.z > this->pos.z && pos.z < this->pos.z + TILE_SIZE_Y)
+	if(pos.x >= this->pos.x && pos.x <= this->pos.x + TILE_SIZE_X && pos.z >= this->pos.z && pos.z <= this->pos.z + TILE_SIZE_Y)
 	{
 		return true;
 	}
