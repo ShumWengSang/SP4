@@ -12,10 +12,11 @@ private:
 	int maskSold;
 	Vector3 pos;
 	Vector3 scale;
-	int totalMaskSold;
 public:
-	CStalls(void);
+	CStalls(Vector3 pos = Vector3(0,0,0), Vector3 scale = Vector3(4,4,4));
 	~CStalls(void);
+
+	int totalMaskSold;
 
 	CMoney theStoreMoney;
 

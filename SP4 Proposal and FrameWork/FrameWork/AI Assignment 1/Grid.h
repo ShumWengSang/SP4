@@ -4,8 +4,8 @@
 #include "Timer.h"
 
 
-#define TILE_NO_X 20
-#define TILE_NO_Y 20
+#define TILE_NO_X 50
+#define TILE_NO_Y 50
 
 class Tiles;
 
@@ -58,6 +58,7 @@ public:
 	void SetPointers();
 
 	//entity functions
+	EntityType getObjectType(void);
 	bool glRenderObject();
 	void Update();
 };

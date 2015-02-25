@@ -10,6 +10,18 @@ void CGamePlayState::LoadTextures()
 	CApplication::getInstance()->LoadTGA(&map[0],"images/playState/map.tga");
 	CApplication::getInstance()->LoadTGA(&button[0],"images/playState/pause.tga");
 	CApplication::getInstance()->LoadTGA(&button[1], "images/playState/shop.tga");
+	/*CApplication::getInstance()->LoadTGA(&skyBox[0], "images/playState/SkyBox/front.tga");
+	CApplication::getInstance()->LoadTGA(&skyBox[1], "images/playState/SkyBox/back.tga");
+	CApplication::getInstance()->LoadTGA(&skyBox[2], "images/playState/SkyBox/left.tga");
+	CApplication::getInstance()->LoadTGA(&skyBox[3], "images/playState/SkyBox/right.tga");
+	CApplication::getInstance()->LoadTGA(&skyBox[4], "images/playState/SkyBox/top.tga");
+	CApplication::getInstance()->LoadTGA(&skyBox[5], "images/playState/SkyBox/down.tga");*/
+	CApplication::getInstance()->LoadTGA(&skyBox[0], "images/playState/SkyBox/skybox_near.tga");
+	CApplication::getInstance()->LoadTGA(&skyBox[1], "images/playState/SkyBox/skybox_far.tga");
+	CApplication::getInstance()->LoadTGA(&skyBox[2], "images/playState/SkyBox/skybox_left.tga");
+	CApplication::getInstance()->LoadTGA(&skyBox[3], "images/playState/SkyBox/skybox_right.tga");
+	CApplication::getInstance()->LoadTGA(&skyBox[4], "images/playState/SkyBox/skybox_top.tga");
+	CApplication::getInstance()->LoadTGA(&skyBox[5], "images/playState/SkyBox/skybox_bottom.tga");
 }
 void CGamePlayState::LoadButtons()
 {
@@ -60,6 +72,14 @@ void CGamePlayState::Init()
 
 		theGrid->temp[x][y].TileHazeValue = CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime];
 		theSeededTiles.push_back(&theGrid->temp[x][y]);
+		for (int i = 0; i < TILE_NO_X; i++)
+		{
+			for (int k = 0; k < TILE_SIZE_Y; k++)
+			{
+				theGrid->temp[i][k].TileHazeValue = 0;
+			}
+		}
+
 		//GET TILE INFO FROM POSITION
 		//SET THE HAZE
 	}
@@ -69,6 +89,14 @@ void CGamePlayState::Init()
 	TimerKeyDay = theTimerInstance->insertNewTime(27000);
 	HourNumber = 0;
 
+	// Stall Initialisation on Tiles
+	//theGrid->GetTile(CPlayState::Instance()->theStall[0]->getPosition())->ShopOnTop = CPlayState::Instance()->theStall[0];
+	//theGrid->GetTile(CPlayState::Instance()->theStall[1]->getPosition())->ShopOnTop = CPlayState::Instance()->theStall[1];
+	//theGrid->GetTile(CPlayState::Instance()->theStall[2]->getPosition())->ShopOnTop = CPlayState::Instance()->theStall[2];
+
+	theListofEntities.push_back(CPlayState::Instance()->theStall[0]);
+	theListofEntities.push_back(CPlayState::Instance()->theStall[1]);
+	theListofEntities.push_back(CPlayState::Instance()->theStall[2]);
 	theListofEntities.push_back(theGrid);
 
 }
@@ -110,12 +138,26 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 		(*i)->Update();
 	}
 
-	//if (theTimerInstance->executeTime(TimerKeyDay))
-	//{
-		//DayNumber++;
+
+	if (theTimerInstance->executeTime(TimerKeyDay))
+	{
+		DayNumber++;
 		//CInGameStateManager::getInstance()->ChangeState(CEndOfDayState::Instance());
-		//HourNumber = 0;
-	//}
+		HourNumber = 0;
+		theSeededTiles.clear();
+		for (int i = 0; i < SEEDCOUNT; i++)
+		{
+			int x = rand() % TILE_NO_X;
+			int y = rand() % TILE_NO_Y;
+
+			theGrid->temp[x][y].TileHazeValue = CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime];
+			theSeededTiles.push_back(&theGrid->temp[x][y]);
+			//GET TILE INFO FROM POSITION
+			//SET THE HAZE
+		}
+		std::cout << "DAY CHANGE IT IS NOW DAY " << DayNumber << std::endl;
+	}
+
 	if (theTimerInstance->executeTime(TimerKeySeed))
 	{
 		HourNumber++;
@@ -138,43 +180,48 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 
 void CGamePlayState::Draw(CInGameStateManager* theGSM) 
 {
-	glPushMatrix();
-		glEnable(GL_BLEND);
-		glEnable(GL_TEXTURE_2D);
-		glTranslatef( -150.0f, -0.1f, -250.0f );
-		glScalef(1.3f, 1.3f, 1.3f);
-		glColor3f(1.0,1.0,1.0);
-		glBindTexture(GL_TEXTURE_2D, map[0].texID);
-		glBegin(GL_QUADS);
-			glTexCoord2f(0, 0);  glVertex3f(SCREEN_WIDTH, 0.0f, 0);
-			glTexCoord2f(1, 0);  glVertex3f(0, 0.0f, 0);
-			glTexCoord2f(1, 1);	 glVertex3f(0, 0.0f, SCREEN_HEIGHT);
-			glTexCoord2f(0, 1);	 glVertex3f(SCREEN_WIDTH, 0.0f, SCREEN_HEIGHT);
-		glEnd();
-		glDisable(GL_TEXTURE_2D);
-		glDisable(GL_BLEND);
-	glPopMatrix();
-
-
-	//theGrid.renderGrid(false);
-	for (auto i = theListofEntities.begin(); i != theListofEntities.end(); i++)
-	{
-		(*i)->glRenderObject();
-	}
-
 	// Render Objects to be selected in the color scheme
 	if(CInputSystem::getInstance()->mouseInfo.mLButtonUp == false) {
-		/*CApplication::getInstance()->setClickCheck(true);
-		theGrid.renderGrid(true);
-		ClickCollision();
-	}else {
-		CApplication::getInstance()->setClickCheck(false);
-		theGrid.renderGrid(false);
-	}*/
+		for (auto i = theListofEntities.begin(); i != theListofEntities.end(); i++)
+		{
+			if((*i)->getObjectType() == EntityType::GRID)
+				(*i)->glRenderObject();
+		}
 		CApplication::getInstance()->setClickCheck(true);
 		theGrid->Click = true;
 		ClickCollision();
+
 	}else {
+		// Actual Render Here
+
+		DrawSkyBox();
+
+		glPushMatrix();
+			glEnable(GL_BLEND);
+			glEnable(GL_TEXTURE_2D);
+			glTranslatef( -150.0f, -0.1f, -150.0f );
+			glScalef(0.5f, 0.5f, 0.5f);
+			glColor3f(1.0,1.0,1.0);
+			glBindTexture(GL_TEXTURE_2D, map[0].texID);
+			glBegin(GL_QUADS);
+				glTexCoord2f(0, 0);  glVertex3f(SCREEN_WIDTH, 0.0f, 0);
+				glTexCoord2f(1, 0);  glVertex3f(0, 0.0f, 0);
+				glTexCoord2f(1, 1);	 glVertex3f(0, 0.0f, SCREEN_HEIGHT);
+				glTexCoord2f(0, 1);	 glVertex3f(SCREEN_WIDTH, 0.0f, SCREEN_HEIGHT);
+			glEnd();
+			glDisable(GL_TEXTURE_2D);
+			glDisable(GL_BLEND);
+		glPopMatrix();
+
+
+		//theGrid.renderGrid(false);
+		for (auto i = theListofEntities.begin(); i != theListofEntities.end(); i++)
+		{
+			(*i)->glRenderObject();
+		}
+		theGrid->GetTile(CPlayState::Instance()->theStall[0]->getPosition())->ShopOnTop = CPlayState::Instance()->theStall[0];
+		theGrid->GetTile(CPlayState::Instance()->theStall[1]->getPosition())->ShopOnTop = CPlayState::Instance()->theStall[1];
+		theGrid->GetTile(CPlayState::Instance()->theStall[2]->getPosition())->ShopOnTop = CPlayState::Instance()->theStall[2];
 		CApplication::getInstance()->setClickCheck(false);
 		theGrid->Click = false;
 	}
@@ -196,6 +243,77 @@ void CGamePlayState::DrawButtons()
 	theButton[shop]->drawButton();
 	theButton[shop2]->drawButton();
 	theButton[shop3]->drawButton();
+}
+
+void CGamePlayState::DrawSkyBox()
+{
+	glPushMatrix();
+		glPushAttrib(GL_ENABLE_BIT);
+		glEnable(GL_TEXTURE_2D);
+		glDisable(GL_LIGHTING);
+		glDisable(GL_BLEND);
+		glColor4f(1,1,1,1);
+		glTranslatef(0, 50, 0);
+
+		// Render the front quad
+		glBindTexture(GL_TEXTURE_2D, skyBox[0].texID);
+		glBegin(GL_QUADS);
+			glTexCoord2f(0, 0); glVertex3f(  100.0f, -100.0f, -100.0f );
+			glTexCoord2f(1, 0); glVertex3f( -100.0f, -100.0f, -100.0f );
+			glTexCoord2f(1, 1); glVertex3f( -100.0f,  100.0f, -100.0f );
+			glTexCoord2f(0, 1); glVertex3f(  100.0f,  100.0f, -100.0f );
+		glEnd();
+
+		// Render the back quad
+		glBindTexture(GL_TEXTURE_2D, skyBox[1].texID);
+		glBegin(GL_QUADS);
+			glTexCoord2f(0, 0); glVertex3f( -100.0f, -100.0f,  100.0f );
+			glTexCoord2f(1, 0); glVertex3f(  100.0f, -100.0f,  100.0f );
+			glTexCoord2f(1, 1); glVertex3f(  100.0f,  100.0f,  100.0f );
+			glTexCoord2f(0, 1); glVertex3f( -100.0f,  100.0f,  100.0f );
+		glEnd();
+
+		// Render the left quad
+		glBindTexture(GL_TEXTURE_2D, skyBox[2].texID);
+		glBegin(GL_QUADS);
+			glTexCoord2f(0, 0); glVertex3f(  100.0f, -100.0f,  100.0f );
+			glTexCoord2f(1, 0); glVertex3f(  100.0f, -100.0f, -100.0f );
+			glTexCoord2f(1, 1); glVertex3f(  100.0f,  100.0f, -100.0f );
+			glTexCoord2f(0, 1); glVertex3f(  100.0f,  100.0f,  100.0f );
+		glEnd();
+
+		// Render the right quad
+		glBindTexture(GL_TEXTURE_2D, skyBox[3].texID);
+		glBegin(GL_QUADS);
+			glTexCoord2f(0, 0); glVertex3f( -100.0f, -100.0f, -100.0f );
+			glTexCoord2f(1, 0); glVertex3f( -100.0f, -100.0f,  100.0f );
+			glTexCoord2f(1, 1); glVertex3f( -100.0f,  100.0f,  100.0f );
+			glTexCoord2f(0, 1); glVertex3f( -100.0f,  100.0f, -100.0f );
+		glEnd();
+
+		// Render the top quad
+		glBindTexture(GL_TEXTURE_2D, skyBox[4].texID);
+		glBegin(GL_QUADS);
+			glTexCoord2f(0, 1); glVertex3f( -100.0f,  100.0f, -100.0f );
+			glTexCoord2f(0, 0); glVertex3f( -100.0f,  100.0f,  100.0f );
+			glTexCoord2f(1, 0); glVertex3f(  100.0f,  100.0f,  100.0f );
+			glTexCoord2f(1, 1); glVertex3f(  100.0f,  100.0f, -100.0f );
+		glEnd();
+
+		// Render the bottom quad
+		glBindTexture(GL_TEXTURE_2D, skyBox[5].texID);
+		glBegin(GL_QUADS);
+			glTexCoord2f(0, 0); glVertex3f( -100.0f, -100.0f, -100.0f );
+			glTexCoord2f(0, 1); glVertex3f( -100.0f, -100.0f,  100.0f );
+			glTexCoord2f(1, 1); glVertex3f(  100.0f, -100.0f,  100.0f );
+			glTexCoord2f(1, 0); glVertex3f(  100.0f, -100.0f, -100.0f );
+		glEnd();
+
+		glDisable(GL_TEXTURE_2D);
+		glEnable(GL_LIGHTING);
+		glEnable(GL_BLEND);
+		glPopAttrib();
+	glPopMatrix();
 }
 
 void CGamePlayState::buyMask(int stall, int maskNo) //0 is first stall
@@ -224,6 +342,13 @@ void CGamePlayState::keyboardUpdate()
 		CApplication::getInstance()->theCamera->Walk(1);
 	if(CInputSystem::getInstance()->myKeys['k'])
 		CApplication::getInstance()->theCamera->Walk(-1);
+	if (CInputSystem::getInstance()->myKeys['1'])
+	{
+		for (int i = 0; i < theSeededTiles.size(); i++)
+		{
+			std::cout << "TILE SEED NUMBER : " << i << " : " << theSeededTiles[i]->TileHazeValue << std::endl;
+		}
+	}
 
 	if(CInputSystem::getInstance()->myKeys['z'])
 	{
@@ -308,9 +433,12 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 	switch (button) {
 
 		case GLUT_LEFT_BUTTON:
-			if (state == GLUT_UP) 
+			if (state == GLUT_UP) {
+				//CApplication::getInstance()->setClickCheck(false);
 				CInputSystem::getInstance()->mouseInfo.mLButtonUp = true;
+			}
 			else {
+				//CApplication::getInstance()->setClickCheck(true);
 				CInputSystem::getInstance()->mouseInfo.mLButtonUp = false;
 
 				
@@ -413,8 +541,6 @@ void CGamePlayState::ClickCollision() {
 	colorf[0] = (float)color[0]/255;
 	colorf[1] = (float)color[1]/255;
 	colorf[2] = (float)color[2]/255;
-
-	printf("Clicked on pixel %d, %d, color %0.2f %0.2f %0.2f\n\n", x, y, colorf[0], colorf[1], colorf[2]);
 	
 	//For some reason it only checks tiles with a and s that are multiples of 4
 	//Check color scheme for tiles
@@ -430,26 +556,18 @@ void CGamePlayState::ClickCollision() {
 			a++;
 		}
 
+		if(a == maxa)
+			break;
+
 		if(theGrid->temp[a][s].getColor() == Vector3(colorf[0], colorf[1], colorf[2])) {
 			printf("Confirmed grid clicked %d %d\n\n", a, s);
+			if(theGrid->temp[a][s].ShopOnTop != NULL)
+			{}
 			break;
 		}
 						
 		s++;
 	}
-
-	//Using For loop
-	/*for(int a = 0; a < TILE_NO_X; a++)
-	{
-		for(int s = 0; s < TILE_NO_Y; s++)
-		{
-			if(theGrid->temp[a][s].getColor() == Vector3(colorf[0], colorf[1], colorf[2])) {
-				printf("Confirmed grid clicked %d %d\n\n", a, s);
-				break;
-			}
-			
-		}
-	}*/
 }
 
 void CGamePlayState::drawInfo()
@@ -458,8 +576,7 @@ void CGamePlayState::drawInfo()
 		glPushAttrib(GL_DEPTH_TEST);
 			//print shop number
 			glColor3f( 1.0f, 0.0f, 0.0f);
-			printw (SCREEN_WIDTH - 100, 96, 0, "PSI: ");
-			printw (SCREEN_WIDTH - 100, 128, 0,  "Day: ");
+			printw (SCREEN_WIDTH - 100, 96, 0, "PSI: 123");
 			printw (SCREEN_WIDTH - 100, 160, 0,  "Time: ");
 		glPopAttrib();
 	glPopMatrix();

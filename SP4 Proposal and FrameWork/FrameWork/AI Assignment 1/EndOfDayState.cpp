@@ -130,10 +130,10 @@ void CEndOfDayState::MouseClick(int button, int state, int x, int y) {
 				if(theButton[eNext]->isInside(x, y))
 				{
 					CPlayState::Instance()->firstDay = false;
-					CPlayState::Instance()->theStall[0]->setMaskNo(0);
-					CPlayState::Instance()->theStall[1]->setMaskNo(0);
-					CPlayState::Instance()->theStall[2]->setMaskNo(0);
+					CPlayState::Instance()->maskInStock = CPlayState::Instance()->maskLeft;
+					CPlayState::Instance()->resetValues();
 					CInGameStateManager::getInstance()->ChangeState(CBuyMaskState::Instance());
+					
 				}
 			}
 			else
@@ -180,8 +180,8 @@ void CEndOfDayState::drawInfo()
 			printw (550.0, 130.0, 0, "Money Earned: %d", CPlayState::Instance()->earned3);
 			
 			int totalMaskSold = CPlayState::Instance()->theStall[0]->getTotalMaskSold() + CPlayState::Instance()->theStall[1]->getTotalMaskSold() + CPlayState::Instance()->theStall[2]->getTotalMaskSold();
-			int maskLeft = (CPlayState::Instance()->totalMaskForSell - totalMaskSold) + CPlayState::Instance()->maskInStock;
-			printw ((SCREEN_WIDTH / 2) - 200, SCREEN_HEIGHT/2 + 150, 0, "Mask Left: %d", maskLeft);
+			CPlayState::Instance()->maskLeft = (CPlayState::Instance()->totalMaskForSell - totalMaskSold) + CPlayState::Instance()->maskInStock;
+			printw ((SCREEN_WIDTH / 2) - 200, SCREEN_HEIGHT/2 + 150, 0, "Mask Left: %d", CPlayState::Instance()->maskLeft);
 
 			int totalEarn = CPlayState::Instance()->earned + CPlayState::Instance()->earned2 + CPlayState::Instance()->earned3;
 			printw ((SCREEN_WIDTH/2)-100, SCREEN_HEIGHT/2, 0, "Total Money Earned: %d", totalEarn);

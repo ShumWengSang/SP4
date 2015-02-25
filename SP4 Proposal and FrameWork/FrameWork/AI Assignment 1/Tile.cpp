@@ -2,38 +2,42 @@
 
 void Tiles::drawTile(int x, int y, int z, int tileWidth, int tileHeight, bool isPicking)
 {
-	glBegin(GL_LINES);
-	glPushMatrix();
-	//glColor3f(color.x,color.y,color.z);
-	glColor3f(0,0,0);
+	pos.Set(x,y,z);
+	CalcHazeAlpha();
+	if(!isPicking) {
+		glBegin(GL_LINES);
+		glPushMatrix();
+		//glColor3f(color.x,color.y,color.z);
+		glColor3f(0,0,0);
 	
-	//Top left to top right
-	glVertex3i(x,0,z+tileWidth);
-	glVertex3i(x+tileHeight,0,z+tileWidth);
+		//Top left to top right
+		glVertex3i(x,0,z+tileWidth);
+		glVertex3i(x+tileHeight,0,z+tileWidth);
 	
-	//Top Right to bottom right
-	glVertex3i(x+tileHeight,0,z+tileWidth);
-	glVertex3i(x+tileHeight,0,z);
+		//Top Right to bottom right
+		glVertex3i(x+tileHeight,0,z+tileWidth);
+		glVertex3i(x+tileHeight,0,z);
 
-	//Bottom right to bottom left
-	glVertex3i(x+tileHeight,0,z);
-	glVertex3i(x, 0, z);
+		//Bottom right to bottom left
+		glVertex3i(x+tileHeight,0,z);
+		glVertex3i(x, 0, z);
 
-	//Bottom right to top Left
-	glVertex3i(x, 0, z);
-	glVertex3i(x,0,z+tileWidth);
-	glPopMatrix();
-	glEnd();
+		//Bottom right to top Left
+		glVertex3i(x, 0, z);
+		glVertex3i(x,0,z+tileWidth);
+		glPopMatrix();
+		glEnd();
+	}
 
 	glPushMatrix();
 		if(isPicking)
-			glColor3f(color.x,color.y,color.z);
+			glColor4f(color.x, color.y, color.z, HazeAlpha);
 		else if (TileHazeValue > 50)
 		{
-			glColor3f(1, 1, 0);
+			glColor4f(1, 1, 0, HazeAlpha);
 		}
 		else
-			glColor3f(1,1,1);
+			glColor4f(1, 1, 1, HazeAlpha);
 		glBegin(GL_QUADS);
 			glVertex3f(x,0,z+tileWidth);
 			glVertex3f(x+tileHeight,0,z+tileWidth);
@@ -45,7 +49,7 @@ void Tiles::drawTile(int x, int y, int z, int tileWidth, int tileHeight, bool is
 
 bool Tiles::isWithin(Vector3 pos)
 {
-	if(pos.x > this->pos.x && pos.x < this->pos.x + TILE_SIZE_X && pos.z > this->pos.z && pos.z < this->pos.z + TILE_SIZE_Y)
+	if(pos.x >= this->pos.x && pos.x <= this->pos.x + TILE_SIZE_X && pos.z >= this->pos.z && pos.z <= this->pos.z + TILE_SIZE_Y)
 	{
 		return true;
 	}
@@ -90,7 +94,7 @@ void Tiles::Pressure(Tiles &currentCell, Tiles &neighbourCell)
 
 void Tiles::Update()
 {
-	if (this->TileHazeValue == 0)
+	if (this->TileHazeValue <= 50)
 	{
 		return;
 	}
@@ -102,4 +106,14 @@ void Tiles::Update()
 		Pressure(*this, *left);
 	if (right != NULL)
 		Pressure(*this, *right);
+
+	
+	//this->TileHazeValue -= 1;
 }
+
+void Tiles::CalcHazeAlpha()
+{
+	float temp = TileHazeValue * HAZE_MAX;
+	HazeAlpha = HAZE_MIN / temp;
+}
+

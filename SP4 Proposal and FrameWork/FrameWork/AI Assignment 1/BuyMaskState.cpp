@@ -142,8 +142,8 @@ void CBuyMaskState::MouseClick(int button, int state, int x, int y) {
 				//go to sell setting
 				if(theButton[nextPage]->isInside(x, y))
 				{
-					CInGameStateManager::getInstance()->ChangeState(CStartOfDayState::Instance());
 					CPlayState::Instance()->oldMaskValue = CPlayState::Instance()->maskInStock;
+					CInGameStateManager::getInstance()->ChangeState(CStartOfDayState::Instance());
 				}
 
 				if(theButton[bFifty]->isInside(x, y))
