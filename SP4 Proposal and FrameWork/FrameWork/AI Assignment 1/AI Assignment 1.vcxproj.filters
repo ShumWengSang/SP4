@@ -123,6 +123,9 @@
     <ClCompile Include="BuyMaskState.cpp">
       <Filter>PlayStates</Filter>
     </ClCompile>
+    <ClCompile Include="TileChilds.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameState.h">
@@ -220,6 +223,9 @@
     </ClInclude>
     <ClInclude Include="BuyMaskState.h">
       <Filter>PlayStates</Filter>
+    </ClInclude>
+    <ClInclude Include="TileChilds.h">
+      <Filter>Resource Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

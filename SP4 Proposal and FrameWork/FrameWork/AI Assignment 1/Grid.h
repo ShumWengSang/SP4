@@ -4,8 +4,8 @@
 #include "Timer.h"
 
 
-#define TILE_NO_X 50
-#define TILE_NO_Y 50
+#define TILE_NO_X 5
+#define TILE_NO_Y 5
 
 class Tiles;
 

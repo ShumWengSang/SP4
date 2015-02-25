@@ -26,17 +26,24 @@ void Tiles::drawTile(int x, int y, int z, int tileWidth, int tileHeight, bool is
 		glVertex3i(x,0,z+tileWidth);
 		glPopMatrix();
 		glEnd();
+
+		glPushMatrix();
 	}
 
 	glPushMatrix();
 		if(isPicking)
+		{
 			glColor4f(color.x, color.y, color.z, HazeAlpha);
+			tempC = Vector3(color.x, color.y, color.z);
+		}
 		else if (TileHazeValue > 50)
 		{
 			glColor4f(1, 1, 0, HazeAlpha);
+			tempC = Vector3(1, 1, 0);
 		}
 		else
 			glColor4f(1, 1, 1, HazeAlpha);
+			tempC = Vector3(1, 1, 1);
 		glBegin(GL_QUADS);
 			glVertex3f(x,0,z+tileWidth);
 			glVertex3f(x+tileHeight,0,z+tileWidth);
@@ -44,6 +51,11 @@ void Tiles::drawTile(int x, int y, int z, int tileWidth, int tileHeight, bool is
 			glVertex3f(x,0,z);
 		glEnd();
 	glPopMatrix();
+
+	childs[0]->drawTile(x,0,z,							tileWidth/2, tileHeight/2);
+	childs[1]->drawTile(x+tileHeight/2,0,z,				tileWidth/2, tileHeight/2);
+	childs[2]->drawTile(x,0,z+tileWidth/2,				tileWidth/2, tileHeight/2);
+	childs[3]->drawTile(x+tileHeight/2,0,z+tileWidth/2,	tileWidth/2, tileHeight/2);	
 }
 
 bool Tiles::isWithin(Vector3 pos)
@@ -108,6 +120,11 @@ void Tiles::Update()
 
 	
 	//this->TileHazeValue -= 1;
+
+	for (int i = 0; i < 4; i++)
+	{
+		childs[i]->setColor(tempC.x, tempC.y, tempC.z);
+	}
 }
 
 void Tiles::CalcHazeAlpha()
@@ -116,3 +133,15 @@ void Tiles::CalcHazeAlpha()
 	HazeAlpha = HAZE_MIN / temp;
 }
 
+
+void Tiles::init()
+{
+	childs[0] = new CTileChilds();
+	childs[0]->init();
+	childs[1] = new CTileChilds();
+	childs[1]->init();
+	childs[2] = new CTileChilds();
+	childs[2]->init();
+	childs[3] = new CTileChilds();
+	childs[3]->init();
+}

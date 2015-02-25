@@ -3,17 +3,24 @@
 #include "freeglut.h"
 #include "Entity.h"
 #include "Stalls.h"
+#include "TileChilds.h"
 //#include "Grid.h"
 
-#define TILE_SIZE_X 1
-#define TILE_SIZE_Y 1
+#define TILE_SIZE_X 10
+#define TILE_SIZE_Y 10
 #define HAZE_MIN 50
 #define HAZE_MAX 400
+
+class CTileChilds;
+
 class Tiles : public Entity
 {
 private:
 	Vector3 color;
 	Vector3 pos;
+
+	CTileChilds *childs[4];
+	Vector3 tempC;
 	
 public:
 	Vector3 getColor(void){return color;}
@@ -31,6 +38,8 @@ public:
 		bottom = NULL;
 		ShopOnTop = NULL;
 		HazeAlpha = 1;
+
+		init();
 	}
 	~Tiles(void){};
 	static void Pressure(Tiles &currentCell,Tiles &neighborCell);
@@ -46,12 +55,13 @@ public:
 	Tiles * right;
 	Tiles * bottom;
 
+	void init (void);
+
 	//Check if contains a Stall
 	CStalls * ShopOnTop;
 
 	//Entity functions
 	bool glRenderObject();
 	void Update();
-
 };
 
