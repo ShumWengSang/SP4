@@ -69,4 +69,5 @@ private:
 	CButtons* theButton[4];
 	AudioPlayer * sound;
 	ISoundEngine *se;
+	//ISound *obj;
 };

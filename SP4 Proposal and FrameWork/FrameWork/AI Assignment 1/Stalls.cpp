@@ -5,6 +5,7 @@ CStalls::CStalls(Vector3 pos, Vector3 scale)
 	gasMaskAmount = 0;
 	maskSold = 0;
 	totalMaskSold = 0;
+	Selected = false;
 
 	this->pos = pos;
 	this->scale = scale;
@@ -48,6 +49,14 @@ void CStalls::setMaskPrice(int mp)
 {
 	theMoney.setPrice(mp);
 }
+void CStalls::setPos(Vector3 pos)
+{
+	this->pos = pos;
+}
+void CStalls::setScale(Vector3 scale)
+{
+	this->scale = scale;
+}
 
 void CStalls::buyMask(int amt)
 {
@@ -63,9 +72,14 @@ void CStalls::moveStall()
 bool CStalls::glRenderObject() {
 	glPushMatrix();
 		glEnable(GL_BLEND);
-		glTranslatef( pos.x, pos.y+scale.y/2, pos.z );
+		if(Selected) {
+			glColor3f(0,1.0,0.0);
+			glTranslatef( pos.x, pos.y+scale.y/2+1, pos.z );
+		}else{
+			glColor3f(1.0,0.0,0.0);
+			glTranslatef( pos.x, pos.y+scale.y/2, pos.z );
+		}
 		glScalef(scale.x, scale.y, scale.z);
-		glColor3f(1.0,0.0,0.0);
 		glutSolidCube(1);
 		glDisable(GL_BLEND);
 	glPopMatrix();

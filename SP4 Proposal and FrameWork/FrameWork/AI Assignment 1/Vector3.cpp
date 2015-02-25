@@ -145,6 +145,21 @@ Vector3 Vector3::operator-( const Vector3& rhs ) const
 /******************************************************************************/
 /*!
 \brief
+operator- overload for vector division
+
+\param rhs
+	Vector3 to divide with
+\return Resulting vector
+*/
+/******************************************************************************/
+Vector3 Vector3::operator/( const Vector3& rhs ) const
+{
+	return Vector3(x / rhs.x, y / rhs.y, z / rhs.z);
+}
+
+/******************************************************************************/
+/*!
+\brief
 operator-= overload for vector subtraction and assignment
 
 \param rhs

@@ -30,12 +30,17 @@ public:
 	void setTotalMaskSold(int tms);
 	void setMaskPrice(int mp);
 
+	void setPos(Vector3 pos);
+	void setScale(Vector3 scale);
+
 	void buyMask(int amt);
 	void moveStall();
 
 	CMoney theMoney;
 
 	float Price;
+
+	bool Selected;
 
 	// Entity Functions
 	bool glRenderObject();
@@ -44,5 +49,6 @@ public:
 	bool operator== (Entity& o);
 	Vector3 GetScale();
 	void Update();
+
 };
 

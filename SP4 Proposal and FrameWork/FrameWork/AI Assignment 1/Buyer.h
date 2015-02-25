@@ -48,6 +48,9 @@ public:
 	BuyerAIStates CurrentState;
 	Tiles * theTileTemp;
 
+	void GotoLocation(Vector3 theNewPos, float speed);
+	bool ReachedLocation(Vector3 thePosReached);
+
 	std::vector<StoreHolder*> theStalls;
 	std::map<long long, CStalls*> ProbabilitytoBuyMask;
 	std::vector<Vector3> TargettoWalk;

@@ -70,6 +70,7 @@ void CGamePlayState::Init()
 		int y = rand() % TILE_NO_Y;
 
 		theGrid->temp[x][y].childs[0]->HazeTileValue = CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime];
+		theGrid->temp[x][y].TileHazeValue = CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime];
 		theSeededTiles.push_back(&theGrid->temp[x][y]);
 		//for (int m = 0; m < TILE_NO_X; i++)
 		//{
@@ -97,7 +98,7 @@ void CGamePlayState::Init()
 		theListofStalls.push_back(CPlayState::Instance()->theStall[i]);
 	}
 
-	for (int i = 0; i < 50; i++)
+	for (int i = 0; i < 1; i++)
 	{
 		newBuyer = new Buyer(theListofStalls, theGrid);
 		theListofEntities.push_back(newBuyer);
@@ -165,6 +166,7 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 			int y = rand() % TILE_NO_Y;
 
 			theGrid->temp[x][y].childs[0]->HazeTileValue = CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime];
+			theGrid->temp[x][y].TileHazeValue = CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime];
 			theSeededTiles.push_back(&theGrid->temp[x][y]);
 			//GET TILE INFO FROM POSITION
 			//SET THE HAZE
@@ -179,6 +181,7 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 		{
 			for (auto i = theSeededTiles.begin(); i != theSeededTiles.end(); i++)
 			{
+				(*i)->TileHazeValue = CPlayState::Instance()->theHaze.HazeGraph[HourNumber + DayNumber * DayTime] * 8;
 				(*i)->childs[0]->HazeTileValue = CPlayState::Instance()->theHaze.HazeGraph[HourNumber + DayNumber * DayTime] * 8;
 			}
 		}
@@ -589,28 +592,52 @@ void CGamePlayState::ClickCollision() {
 	//For some reason it only checks tiles with a and s that are multiples of 4
 	//Check color scheme for tiles
 
-	//Using While loop
-	int a = 0;
-	int s = 0;
-	int maxa = TILE_NO_X;
-	int maxs = TILE_NO_Y;
-	while(a != maxa) {
-		if(s == maxs) {
-			s = 0;
-			a++;
-		}
+	for (int a = 0; a < TILE_NO_X; ++a)
+	{
+		for(int s = 0; s < TILE_NO_Y; ++s)
+		{
+			if(theGrid->temp[a][s].getColor() == Vector3(colorf[0], colorf[1], colorf[2])) {
+				printf("Confirmed grid clicked %d %d\n\n", a, s);
+			
+				CStalls* StallSelected = NULL;
 
-		if(a == maxa)
-			break;
+				//Check if any stall is selected
+				for (int i = 0; i < 3; i++)
+				{
+					if(CPlayState::Instance()->theStall[i]->Selected)
+					{ StallSelected = CPlayState::Instance()->theStall[i]; break; }
+				}
 
-		if(theGrid->temp[a][s].getColor() == Vector3(colorf[0], colorf[1], colorf[2])) {
-			printf("Confirmed grid clicked %d %d\n\n", a, s);
-			if(theGrid->temp[a][s].ShopOnTop != NULL)
-			{}
-			break;
+				//If clicked on stall
+				if(theGrid->temp[a][s].ShopOnTop != NULL)
+				{
+					printf("Confirmed shop clicked %d %d\n\n", a, s);
+					if(StallSelected == NULL)
+						theGrid->temp[a][s].ShopOnTop->Selected = true;
+				}
+				else
+				{
+					//If have stall selected and clicked on acceptable tile
+					if(StallSelected != NULL)
+					{
+						StallSelected->Selected = false;
+						for (int k = 0; k < TILE_NO_X; ++k)
+						{
+							for(int l = 0; l < TILE_NO_Y; ++l)
+							{
+								if(theGrid->temp[k][l].ShopOnTop == StallSelected)
+								{ theGrid->temp[k][l].ShopOnTop = NULL; break; }
+							}
+						}
+						//Set position
+						StallSelected->setPos(Vector3(theGrid->temp[a][s].getPos()+theGrid->temp[a][s].GetScale()*0.5));
+						//theGrid->GetTile(StallSelected->getPosition())->ShopOnTop = StallSelected;
+					}
+
+				}
+				break;
+			}
 		}
-						
-		s++;
 	}
 }
 

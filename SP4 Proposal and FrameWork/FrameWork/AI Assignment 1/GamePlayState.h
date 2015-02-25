@@ -15,7 +15,7 @@
 
 using namespace std;
 
-#define SEEDCOUNT 50
+#define SEEDCOUNT 5
 
 enum PLAYSTATE_BUTTON
 {
