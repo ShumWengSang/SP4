@@ -41,7 +41,7 @@ void CGamePlayState::Init()
 	theGrid = new Grid();
 
 	isPause = false;
-	shopSelected = false;
+	shop1Selected = false;
 	shop2Selected = false;
 	shop3Selected = false;
 
@@ -468,11 +468,8 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 				//shop 1 clicked
 				if(theButton[shop]->isInside(x, y))
 				{
-					shopSelected = true;
-					cout << "ssss" << endl;
+					shop1Selected = true;
 				}
-				else
-					shopSelected = false;
 
 				// Render Objects to be selected in the color scheme
 				theGrid->Click = true;

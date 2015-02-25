@@ -82,6 +82,7 @@ void CEndOfDayState::DrawButtons()
 
 void CEndOfDayState::DrawBackground()
 {
+	//background
 	glPushMatrix();
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -99,14 +100,53 @@ void CEndOfDayState::DrawBackground()
 		glDisable(GL_BLEND);
 	glPopMatrix();
 
+	//three rectangle
 	glPushMatrix();
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glEnable(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D, background[1].texID);
 		glPushMatrix();
-			glTranslatef(20, 20, 0);
-			glScalef(0.95, 0.4, 1);
+			glTranslatef(25, 20, 0);
+			glScalef(0.25, 0.4, 1);
+			glBegin(GL_QUADS);
+				glTexCoord2f(0, 0);	glVertex2f(0, SCREEN_HEIGHT);
+				glTexCoord2f(1, 0);	glVertex2f(SCREEN_WIDTH, SCREEN_HEIGHT);
+				glTexCoord2f(1, 1);	glVertex2f(SCREEN_WIDTH, 0);
+				glTexCoord2f(0, 1);	glVertex2f(0, 0);			
+			glEnd();
+		glPopMatrix();
+		glDisable(GL_TEXTURE_2D);
+		glDisable(GL_BLEND);
+	glPopMatrix();
+
+	glPushMatrix();
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, background[1].texID);
+		glPushMatrix();
+			glTranslatef(SCREEN_WIDTH/2 - 100, 20, 0);
+			glScalef(0.25, 0.4, 1);
+			glBegin(GL_QUADS);
+				glTexCoord2f(0, 0);	glVertex2f(0, SCREEN_HEIGHT);
+				glTexCoord2f(1, 0);	glVertex2f(SCREEN_WIDTH, SCREEN_HEIGHT);
+				glTexCoord2f(1, 1);	glVertex2f(SCREEN_WIDTH, 0);
+				glTexCoord2f(0, 1);	glVertex2f(0, 0);			
+			glEnd();
+		glPopMatrix();
+		glDisable(GL_TEXTURE_2D);
+		glDisable(GL_BLEND);
+	glPopMatrix();
+
+	glPushMatrix();
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, background[1].texID);
+		glPushMatrix();
+			glTranslatef(SCREEN_WIDTH - 250, 20, 0);
+			glScalef(0.25, 0.4, 1);
 			glBegin(GL_QUADS);
 				glTexCoord2f(0, 0);	glVertex2f(0, SCREEN_HEIGHT);
 				glTexCoord2f(1, 0);	glVertex2f(SCREEN_WIDTH, SCREEN_HEIGHT);

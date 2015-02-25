@@ -28,7 +28,7 @@ private:
 	CBuyMaskState(void) {};
 
 	TextureImage button[4];
-	TextureImage background[2];
+	TextureImage background[3];
 
 	bool needMoney;
 public:

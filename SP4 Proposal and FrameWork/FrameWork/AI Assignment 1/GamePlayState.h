@@ -37,7 +37,7 @@ private:
 	TextureImage skyBox[6];
 
 	bool isPause;
-	bool shopSelected;
+	bool shop1Selected;
 	bool shop2Selected;
 	bool shop3Selected;
 

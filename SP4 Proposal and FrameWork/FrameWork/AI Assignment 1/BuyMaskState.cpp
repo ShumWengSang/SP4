@@ -10,6 +10,7 @@ void CBuyMaskState::LoadTextures()
 	//Textures
 	CApplication::getInstance()->LoadTGA(&background[0],"images/background.tga");
 	CApplication::getInstance()->LoadTGA(&background[1],"images/buyMaskState/box.tga");
+	CApplication::getInstance()->LoadTGA(&background[2],"images/buyMaskState/box2.tga");
 	CApplication::getInstance()->LoadTGA(&button[0],"images/buyMaskState/next.tga");
 	CApplication::getInstance()->LoadTGA(&button[1],"images/buyMaskState/50.tga");
 	CApplication::getInstance()->LoadTGA(&button[2],"images/buyMaskState/100.tga");
@@ -86,6 +87,7 @@ void CBuyMaskState::DrawButtons()
 
 void CBuyMaskState::DrawBackground()
 {
+	//background
 	glPushMatrix();
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -103,6 +105,7 @@ void CBuyMaskState::DrawBackground()
 		glDisable(GL_BLEND);
 	glPopMatrix();
 
+	//gray rectangle
 	glPushMatrix();
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -111,6 +114,64 @@ void CBuyMaskState::DrawBackground()
 		glPushMatrix();
 			glTranslatef(20, SCREEN_HEIGHT/2 - 100, 0);
 			glScalef(0.95, 0.4, 1);
+			glBegin(GL_QUADS);
+				glTexCoord2f(0, 0);	glVertex2f(0, SCREEN_HEIGHT);
+				glTexCoord2f(1, 0);	glVertex2f(SCREEN_WIDTH, SCREEN_HEIGHT);
+				glTexCoord2f(1, 1);	glVertex2f(SCREEN_WIDTH, 0);
+				glTexCoord2f(0, 1);	glVertex2f(0, 0);			
+			glEnd();
+		glPopMatrix();
+		glDisable(GL_TEXTURE_2D);
+		glDisable(GL_BLEND);
+	glPopMatrix();
+
+	//three green rectangle
+	glPushMatrix();
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, background[2].texID);
+		glPushMatrix();
+			glTranslatef(60, SCREEN_HEIGHT/2 - 35, 0);
+			glScalef(0.15, 0.2, 1);
+			glBegin(GL_QUADS);
+				glTexCoord2f(0, 0);	glVertex2f(0, SCREEN_HEIGHT);
+				glTexCoord2f(1, 0);	glVertex2f(SCREEN_WIDTH, SCREEN_HEIGHT);
+				glTexCoord2f(1, 1);	glVertex2f(SCREEN_WIDTH, 0);
+				glTexCoord2f(0, 1);	glVertex2f(0, 0);			
+			glEnd();
+		glPopMatrix();
+		glDisable(GL_TEXTURE_2D);
+		glDisable(GL_BLEND);
+	glPopMatrix();
+
+	glPushMatrix();
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, background[2].texID);
+		glPushMatrix();
+			glTranslatef(SCREEN_WIDTH/2 - 60, SCREEN_HEIGHT/2 - 35, 0);
+			glScalef(0.15, 0.2, 1);
+			glBegin(GL_QUADS);
+				glTexCoord2f(0, 0);	glVertex2f(0, SCREEN_HEIGHT);
+				glTexCoord2f(1, 0);	glVertex2f(SCREEN_WIDTH, SCREEN_HEIGHT);
+				glTexCoord2f(1, 1);	glVertex2f(SCREEN_WIDTH, 0);
+				glTexCoord2f(0, 1);	glVertex2f(0, 0);			
+			glEnd();
+		glPopMatrix();
+		glDisable(GL_TEXTURE_2D);
+		glDisable(GL_BLEND);
+	glPopMatrix();
+
+		glPushMatrix();
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, background[2].texID);
+		glPushMatrix();
+			glTranslatef(SCREEN_WIDTH - 160,  SCREEN_HEIGHT/2 - 35, 0);
+			glScalef(0.15, 0.2, 1);
 			glBegin(GL_QUADS);
 				glTexCoord2f(0, 0);	glVertex2f(0, SCREEN_HEIGHT);
 				glTexCoord2f(1, 0);	glVertex2f(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -206,7 +267,7 @@ void CBuyMaskState::drawInfo()
 			if(needMoney)
 			{
 				glColor3f( 1.0f, 0.0f, 0.0f);
-				printw ((SCREEN_WIDTH/2)-100, SCREEN_HEIGHT/2 + 100, 0, "You need more money!!!");
+				printw ((SCREEN_WIDTH/2)-100, SCREEN_HEIGHT/2 + 130, 0, "You need more money!!!");
 			}
 
 			glColor3f( 0.0f, 1.0f, 0.0f);
