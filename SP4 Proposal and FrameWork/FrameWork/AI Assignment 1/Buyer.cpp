@@ -44,6 +44,7 @@ float Buyer::GetFactors(int Price, int Distance, int Haze)
 
 void Buyer::WillBuy(int Haze)
 {
+	ProbabilitytoBuyMask.clear();
 	for (auto i = theStalls.begin(); i != theStalls.end(); i++)
 	{
 		if (WillBuyMask((*i)->theStall->Price))
@@ -105,7 +106,9 @@ void Buyer::Update()
 	//TempY = abs(TempY);
 
 	Velocity.Set(TempX, 0, TempY);
-	Velocity.Normalized();
+
+	if (Velocity.Length() != 0)
+		Velocity.Normalized();
 
 	//if (TempX > TempY && TempY != 0)
 	//{
@@ -120,7 +123,7 @@ void Buyer::Update()
 	//	Velocity.SetZero();
 	//}
 
-	Position += Velocity * CTimer::getInstance()->getDelta() * 0.05;
+	Position += Velocity * CTimer::getInstance()->getDelta() * 0.5;
 
 
 }
@@ -131,7 +134,10 @@ bool Buyer::glRenderObject()
 	glTranslatef(Position.x, Position.y, Position.z);
 	glScalef(3, 3, 3);
 	glBegin(GL_QUADS);
-	glColor3f(1, 1, 1);
+	if (HasMask)
+		glColor3f(1, 0, 0);
+	else
+		glColor3f(1, 1, 1);
 	glVertex3f(0.5, 1, 0.5);
 	glVertex3f(1.0, 1, 0.5);
 	glVertex3f(1.0, 0.5, 0.5);
@@ -151,12 +157,23 @@ void Buyer::AIUpdate()
 		theTileTemp = theGrid->GetTile(this->Position);
 		if (theTileTemp != NULL)
 		{
+			/*if (HasMask)
+			{
+
+			}
+			else
+			{
+				CStalls * theStall = StalltoBuyFrom(theTileTemp->TileHazeValue);
+				if (theStall != NULL)
+				{
+					TargettoWalk.push_back(theStall->getPosition());
+					CurrentState = GOINGTOBUY;
+				}
+			}*/
 			switch (CurrentState)
 			{
 				case IDLEWALKING:
 				{
-
-									//Every update, get tile information. Use this information to determine whether you will buy a mask.
 									if (HasMask)
 									{
 
@@ -169,8 +186,8 @@ void Buyer::AIUpdate()
 											TargettoWalk.push_back(theStall->getPosition());
 											CurrentState = GOINGTOBUY;
 										}
-
 									}
+
 				}
 				break;
 				case GOINGTOBUY:
@@ -178,26 +195,20 @@ void Buyer::AIUpdate()
 
 								   //	theTileTemp = gettileinfo
 								   //Every update, get tile information. Use this information to determine whether you will buy a mask.
-								   if (HasMask)
-								   {
 
-								   }
-								   else
-								   {
-									   CStalls * theStall = StalltoBuyFrom(theTileTemp->TileHazeValue);
-									   TargettoWalk.push_back(theStall->getPosition());
-									   CurrentState = GOINGTOBUY;
-								   }
 
 								   //Check if tile has the shop.
 								   if (theTileTemp->ShopOnTop != NULL)
 								   {
-									   HasMask = true;
-									   CurrentState = IDLEWALKING;
-									   theTileTemp->ShopOnTop->setMaskSold(1);
-									   for (int i = 0; i < TargettoWalk.size() + 1; i++)
+									   if (theTileTemp->getPosition() == TargettoWalk.back())
 									   {
-										   TargettoWalk.pop_back();
+										   HasMask = true;
+										   CurrentState = IDLEWALKING;
+										   theTileTemp->ShopOnTop->setMaskSold(1);
+										   for (int i = 0; i < TargettoWalk.size() - 1; i++)
+										   {
+											   TargettoWalk.pop_back();
+										   }
 									   }
 								   }
 
