@@ -195,7 +195,8 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 void CGamePlayState::Draw(CInGameStateManager* theGSM) 
 {
 	// Render Objects to be selected in the color scheme
-	if(CInputSystem::getInstance()->mouseInfo.mLButtonUp == false) {
+	if(CInputSystem::getInstance()->mouseInfo.mLButtonUp == false)
+	{
 		for (auto i = theListofEntities.begin(); i != theListofEntities.end(); i++)
 		{
 			if((*i)->getObjectType() == EntityType::GRID)
@@ -205,7 +206,9 @@ void CGamePlayState::Draw(CInGameStateManager* theGSM)
 		theGrid->Click = true;
 		ClickCollision();
 
-	}else {
+	}
+	else
+	{
 		// Actual Render Here
 
 		DrawSkyBox();
