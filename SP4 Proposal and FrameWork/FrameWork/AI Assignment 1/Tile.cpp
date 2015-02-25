@@ -3,6 +3,7 @@
 void Tiles::drawTile(int x, int y, int z, int tileWidth, int tileHeight, bool isPicking)
 {
 	//pos.Set(x,y,z);
+	scale.Set(tileWidth,0,tileHeight);
 	CalcHazeAlpha();
 	if(!isPicking) {
 		glBegin(GL_LINES);
@@ -29,6 +30,11 @@ void Tiles::drawTile(int x, int y, int z, int tileWidth, int tileHeight, bool is
 		glEnd();
 
 		glPushMatrix();
+
+		childs[0]->drawTile(x, 0, z, tileWidth / 2, tileHeight / 2);
+		childs[1]->drawTile(x + tileHeight / 2, 0, z, tileWidth / 2, tileHeight / 2);
+		childs[2]->drawTile(x, 0, z + tileWidth / 2, tileWidth / 2, tileHeight / 2);
+		childs[3] ->drawTile(x + tileHeight / 2, 0, z + tileWidth / 2, tileWidth / 2, tileHeight / 2);
 	}
 
 	glPushMatrix();
@@ -58,11 +64,6 @@ void Tiles::drawTile(int x, int y, int z, int tileWidth, int tileHeight, bool is
 			glVertex3f(x,0,z);
 		glEnd();
 	glPopMatrix();
-
-	childs[0]->drawTile(x, 0, z, tileWidth / 2, tileHeight / 2);
-	childs[1]->drawTile(x + tileHeight / 2, 0, z, tileWidth / 2, tileHeight / 2);
-	childs[2]->drawTile(x, 0, z + tileWidth / 2, tileWidth / 2, tileHeight / 2);
-	childs[3] ->drawTile(x + tileHeight / 2, 0, z + tileWidth / 2, tileWidth / 2, tileHeight / 2);
 }
 
 bool Tiles::isWithin(Vector3 pos)
@@ -130,6 +131,11 @@ void Tiles::Update()
 		childs[0]->Update();
 	}
 
+}
+
+Vector3 Tiles::GetScale()
+{
+	return scale;
 }
 
 void Tiles::CalcHazeAlpha()

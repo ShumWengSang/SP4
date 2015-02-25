@@ -40,6 +40,8 @@ struct Vector3
 	Vector3 operator-( const Vector3& rhs ) const; //Vector subtraction
 	Vector3& operator-=( const Vector3& rhs );
 	
+	Vector3 operator/( const Vector3& rhs ) const; //Vector subtraction
+	
 	Vector3 operator-( void ) const; //Unary negation
 	
 	Vector3 operator*( float scalar ) const; //Scalar multiplication

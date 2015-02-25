@@ -18,7 +18,7 @@ class Tiles : public Entity
 private:
 	Vector3 color;
 	Vector3 pos;
-
+	Vector3 scale;
 	Vector3 tempC;
 	
 public:
@@ -28,7 +28,7 @@ public:
 	void setColor(float x, float y, float z){color.Set(x,y,z);}
 	void setPos(float x, float y, float z){pos.Set(x,y,z);}
 	float HazeAlpha;
-	Tiles():color(0,0,0),pos(0,0,0)
+	Tiles():color(0,0,0),pos(0,0,0),scale(1,0,1)
 	{
 		theType = TILE; 
 		TileHazeValue = 0;
@@ -63,5 +63,6 @@ public:
 	//Entity functions
 	bool glRenderObject();
 	void Update();
+	Vector3 GetScale();
 };
 
