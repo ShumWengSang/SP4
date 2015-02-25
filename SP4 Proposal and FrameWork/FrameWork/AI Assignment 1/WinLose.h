@@ -8,15 +8,15 @@ class Money;
 class WinLose
 {
 private:
-	bool profit, loss, win;
+	bool win;
 
 public:
 	WinLose(void);
 	~WinLose(void);
 
 	void calcOutcome(int);
-	bool GetResult(bool);
+	void SetResult(bool);
+	bool GetResult();
 
 	CMoney *theMoney;
 };
-

@@ -3,7 +3,7 @@
 
 WinLose::WinLose(void)
 {
-	profit = loss = win = false;
+	win = false;
 	
 }
 
@@ -16,25 +16,18 @@ void WinLose::calcOutcome(int money)
 {
 	if (money > theMoney->getCurrentMoney())
 	{
-		profit = true;
+		win = true;
+		
 	}
 	else 
 	{
-		loss = true;
-	}
-
-}
-
-bool WinLose::GetResult (bool result)
-{
-	if (result == true)
-	{
-		win = result;
-	}
-	else
-	{
 		win = false;
 	}
-	return win;
+
 }
 
+
+bool WinLose::GetResult ()
+{
+	return win;
+}
