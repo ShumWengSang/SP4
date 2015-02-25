@@ -3,37 +3,30 @@
 
 CTileChilds::CTileChilds(void)
 {
-	
+	top = NULL;
+	left = NULL;
+	right = NULL;
+	bottom = NULL;
+	HazeTileValue = 0;
+}
+
+CTileChilds::CTileChilds(Tiles * ParentTile)
+{
+	top = NULL;
+	left = NULL;
+	right = NULL;
+	bottom = NULL;
+	this->ParentTile = ParentTile;
+	HazeTileValue = 0;
 }
 
 void CTileChilds::drawTile(float x, float y, float z, float tileWidth, float tileHeight)
 {
-	glBegin(GL_LINES);
-	glPushMatrix();
-	//glColor3f(color.x,color.y,color.z);
-	glColor3f(1,1,1);
-	
-	//Top left to top right
-	glVertex3i(x, ypos, z+tileWidth);
-	glVertex3i(x+tileHeight, ypos, z+tileWidth);
-	
-	//Top Right to bottom right
-	glVertex3i(x+tileHeight, ypos, z+tileWidth);
-	glVertex3i(x+tileHeight, ypos, z);
 
-	//Bottom right to bottom left
-	glVertex3i(x+tileHeight, ypos, z);
-	glVertex3i(x, ypos, z);
-
-	//Bottom right to top Left
-	glVertex3i(x, ypos, z);
-	glVertex3i(x, ypos, z+tileWidth);
-	glPopMatrix();
-	glEnd();
 
 
 	glBegin(GL_QUADS);
-		glColor3f(colour.x, colour.y, colour.z);
+		glColor4f(colour.x, colour.y, colour.z, 1);
 		glVertex3f(x, ypos, z+tileWidth);
 		glVertex3f(x+tileHeight, ypos, z+tileWidth);
 		glVertex3f(x+tileHeight, ypos, z);
@@ -48,7 +41,23 @@ bool CTileChilds::glRenderObject()
 
 void CTileChilds::Update()
 {
-	
+	if (this->HazeTileValue <= 50)
+	{
+		return;
+	}
+	if (top != NULL)
+		Pressure(*this, *top);
+	if (bottom != NULL)
+		Pressure(*this, *bottom);
+	if (left != NULL)
+		Pressure(*this, *left);
+	if (right != NULL)
+		Pressure(*this, *right);
+
+	if (HazeTileValue > 50)
+	{
+		colour.Set(1, 1, 0);
+	}
 }
 
 
@@ -56,4 +65,31 @@ void CTileChilds::init()
 {
 	colour = Vector3(0,0,0);
 	ypos = 1;
+}
+
+void CTileChilds::Pressure(CTileChilds &currentCell, CTileChilds &neighbourCell)
+{
+	//if there is more pressure in cell than in neighbour
+	if (currentCell.HazeTileValue > neighbourCell.HazeTileValue)
+	{
+		//get the pressure ratio between the cells
+		float Pressure_ratio = currentCell.HazeTileValue / neighbourCell.HazeTileValue;
+
+	}
+	//Pressure difference
+	float PressureFlow = currentCell.HazeTileValue - neighbourCell.HazeTileValue;
+
+	//pressure diffuse to neightbour
+	neighbourCell.HazeTileValue += PressureFlow * 0.25;
+	currentCell.HazeTileValue -= PressureFlow * 0.25;
+
+	//detect and remove oscillations
+	if ((PressureFlow > 0) && (neighbourCell.HazeTileValue < currentCell.HazeTileValue))
+	{
+		//calculate the average pressure of currentcell and neighbourcell and distribute evenly
+		float TotalPressure = currentCell.HazeTileValue + neighbourCell.HazeTileValue;
+		float AveragePressure = TotalPressure / 2;
+		currentCell.HazeTileValue = AveragePressure;
+		neighbourCell.HazeTileValue = AveragePressure;
+	}
 }

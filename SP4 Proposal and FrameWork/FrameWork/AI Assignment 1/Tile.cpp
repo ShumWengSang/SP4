@@ -2,7 +2,7 @@
 
 void Tiles::drawTile(int x, int y, int z, int tileWidth, int tileHeight, bool isPicking)
 {
-	pos.Set(x,y,z);
+	//pos.Set(x,y,z);
 	CalcHazeAlpha();
 	if(!isPicking) {
 		glBegin(GL_LINES);
@@ -53,10 +53,10 @@ void Tiles::drawTile(int x, int y, int z, int tileWidth, int tileHeight, bool is
 		glEnd();
 	glPopMatrix();
 
-	childs[0]->drawTile(x,0,z,							tileWidth/2, tileHeight/2);
-	childs[1]->drawTile(x+tileHeight/2,0,z,				tileWidth/2, tileHeight/2);
-	childs[2]->drawTile(x,0,z+tileWidth/2,				tileWidth/2, tileHeight/2);
-	childs[3]->drawTile(x+tileHeight/2,0,z+tileWidth/2,	tileWidth/2, tileHeight/2);	
+	childs[0]->drawTile(x, 0, z, tileWidth / 2, tileHeight / 2);
+	childs[1]->drawTile(x + tileHeight / 2, 0, z, tileWidth / 2, tileHeight / 2);
+	childs[2]->drawTile(x, 0, z + tileWidth / 2, tileWidth / 2, tileHeight / 2);
+	childs[3] ->drawTile(x + tileHeight / 2, 0, z + tileWidth / 2, tileWidth / 2, tileHeight / 2);
 }
 
 bool Tiles::isWithin(Vector3 pos)
@@ -119,13 +119,11 @@ void Tiles::Update()
 	if (right != NULL)
 		Pressure(*this, *right);
 
-	
-	//this->TileHazeValue -= 1;
-
 	for (int i = 0; i < 4; i++)
 	{
-		childs[i]->setColor(tempC.x, tempC.y, tempC.z);
+		childs[0]->Update();
 	}
+
 }
 
 void Tiles::CalcHazeAlpha()
@@ -137,12 +135,12 @@ void Tiles::CalcHazeAlpha()
 
 void Tiles::init()
 {
-	childs[0] = new CTileChilds();
+	childs[0] = new CTileChilds(this);
 	childs[0]->init();
-	childs[1] = new CTileChilds();
+	childs[1] = new CTileChilds(this);
 	childs[1]->init();
-	childs[2] = new CTileChilds();
+	childs[2] = new CTileChilds(this);
 	childs[2]->init();
-	childs[3] = new CTileChilds();
+	childs[3] = new CTileChilds(this);
 	childs[3]->init();
 }

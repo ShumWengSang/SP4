@@ -19,10 +19,10 @@ private:
 	Vector3 color;
 	Vector3 pos;
 
-	CTileChilds *childs[4];
 	Vector3 tempC;
 	
 public:
+	CTileChilds *childs[4];
 	Vector3 getColor(void){return color;}
 	Vector3 getPos(void){return pos;}
 	void setColor(float x, float y, float z){color.Set(x,y,z);}
