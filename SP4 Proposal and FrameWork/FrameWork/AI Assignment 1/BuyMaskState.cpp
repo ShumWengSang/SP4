@@ -196,8 +196,9 @@ void CBuyMaskState::MouseClick(int button, int state, int x, int y) {
 
 		case GLUT_LEFT_BUTTON:
 			if (state == GLUT_DOWN) 
-			{
+			{//obj = 
 				se->play2D("audio/click.wav",false);
+				//obj->setVolume(25.0);
 				CInputSystem::getInstance()->mouseInfo.mLButtonUp = false;
 				CInputSystem::getInstance()->mouseInfo.clickedX = x;
 				CInputSystem::getInstance()->mouseInfo.clickedY = y;
@@ -205,6 +206,7 @@ void CBuyMaskState::MouseClick(int button, int state, int x, int y) {
 				//go to sell setting
 				if(theButton[nextPage]->isInside(x, y))
 				{
+					se->play2D("audio/cashRegister.mp3",false);
 					CPlayState::Instance()->oldMaskValue = CPlayState::Instance()->maskInStock;
 					CInGameStateManager::getInstance()->ChangeState(CStartOfDayState::Instance());
 				}

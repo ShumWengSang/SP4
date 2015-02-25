@@ -195,6 +195,7 @@ void AudioPlayer::setVolume(int newVolume)
         volume = newVolume;
 	}
     currentSound->setVolume(volume/100.0);
+	cout<<"Volume reset"<<endl;
 }
 
 void AudioPlayer::increaseVolume()
