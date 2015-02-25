@@ -29,6 +29,7 @@ public:
 	void setCurrentDay(int day);
 	void setActualArray(std::vector<float> actual); //set range on range X
 
+	int getCurrentDayRange();
 	int getCurrentDay();
 	int getCurrentForecast();
 

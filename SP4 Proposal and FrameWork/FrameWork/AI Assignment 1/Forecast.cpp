@@ -57,7 +57,7 @@ void CForecast::checkDay(int curDay)
 	{
 		int sum = 0;
 	
-		sum += actualNumRange[curDay-2] - actualNumRange[curDay-4];
+		sum += actualNum[curDay-2] - actualNum[curDay-4];
 		
 		if (actualNumRange[curDay-3] < actualNumRange[curDay-2]) //going up
 			setForecastNumRange(actualNumRange[curDay-3], actualNumRange[curDay-2], sum, curDay);
@@ -208,7 +208,6 @@ void CForecast::setActualArray(std::vector<float> actual)
 	for (int i = 0; i < 7; i++)
 	{
 		actualNum[i] = actual.at(i);
-		cout << "A: " << actualNum[i] << endl;
 		for (int j = 1; j < 11; j++)
 		{
 			if (actualNum[i] > (j-1)*50 && actualNum[i] < j*50)
@@ -221,6 +220,10 @@ void CForecast::setActualArray(std::vector<float> actual)
 int CForecast::getCurrentDay()
 {
 	return currentDay;
+}
+int CForecast::getCurrentDayRange()
+{
+	return forecastNumRange[currentDay-1];
 }
 int CForecast::getCurrentForecast()
 {
