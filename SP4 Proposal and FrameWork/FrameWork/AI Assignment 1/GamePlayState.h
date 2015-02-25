@@ -11,6 +11,7 @@
 #include "Buttons.h"
 #include "Grid.h"
 #include "Stalls.h"
+#include "Buyer.h"
 
 using namespace std;
 

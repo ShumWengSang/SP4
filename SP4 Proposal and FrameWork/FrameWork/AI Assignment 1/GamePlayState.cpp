@@ -10,12 +10,18 @@ void CGamePlayState::LoadTextures()
 	CApplication::getInstance()->LoadTGA(&map[0],"images/playState/map.tga");
 	CApplication::getInstance()->LoadTGA(&button[0],"images/playState/pause.tga");
 	CApplication::getInstance()->LoadTGA(&button[1], "images/playState/shop.tga");
-	CApplication::getInstance()->LoadTGA(&skyBox[0], "images/playState/SkyBox/front.tga");
+	/*CApplication::getInstance()->LoadTGA(&skyBox[0], "images/playState/SkyBox/front.tga");
 	CApplication::getInstance()->LoadTGA(&skyBox[1], "images/playState/SkyBox/back.tga");
 	CApplication::getInstance()->LoadTGA(&skyBox[2], "images/playState/SkyBox/left.tga");
 	CApplication::getInstance()->LoadTGA(&skyBox[3], "images/playState/SkyBox/right.tga");
 	CApplication::getInstance()->LoadTGA(&skyBox[4], "images/playState/SkyBox/top.tga");
-	CApplication::getInstance()->LoadTGA(&skyBox[5], "images/playState/SkyBox/down.tga");
+	CApplication::getInstance()->LoadTGA(&skyBox[5], "images/playState/SkyBox/down.tga");*/
+	CApplication::getInstance()->LoadTGA(&skyBox[0], "images/playState/SkyBox/skybox_near.tga");
+	CApplication::getInstance()->LoadTGA(&skyBox[1], "images/playState/SkyBox/skybox_far.tga");
+	CApplication::getInstance()->LoadTGA(&skyBox[2], "images/playState/SkyBox/skybox_left.tga");
+	CApplication::getInstance()->LoadTGA(&skyBox[3], "images/playState/SkyBox/skybox_right.tga");
+	CApplication::getInstance()->LoadTGA(&skyBox[4], "images/playState/SkyBox/skybox_top.tga");
+	CApplication::getInstance()->LoadTGA(&skyBox[5], "images/playState/SkyBox/skybox_bottom.tga");
 }
 void CGamePlayState::LoadButtons()
 {
@@ -82,6 +88,20 @@ void CGamePlayState::Init()
 	TimerKeySeed = theTimerInstance->insertNewTime(3000);
 	TimerKeyDay = theTimerInstance->insertNewTime(27000);
 	HourNumber = 0;
+	
+	Buyer * newBuyer;
+
+	std::vector<CStalls*> theListofStalls;
+	for (int i = 0; i < 3; i++)
+	{
+		theListofStalls.push_back(CPlayState::Instance()->theStall[i]);
+	}
+
+	for (int i = 0; i < 50; i++)
+	{
+		newBuyer = new Buyer(theListofStalls, theGrid);
+		theListofEntities.push_back(newBuyer);
+	}
 
 	// Stall Initialisation on Tiles
 	//theGrid->GetTile(CPlayState::Instance()->theStall[0]->getPosition())->ShopOnTop = CPlayState::Instance()->theStall[0];
@@ -213,7 +233,9 @@ void CGamePlayState::Draw(CInGameStateManager* theGSM)
 		{
 			(*i)->glRenderObject();
 		}
-
+		theGrid->GetTile(CPlayState::Instance()->theStall[0]->getPosition())->ShopOnTop = CPlayState::Instance()->theStall[0];
+		theGrid->GetTile(CPlayState::Instance()->theStall[1]->getPosition())->ShopOnTop = CPlayState::Instance()->theStall[1];
+		theGrid->GetTile(CPlayState::Instance()->theStall[2]->getPosition())->ShopOnTop = CPlayState::Instance()->theStall[2];
 		CApplication::getInstance()->setClickCheck(false);
 		theGrid->Click = false;
 	}
@@ -568,8 +590,7 @@ void CGamePlayState::drawInfo()
 		glPushAttrib(GL_DEPTH_TEST);
 			//print shop number
 			glColor3f( 1.0f, 0.0f, 0.0f);
-			printw (SCREEN_WIDTH - 100, 96, 0, "PSI: ");
-			printw (SCREEN_WIDTH - 100, 128, 0,  "Day: ");
+			printw (SCREEN_WIDTH - 100, 96, 0, "PSI: 123");
 			printw (SCREEN_WIDTH - 100, 160, 0,  "Time: ");
 		glPopAttrib();
 	glPopMatrix();

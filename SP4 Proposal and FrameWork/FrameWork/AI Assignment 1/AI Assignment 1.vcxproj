@@ -85,6 +85,7 @@
     <ClCompile Include="Buyer.cpp" />
     <ClCompile Include="BuyMaskState.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="EndGameState.cpp" />
     <ClCompile Include="EndOfDayState.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="Forecast.cpp" />
@@ -110,6 +111,7 @@
     <ClCompile Include="Timer.cpp" />
     <ClCompile Include="Vector3.cpp" />
     <ClCompile Include="WeatherGenerator.cpp" />
+    <ClCompile Include="WinLose.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Application.h" />
@@ -118,6 +120,7 @@
     <ClInclude Include="Buyer.h" />
     <ClInclude Include="BuyMaskState.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="EndGameState.h" />
     <ClInclude Include="EndOfDayState.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="Forecast.h" />
@@ -145,6 +148,7 @@
     <ClInclude Include="Timer.h" />
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="WeatherGenerator.h" />
+    <ClInclude Include="WinLose.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
