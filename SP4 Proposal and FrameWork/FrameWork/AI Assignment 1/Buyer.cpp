@@ -2,10 +2,18 @@
 
 Buyer::Buyer()
 {
-	CurrentMoney = rand() % 10 + 1;
-	theType = BUYER;
-	CurrentState = IDLEWALKING;
-	HasMask = false;
+	Init();
+	theGrid = NULL;
+}
+
+Buyer::Buyer(std::vector<CStalls*> theStalls, Grid * theGrid)
+{
+	this->theGrid = theGrid;
+	for (int i = 0; i < theStalls.size(); i++)
+	{
+		Insert(theStalls[i]);
+	}
+	Init();
 }
 
 Buyer::~Buyer()
@@ -109,12 +117,12 @@ void Buyer::Update()
 		Velocity.SetZero();
 	}
 
-	Position += Velocity;
+	Position += Velocity * CTimer::getInstance()->getDelta();
 
 
 }
 
-void Buyer::Render()
+bool Buyer::glRenderObject()
 {
 	glPushMatrix();
 	glTranslatef(Position.x, Position.y, Position.z);
@@ -128,63 +136,110 @@ void Buyer::Render()
 	glEnd();
 
 	glPopMatrix();
+	return true;
 }
 
 void Buyer::AIUpdate()
 {
 	//TODO 
 	//	if (theTileTemp != /*GET TILE INFO*/){
-	switch (CurrentState)
+	if (theTileTemp != theGrid->GetTile(this->Position))
 	{
-		case IDLEWALKING:
+		theTileTemp = theGrid->GetTile(this->Position);
+		if (theTileTemp != NULL)
 		{
+			switch (CurrentState)
+			{
+				case IDLEWALKING:
+				{
 
-							//Every update, get tile information. Use this information to determine whether you will buy a mask.
-							if (HasMask)
-							{
+									//Every update, get tile information. Use this information to determine whether you will buy a mask.
+									if (HasMask)
+									{
 
-							}
-							else
-							{
-								/*CStall * theStall = WillBuy(/*HAZE INFO)
-								TargettoWalk.push_back(theStall->Position);
-								CurrentState = GOINGTOBUY
-								*/
-							}
+									}
+									else
+									{
+										CStalls * theStall = StalltoBuyFrom(theTileTemp->TileHazeValue);
+										if (theStall != NULL)
+										{
+											TargettoWalk.push_back(theStall->getPosition());
+											CurrentState = GOINGTOBUY;
+										}
+
+									}
+				}
+				break;
+				case GOINGTOBUY:
+				{
+
+								   //	theTileTemp = gettileinfo
+								   //Every update, get tile information. Use this information to determine whether you will buy a mask.
+								   if (HasMask)
+								   {
+
+								   }
+								   else
+								   {
+									   CStalls * theStall = StalltoBuyFrom(theTileTemp->TileHazeValue);
+									   TargettoWalk.push_back(theStall->getPosition());
+									   CurrentState = GOINGTOBUY;
+								   }
+
+								   //Check if tile has the shop.
+								   if (theTileTemp->ShopOnTop != NULL)
+								   {
+									   HasMask = true;
+									   CurrentState = IDLEWALKING;
+									   theTileTemp->ShopOnTop->setMaskSold(1);
+									   for (int i = 0; i < TargettoWalk.size() + 1; i++)
+									   {
+										   TargettoWalk.pop_back();
+									   }
+								   }
+
+
+				}
+				break;
+				default:
+				break;
+			}
 		}
+	}
+}
+
+void Buyer::Init()
+{
+	CurrentMoney = rand() % 20 + 1;
+	theType = BUYER;
+	CurrentState = IDLEWALKING;
+	HasMask = false;
+	theTileTemp = NULL;
+
+	int i = rand() % 4;
+	switch (i)
+	{
+		case 0:
+		this->Position.Set(rand() % (TILE_NO_X + 1) * TILE_SIZE_X, 0, 0);
+		TargettoWalk.push_back(Vector3(rand() % (TILE_NO_X + 1) * TILE_SIZE_X, 0, TILE_NO_Y * TILE_SIZE_Y));
+
 		break;
-		case GOINGTOBUY:
-		{
-
-						   //	theTileTemp = gettileinfo
-						   //Every update, get tile information. Use this information to determine whether you will buy a mask.
-						   if (HasMask)
-						   {
-
-						   }
-						   else
-						   {
-							   /*CStall * theStall = WillBuy(/*HAZE INFO)
-							   TargettoWalk.pop_back();
-							   TargettoWalk.push_back(theStall->Position);
-
-							   */
-						   }
-
-						   //Check if tile has the shop.
-						   /*if(theTileTemp.hasshop == true)
-						   {
-						   HasMask = true;
-						   CurrentState = GOINGTOBUY;
-						   //ADD MONEY FOR SHOPS/
-						   //MINUS MASKS FOR SHOPS
-						   }
-						   */
-
-		}
+	/*	case 1:
+		this->Position.Set(rand() % (TILE_NO_X + 1) * TILE_SIZE_X, 0, TILE_NO_Y * TILE_SIZE_Y);
+		TargettoWalk.push_back(Vector3(rand() % TILE_NO_X + 1, 0, 0));
 		break;
+		case 2:
+		this->Position.Set(TILE_NO_X * TILE_SIZE_X, 0, rand() % (TILE_NO_Y + 1) * TILE_SIZE_Y);
+		TargettoWalk.push_back(Vector3(rand() % TILE_NO_X, 0, 0));
+		break;
+		case 3:
+		this->Position.Set(0, 0, rand() % (TILE_NO_Y + 1) * TILE_SIZE_Y);
+		TargettoWalk.push_back(Vector3(TILE_NO_X * TILE_SIZE_X, 0, rand() % (TILE_NO_Y + 1) * TILE_SIZE_Y));
+		break;*/
+
 		default:
+		this->Position.Set(rand() % (TILE_NO_X + 1) * TILE_SIZE_X, 0, 0);
+		TargettoWalk.push_back(Vector3(rand() % (TILE_NO_X + 1) * TILE_SIZE_X, 0, TILE_NO_Y * TILE_SIZE_Y));
 		break;
 	}
-//}
 }

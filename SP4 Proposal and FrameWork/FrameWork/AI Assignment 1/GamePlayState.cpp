@@ -88,6 +88,20 @@ void CGamePlayState::Init()
 	TimerKeySeed = theTimerInstance->insertNewTime(3000);
 	TimerKeyDay = theTimerInstance->insertNewTime(27000);
 	HourNumber = 0;
+	
+	Buyer * newBuyer;
+
+	std::vector<CStalls*> theListofStalls;
+	for (int i = 0; i < 3; i++)
+	{
+		theListofStalls.push_back(CPlayState::Instance()->theStall[i]);
+	}
+
+	for (int i = 0; i < 50; i++)
+	{
+		newBuyer = new Buyer(theListofStalls, theGrid);
+		theListofEntities.push_back(newBuyer);
+	}
 
 	// Stall Initialisation on Tiles
 	//theGrid->GetTile(CPlayState::Instance()->theStall[0]->getPosition())->ShopOnTop = CPlayState::Instance()->theStall[0];

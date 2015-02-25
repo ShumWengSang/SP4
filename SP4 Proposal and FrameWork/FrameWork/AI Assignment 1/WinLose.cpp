@@ -35,5 +35,6 @@ bool WinLose::GetResult (bool result)
 	{
 		win = false;
 	}
+	return win;
 }
 

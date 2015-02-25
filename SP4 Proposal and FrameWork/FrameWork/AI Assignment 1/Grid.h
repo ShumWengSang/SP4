@@ -22,7 +22,7 @@ public:
 
 	Tiles * GetTile(Vector3 pos)
 	{
-		Tiles * theTile;
+		Tiles * theTile = NULL;
 		//Check if pos is inside any of the tiles. if it is, set the tile to that tile.
 		for (int i = 0; i < TILE_NO_X; i++)
 		{
@@ -35,7 +35,7 @@ public:
 				}
 			}
 		}
-
+		return theTile;
 
 	}
 	int TimerKeyHazeDiffusal;

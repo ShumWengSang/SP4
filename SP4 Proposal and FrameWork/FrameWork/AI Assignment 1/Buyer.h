@@ -9,6 +9,8 @@
 #include "Vector3.h"
 #include "Stalls.h"
 #include "Tile.h"
+#include "Grid.h"
+#include "Timer.h"
 
 #include "gl\freeglut.h"
 //#include <Windows.h>
@@ -34,6 +36,7 @@ class Buyer : public Entity
 
 public:
 	Buyer();
+	Buyer(std::vector<CStalls*>, Grid *);
 	~Buyer();
 
 	int CurrentMoney;
@@ -56,11 +59,12 @@ public:
 	void Insert(CStalls * theStall);
 	void WillBuy(int Haze);
 	void AIUpdate();
+	void Init();
 
-
+	Grid * theGrid;
 	
 	/////////////////////////////////////////////////////////////////
 	//Base Entity Functions
 	void Update();
-	void Render();
+	bool glRenderObject();
 };
