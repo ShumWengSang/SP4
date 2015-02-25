@@ -4,6 +4,7 @@ void Tiles::drawTile(int x, int y, int z, int tileWidth, int tileHeight, bool is
 {
 	pos.Set(x,y,z);
 	CalcHazeAlpha();
+	pos.Set(x, y, z);
 	if(!isPicking) {
 		glBegin(GL_LINES);
 		glPushMatrix();

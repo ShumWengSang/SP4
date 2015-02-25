@@ -1,0 +1,14 @@
+25/2
+WQ -- Completed forecast and save/load system.
+R -- Haze rendering
+samuel -- color clicking 95%  Stalls --65% done.
+amos -- sound class singleton -- win lose condition 85%
+YQ -- money system completed. Left with Gameplay UI. Money might need debugging.
+
+TODO:
+WQ -- Nothing.
+R -- Haze rendering + buyer intergration.
+Samuel -- complete stall. fix camera.
+A -- finish win/lose.
+YT -- UI for gameplay. Startinbg buying during gameplay.
+
