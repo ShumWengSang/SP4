@@ -8,6 +8,7 @@
 #include "TextureImage.h"
 #include "Buttons.h"
 #include "SaveLoad.h"
+#include "AudioPlayer.h"
 
 using namespace std;
 
@@ -67,7 +68,8 @@ private:
 	//Input System
 	CInputSystem* InputSystem;
 	CButtons* theButton[4];
-
+	AudioPlayer * sound;
+	ISoundEngine *se;
 	int saveNum;
 	CSaveLoad* loadedFiles[3];
 };

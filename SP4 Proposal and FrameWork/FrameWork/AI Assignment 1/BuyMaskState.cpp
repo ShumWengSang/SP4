@@ -40,6 +40,7 @@ void CBuyMaskState::Init()
 	LoadTextures();
 	LoadButtons();
 	font_style = GLUT_BITMAP_HELVETICA_18;
+	se = createIrrKlangDevice();
 
 
 	if (CLoadState::Instance()->getLoaded())
@@ -196,6 +197,7 @@ void CBuyMaskState::MouseClick(int button, int state, int x, int y) {
 		case GLUT_LEFT_BUTTON:
 			if (state == GLUT_DOWN) 
 			{
+				se->play2D("audio/click.wav",false);
 				CInputSystem::getInstance()->mouseInfo.mLButtonUp = false;
 				CInputSystem::getInstance()->mouseInfo.clickedX = x;
 				CInputSystem::getInstance()->mouseInfo.clickedY = y;

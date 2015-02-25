@@ -24,7 +24,7 @@ void CEndOfDayState::LoadButtons()
 void CEndOfDayState::Init()
 {
 	cout << "CEndOfDayState::Init\n" << endl;
-
+	se = createIrrKlangDevice();
 	LoadTextures();
 	LoadButtons();
 	font_style = GLUT_BITMAP_HELVETICA_18;
@@ -178,6 +178,7 @@ void CEndOfDayState::MouseClick(int button, int state, int x, int y) {
 		case GLUT_LEFT_BUTTON:
 			if (state == GLUT_DOWN) 
 			{
+				se->play2D("audio/click.wav",false);
 				CInputSystem::getInstance()->mouseInfo.mLButtonUp = false;
 				CInputSystem::getInstance()->mouseInfo.clickedX = x;
 				CInputSystem::getInstance()->mouseInfo.clickedY = y;

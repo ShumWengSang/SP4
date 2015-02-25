@@ -9,6 +9,7 @@
 #include "TextureImage.h"
 #include "Buttons.h"
 #include "Stalls.h"
+#include "AudioPlayer.h"
 
 using namespace std;
 
@@ -75,5 +76,7 @@ public:
 private:
 	static CStartOfDayState theStartOfDayState;
 	CButtons* theButton[20];
+	AudioPlayer * sound;
+	ISoundEngine *se;
 };
 

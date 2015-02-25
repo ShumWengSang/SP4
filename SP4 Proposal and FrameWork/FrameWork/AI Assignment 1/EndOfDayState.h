@@ -8,6 +8,7 @@
 #include "InGameState.h"
 #include "TextureImage.h"
 #include "Buttons.h"
+#include "AudioPlayer.h"
 
 using namespace std;
 
@@ -59,5 +60,7 @@ public:
 private:
 	static CEndOfDayState theEndOfDayState;
 	CButtons* theButton[4];
+	AudioPlayer * sound;
+	ISoundEngine *se;
 };
 

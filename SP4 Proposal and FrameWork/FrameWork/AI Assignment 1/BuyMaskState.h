@@ -9,6 +9,7 @@
 #include "TextureImage.h"
 #include "Buttons.h"
 #include "Money.h"
+#include "AudioPlayer.h"
 
 using namespace std;
 
@@ -66,4 +67,6 @@ private:
 	static CBuyMaskState theBuyMaskState;
 	CMoney theMoney;
 	CButtons* theButton[4];
+	AudioPlayer * sound;
+	ISoundEngine *se;
 };

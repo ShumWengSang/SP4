@@ -198,11 +198,13 @@ void CSaveState::MouseMove (int x, int y) {
 void CSaveState::MouseClick(int button, int state, int x, int y) {
 	int w = glutGet(GLUT_WINDOW_WIDTH);
 	int h = glutGet(GLUT_WINDOW_HEIGHT);
+	se = createIrrKlangDevice();
 
 	switch (button) {
 		case GLUT_LEFT_BUTTON:
 			if (state == GLUT_DOWN)
 			{
+				se->play2D("audio/click.wav",false);
 				CInputSystem::getInstance()->mouseInfo.mLButtonUp = false;
 				CInputSystem::getInstance()->mouseInfo.clickedX = x;
 				CInputSystem::getInstance()->mouseInfo.clickedY = y;

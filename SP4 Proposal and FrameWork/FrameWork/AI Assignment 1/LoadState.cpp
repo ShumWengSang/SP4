@@ -59,7 +59,7 @@ void CLoadState::LoadLoadData()
 void CLoadState::Init()
 {
 	cout << "CLoadState::Init\n" << endl;
-
+	se = createIrrKlangDevice();
 	LoadTextures();
 	LoadButtons();
 	LoadLoadData();
@@ -207,6 +207,7 @@ void CLoadState::MouseClick(int button, int state, int x, int y) {
 		case GLUT_LEFT_BUTTON:
 			if (state == GLUT_DOWN)
 			{
+				se->play2D("audio/click.wav",false);
 				CInputSystem::getInstance()->mouseInfo.mLButtonUp = false;
 				CInputSystem::getInstance()->mouseInfo.clickedX = x;
 				CInputSystem::getInstance()->mouseInfo.clickedY = y;

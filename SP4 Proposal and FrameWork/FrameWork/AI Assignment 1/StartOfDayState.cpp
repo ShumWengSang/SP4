@@ -70,7 +70,7 @@ void CStartOfDayState::LoadButtons()
 void CStartOfDayState::Init()
 {
 	cout << "CStartOfDayState::Init\n" << endl;
-
+	se = createIrrKlangDevice();
 	LoadTextures();
 	LoadButtons();
 
@@ -212,6 +212,7 @@ void CStartOfDayState::MouseClick(int button, int state, int x, int y) {
 		case GLUT_LEFT_BUTTON:
 			if (state == GLUT_DOWN)
 			{
+				se->play2D("audio/click.wav",false);
 				CInputSystem::getInstance()->mouseInfo.mLButtonUp = false;
 				CInputSystem::getInstance()->mouseInfo.clickedX = x;
 				CInputSystem::getInstance()->mouseInfo.clickedY = y;
