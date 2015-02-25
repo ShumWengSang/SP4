@@ -2,6 +2,7 @@
 #include "Vector3.h"
 #include "freeglut.h"
 #include "Entity.h"
+#include "Tile.h"
 
 class Tiles;
 
@@ -26,7 +27,7 @@ public:
 	void setPos(float x, float y, float z){pos.Set(x,y,z);}
 
 	CTileChilds(void);	
-	CTileChilds(Tiles * ParentTile);
+	CTileChilds(Tiles * ParentTile, int numb);
 	~CTileChilds(void){};
 
 

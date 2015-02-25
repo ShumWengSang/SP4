@@ -10,7 +10,7 @@ CTileChilds::CTileChilds(void)
 	HazeTileValue = 0;
 }
 
-CTileChilds::CTileChilds(Tiles * ParentTile)
+CTileChilds::CTileChilds(Tiles * ParentTile, int numb)
 {
 	top = NULL;
 	left = NULL;
@@ -18,6 +18,59 @@ CTileChilds::CTileChilds(Tiles * ParentTile)
 	bottom = NULL;
 	this->ParentTile = ParentTile;
 	HazeTileValue = 0;
+
+
+	if(ParentTile->top != NULL)
+	{
+		if(numb != 0 && numb != 1)
+			top = ParentTile->top->childs[numb-2];
+		else
+			top = ParentTile->childs[numb+2];
+	}
+	else
+	{
+		if(numb != 2 && numb != 3)
+			top = ParentTile->childs[numb+2];
+	}
+
+	if(ParentTile->bottom != NULL)
+	{
+		if(numb != 2 && numb != 3)
+			bottom = ParentTile->bottom->childs[numb+2];
+		else
+			bottom = ParentTile->childs[numb-2];
+	}
+	else
+	{
+		if(numb != 0 && numb != 1)
+			bottom = ParentTile->childs[numb-2];
+	}
+
+	if(ParentTile->left != NULL)
+	{
+		if(numb != 1 && numb != 3)
+			left = ParentTile->left->childs[numb+1];
+		else
+			left = ParentTile->childs[numb-1];
+	}
+	else
+	{
+		if(numb != 0 && numb != 2)
+			left = ParentTile->childs[numb-1];
+	}
+
+	if(ParentTile->right != NULL)
+	{
+		if(numb != 0 && numb != 2)
+			right = ParentTile->right->childs[numb-1];
+		else
+			right = ParentTile->childs[numb+1];
+	}
+	else
+	{
+		if(numb != 1 && numb != 3)
+			right = ParentTile->childs[numb+1];
+	}
 }
 
 void CTileChilds::drawTile(float x, float y, float z, float tileWidth, float tileHeight)
@@ -63,8 +116,8 @@ void CTileChilds::Update()
 
 void CTileChilds::init()
 {
-	colour = Vector3(0,0,0);
-	ypos = 1;
+	colour = Vector3(1,0,0);
+	ypos = 20;
 }
 
 void CTileChilds::Pressure(CTileChilds &currentCell, CTileChilds &neighbourCell)

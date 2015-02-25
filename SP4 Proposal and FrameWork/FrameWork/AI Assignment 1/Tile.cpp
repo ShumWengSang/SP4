@@ -114,7 +114,7 @@ void Tiles::Update()
 {
 	if (this->TileHazeValue <= 50)
 	{
-		return;
+		//return;
 	}
 	if (top != NULL)
 		Pressure(*this, *top);
@@ -141,12 +141,12 @@ void Tiles::CalcHazeAlpha()
 
 void Tiles::init()
 {
-	childs[0] = new CTileChilds(this);
+	childs[0] = new CTileChilds(this, 0);
 	childs[0]->init();
-	childs[1] = new CTileChilds(this);
+	childs[1] = new CTileChilds(this, 1);
 	childs[1]->init();
-	childs[2] = new CTileChilds(this);
+	childs[2] = new CTileChilds(this, 2);
 	childs[2]->init();
-	childs[3] = new CTileChilds(this);
+	childs[3] = new CTileChilds(this, 3);
 	childs[3]->init();
 }

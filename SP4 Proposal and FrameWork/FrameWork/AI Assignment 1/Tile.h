@@ -38,8 +38,6 @@ public:
 		bottom = NULL;
 		ShopOnTop = NULL;
 		HazeAlpha = 1;
-
-		init();
 	}
 	~Tiles(void){};
 	static void Pressure(Tiles &currentCell,Tiles &neighborCell);
