@@ -19,16 +19,16 @@ void CBuyMaskState::LoadTextures()
 void CBuyMaskState::LoadButtons()
 {
 	//buttons
-	theButton[nextPage] = new CButtons(SCREEN_WIDTH/2 - 100, SCREEN_HEIGHT - 100, 200, 100, nextPage);
+	theButton[nextPage] = new CButtons(SCREEN_WIDTH/2 - 150, SCREEN_HEIGHT - 100, 300, 80, nextPage);
 	theButton[nextPage]->setButtonTexture(button[0].texID);
 
-	theButton[bFifty] = new CButtons(70, 100, 50, 30, bFifty);
+	theButton[bFifty] = new CButtons(70, SCREEN_HEIGHT/2, 100, 60, bFifty);
 	theButton[bFifty]->setButtonTexture(button[1].texID);
 	
-	theButton[bHundred] = new CButtons(SCREEN_WIDTH/2 - 25, 100, 50, 30, bHundred);
+	theButton[bHundred] = new CButtons(SCREEN_WIDTH/2 - 50, SCREEN_HEIGHT/2, 100, 60, bHundred);
 	theButton[bHundred]->setButtonTexture(button[2].texID);
 	
-	theButton[bTwohundred] = new CButtons(SCREEN_WIDTH - 100, 100, 50, 30, bTwohundred);
+	theButton[bTwohundred] = new CButtons(SCREEN_WIDTH - 150, SCREEN_HEIGHT/2, 100, 60, bTwohundred);
 	theButton[bTwohundred]->setButtonTexture(button[3].texID);
 }
 
@@ -109,8 +109,8 @@ void CBuyMaskState::DrawBackground()
 		glEnable(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D, background[1].texID);
 		glPushMatrix();
-			glTranslatef(20, 15, 0);
-			glScalef(0.95, 0.3, 1);
+			glTranslatef(20, SCREEN_HEIGHT/2 - 100, 0);
+			glScalef(0.95, 0.4, 1);
 			glBegin(GL_QUADS);
 				glTexCoord2f(0, 0);	glVertex2f(0, SCREEN_HEIGHT);
 				glTexCoord2f(1, 0);	glVertex2f(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -196,18 +196,19 @@ void CBuyMaskState::drawInfo()
 	glPushMatrix();
 		glPushAttrib(GL_DEPTH_TEST);
 			glColor3f( 0.0f, 0.0f, 0.0f);
-			printw ((SCREEN_WIDTH/2)-50, 50, 0, "Click to buy the MASK");
+			printw (200, 180, 0, "Click the buttons to select the number of mask to buy.");
+			printw (300, 250, 0, "Number of mask and cost:");
 
-			printw (theButton[bFifty]->getButtonX(), theButton[bFifty]->getButtonY() + 50, 0, "$250");
-			printw (theButton[bHundred]->getButtonX(), theButton[bHundred]->getButtonY() + 50, 0, "$450");
-			printw (theButton[bTwohundred]->getButtonX(), theButton[bTwohundred]->getButtonY() + 50, 0, "$850");
+			printw (theButton[bFifty]->getButtonX(), theButton[bFifty]->getButtonY() - 10, 0, "$250");
+			printw (theButton[bHundred]->getButtonX(), theButton[bHundred]->getButtonY() - 10, 0, "$450");
+			printw (theButton[bTwohundred]->getButtonX(), theButton[bTwohundred]->getButtonY() - 10, 0, "$850");
 
 			if(needMoney)
-				printw ((SCREEN_WIDTH/2)-100, SCREEN_HEIGHT/2 - 50, 0, "You need more money!!!");
+				printw ((SCREEN_WIDTH/2)-100, SCREEN_HEIGHT/2 + 100, 0, "You need more money!!!");
 
-			printw ((SCREEN_WIDTH / 2) - 200, SCREEN_HEIGHT/2 + 50, 0, "Mask in Stock: %d", CPlayState::Instance()->maskInStock);
-			printw ((SCREEN_WIDTH/2)+50, SCREEN_HEIGHT/2 + 50, 0, "$: %d", CPlayState::Instance()->theMoney.getCurrentMoney());
-			printw ((SCREEN_WIDTH / 2) - 200, SCREEN_HEIGHT/2, 0, "Day: %d", CPlayState::Instance()->day );
+			printw ((SCREEN_WIDTH / 2) - 200, 120, 0, "Mask in Stock: %d", CPlayState::Instance()->maskInStock);
+			printw ((SCREEN_WIDTH/2)+50, 120, 0, "Money: $%d", CPlayState::Instance()->theMoney.getCurrentMoney());
+			printw (50, 100, 0, "Day: %d", CPlayState::Instance()->day );
 		glPopAttrib();
 	glPopMatrix();
 }

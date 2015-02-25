@@ -8,14 +8,10 @@ void CGamePlayState::LoadTextures()
 {
 	//Textures
 	CApplication::getInstance()->LoadTGA(&map[0],"images/playState/map.tga");
-	CApplication::getInstance()->LoadTGA(&button[0],"images/playState/pause.tga");
+	CApplication::getInstance()->LoadTGA(&button[0], "images/playState/pause.tga");
 	CApplication::getInstance()->LoadTGA(&button[1], "images/playState/shop.tga");
-	/*CApplication::getInstance()->LoadTGA(&skyBox[0], "images/playState/SkyBox/front.tga");
-	CApplication::getInstance()->LoadTGA(&skyBox[1], "images/playState/SkyBox/back.tga");
-	CApplication::getInstance()->LoadTGA(&skyBox[2], "images/playState/SkyBox/left.tga");
-	CApplication::getInstance()->LoadTGA(&skyBox[3], "images/playState/SkyBox/right.tga");
-	CApplication::getInstance()->LoadTGA(&skyBox[4], "images/playState/SkyBox/top.tga");
-	CApplication::getInstance()->LoadTGA(&skyBox[5], "images/playState/SkyBox/down.tga");*/
+	CApplication::getInstance()->LoadTGA(&button[2], "images/playState/shop2.tga");
+	CApplication::getInstance()->LoadTGA(&button[3], "images/playState/shop3.tga");
 	CApplication::getInstance()->LoadTGA(&skyBox[0], "images/playState/SkyBox/skybox_near.tga");
 	CApplication::getInstance()->LoadTGA(&skyBox[1], "images/playState/SkyBox/skybox_far.tga");
 	CApplication::getInstance()->LoadTGA(&skyBox[2], "images/playState/SkyBox/skybox_left.tga");
@@ -26,17 +22,17 @@ void CGamePlayState::LoadTextures()
 void CGamePlayState::LoadButtons()
 {
 	//buttons
-	theButton[pause] = new CButtons(SCREEN_WIDTH - 50, 32, 32, 32, pause);
+	theButton[pause] = new CButtons(SCREEN_WIDTH - 50, 1, 48, 48, pause);
 	theButton[pause]->setButtonTexture(button[0].texID);
 
 	theButton[shop] = new CButtons(0, SCREEN_HEIGHT - 50, 70, 50, shop);
 	theButton[shop]->setButtonTexture(button[1].texID);
 
 	theButton[shop2] = new CButtons(80, SCREEN_HEIGHT - 50, 70, 50, shop2);
-	theButton[shop2]->setButtonTexture(button[1].texID);
+	theButton[shop2]->setButtonTexture(button[2].texID);
 
 	theButton[shop3] = new CButtons(160, SCREEN_HEIGHT - 50, 70, 50, shop3);
-	theButton[shop3]->setButtonTexture(button[1].texID);
+	theButton[shop3]->setButtonTexture(button[3].texID);
 }
 
 void CGamePlayState::Init()

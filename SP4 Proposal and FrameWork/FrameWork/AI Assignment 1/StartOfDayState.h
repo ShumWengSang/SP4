@@ -20,21 +20,12 @@ enum STARTSTATE_BUTTON
 	fifty,
 	hundred,
 	twohundred,
-	fifty2,
-	hundred2,
-	twohundred2,
-	fifty3,
-	hundred3,
-	twohundred3,
 	ten,
 	twelve,
 	fifteen,
-	ten2,
-	twelve2,
-	fifteen2,
-	ten3,
-	twelve3,
-	fifteen3
+	sShop1,
+	sShop2,
+	sShop3
 };
 
 class CInputSystem;
@@ -44,8 +35,12 @@ class CStartOfDayState : public CInGameState
 private:
 	CStartOfDayState(void) {};
 
-	TextureImage button[9];
+	TextureImage button[14];
 	TextureImage background[2];
+
+	bool shop1Selected;
+	bool shop2Selected;
+	bool shop3Selected;
 
 public:
 	void Init();

@@ -25,7 +25,7 @@ private:
 	CEndOfDayState(void) {};
 
 	TextureImage button[2];
-	TextureImage background[1];
+	TextureImage background[2];
 
 public:
 	void Init();
