@@ -15,7 +15,7 @@
 
 using namespace std;
 
-#define SEEDCOUNT 5
+#define SEEDCOUNT 1
 
 enum PLAYSTATE_BUTTON
 {
@@ -92,5 +92,6 @@ private:
 	CButtons* theButton[4];
 	CStalls* theStall[3];
 	Grid* theGrid;
+
 };
 
