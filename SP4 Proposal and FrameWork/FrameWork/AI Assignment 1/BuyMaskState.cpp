@@ -73,11 +73,11 @@ void CBuyMaskState::Update(CInGameStateManager* theGSM)
 
 void CBuyMaskState::Draw(CInGameStateManager* theGSM) 
 {
-	CApplication::getInstance()->theCamera->SetHUD(true);
+	Camera::getInstance()->SetHUD(true);
 	DrawBackground();
 	DrawButtons();
 	drawInfo();
-	CApplication::getInstance()->theCamera->SetHUD(false);
+	Camera::getInstance()->SetHUD(false);
 }
 
 void CBuyMaskState::DrawButtons()

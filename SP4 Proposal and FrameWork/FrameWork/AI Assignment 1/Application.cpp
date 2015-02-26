@@ -7,7 +7,8 @@ CApplication* CApplication::instance = NULL;
 bool CApplication::Init()
 {
 	//Set camera position
-	theCamera = new Camera(Camera::LAND_CAM);
+	theCamera = Camera::getInstance();
+	theCamera->SetCameraType(Camera::LAND_CAM);
 	theCamera->SetPosition(0.0, 2.0, -5.0);
 	theCamera->SetDirection(0.0, 0.0, 1.0);
 
@@ -50,7 +51,8 @@ void CApplication::renderScene() {
 	if ((timeGetTime()-timelastcall) > 1000.f / frequency) //"timeGetTime()-timelastcall" is DeltaTime
 		Update(); //Update Game
 
-	theCamera->Update();
+	//theCamera->Update();
+	theCamera->newRender();
 
 	//Render
 	GSM->Draw();

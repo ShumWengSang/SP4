@@ -54,11 +54,6 @@ void CMenuState::Init()
 void CMenuState::Cleanup()
 {
 	//cout << "CMenuState::Cleanup\n" << endl;
-	if (InputSystem != NULL)
-	{
-		delete InputSystem;
-		InputSystem = NULL;
-	}
 }
 
 void CMenuState::Pause()
@@ -110,6 +105,10 @@ void CMenuState::Draw(CGameStateManager* theGSM)
 		DrawButtons();
 		CApplication::getInstance()->theCamera->SetHUD(false);
 	}
+	Camera::getInstance()->SetHUD(true);
+	DrawBackground();
+	DrawButtons();
+	Camera::getInstance()->SetHUD(false);
 }
 
 void CMenuState::DrawButtons()
@@ -253,13 +252,13 @@ void CMenuState::MouseWheel(int button, int dir, int x, int y) {
 	if (dir > 0) {//Zoom In
 		/*if(camDist-zoomSpeed*15 > 0)
 			camDist -= zoomSpeed;*/
-		Vector3 temp = CApplication::getInstance()->theCamera->GetPosition() + CApplication::getInstance()->theCamera->GetDirection();
-		CApplication::getInstance()->theCamera->SetPosition(temp.x,temp.y,temp.z);
+		Vector3 temp = Camera::getInstance()->GetPosition() + Camera::getInstance()->GetDirection();
+		Camera::getInstance()->SetPosition(temp.x,temp.y,temp.z);
 	}
     else {//Zoom Out
 		//camDist += zoomSpeed;
-		Vector3 temp = CApplication::getInstance()->theCamera->GetPosition() - CApplication::getInstance()->theCamera->GetDirection();
-		CApplication::getInstance()->theCamera->SetPosition(temp.x,temp.y,temp.z);
+		Vector3 temp = Camera::getInstance()->GetPosition() - Camera::getInstance()->GetDirection();
+		Camera::getInstance()->SetPosition(temp.x,temp.y,temp.z);
 	}
 }
 

@@ -77,20 +77,12 @@ void CGamePlayState::Init()
 
 	//Input System
 	CInputSystem::getInstance()->OrientCam = true;
-
-	//camValues
-	camValues.camDir.Set(0,0,1);
-	camValues.camPoint.Set(0,0,0);
-	camValues.camPos.Set(50.0, 50.0, -70.0);
-	camValues.VEL_X = 0.1f;
-	camValues.VEL_Y = 0.01f;
-	camValues.MAX_Y = 50.0f;
 	
 	//Isometric view
-	CApplication::getInstance()->theCamera->SetCameraType(Camera::AIR_CAM);
-	CApplication::getInstance()->theCamera->SetPosition(camValues.camPos.x, camValues.camPos.y, camValues.camPos.z);
-	Vector3 temp = camValues.camPoint-camValues.camPos;
-	CApplication::getInstance()->theCamera->SetDirection(temp.Normalized().x, temp.Normalized().y, temp.Normalized().z);
+	Camera::getInstance()->SetCameraType(Camera::AIR_CAM);
+	/*Camera::getInstance()->SetPosition(50.0, 50.0, -70.0);
+	Vector3 temp = -Camera::getInstance()->GetPosition();
+	Camera::getInstance()->SetDirection(temp.Normalized().x, temp.Normalized().y, temp.Normalized().z);*/
 
 	CPlayState * PlayState = CPlayState::Instance();
 
@@ -181,6 +173,7 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 			(*i)->Update();
 		}
 
+	Camera::getInstance()->newUpdate();
 
 		//if (theTimerInstance->executeTime(TimerKeyDay))
 		//{
@@ -274,7 +267,7 @@ void CGamePlayState::Draw(CInGameStateManager* theGSM)
 		theGrid->Click = false;
 	}
 
-	CApplication::getInstance()->theCamera->SetHUD(true);
+	Camera::getInstance()->SetHUD(true);
 
 	DrawButtons();//pause button here
 	drawInfo();
@@ -283,7 +276,7 @@ void CGamePlayState::Draw(CInGameStateManager* theGSM)
 
 	DrawTimeBar();
 
-	CApplication::getInstance()->theCamera->SetHUD(false);
+	Camera::getInstance()->SetHUD(false);
 }
 
 void CGamePlayState::DrawBuying()
@@ -472,17 +465,17 @@ void CGamePlayState::keyboardUpdate()
 	if(CInputSystem::getInstance()->myKeys['d'])
 		CInGameStateManager::getInstance()->ChangeState(CEndOfDayState::Instance());
 	if(CInputSystem::getInstance()->myKeys['w']) {
-		cout << "\t" << CApplication::getInstance()->theCamera->GetDirection().x << "\t" << CApplication::getInstance()->theCamera->GetDirection().y << "\t" << CApplication::getInstance()->theCamera->GetDirection().z << endl << endl;
-		cout << "\t" << CApplication::getInstance()->theCamera->GetPosition().x << "\t" << CApplication::getInstance()->theCamera->GetPosition().y << "\t" << CApplication::getInstance()->theCamera->GetPosition().z << endl << endl;
+		cout << "\t" << Camera::getInstance()->GetDirection().x << "\t" << Camera::getInstance()->GetDirection().y << "\t" << Camera::getInstance()->GetDirection().z << endl << endl;
+		cout << "\t" << Camera::getInstance()->GetPosition().x << "\t" << Camera::getInstance()->GetPosition().y << "\t" << Camera::getInstance()->GetPosition().z << endl << endl;
 	}
 	if(CInputSystem::getInstance()->myKeys['j'])
-		CApplication::getInstance()->theCamera->Strafe(-1);
+		Camera::getInstance()->Strafe(-1);
 	if(CInputSystem::getInstance()->myKeys['l'])
-		CApplication::getInstance()->theCamera->Strafe(1);
+		Camera::getInstance()->Strafe(1);
 	if(CInputSystem::getInstance()->myKeys['i'])
-		CApplication::getInstance()->theCamera->Walk(1);
+		Camera::getInstance()->Walk(1);
 	if(CInputSystem::getInstance()->myKeys['k'])
-		CApplication::getInstance()->theCamera->Walk(-1);
+		Camera::getInstance()->Walk(-1);
 	if (CInputSystem::getInstance()->myKeys['1'])
 	{
 		for (int i = 0; i < theSeededTiles.size(); i++)
@@ -536,19 +529,21 @@ void CGamePlayState::MouseMove (int x, int y) {
 	int w = glutGet(GLUT_WINDOW_WIDTH);
 	int h = glutGet(GLUT_WINDOW_HEIGHT);
 
+	if(!CInputSystem::getInstance()->mouseInfo.mRButtonUp)
+		OnRotate(x,y);
 
 	//Checking mouse boundary. (Width)
 	//if  (CInputSystem::getInstance()->mouseInfo.lastX > w-50)
 	//{
 	//	CInputSystem::getInstance()->mouseInfo.lastX = w-50;
 	//	glutWarpPointer(CInputSystem::getInstance()->mouseInfo.lastX, CInputSystem::getInstance()->mouseInfo.lastY);
-	//	CApplication::getInstance()->theCamera->Strafe(1);
+	//	Camera::getInstance()->Strafe(1);
 	//}
 	//else if  (CInputSystem::getInstance()->mouseInfo.lastX < 50)
 	//{
 	//	CInputSystem::getInstance()->mouseInfo.lastX = 50;
 	//	glutWarpPointer(CInputSystem::getInstance()->mouseInfo.lastX, CInputSystem::getInstance()->mouseInfo.lastY);
-	//	CApplication::getInstance()->theCamera->Strafe(-1);
+	//	Camera::getInstance()->Strafe(-1);
 	//}else
 	//CInputSystem::getInstance()->mouseInfo.lastX = x;
 
@@ -557,13 +552,13 @@ void CGamePlayState::MouseMove (int x, int y) {
 	//{
 	//	CInputSystem::getInstance()->mouseInfo.lastY = h-50;
 	//	glutWarpPointer(CInputSystem::getInstance()->mouseInfo.lastX, CInputSystem::getInstance()->mouseInfo.lastY);
-	//	CApplication::getInstance()->theCamera->Walk(-1);
+	//	Camera::getInstance()->Walk(-1);
 	//}
 	//else if  (CInputSystem::getInstance()->mouseInfo.lastY < 50)
 	//{
 	//	CInputSystem::getInstance()->mouseInfo.lastY = 50;
 	//	glutWarpPointer(CInputSystem::getInstance()->mouseInfo.lastX, CInputSystem::getInstance()->mouseInfo.lastY);
-	//	CApplication::getInstance()->theCamera->Walk(1);
+	//	Camera::getInstance()->Walk(1);
 	//}else
 	//CInputSystem::getInstance()->mouseInfo.lastY = y;
 	CInputSystem::getInstance()->mouseInfo.lastX = x;
@@ -676,6 +671,10 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 				// Render Objects to be selected in the color scheme
 				theGrid->Click = true;
 				//theGrid.renderGrid(true);
+<<<<<<< HEAD
+=======
+
+>>>>>>> origin/Camera
 			}
 			CInputSystem::getInstance()->mouseInfo.clickedX = x;
 			CInputSystem::getInstance()->mouseInfo.clickedY = y;
@@ -683,10 +682,19 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 			break;
 
 		case GLUT_RIGHT_BUTTON:
+<<<<<<< HEAD
 			CPlayState::Instance()->theStall[0]->Selected = false;
 			CPlayState::Instance()->theStall[1]->Selected = false;
 			CPlayState::Instance()->theStall[2]->Selected = false;
 			isBuying = false;
+=======
+			if (state == GLUT_DOWN) {
+				CInputSystem::getInstance()->mouseInfo.mRButtonUp = false;
+			}
+			else{
+				CInputSystem::getInstance()->mouseInfo.mRButtonUp = true;
+			}
+>>>>>>> origin/Camera
 			break;
 
 		case GLUT_MIDDLE_BUTTON:
@@ -699,13 +707,21 @@ void CGamePlayState::MouseWheel(int button, int dir, int x, int y) {
 	if (dir > 0) {//Zoom In
 		/*if(camDist-zoomSpeed*15 > 0)
 			camDist -= zoomSpeed;*/
-		Vector3 temp = CApplication::getInstance()->theCamera->GetPosition() + CApplication::getInstance()->theCamera->GetDirection();
-		CApplication::getInstance()->theCamera->SetPosition(temp.x,temp.y,temp.z);
+		/*Vector3 temp = Camera::getInstance()->GetPosition() + Camera::getInstance()->GetDirection();
+		Camera::getInstance()->SetPosition(temp.x,temp.y,temp.z);*/
+		if(Camera::getInstance()->camDist > 1)
+			Camera::getInstance()->camDist -= 0.9f;
+		else
+			Camera::getInstance()->camDist = 1;
 	}
     else {//Zoom Out
 		//camDist += zoomSpeed;
-		Vector3 temp = CApplication::getInstance()->theCamera->GetPosition() - CApplication::getInstance()->theCamera->GetDirection();
-		CApplication::getInstance()->theCamera->SetPosition(temp.x,temp.y,temp.z);
+		/*Vector3 temp = Camera::getInstance()->GetPosition() - Camera::getInstance()->GetDirection();
+		Camera::getInstance()->SetPosition(temp.x,temp.y,temp.z);*/
+		if(Camera::getInstance()->camDist < Camera::getInstance()->camDist_max)
+			Camera::getInstance()->camDist += 0.9f;
+		else
+			Camera::getInstance()->camDist = Camera::getInstance()->camDist_max;
 	}
 }
 
@@ -828,6 +844,25 @@ void CGamePlayState::printw (float x, float y, float z, char* format, ...)
 //Camera rotate function
 void CGamePlayState::OnRotate(int x, int y)
 {
+	//Under MouseMove(int x, int y)
 
+	int diffX = x - CInputSystem::getInstance()->mouseInfo.lastX;
+	int diffY = y - CInputSystem::getInstance()->mouseInfo.lastY;
+
+	//Update on x and z axis
+	Camera::getInstance()->angle += (float) diffX*Camera::getInstance()->VEL_X * 3.142f / 180.0f;// * 180.0f / 3.142f;
+	if (Camera::getInstance()->angle > 6.284f)
+		Camera::getInstance()->angle -= 6.284f;
+	else if (Camera::getInstance()->angle < -6.284f)
+		Camera::getInstance()->angle += 6.284f;
+	//Camera::getInstance()->SetDir(Vector3(sin(Camera::getInstance()->angle),Camera::getInstance()->GetDir().y,-cos(Camera::getInstance()->angle)));
+	cout << Camera::getInstance()->angle << endl;
+	//Update on y axis
+	if(Camera::getInstance()->GetDir().y - diffY*Camera::getInstance()->VEL_Y > Camera::getInstance()->MAX_Y)
+		Camera::getInstance()->SetDir(Vector3(sin(Camera::getInstance()->angle),Camera::getInstance()->MAX_Y,-cos(Camera::getInstance()->angle)));
+	else if(Camera::getInstance()->GetDir().y - diffY*Camera::getInstance()->VEL_Y < -Camera::getInstance()->MAX_Y)
+		Camera::getInstance()->SetDir(Vector3(sin(Camera::getInstance()->angle),-Camera::getInstance()->MAX_Y,-cos(Camera::getInstance()->angle)));
+	else
+		Camera::getInstance()->SetDir(Vector3(sin(Camera::getInstance()->angle),Camera::getInstance()->GetDir().y - diffY*Camera::getInstance()->VEL_Y,-cos(Camera::getInstance()->angle)));
 }
 

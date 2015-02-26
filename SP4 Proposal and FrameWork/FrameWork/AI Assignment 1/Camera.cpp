@@ -1,10 +1,12 @@
 #include "Camera.h"
 #include <iostream>
 
+Camera* Camera::instance = NULL;
+
 Camera::Camera()
 : MAXSPEED_MOVE(0)
 {
-	SetCameraType(LAND_CAM);
+	SetCameraType(AIR_CAM);
 	Reset();
 }
 
@@ -12,6 +14,15 @@ Camera::Camera(CAM_TYPE ct)
 {
 	SetCameraType(ct);
 	Reset();
+}
+
+//Singleton Structure
+Camera* Camera::getInstance()
+{
+	//Only allows one instance of InputSystem
+	if (instance == NULL)
+		instance = new Camera;
+	return instance;
 }
 
 Camera::~Camera() {}
@@ -26,9 +37,18 @@ void Camera::Reset()
 	Along = Vector3(1.0, 0.0, 0.0);
 	Up = Vector3(0.0, 1.0, 0.0);
 	Forward = Vector3(0.0, 0.0, -1.0);
-//	Update();
 
-	MAXSPEED_MOVE = 2.0f;
+	MAXSPEED_MOVE = 1.0f;
+
+	camPoint.Set(0,0,0);
+	camPos.Set(50.0, 50.0, -70.0);
+	camDir = (camPoint-camPos).Normalized();
+	camDist = 50;
+	camDist_max = 100;
+	VEL_X = 0.2f;
+	VEL_Y = 0.01f;
+	MAX_Y = 2.5f;
+	angle = VEL_X * 3.142f / 180.0f;
 }
 
 void Camera::Update() {
@@ -71,16 +91,22 @@ void Camera::Walk(GLfloat delta)
 {
 	if (delta > MAXSPEED_MOVE)
 		delta = MAXSPEED_MOVE;
-	if(CameraType == CAM_TYPE::LAND_CAM)
-		Position.Set( Position.x + Forward.x * delta, Position.y + Forward.y * delta, Position.z + Forward.z * delta );
-	else
-		Position.Set( Position.x + Forward.x * delta, Position.y, Position.z + Forward.z * delta );
+	if (delta < -MAXSPEED_MOVE)
+		delta = -MAXSPEED_MOVE;
+	if(CameraType == CAM_TYPE::LAND_CAM) {
+		//Position.Set( Position.x + Forward.x * delta, Position.y + Forward.y * delta, Position.z + Forward.z * delta );
+		camPoint.Set( camPoint.x + camDir.x * delta, camPoint.y + camDir.y * delta, camPoint.z + camDir.z * delta );
+	}else{
+		//Position.Set( Position.x + Forward.x * delta, Position.y, Position.z + Forward.z * delta );
+		camPoint.Set( camPoint.x + camDir.x * delta, camPoint.y, camPoint.z + camDir.z * delta );
+	}
 }
 void Camera::Strafe(GLfloat delta)
 {
-	Along = Forward.Cross( Up );
+	Along = camDir.Cross( Up );
 	Along.Normalize();
-	Position.Set( Position.x + Along.x * delta, Position.y + Along.y * delta, Position.z + Along.z * delta );
+	//Position.Set( Position.x + Along.x * delta, Position.y + Along.y * delta, Position.z + Along.z * delta );
+	camPoint.Set( camPoint.x + Along.x * delta, camPoint.y + Along.y * delta, camPoint.z + Along.z * delta );
 }
 void Camera::Fly(GLfloat delta)
 {
@@ -151,3 +177,4 @@ Vector3 Camera::GetDirection()
 {
 	return Forward;
 }
+
