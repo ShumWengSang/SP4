@@ -24,7 +24,7 @@ void CGamePlayState::LoadTextures()
 
 	
 
-	CApplication::getInstance()->LoadTGA(&buyingButton[0],"images/startState/back.tga");
+	CApplication::getInstance()->LoadTGA(&buyingButton[0],"images/playState/x.tga");
 	CApplication::getInstance()->LoadTGA(&buyingButton[1],"images/playState/50.tga");
 	CApplication::getInstance()->LoadTGA(&buyingButton[2],"images/playState/100.tga");
 	CApplication::getInstance()->LoadTGA(&buyingButton[3],"images/playState/200.tga");
@@ -47,7 +47,7 @@ void CGamePlayState::LoadButtons()
 
 
 
-	theBuyingButton[close] = new CButtons(SCREEN_WIDTH - 80, SCREEN_HEIGHT - 320, 70, 50, close);
+	theBuyingButton[close] = new CButtons(SCREEN_WIDTH - 45, SCREEN_HEIGHT - 320, 32, 32, close);
 	theBuyingButton[close]->setButtonTexture(buyingButton[0].texID);
 
 	theBuyingButton[bpFifty] = new CButtons(SCREEN_WIDTH - 300, SCREEN_HEIGHT - 70, 70, 50, bpFifty);
@@ -208,9 +208,9 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 			std::cout << "DAY CHANGE IT IS NOW DAY " << DayNumber << std::endl;
 		}
 
-		//if (theTimerInstance->executeTime(TimerKeySeed))
-		//{
-		//	HourNumber++;
+		if (theTimerInstance->executeTime(TimerKeySeed))
+		{
+			HourNumber++;
 		//	if (!(HourNumber * DayTime >= noiseWidth))
 		//	{
 		//		for (auto i = theSeededTiles.begin(); i != theSeededTiles.end(); i++)
@@ -219,7 +219,7 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 		//			(*i)->childs[0]->HazeTileValue = CPlayState::Instance()->theHaze.HazeGraph[HourNumber + DayNumber * DayTime] * 8;
 		//		}
 		//	}
-		//}
+		}
 
 		if (theTimerInstance->executeTime(TimerKeyDay))
 		{
