@@ -109,11 +109,6 @@ private:
 	CButtons* theButton[4];
 	CStalls* theStall[3];
 	Grid* theGrid;
-<<<<<<< HEAD
-
-=======
-	
->>>>>>> origin/Camera
 	CButtons* theBuyingButton[4];
 
 	Bar theTimeBar;

@@ -77,9 +77,9 @@ void CMenuState::Update(CGameStateManager* theGSM)
 
 	checkCameraPos();
 	if(isPassed)
-		CApplication::getInstance()->theCamera->Walk(0);
+		Camera::getInstance()->Walk(0);
 	else
-		CApplication::getInstance()->theCamera->Walk(1);
+		Camera::getInstance()->Walk(1);
 }
 
 void CMenuState::checkCameraPos()
@@ -87,8 +87,8 @@ void CMenuState::checkCameraPos()
 	Vector3 pos;
 	pos.Set(0, 2, 300);
 	if(skip)
-		CApplication::getInstance()->theCamera->SetPosition(0, 2, 300);
-	if(CApplication::getInstance()->theCamera->GetPosition() == pos)
+		Camera::getInstance()->SetPosition(0, 2, 300);
+	if(Camera::getInstance()->GetPosition() == pos)
 	{
 		isPassed = true;
 	}
@@ -100,10 +100,10 @@ void CMenuState::Draw(CGameStateManager* theGSM)
 
 	if(isPassed || skip)
 	{
-		CApplication::getInstance()->theCamera->SetHUD(true);
+		Camera::getInstance()->SetHUD(true);
 		DrawBackground();
 		DrawButtons();
-		CApplication::getInstance()->theCamera->SetHUD(false);
+		Camera::getInstance()->SetHUD(false);
 	}
 	Camera::getInstance()->SetHUD(true);
 	DrawBackground();
@@ -185,13 +185,13 @@ void CMenuState::keyboardUpdate()
 	if(InputSystem->myKeys['a'])
 		CGameStateManager::getInstance()->ChangeState(CPlayState::Instance());
 	if(CInputSystem::getInstance()->myKeys['j'])
-		CApplication::getInstance()->theCamera->Strafe(-1);
+		Camera::getInstance()->Strafe(-1);
 	if(CInputSystem::getInstance()->myKeys['l'])
-		CApplication::getInstance()->theCamera->Strafe(1);
+		Camera::getInstance()->Strafe(1);
 	if(CInputSystem::getInstance()->myKeys['i'])
-		CApplication::getInstance()->theCamera->Walk(1);
+		Camera::getInstance()->Walk(1);
 	if(CInputSystem::getInstance()->myKeys['k'])
-		CApplication::getInstance()->theCamera->Walk(-1);
+		Camera::getInstance()->Walk(-1);
 	//Esc Key
 	if(InputSystem->myKeys[VK_ESCAPE]) 
 		exit(0);

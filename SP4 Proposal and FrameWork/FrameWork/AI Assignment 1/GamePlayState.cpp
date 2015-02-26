@@ -77,12 +77,15 @@ void CGamePlayState::Init()
 
 	//Input System
 	CInputSystem::getInstance()->OrientCam = true;
-	
+
+	Camera::getInstance()->Reset();
+
 	//Isometric view
 	Camera::getInstance()->SetCameraType(Camera::AIR_CAM);
 	/*Camera::getInstance()->SetPosition(50.0, 50.0, -70.0);
 	Vector3 temp = -Camera::getInstance()->GetPosition();
 	Camera::getInstance()->SetDirection(temp.Normalized().x, temp.Normalized().y, temp.Normalized().z);*/
+	
 
 	CPlayState * PlayState = CPlayState::Instance();
 
@@ -672,10 +675,7 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 				// Render Objects to be selected in the color scheme
 				theGrid->Click = true;
 				//theGrid.renderGrid(true);
-<<<<<<< HEAD
-=======
 
->>>>>>> origin/Camera
 			}
 			CInputSystem::getInstance()->mouseInfo.clickedX = x;
 			CInputSystem::getInstance()->mouseInfo.clickedY = y;
@@ -683,19 +683,19 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 			break;
 
 		case GLUT_RIGHT_BUTTON:
-<<<<<<< HEAD
+
 			CPlayState::Instance()->theStall[0]->Selected = false;
 			CPlayState::Instance()->theStall[1]->Selected = false;
 			CPlayState::Instance()->theStall[2]->Selected = false;
 			isBuying = false;
-=======
+
 			if (state == GLUT_DOWN) {
 				CInputSystem::getInstance()->mouseInfo.mRButtonUp = false;
 			}
 			else{
 				CInputSystem::getInstance()->mouseInfo.mRButtonUp = true;
 			}
->>>>>>> origin/Camera
+
 			break;
 
 		case GLUT_MIDDLE_BUTTON:

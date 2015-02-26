@@ -52,23 +52,27 @@ void Camera::Reset()
 }
 
 void Camera::Update() {
-	gluLookAt(Position.x, Position.y, Position.z, 
+	/*gluLookAt(Position.x, Position.y, Position.z, 
 			  Position.x + Forward.x, Position.y + Forward.y, Position.z + Forward.z, 
-			  0.0f,1.0f,0.0f);
+			  0.0f,1.0f,0.0f);*/
+	newRender();
 }
 
 Vector3 Camera::GetPosition() {
-	return Position;
+	//return Position;
+	return GetPos();
 }
 
 void Camera::SetPosition( GLfloat x, GLfloat y, GLfloat z )
 {
-	this->Position.Set( x, y, z );
+	//this->Position.Set( x, y, z );
+	SetPos(Vector3(x, y, z));
 }
 
 void Camera::SetDirection( GLfloat x, GLfloat y, GLfloat z )
 {
-	this->Forward.Set( x, y, z );
+	//this->Forward.Set( x, y, z );
+	SetDir(Vector3(x, y, z));
 }
 
 void Camera::Pitch(GLfloat theta)
@@ -175,6 +179,7 @@ void Camera::SetORTHO(bool mode)
 // Get the direction of the camera
 Vector3 Camera::GetDirection()
 {
-	return Forward;
+	//return Forward;
+	return GetDir();
 }
 
