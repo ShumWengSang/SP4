@@ -68,5 +68,6 @@ private:
 	ISoundEngine *se;
 
 	bool isPassed;
+	bool skip;
 };
 

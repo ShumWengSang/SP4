@@ -37,6 +37,7 @@ void CMenuState::Init()
 	LoadButtons();
 
 	isPassed = false;
+	skip = false;
 
 	//Input System
 	InputSystem = CInputSystem::getInstance();
@@ -90,15 +91,19 @@ void CMenuState::checkCameraPos()
 {
 	Vector3 pos;
 	pos.Set(0, 2, 300);
+	if(skip)
+		CApplication::getInstance()->theCamera->SetPosition(0, 2, 300);
 	if(CApplication::getInstance()->theCamera->GetPosition() == pos)
+	{
 		isPassed = true;
+	}
 }
 
 void CMenuState::Draw(CGameStateManager* theGSM) 
 {
 	drawMap();
 
-	if(isPassed)
+	if(isPassed || skip)
 	{
 		CApplication::getInstance()->theCamera->SetHUD(true);
 		DrawBackground();
@@ -208,7 +213,7 @@ void CMenuState::MouseClick(int button, int state, int x, int y) {
 			
 			if (state == GLUT_DOWN)
 			{
-				isPassed = true;
+				skip = true;
 				se->play2D("audio/click.wav",false);
 				CInputSystem::getInstance()->mouseInfo.mLButtonUp = false;
 				CInputSystem::getInstance()->mouseInfo.clickedX = x;
