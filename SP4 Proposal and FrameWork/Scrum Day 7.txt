@@ -1,0 +1,8 @@
+26/2
+--------------
+
+Amos -- Win/Lose states. Added some different sounds. Finish game sounds today.
+YT -- UI reworked.
+WQ -- Work on smaller tiles.
+R -- Buyers seems to be working.
+Samuel -- Store 90% done. Starting on camera.
