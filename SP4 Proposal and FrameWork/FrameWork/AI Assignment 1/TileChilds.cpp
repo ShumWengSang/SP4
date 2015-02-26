@@ -10,7 +10,7 @@ void CTileChilds::ContructorInit()
 	ChildNum = 0;
 	CurrentLevel = 0;
 	MAX_LEVEL = 5;
-	ypos = 5;
+	ypos = 0;
 	this->ParentChildTile = NULL;
 	this->ParentTile = NULL;
 }
@@ -60,28 +60,28 @@ void CTileChilds::drawTile(float x, float y, float z, float tileWidth, float til
 	if (this->CurrentLevel != MAX_LEVEL)
 	{
 
-		glBegin(GL_LINES);
-		glPushMatrix();
-		//glColor3f(color.x,color.y,color.z);
-		glColor3f(1, 1, 1);
+		//glBegin(GL_LINES);
+		//glPushMatrix();
+		////glColor3f(color.x,color.y,color.z);
+		//glColor3f(1, 1, 1);
 
-		//Top left to top right
-		glVertex3i(x, ypos, z + tileWidth);
-		glVertex3i(x + tileHeight, ypos, z + tileWidth);
+		////Top left to top right
+		//glVertex3i(x, ypos, z + tileWidth);
+		//glVertex3i(x + tileHeight, ypos, z + tileWidth);
 
-		//Top Right to bottom right
-		glVertex3i(x + tileHeight, ypos, z + tileWidth);
-		glVertex3i(x + tileHeight, ypos, z);
+		////Top Right to bottom right
+		//glVertex3i(x + tileHeight, ypos, z + tileWidth);
+		//glVertex3i(x + tileHeight, ypos, z);
 
-		//Bottom right to bottom left
-		glVertex3i(x + tileHeight, ypos, z);
-		glVertex3i(x, ypos, z);
+		////Bottom right to bottom left
+		//glVertex3i(x + tileHeight, ypos, z);
+		//glVertex3i(x, ypos, z);
 
-		//Bottom right to top Left
-		glVertex3i(x, ypos, z);
-		glVertex3i(x, ypos, z + tileWidth);
-		glPopMatrix();
-		glEnd();
+		////Bottom right to top Left
+		//glVertex3i(x, ypos, z);
+		//glVertex3i(x, ypos, z + tileWidth);
+		//glPopMatrix();
+		//glEnd();
 
 		glPushMatrix();
 
@@ -92,14 +92,16 @@ void CTileChilds::drawTile(float x, float y, float z, float tileWidth, float til
 	}
 	else
 	{
+		//glEnable(GL_BLEND);
+		//glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_COLOR);
 		glBegin(GL_QUADS);
-
 		glColor4f(colour.x, colour.y, colour.z, 0);
 		glVertex3f(x, ypos, z + tileWidth);
 		glVertex3f(x + tileHeight, ypos, z + tileWidth);
 		glVertex3f(x + tileHeight, ypos, z);
 		glVertex3f(x, ypos, z);
 		glEnd();
+		//glDisable(GL_BLEND);
 	}
 
 

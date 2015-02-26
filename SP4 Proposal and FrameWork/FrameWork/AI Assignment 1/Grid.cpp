@@ -158,12 +158,12 @@ void Grid::SetPointers()
 		if (i != 0)
 		{
 			//temp[0][i].top = &temp[0][i - 1];
-			temp[0][i].bottom = &temp[0][i + 1];
+			temp[0][i].bottom = &temp[0][i - 1];
 		}
 		else if (i != TILE_NO_Y - 1)
 		{
 			//temp[0][i].bottom = &temp[0][i + 1];
-			temp[0][i].top = &temp[0][i - 1];
+			temp[0][i].top = &temp[0][i + 1];
 		}
 		temp[0][i].right = &temp[1][i];
 	}
@@ -189,12 +189,12 @@ void Grid::SetPointers()
 	{
 		if (i != 0)
 		{
-			temp[TILE_NO_X - 1][i].top = &temp[TILE_NO_X - 1][i - 1];
+			temp[TILE_NO_X - 1][i].bottom = &temp[TILE_NO_X - 1][i - 1];
 			//temp[TILE_NO_X - 1][i].bottom = &temp[TILE_NO_X - 1][i + 1];
 		}
 		else if (i != TILE_NO_Y - 1)
 		{
-			temp[TILE_NO_X - 1][i].bottom = &temp[TILE_NO_X - 1][i + 1];
+			temp[TILE_NO_X - 1][i].top = &temp[TILE_NO_X - 1][i + 1];
 			//temp[TILE_NO_X - 1][i].top = &temp[TILE_NO_X - 1][i - 1];
 		}
 

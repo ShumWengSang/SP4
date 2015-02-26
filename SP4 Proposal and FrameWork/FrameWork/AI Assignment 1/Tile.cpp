@@ -7,6 +7,10 @@ void Tiles::drawTile(int x, int y, int z, int tileWidth, int tileHeight, bool is
 	scale.Set(tileWidth,0,tileHeight);
 	CalcHazeAlpha();
 	if(!isPicking) {
+
+		//if (x == (TILE_NO_X - 1 * TILE_SIZE_X)
+		//Vector3 temp(this->top->pos);
+
 		glBegin(GL_LINES);
 		glPushMatrix();
 		//glColor3f(color.x,color.y,color.z);
@@ -30,7 +34,7 @@ void Tiles::drawTile(int x, int y, int z, int tileWidth, int tileHeight, bool is
 		glPopMatrix();
 		glEnd();
 
-		glPushMatrix();
+		//glPushMatrix();
 
 		childs[0]->drawTile(x, 0, z, tileWidth / 2, tileHeight / 2);
 		childs[1]->drawTile(x + tileHeight / 2, 0, z, tileWidth / 2, tileHeight / 2);
