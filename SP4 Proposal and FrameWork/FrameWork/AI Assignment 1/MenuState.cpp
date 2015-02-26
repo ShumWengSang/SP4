@@ -74,7 +74,7 @@ void CMenuState::HandleEvents(CGameStateManager* theGSM)
 void CMenuState::Update(CGameStateManager* theGSM) 
 {
 	keyboardUpdate();
-
+	Camera::getInstance()->newUpdate();
 	checkCameraPos();
 	if(isPassed)
 		Camera::getInstance()->Walk(0);
@@ -85,9 +85,9 @@ void CMenuState::Update(CGameStateManager* theGSM)
 void CMenuState::checkCameraPos()
 {
 	Vector3 pos;
-	pos.Set(0, 2, 300);
+	pos.Set(0, -50, 300);
 	if(skip)
-		Camera::getInstance()->SetPosition(0, 2, 300);
+		Camera::getInstance()->SetPosition(0, -50, 300);
 	if(Camera::getInstance()->GetPosition() == pos)
 	{
 		isPassed = true;
@@ -105,10 +105,10 @@ void CMenuState::Draw(CGameStateManager* theGSM)
 		DrawButtons();
 		Camera::getInstance()->SetHUD(false);
 	}
-	Camera::getInstance()->SetHUD(true);
-	DrawBackground();
-	DrawButtons();
-	Camera::getInstance()->SetHUD(false);
+	//Camera::getInstance()->SetHUD(true);
+	//DrawBackground();
+	//DrawButtons();
+	//Camera::getInstance()->SetHUD(false);
 }
 
 void CMenuState::DrawButtons()
