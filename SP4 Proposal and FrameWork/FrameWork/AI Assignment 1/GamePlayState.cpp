@@ -105,7 +105,7 @@ void CGamePlayState::Init()
 		int x = rand() % TILE_NO_X;
 		int y = rand() % TILE_NO_Y;
 
-		theGrid->temp[x][y].Seeded(CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime]);//CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime]
+		theGrid->temp[x][y].Seeded(CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime] * 100);//CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime]
 		theSeededTiles.push_back(&theGrid->temp[x][y]);
 		//for (int m = 0; m < TILE_NO_X; i++)
 		//{
@@ -817,6 +817,7 @@ void CGamePlayState::drawInfo()
 			glColor3f( 1.0f, 0.0f, 0.0f);
 			printw (20, 20, 0,  "Time: ");
 			printw (20, 45, 0, "PSI: 123");
+			printw(20, 65, 0, "FPS: %f", theTimerInstance->getFPS());
 		glPopAttrib();
 	glPopMatrix();
 }

@@ -63,8 +63,12 @@ void CApplication::renderScene() {
 	glFlush();
 
 	//Swapping the buffers causes the rendering above to be shown
-	if(!clickCheck)
+	if (!clickCheck){
 		glutSwapBuffers();
+		clickCheck = false;
+	}
+	if (clickCheck)
+		clickCheck = false;
 }
 
 void CApplication::changeSize(int w, int h) {
