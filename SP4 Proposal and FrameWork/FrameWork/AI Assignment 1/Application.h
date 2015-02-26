@@ -53,6 +53,5 @@ private:
 	float frequency;
 
 	bool clickCheck;
-
 };
 

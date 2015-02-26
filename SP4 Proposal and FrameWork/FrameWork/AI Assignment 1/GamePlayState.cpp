@@ -77,15 +77,25 @@ void CGamePlayState::Init()
 	LoadTextures();
 	LoadButtons();
 
+	barPos.Set(80, 10, 0);
+
 	font_style = GLUT_BITMAP_HELVETICA_18;
 
 	//Input System
 	CInputSystem::getInstance()->OrientCam = true;
+
+	//camValues
+	camValues.camDir.Set(0,0,1);
+	camValues.camPoint.Set(0,0,0);
+	camValues.camPos.Set(50.0, 50.0, -70.0);
+	camValues.VEL_X = 0.1f;
+	camValues.VEL_Y = 0.01f;
+	camValues.MAX_Y = 50.0f;
 	
 	//Isometric view
 	CApplication::getInstance()->theCamera->SetCameraType(Camera::AIR_CAM);
-	CApplication::getInstance()->theCamera->SetPosition(50.0, 50.0, -70.0);
-	Vector3 temp = -CApplication::getInstance()->theCamera->GetPosition();
+	CApplication::getInstance()->theCamera->SetPosition(camValues.camPos.x, camValues.camPos.y, camValues.camPos.z);
+	Vector3 temp = camValues.camPoint-camValues.camPos;
 	CApplication::getInstance()->theCamera->SetDirection(temp.Normalized().x, temp.Normalized().y, temp.Normalized().z);
 
 	CPlayState * PlayState = CPlayState::Instance();
@@ -113,7 +123,7 @@ void CGamePlayState::Init()
 
 	theTimerInstance = CTimer::getInstance();
 	TimerKeySeed = theTimerInstance->insertNewTime(3000);
-	TimerKeyDay = theTimerInstance->insertNewTime(27000);
+	TimerKeyDay = theTimerInstance->insertNewTime(270000);
 	HourNumber = 0;
 	
 	Buyer * newBuyer;
@@ -279,6 +289,8 @@ void CGamePlayState::Draw(CInGameStateManager* theGSM)
 
 	DrawBuying();
 
+	DrawTimeBar();
+
 	CApplication::getInstance()->theCamera->SetHUD(false);
 }
 
@@ -424,6 +436,13 @@ void CGamePlayState::DrawSkyBox()
 		glEnable(GL_BLEND);
 		glPopAttrib();
 	glPopMatrix();
+}
+
+void CGamePlayState::DrawTimeBar()
+{
+	theTimeBar.init(1.0f, 0.2f, 0.2f, barPos);
+	theTimeBar.update(HourNumber);
+	theTimeBar.draw();
 }
 
 void CGamePlayState::buyMask(int stall, int maskNo) //0 is first stall
@@ -769,8 +788,8 @@ void CGamePlayState::drawInfo()
 		glPushAttrib(GL_DEPTH_TEST);
 			//print shop number
 			glColor3f( 1.0f, 0.0f, 0.0f);
-			printw (SCREEN_WIDTH - 100, 96, 0, "PSI: 123");
-			printw (SCREEN_WIDTH - 100, 160, 0,  "Time: ");
+			printw (20, 40, 0, "PSI: 123");
+			printw (20, 20, 0,  "Time: ");
 		glPopAttrib();
 	glPopMatrix();
 }
@@ -808,5 +827,11 @@ void CGamePlayState::printw (float x, float y, float z, char* format, ...)
 
 	//  Free the allocated memory for the string
 	free(text);
+}
+
+//Camera rotate function
+void CGamePlayState::OnRotate(int x, int y)
+{
+
 }
 

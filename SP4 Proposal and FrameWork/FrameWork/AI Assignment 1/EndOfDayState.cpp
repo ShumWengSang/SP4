@@ -7,10 +7,13 @@ CEndOfDayState CEndOfDayState::theEndOfDayState;
 
 void CEndOfDayState::LoadTextures()
 {
-	CApplication::getInstance()->LoadTGA(&background[0],"images/background.tga");
+	CApplication::getInstance()->LoadTGA(&background[0],"images/endState/background.tga");
 	CApplication::getInstance()->LoadTGA(&background[1],"images/endState/box.tga");
 	CApplication::getInstance()->LoadTGA(&button[0],"images/endState/save.tga");
 	CApplication::getInstance()->LoadTGA(&button[1],"images/endState/next.tga");
+	CApplication::getInstance()->LoadTGA(&button[2],"images/endState/shop.tga");
+	CApplication::getInstance()->LoadTGA(&button[3],"images/endState/shop2.tga");
+	CApplication::getInstance()->LoadTGA(&button[4],"images/endState/shop3.tga");
 }
 void CEndOfDayState::LoadButtons()
 {
@@ -19,6 +22,15 @@ void CEndOfDayState::LoadButtons()
 
 	theButton[eNext] = new CButtons(SCREEN_WIDTH/2 + 50, SCREEN_HEIGHT - 100, 300, 80, eNext);
 	theButton[eNext]->setButtonTexture(button[1].texID);
+
+	theButton[eShop1] = new CButtons(30 + 50, 100, 90, 64, eShop1);
+	theButton[eShop1]->setButtonTexture(button[2].texID);
+
+	theButton[eShop2] = new CButtons(SCREEN_WIDTH/2 - 50, 100, 90, 64, eShop2);
+	theButton[eShop2]->setButtonTexture(button[3].texID);
+
+	theButton[eShop3] = new CButtons(SCREEN_WIDTH - 170, 100, 90, 64, eShop3);
+	theButton[eShop3]->setButtonTexture(button[4].texID);
 }
 
 void CEndOfDayState::Init()
@@ -27,6 +39,7 @@ void CEndOfDayState::Init()
 	se = createIrrKlangDevice();
 	LoadTextures();
 	LoadButtons();
+	mouseOverNext = false;
 	font_style = GLUT_BITMAP_HELVETICA_18;
 	//Input System
 	CInputSystem::getInstance()->OrientCam = true;
@@ -78,6 +91,9 @@ void CEndOfDayState::DrawButtons()
 {
 	theButton[save]->drawButton();
 	theButton[eNext]->drawButton();
+	theButton[eShop1]->drawButton();
+	theButton[eShop2]->drawButton();
+	theButton[eShop3]->drawButton();
 }
 
 void CEndOfDayState::DrawBackground()
@@ -145,7 +161,7 @@ void CEndOfDayState::DrawBackground()
 		glEnable(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D, background[1].texID);
 		glPushMatrix();
-			glTranslatef(SCREEN_WIDTH - 250, 20, 0);
+			glTranslatef(SCREEN_WIDTH - 230, 20, 0);
 			glScalef(0.25, 0.4, 1);
 			glBegin(GL_QUADS);
 				glTexCoord2f(0, 0);	glVertex2f(0, SCREEN_HEIGHT);
@@ -170,6 +186,11 @@ void CEndOfDayState::keyboardUpdate()
 void CEndOfDayState::MouseMove (int x, int y) {
 	CInputSystem::getInstance()->mouseInfo.lastX = x;
 	CInputSystem::getInstance()->mouseInfo.lastY = y;
+
+	if(theButton[eNext]->isInside(x, y))
+		mouseOverNext = true;
+	else
+		mouseOverNext = false;
 }
 
 void CEndOfDayState::MouseClick(int button, int state, int x, int y) {
@@ -231,22 +252,25 @@ void CEndOfDayState::drawInfo()
 		glPushAttrib(GL_DEPTH_TEST);
 			//print shop number
 			glColor3f( 0.0f, 0.0f, 0.0f);
-			printw (80, 100, 0, "SHOP1");
-			printw (50, 150, 0, "Mask Sold: %d", CPlayState::Instance()->theStall[0]->getTotalMaskSold());
-			printw (50, 180, 0, "Money Earned: $%d", CPlayState::Instance()->earned);
+			printw (80, 80, 0, "SHOP1");
+			printw (50, 200, 0, "Mask Sold: %d", CPlayState::Instance()->theStall[0]->getTotalMaskSold());
+			printw (50, 230, 0, "Money Earned: $%d", CPlayState::Instance()->earned);
 
-			printw (350, 100, 0, "SHOP2");
-			printw (320, 150, 0, "Mask Sold: %d", CPlayState::Instance()->theStall[1]->getTotalMaskSold());
-			printw (320, 180, 0, "Money Earned: $%d", CPlayState::Instance()->earned2);
+			printw (350, 80, 0, "SHOP2");
+			printw (320, 200, 0, "Mask Sold: %d", CPlayState::Instance()->theStall[1]->getTotalMaskSold());
+			printw (320, 230, 0, "Money Earned: $%d", CPlayState::Instance()->earned2);
 
-			printw (600, 100, 0, "SHOP3");
-			printw (570, 150, 0, "Mask Sold: %d", CPlayState::Instance()->theStall[2]->getTotalMaskSold());
-			printw (570, 180, 0, "Money Earned: $%d", CPlayState::Instance()->earned3);
+			printw (630, 80, 0, "SHOP3");
+			printw (600, 200, 0, "Mask Sold: %d", CPlayState::Instance()->theStall[2]->getTotalMaskSold());
+			printw (600, 230, 0, "Money Earned: $%d", CPlayState::Instance()->earned3);
 
 			int totalEarn = CPlayState::Instance()->earned + CPlayState::Instance()->earned2 + CPlayState::Instance()->earned3;
 			printw ((SCREEN_WIDTH/2)-150, SCREEN_HEIGHT/2 + 50, 0, "Total Money Earned Today: $%d", totalEarn);
+
+			if(mouseOverNext)
+				printw (theButton[eNext]->getButtonX()+50, theButton[eNext]->getButtonY()-3, 0, "Start next day");
 			
-			glColor3f( 0.0f, 1.0f, 0.0f);
+			glColor3f( 0.5f, 0.0f, 0.5f);
 			int totalMaskSold = CPlayState::Instance()->theStall[0]->getTotalMaskSold() + CPlayState::Instance()->theStall[1]->getTotalMaskSold() + CPlayState::Instance()->theStall[2]->getTotalMaskSold();
 			CPlayState::Instance()->maskLeft = (CPlayState::Instance()->totalMaskForSell - totalMaskSold) + CPlayState::Instance()->maskInStock;
 			printw ((SCREEN_WIDTH / 2) - 200, SCREEN_HEIGHT/2 + 150, 0, "Mask Left: %d", CPlayState::Instance()->maskLeft);
@@ -254,7 +278,6 @@ void CEndOfDayState::drawInfo()
 			glColor3f( 0.5f, 0.0f, 0.8f);
 			CPlayState::Instance()->newMoneyValue = totalEarn + CPlayState::Instance()->theMoney.getCurrentMoney();
 			printw ((SCREEN_WIDTH/2)+50, SCREEN_HEIGHT/2 + 150, 0, "Total Money: $%d", CPlayState::Instance()->newMoneyValue);
-
 		glPopAttrib();
 	glPopMatrix();
 }

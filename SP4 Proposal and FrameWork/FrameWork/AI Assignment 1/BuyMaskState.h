@@ -43,7 +43,7 @@ public:
 	void HandleEvents(CInGameStateManager* GSM){};
 	void Update(CInGameStateManager* GSM);
 	void Draw(CInGameStateManager* GSM);
-
+	void keyboardUpdate(void);
 	void LoadTextures();
 	void LoadButtons();
 	void DrawButtons();
