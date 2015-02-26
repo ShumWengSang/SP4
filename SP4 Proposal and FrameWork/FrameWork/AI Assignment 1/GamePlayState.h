@@ -60,12 +60,10 @@ private:
 	TextureImage map[1];
 	TextureImage skyBox[6];
 	
-
 	TextureImage buyingButton[4];
 	TextureImage buyingBackground[1];
 	
 	bool isBuying;
-
 
 	bool isPause;
 	bool shop1Selected;
@@ -131,9 +129,7 @@ private:
 	CStalls* theStall[3];
 	Grid* theGrid;
 
-	
 	CButtons* theBuyingButton[4];
-
 
 	Bar theTimeBar;
 

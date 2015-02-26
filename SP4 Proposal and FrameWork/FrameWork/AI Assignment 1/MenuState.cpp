@@ -6,8 +6,8 @@ CMenuState CMenuState::theMenuState;
 
 void CMenuState::LoadTextures()
 {
-	//Textures
 	CApplication::getInstance()->LoadTGA(&background[0],"images/background.tga");
+	CApplication::getInstance()->LoadTGA(&map[0],"images/menuState/map.tga");
 	CApplication::getInstance()->LoadTGA(&button[0],"images/menuState/start.tga");
 	CApplication::getInstance()->LoadTGA(&button[1],"images/menuState/loadGame.tga");
 	CApplication::getInstance()->LoadTGA(&button[2],"images/menuState/options.tga");
@@ -36,12 +36,13 @@ void CMenuState::Init()
 	LoadTextures();
 	LoadButtons();
 
+	isPassed = false;
+
 	//Input System
 	InputSystem = CInputSystem::getInstance();
 
 	//Audio Player
 	se = createIrrKlangDevice();
-
 
 	//Enable Camera Orientation on Mouse Move
 	InputSystem->OrientCam = true;
@@ -76,17 +77,34 @@ void CMenuState::HandleEvents(CGameStateManager* theGSM)
 
 void CMenuState::Update(CGameStateManager* theGSM) 
 {
-	//cout << "CMenuState::Update\n" << endl;
 	keyboardUpdate();
+
+	checkCameraPos();
+	if(isPassed)
+		CApplication::getInstance()->theCamera->Walk(0);
+	else
+		CApplication::getInstance()->theCamera->Walk(1);
+}
+
+void CMenuState::checkCameraPos()
+{
+	Vector3 pos;
+	pos.Set(0, 2, 300);
+	if(CApplication::getInstance()->theCamera->GetPosition() == pos)
+		isPassed = true;
 }
 
 void CMenuState::Draw(CGameStateManager* theGSM) 
 {
-	CApplication::getInstance()->theCamera->SetHUD(true);
-	DrawBackground();
-	DrawButtons();
+	drawMap();
 
-	CApplication::getInstance()->theCamera->SetHUD(false);
+	if(isPassed)
+	{
+		CApplication::getInstance()->theCamera->SetHUD(true);
+		DrawBackground();
+		DrawButtons();
+		CApplication::getInstance()->theCamera->SetHUD(false);
+	}
 }
 
 void CMenuState::DrawButtons()
@@ -117,10 +135,59 @@ void CMenuState::DrawBackground()
 	glPopMatrix();
 }
 
+void CMenuState::drawMap()
+{
+	glPushMatrix();
+		glEnable(GL_BLEND);
+		glEnable(GL_TEXTURE_2D);
+		glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glScalef(0.5f, 0.5f, 1);
+		glRotatef(-90, 1, 0, 0);
+		glTranslatef(-210, -300, -210);
+		glBindTexture(GL_TEXTURE_2D, map[0].texID);
+		glBegin(GL_QUADS);
+			glTexCoord2f(1, 1);  glVertex3f(0, 0.0f, 420);
+			glTexCoord2f(0, 1);  glVertex3f(420, 0.0f, 420); 
+			glTexCoord2f(0, 0);	 glVertex3f(420, 0.0f, 0);
+			glTexCoord2f(1, 0);	 glVertex3f(0, 0.0f, 0);
+		glEnd();
+		glDisable(GL_TEXTURE_2D);
+		glDisable(GL_BLEND);
+	glPopMatrix();
+
+	//glPushMatrix();
+	//	glEnable(GL_BLEND);
+	//	glEnable(GL_TEXTURE_2D);
+	//	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	//	glBindTexture(GL_TEXTURE_2D, background[0].texID);
+	//	glRotatef(-90, 1, 0, 0);
+	//	glTranslatef(-400, -300, -300);
+	//	glPushMatrix();
+	//		glBegin(GL_QUADS);
+	//			glTexCoord2f(0, 0);	glVertex3f(0, 0, SCREEN_HEIGHT);
+	//			glTexCoord2f(1, 0);	glVertex3f(SCREEN_WIDTH, 0, SCREEN_HEIGHT);
+	//			glTexCoord2f(1, 1);	glVertex3f(SCREEN_WIDTH, 0, 0);
+	//			glTexCoord2f(0, 1);	glVertex3f(0, 0, 0);
+	//		glEnd();
+	//	glPopMatrix();
+	//	glDisable(GL_TEXTURE_2D);
+	//	glDisable(GL_BLEND);
+	//glPopMatrix();
+}
+
 void CMenuState::keyboardUpdate()
 {
 	if(InputSystem->myKeys['a'])
 		CGameStateManager::getInstance()->ChangeState(CPlayState::Instance());
+	if(CInputSystem::getInstance()->myKeys['j'])
+		CApplication::getInstance()->theCamera->Strafe(-1);
+	if(CInputSystem::getInstance()->myKeys['l'])
+		CApplication::getInstance()->theCamera->Strafe(1);
+	if(CInputSystem::getInstance()->myKeys['i'])
+		CApplication::getInstance()->theCamera->Walk(1);
+	if(CInputSystem::getInstance()->myKeys['k'])
+		CApplication::getInstance()->theCamera->Walk(-1);
 	//Esc Key
 	if(InputSystem->myKeys[VK_ESCAPE]) 
 		exit(0);
@@ -146,19 +213,22 @@ void CMenuState::MouseClick(int button, int state, int x, int y) {
 				CInputSystem::getInstance()->mouseInfo.clickedX = x;
 				CInputSystem::getInstance()->mouseInfo.clickedY = y;
 
-				//go to start of the day
-				if(theButton[start]->isInside(x, y))
+				if(isPassed)
 				{
-					CGameStateManager::getInstance()->ChangeState(CPlayState::Instance());
+					//go to start of the day
+					if(theButton[start]->isInside(x, y))
+					{
+						CGameStateManager::getInstance()->ChangeState(CPlayState::Instance());
+					}
+
+					//load game
+					if(theButton[loadGame]->isInside(x, y))
+						CGameStateManager::getInstance()->ChangeState(CLoadState::Instance());
+
+					//quit game
+					if(theButton[quit]->isInside(x, y))
+						exit(0);
 				}
-
-				//load game
-				if(theButton[loadGame]->isInside(x, y))
-					CGameStateManager::getInstance()->ChangeState(CLoadState::Instance());
-
-				//quit game
-				if(theButton[quit]->isInside(x, y))
-					exit(0);
 			}
 			else
 				CInputSystem::getInstance()->mouseInfo.mLButtonUp = true;
@@ -186,7 +256,6 @@ void CMenuState::MouseWheel(int button, int dir, int x, int y) {
 		CApplication::getInstance()->theCamera->SetPosition(temp.x,temp.y,temp.z);
 	}
 }
-
 
 void CMenuState::playSound()
 {

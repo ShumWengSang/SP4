@@ -33,7 +33,7 @@ void CGamePlayState::LoadTextures()
 void CGamePlayState::LoadButtons()
 {
 	//buttons
-	theButton[pause] = new CButtons(SCREEN_WIDTH - 50, 1, 48, 48, pause);
+	theButton[pause] = new CButtons(SCREEN_WIDTH/2 - 45, 1, 32, 32, pause);
 	theButton[pause]->setButtonTexture(button[0].texID);
 
 	theButton[shop] = new CButtons(0, SCREEN_HEIGHT - 50, 70, 50, shop);
@@ -317,15 +317,10 @@ void CGamePlayState::DrawBuying()
 			glDisable(GL_BLEND);
 		glPopMatrix();
 
-
-
-		
 		theBuyingButton[close]->drawButton();
 		theBuyingButton[bpFifty]->drawButton();
 		theBuyingButton[bpHundred]->drawButton();
 		theBuyingButton[bpTwohundred]->drawButton();
-
-
 
 		glPushMatrix();
 			glPushAttrib(GL_DEPTH_TEST);
@@ -786,10 +781,9 @@ void CGamePlayState::drawInfo()
 {
 	glPushMatrix();
 		glPushAttrib(GL_DEPTH_TEST);
-			//print shop number
 			glColor3f( 1.0f, 0.0f, 0.0f);
-			printw (20, 40, 0, "PSI: 123");
 			printw (20, 20, 0,  "Time: ");
+			printw (20, 45, 0, "PSI: 123");
 		glPopAttrib();
 	glPopMatrix();
 }

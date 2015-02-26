@@ -26,6 +26,7 @@ class CMenuState : public CGameState
 protected:
 	CMenuState(void) {};
 
+	TextureImage map[1];
 	TextureImage button[4];
 	TextureImage background[1];
 
@@ -45,6 +46,8 @@ public:
 	void DrawBackground();
 	void keyboardUpdate(void);
 	void playSound();
+	void drawMap();
+	void checkCameraPos();
 
 	//Inputs
 	void MouseMove (int x, int y);
@@ -63,5 +66,7 @@ private:
 	CButtons* theButton[4];
 	AudioPlayer * sound;
 	ISoundEngine *se;
+
+	bool isPassed;
 };
 
