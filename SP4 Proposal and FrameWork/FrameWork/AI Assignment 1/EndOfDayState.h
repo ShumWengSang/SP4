@@ -15,7 +15,10 @@ using namespace std;
 enum ENDSTATE_BUTTON
 {
 	save,
-	eNext
+	eNext,
+	eShop1,
+	eShop2,
+	eShop3
 };
 
 class CInputSystem;
@@ -25,8 +28,10 @@ class CEndOfDayState : public CInGameState
 private:
 	CEndOfDayState(void) {};
 
-	TextureImage button[2];
+	TextureImage button[5];
 	TextureImage background[2];
+
+	bool mouseOverNext;
 
 public:
 	void Init();

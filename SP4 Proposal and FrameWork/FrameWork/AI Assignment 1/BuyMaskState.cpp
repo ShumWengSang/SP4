@@ -2,6 +2,7 @@
 #include "PlayState.h"
 #include "StartOfDayState.h"
 #include "LoadState.h"
+#include "EndOfDayState.h"
 
 CBuyMaskState CBuyMaskState::theBuyMaskState;
 
@@ -29,7 +30,7 @@ void CBuyMaskState::LoadButtons()
 	theButton[bHundred] = new CButtons(SCREEN_WIDTH/2 - 50, SCREEN_HEIGHT/2, 100, 60, bHundred);
 	theButton[bHundred]->setButtonTexture(button[2].texID);
 	
-	theButton[bTwohundred] = new CButtons(SCREEN_WIDTH - 150, SCREEN_HEIGHT/2, 100, 60, bTwohundred);
+	theButton[bTwohundred] = new CButtons(SCREEN_WIDTH - 160, SCREEN_HEIGHT/2, 100, 60, bTwohundred);
 	theButton[bTwohundred]->setButtonTexture(button[3].texID);
 }
 
@@ -67,6 +68,7 @@ void CBuyMaskState::Init()
 void CBuyMaskState::Update(CInGameStateManager* theGSM) 
 {
 	//cout << "CEndOfDayState::Update\n" << endl;
+	keyboardUpdate();
 }
 
 void CBuyMaskState::Draw(CInGameStateManager* theGSM) 
@@ -171,7 +173,7 @@ void CBuyMaskState::DrawBackground()
 		glEnable(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D, background[2].texID);
 		glPushMatrix();
-			glTranslatef(SCREEN_WIDTH - 160,  SCREEN_HEIGHT/2 - 35, 0);
+			glTranslatef(SCREEN_WIDTH - 170,  SCREEN_HEIGHT/2 - 35, 0);
 			glScalef(0.15, 0.2, 1);
 			glBegin(GL_QUADS);
 				glTexCoord2f(0, 0);	glVertex2f(0, SCREEN_HEIGHT);
@@ -189,6 +191,15 @@ void CBuyMaskState::DrawBackground()
 void CBuyMaskState::MouseMove (int x, int y) {
 	CInputSystem::getInstance()->mouseInfo.lastX = x;
 	CInputSystem::getInstance()->mouseInfo.lastY = y;
+}
+
+void CBuyMaskState::keyboardUpdate()
+{
+	if(CInputSystem::getInstance()->myKeys['d'])
+		CInGameStateManager::getInstance()->ChangeState(CEndOfDayState::Instance());
+	//Esc Key
+	if(CInputSystem::getInstance()->myKeys[VK_ESCAPE]) 
+		exit(0);
 }
 
 void CBuyMaskState::MouseClick(int button, int state, int x, int y) {
@@ -260,8 +271,9 @@ void CBuyMaskState::drawInfo()
 {
 	glPushMatrix();
 		glPushAttrib(GL_DEPTH_TEST);
+			glColor3f(0.8f, 0.1f, 0.1f);
+			printw (200, 120, 0, "Click the buttons to select the number of mask to buy.");
 			glColor3f( 0.0f, 0.0f, 0.0f);
-			printw (200, 180, 0, "Click the buttons to select the number of mask to buy.");
 			printw (300, 250, 0, "Number of mask and cost:");
 
 			printw (theButton[bFifty]->getButtonX(), theButton[bFifty]->getButtonY() - 10, 0, "$250");
@@ -274,14 +286,14 @@ void CBuyMaskState::drawInfo()
 				printw ((SCREEN_WIDTH/2)-100, SCREEN_HEIGHT/2 + 130, 0, "You need more money!!!");
 			}
 
-			glColor3f( 0.0f, 1.0f, 0.0f);
-			printw ((SCREEN_WIDTH / 2) - 200, 120, 0, "Mask in Stock: %d", CPlayState::Instance()->maskInStock);
+			glColor3f( 0.5f, 0.0f, 0.5f);
+			printw (SCREEN_WIDTH/2-50, 180, 0, "Mask in Stock: %d", CPlayState::Instance()->maskInStock);
 
 			glColor3f( 0.5f, 0.0f, 0.8f);
-			printw ((SCREEN_WIDTH/2)+50, 120, 0, "Money: $%d", CPlayState::Instance()->theMoney.getCurrentMoney());
+			printw (SCREEN_WIDTH-150, 180, 0, "Money: $%d", CPlayState::Instance()->theMoney.getCurrentMoney());
 
-			glColor3f( 0.0f, 0.2f, 1.0f);
-			printw (50, 100, 0, "Day: %d", CPlayState::Instance()->day );
+			glColor3f( 0.0f, 0.0f, 0.0f);
+			printw (50, 180, 0, "Day: %d", CPlayState::Instance()->day );
 		glPopAttrib();
 	glPopMatrix();
 }
