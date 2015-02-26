@@ -16,6 +16,15 @@ EndGameState::~EndGameState(void)
 void EndGameState::outcome ()
 {
 	result = profitLoss->GetResult();
+	if (result == true)
+	{
+		se->play2D("audio/win.mp3",false);
+	}
+	else
+	{
+		se->play2D("audio/lose.mp3",false);
+	}
+
 }
 
 void EndGameState::LoadTextures()

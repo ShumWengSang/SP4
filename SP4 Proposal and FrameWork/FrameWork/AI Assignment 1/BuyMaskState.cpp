@@ -229,6 +229,10 @@ void CBuyMaskState::MouseClick(int button, int state, int x, int y) {
 					else{
 						CPlayState::Instance()->theMoney.setCurrentMoney(CPlayState::Instance()->theMoney.getCurrentMoney() - 250);
 						CPlayState::Instance()->maskInStock += 50;
+						if (se->isCurrentlyPlaying("audio/stock.mp3") != true)
+						{
+							se->play2D("audio/stock.mp3",false);
+						}
 						needMoney = false;
 					}
 				}
@@ -240,6 +244,10 @@ void CBuyMaskState::MouseClick(int button, int state, int x, int y) {
 					else{
 						CPlayState::Instance()->theMoney.setCurrentMoney(CPlayState::Instance()->theMoney.getCurrentMoney() - 450);
 						CPlayState::Instance()->maskInStock += 100;
+						if (se->isCurrentlyPlaying("audio/stock.mp3") != true)
+						{
+							se->play2D("audio/stock.mp3",false);
+						}
 						needMoney = false;
 					}
 				}
@@ -251,6 +259,10 @@ void CBuyMaskState::MouseClick(int button, int state, int x, int y) {
 					else{
 						CPlayState::Instance()->theMoney.setCurrentMoney(CPlayState::Instance()->theMoney.getCurrentMoney() - 850);
 						CPlayState::Instance()->maskInStock += 200;
+						if (se->isCurrentlyPlaying("audio/stock.mp3") != true)
+						{
+							se->play2D("audio/stock.mp3",false);
+						}
 						needMoney = false;
 					}
 				}
