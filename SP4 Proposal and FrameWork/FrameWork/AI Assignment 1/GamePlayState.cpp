@@ -108,7 +108,7 @@ void CGamePlayState::Init()
 	//	//GET TILE INFO FROM POSITION
 	//	//SET THE HAZE
 	//}
-	theGrid->temp[3][3].Seeded(CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime] * 10000);//CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime]
+	theGrid->temp[0][0].Seeded(CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime] * 100);//CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime]
 
 	theTimerInstance = CTimer::getInstance();
 	TimerKeySeed = theTimerInstance->insertNewTime(3000);

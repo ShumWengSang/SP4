@@ -180,8 +180,8 @@ void CTileChilds::Pressure(CTileChilds &currentCell, CTileChilds &neighbourCell)
 	float PressureFlow = currentCell.HazeTileValue - neighbourCell.HazeTileValue;
 
 	//pressure diffuse to neightbour
-	neighbourCell.HazeTileValue += PressureFlow * 0.25 * 2;
-	currentCell.HazeTileValue -= PressureFlow * 0.35;
+	neighbourCell.HazeTileValue += PressureFlow * 0.75;
+	currentCell.HazeTileValue -= PressureFlow * 0.25;
 
 	//detect and remove oscillations
 	if ((PressureFlow > 0) && (neighbourCell.HazeTileValue < currentCell.HazeTileValue))
