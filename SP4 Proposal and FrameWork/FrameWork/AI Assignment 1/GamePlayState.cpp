@@ -105,7 +105,7 @@ void CGamePlayState::Init()
 		int x = rand() % TILE_NO_X;
 		int y = rand() % TILE_NO_Y;
 
-		theGrid->temp[x][y].Seeded(1);//CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime]
+		theGrid->temp[x][y].Seeded(CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime]);//CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime]
 		theSeededTiles.push_back(&theGrid->temp[x][y]);
 		//for (int m = 0; m < TILE_NO_X; i++)
 		//{
@@ -188,25 +188,25 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 		}
 
 
-		if (theTimerInstance->executeTime(TimerKeyDay))
-		{
-			DayNumber++;
-			//CInGameStateManager::getInstance()->ChangeState(CEndOfDayState::Instance());
-			HourNumber = 0;
-			theSeededTiles.clear();
-			for (int i = 0; i < SEEDCOUNT; i++)
-			{
-				int x = rand() % TILE_NO_X;
-				int y = rand() % TILE_NO_Y;
+		//if (theTimerInstance->executeTime(TimerKeyDay))
+		//{
+		//	DayNumber++;
+		//	//CInGameStateManager::getInstance()->ChangeState(CEndOfDayState::Instance());
+		//	HourNumber = 0;
+		//	theSeededTiles.clear();
+		//	for (int i = 0; i < SEEDCOUNT; i++)
+		//	{
+		//		int x = rand() % TILE_NO_X;
+		//		int y = rand() % TILE_NO_Y;
 
-				theGrid->temp[x][y].childs[0]->HazeTileValue = CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime];
-				theGrid->temp[x][y].TileHazeValue = CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime];
-				theSeededTiles.push_back(&theGrid->temp[x][y]);
-				//GET TILE INFO FROM POSITION
-				//SET THE HAZE
-			}
-			std::cout << "DAY CHANGE IT IS NOW DAY " << DayNumber << std::endl;
-		}
+		//		theGrid->temp[x][y].childs[0]->HazeTileValue = CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime];
+		//		theGrid->temp[x][y].TileHazeValue = CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime];
+		//		theSeededTiles.push_back(&theGrid->temp[x][y]);
+		//		//GET TILE INFO FROM POSITION
+		//		//SET THE HAZE
+		//	}
+		//	std::cout << "DAY CHANGE IT IS NOW DAY " << DayNumber << std::endl;
+		//}
 
 		if (theTimerInstance->executeTime(TimerKeySeed))
 		{

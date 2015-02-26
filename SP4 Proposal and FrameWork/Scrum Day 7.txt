@@ -6,3 +6,10 @@ YT -- UI reworked.
 WQ -- Work on smaller tiles.
 R -- Buyers seems to be working.
 Samuel -- Store 90% done. Starting on camera.
+
+todo
+Amos -- finish sound
+yt -- more UI.
+WQ -- 
+R -- haze tile intergration + buyer testing.
+Samuel -- camera + store.

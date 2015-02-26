@@ -48,6 +48,7 @@ public:
 	void LinkTiles();
 	void Seeded(int);
 	void ContructorInit();
+	void GetHaze(int &Haze, int&Number);
 
 	//Entity functions
 	bool glRenderObject();

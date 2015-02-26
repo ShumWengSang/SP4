@@ -46,6 +46,7 @@ public:
 	void drawTile(int x, int y, int z, int tileWidth, int tileHeight, bool isPicking);
 	void LinkChilds();
 	void Seeded(int);
+	int GetHaze();
 
 	float TileHazeValue;
 	//Pointer to neighbour tiles

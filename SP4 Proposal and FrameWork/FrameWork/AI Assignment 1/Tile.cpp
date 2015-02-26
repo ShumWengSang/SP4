@@ -122,14 +122,14 @@ void Tiles::Update()
 	{
 		//return;
 	}
-	if (top != NULL)
-		Pressure(*this, *top);
-	if (bottom != NULL)
-		Pressure(*this, *bottom);
-	if (left != NULL)
-		Pressure(*this, *left);
-	if (right != NULL)
-		Pressure(*this, *right);
+	//if (top != NULL)
+	//	Pressure(*this, *top);
+	//if (bottom != NULL)
+	//	Pressure(*this, *bottom);
+	//if (left != NULL)
+	//	Pressure(*this, *left);
+	//if (right != NULL)
+	//	Pressure(*this, *right);
 
 	for (int i = 0; i < 4; i++)
 	{
@@ -172,9 +172,19 @@ void Tiles::LinkChilds()
 
 void Tiles::Seeded(int HazeValue)
 {
-	TileHazeValue = HazeValue;
 	for (int i = 0; i < 4; i++)
 	{
 		childs[i]->Seeded(HazeValue);
 	}
+}
+
+int Tiles::GetHaze()
+{
+	int Haze = 0;
+	int NumberWentThrough = 0;
+	for (int i = 0; i < 4; i++)
+	{
+		childs[i]->GetHaze(Haze, NumberWentThrough);
+	}
+	return Haze / NumberWentThrough;
 }

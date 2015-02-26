@@ -10,7 +10,7 @@ void CTileChilds::ContructorInit()
 	ChildNum = 0;
 	CurrentLevel = 0;
 	MAX_LEVEL = 5;
-	ypos = 0;
+	ypos = 1;
 	this->ParentChildTile = NULL;
 	this->ParentTile = NULL;
 }
@@ -316,3 +316,18 @@ void CTileChilds::Seeded(int HazeValue)
 	}
 }
 
+void CTileChilds::GetHaze(int & Haze, int & Number)
+{
+	if (CurrentLevel != MAX_LEVEL)
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			childs[i]->GetHaze(Haze, Number);
+		}
+	}
+	else
+	{
+		Haze += HazeTileValue;
+		Number++;
+	}
+}

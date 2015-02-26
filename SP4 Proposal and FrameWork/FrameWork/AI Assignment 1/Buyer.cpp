@@ -162,7 +162,7 @@ void Buyer::AIUpdate()
 									}
 									else
 									{
-										CStalls * theStall = StalltoBuyFrom(theTileTemp->TileHazeValue);
+										CStalls * theStall = StalltoBuyFrom(theTileTemp->GetHaze());
 										if (theStall != NULL)
 										{
 											TargettoWalk.push_back(theStall->getPosition());
