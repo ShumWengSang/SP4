@@ -21,6 +21,14 @@ void CGamePlayState::LoadTextures()
 	CApplication::getInstance()->LoadTGA(&skyBox[3], "images/playState/SkyBox/skybox_right.tga");
 	CApplication::getInstance()->LoadTGA(&skyBox[4], "images/playState/SkyBox/skybox_top.tga");
 	CApplication::getInstance()->LoadTGA(&skyBox[5], "images/playState/SkyBox/skybox_bottom.tga");
+
+	
+
+	CApplication::getInstance()->LoadTGA(&buyingButton[0],"images/startState/back.tga");
+	CApplication::getInstance()->LoadTGA(&buyingButton[1],"images/playState/50.tga");
+	CApplication::getInstance()->LoadTGA(&buyingButton[2],"images/playState/100.tga");
+	CApplication::getInstance()->LoadTGA(&buyingButton[3],"images/playState/200.tga");
+	CApplication::getInstance()->LoadTGA(&buyingBackground[0],"images/playState/box.tga");
 }
 void CGamePlayState::LoadButtons()
 {
@@ -36,6 +44,20 @@ void CGamePlayState::LoadButtons()
 
 	theButton[shop3] = new CButtons(160, SCREEN_HEIGHT - 50, 70, 50, shop3);
 	theButton[shop3]->setButtonTexture(button[3].texID);
+
+
+
+	theBuyingButton[close] = new CButtons(240, SCREEN_HEIGHT - 390, 70, 50, close);
+	theBuyingButton[close]->setButtonTexture(buyingButton[0].texID);
+
+	theBuyingButton[bpFifty] = new CButtons(10, SCREEN_HEIGHT - 250, 70, 50, bpFifty);
+	theBuyingButton[bpFifty]->setButtonTexture(buyingButton[1].texID);
+	
+	theBuyingButton[bpHundred] = new CButtons(90, SCREEN_HEIGHT - 130, 70, 50, bpHundred);
+	theBuyingButton[bpHundred]->setButtonTexture(buyingButton[2].texID);
+	
+	theBuyingButton[bpTwohundred] = new CButtons(170, SCREEN_HEIGHT - 130, 70, 50, bpTwohundred);
+	theBuyingButton[bpTwohundred]->setButtonTexture(buyingButton[3].texID);
 }
 
 void CGamePlayState::Init()
@@ -47,6 +69,10 @@ void CGamePlayState::Init()
 	shop1Selected = false;
 	shop2Selected = false;
 	shop3Selected = false;
+
+	
+	isBuying = false;
+
 
 	LoadTextures();
 	LoadButtons();
@@ -251,7 +277,57 @@ void CGamePlayState::Draw(CInGameStateManager* theGSM)
 	DrawButtons();//pause button here
 	drawInfo();
 
+	DrawBuying();
+
 	CApplication::getInstance()->theCamera->SetHUD(false);
+}
+
+void CGamePlayState::DrawBuying()
+{
+	if(isBuying)
+	{
+		glPushMatrix();
+			glEnable(GL_BLEND);
+			glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+			glEnable(GL_TEXTURE_2D);
+			glBindTexture(GL_TEXTURE_2D, buyingBackground[0].texID);
+			glPushMatrix();
+				glTranslatef(0, SCREEN_HEIGHT - 400, 2);
+				glScalef(0.4, 0.55, 1);
+				glBegin(GL_QUADS);
+					glTexCoord2f(0, 0);	glVertex2f(0, SCREEN_HEIGHT);
+					glTexCoord2f(1, 0);	glVertex2f(SCREEN_WIDTH, SCREEN_HEIGHT);
+					glTexCoord2f(1, 1);	glVertex2f(SCREEN_WIDTH, 0);
+					glTexCoord2f(0, 1);	glVertex2f(0, 0);			
+				glEnd();
+			glPopMatrix();
+			glDisable(GL_TEXTURE_2D);
+			glDisable(GL_BLEND);
+		glPopMatrix();
+
+
+
+		
+		theBuyingButton[close]->drawButton();
+		theBuyingButton[bpFifty]->drawButton();
+		theBuyingButton[bpHundred]->drawButton();
+		theBuyingButton[bpTwohundred]->drawButton();
+
+
+
+		glPushMatrix();
+			glPushAttrib(GL_DEPTH_TEST);
+				//print shop number
+				glColor3f( 1.0f, 0.0f, 0.0f);
+				printw (10, SCREEN_HEIGHT - 370, 0,  "Current amount of money: ");
+				printw (10, SCREEN_HEIGHT - 350, 0,  "Current amount of masks: ");
+				
+				printw (10, SCREEN_HEIGHT - 180, 0, "Amount of masks to buy");
+				printw (10, SCREEN_HEIGHT - 160, 0, "Price:");
+				printw (10, SCREEN_HEIGHT - 140, 0, "$X dollars");
+			glPopAttrib();
+		glPopMatrix();
+	}
 }
 
 void CGamePlayState::DrawButtons()
@@ -277,7 +353,6 @@ void CGamePlayState::DrawButtons()
 		theButton[shop3]->setButtonTexture(button[6].texID);
 	else
 		theButton[shop3]->setButtonTexture(button[3].texID);
-
 }
 
 void CGamePlayState::DrawSkyBox()
@@ -492,21 +567,68 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 					shop1Selected = true;
 					shop2Selected = false;
 					shop3Selected = false;
+
+					isBuying = true;
 				}
 				if(theButton[shop2]->isInside(x, y))
 				{
 					shop1Selected = false;
 					shop2Selected = true;
 					shop3Selected = false;
+					
+					isBuying = true;
 				}
 				if(theButton[shop3]->isInside(x, y))
 				{
 					shop1Selected = false;
 					shop2Selected = false;
 					shop3Selected = true;
+					
+					isBuying = true;
 				}
 
+				if (isBuying == true)
+				{
+					if(theBuyingButton[close]->isInside(x, y))
+					{
+						CPlayState::Instance()->oldMaskValue = CPlayState::Instance()->maskInStock;
+						isBuying = false;
+					}
 
+					if(theBuyingButton[bpFifty]->isInside(x, y))
+					{
+						CPlayState::Instance()->theMoney.setCurrentMoney(CPlayState::Instance()->theMoney.getCurrentMoney() - 250);
+
+						if(shop1Selected)
+							CPlayState::Instance()->theStall[0]->setMaskNo(CPlayState::Instance()->theStall[0]->getMaskNo() + 50);
+						if(shop2Selected)
+							CPlayState::Instance()->theStall[1]->setMaskNo(CPlayState::Instance()->theStall[1]->getMaskNo() + 50);
+						if(shop3Selected)
+							CPlayState::Instance()->theStall[2]->setMaskNo(CPlayState::Instance()->theStall[2]->getMaskNo() + 50);
+					}
+					if(theBuyingButton[bpHundred]->isInside(x, y))
+					{
+						CPlayState::Instance()->theMoney.setCurrentMoney(CPlayState::Instance()->theMoney.getCurrentMoney() - 450);
+
+						if(shop1Selected)
+							CPlayState::Instance()->theStall[0]->setMaskNo(CPlayState::Instance()->theStall[0]->getMaskNo() + 100);
+						if(shop2Selected)
+							CPlayState::Instance()->theStall[1]->setMaskNo(CPlayState::Instance()->theStall[1]->getMaskNo() + 100);
+						if(shop3Selected)
+							CPlayState::Instance()->theStall[2]->setMaskNo(CPlayState::Instance()->theStall[2]->getMaskNo() + 100);
+					}
+					if(theBuyingButton[bpTwohundred]->isInside(x, y))
+					{
+						CPlayState::Instance()->theMoney.setCurrentMoney(CPlayState::Instance()->theMoney.getCurrentMoney() - 850);
+
+						if(shop1Selected)
+							CPlayState::Instance()->theStall[0]->setMaskNo(CPlayState::Instance()->theStall[0]->getMaskNo() + 200);
+						if(shop2Selected)
+							CPlayState::Instance()->theStall[1]->setMaskNo(CPlayState::Instance()->theStall[1]->getMaskNo() + 200);
+						if(shop3Selected)
+							CPlayState::Instance()->theStall[2]->setMaskNo(CPlayState::Instance()->theStall[2]->getMaskNo() + 200);
+					}
+				}
 				// Render Objects to be selected in the color scheme
 				theGrid->Click = true;
 				//theGrid.renderGrid(true);

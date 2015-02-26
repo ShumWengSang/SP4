@@ -25,6 +25,15 @@ enum PLAYSTATE_BUTTON
 	shop3
 };
 
+enum BUYING_BUTTON
+{
+	close,
+	bpFifty,
+	bpHundred,
+	bpTwohundred,
+	bpMenu
+};
+
 class CInputSystem;
 
 class CGamePlayState : public CInGameState
@@ -35,6 +44,13 @@ private:
 	TextureImage button[7];
 	TextureImage map[1];
 	TextureImage skyBox[6];
+	
+
+	TextureImage buyingButton[4];
+	TextureImage buyingBackground[1];
+	
+	bool isBuying;
+
 
 	bool isPause;
 	bool shop1Selected;
@@ -57,6 +73,7 @@ public:
 	void DrawButtons();
 	void drawInfo();
 	void DrawSkyBox();
+	void DrawBuying();
 
 	void buyMask(int stall, int maskNo);
 
@@ -92,5 +109,9 @@ private:
 	CButtons* theButton[4];
 	CStalls* theStall[3];
 	Grid* theGrid;
+
+	
+	CButtons* theBuyingButton[4];
+
 };
 
