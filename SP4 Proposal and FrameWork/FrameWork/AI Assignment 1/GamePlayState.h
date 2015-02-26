@@ -16,7 +16,7 @@
 
 using namespace std;
 
-#define SEEDCOUNT 5
+#define SEEDCOUNT 1
 
 enum PLAYSTATE_BUTTON
 {
@@ -131,7 +131,6 @@ private:
 	CStalls* theStall[3];
 	Grid* theGrid;
 
-	
 	CButtons* theBuyingButton[4];
 
 
@@ -141,6 +140,5 @@ private:
 	cameraValues_ camValues;
 
 	void OnRotate(int x, int y);
-
 };
 

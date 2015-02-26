@@ -45,9 +45,9 @@ public:
 	void CalcHazeAlpha();
 	void drawTile(int x, int y, int z, int tileWidth, int tileHeight, bool isPicking);
 	void LinkChilds();
+	void Seeded(int);
 
 	float TileHazeValue;
-
 	//Pointer to neighbour tiles
 	Tiles * top;
 	Tiles * left;
@@ -63,5 +63,7 @@ public:
 	bool glRenderObject();
 	void Update();
 	Vector3 GetScale();
+
+
 };
 

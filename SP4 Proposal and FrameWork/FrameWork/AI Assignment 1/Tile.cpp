@@ -2,6 +2,7 @@
 
 void Tiles::drawTile(int x, int y, int z, int tileWidth, int tileHeight, bool isPicking)
 {
+
 	//pos.Set(x,y,z);
 	scale.Set(tileWidth,0,tileHeight);
 	CalcHazeAlpha();
@@ -162,5 +163,14 @@ void Tiles::LinkChilds()
 	for (int i = 0; i < 4; i++)
 	{
 		childs[i]->LinkTiles();
+	}
+}
+
+void Tiles::Seeded(int HazeValue)
+{
+	TileHazeValue = HazeValue;
+	for (int i = 0; i < 4; i++)
+	{
+		childs[i]->Seeded(HazeValue);
 	}
 }

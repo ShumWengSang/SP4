@@ -105,8 +105,7 @@ void CGamePlayState::Init()
 		int x = rand() % TILE_NO_X;
 		int y = rand() % TILE_NO_Y;
 
-		theGrid->temp[x][y].childs[0]->HazeTileValue = CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime];
-		theGrid->temp[x][y].TileHazeValue = CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime];
+		theGrid->temp[x][y].Seeded(1);//CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime]
 		theSeededTiles.push_back(&theGrid->temp[x][y]);
 		//for (int m = 0; m < TILE_NO_X; i++)
 		//{
@@ -180,55 +179,54 @@ void CGamePlayState::HandleEvents(CInGameStateManager* theGSM)
 
 void CGamePlayState::Update(CInGameStateManager* theGSM) 
 {
-	if(!isPause)
-		keyboardUpdate();
-	else{}
-
-	for (auto i = theListofEntities.begin(); i != theListofEntities.end(); i++)
+	keyboardUpdate();
+	if (!isPause)
 	{
-		(*i)->Update();
-	}
-
-
-	if (theTimerInstance->executeTime(TimerKeyDay))
-	{
-		DayNumber++;
-		//CInGameStateManager::getInstance()->ChangeState(CEndOfDayState::Instance());
-		HourNumber = 0;
-		theSeededTiles.clear();
-		for (int i = 0; i < SEEDCOUNT; i++)
+		for (auto i = theListofEntities.begin(); i != theListofEntities.end(); i++)
 		{
-			int x = rand() % TILE_NO_X;
-			int y = rand() % TILE_NO_Y;
-
-			theGrid->temp[x][y].childs[0]->HazeTileValue = CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime];
-			theGrid->temp[x][y].TileHazeValue = CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime];
-			theSeededTiles.push_back(&theGrid->temp[x][y]);
-			//GET TILE INFO FROM POSITION
-			//SET THE HAZE
+			(*i)->Update();
 		}
-		std::cout << "DAY CHANGE IT IS NOW DAY " << DayNumber << std::endl;
-	}
 
-	if (theTimerInstance->executeTime(TimerKeySeed))
-	{
-		HourNumber++;
-		if (!(HourNumber * DayTime >= noiseWidth))
+
+		if (theTimerInstance->executeTime(TimerKeyDay))
 		{
-			for (auto i = theSeededTiles.begin(); i != theSeededTiles.end(); i++)
+			DayNumber++;
+			//CInGameStateManager::getInstance()->ChangeState(CEndOfDayState::Instance());
+			HourNumber = 0;
+			theSeededTiles.clear();
+			for (int i = 0; i < SEEDCOUNT; i++)
 			{
-				(*i)->TileHazeValue = CPlayState::Instance()->theHaze.HazeGraph[HourNumber + DayNumber * DayTime] * 8;
-				(*i)->childs[0]->HazeTileValue = CPlayState::Instance()->theHaze.HazeGraph[HourNumber + DayNumber * DayTime] * 8;
+				int x = rand() % TILE_NO_X;
+				int y = rand() % TILE_NO_Y;
+
+				theGrid->temp[x][y].childs[0]->HazeTileValue = CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime];
+				theGrid->temp[x][y].TileHazeValue = CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime];
+				theSeededTiles.push_back(&theGrid->temp[x][y]);
+				//GET TILE INFO FROM POSITION
+				//SET THE HAZE
 			}
+			std::cout << "DAY CHANGE IT IS NOW DAY " << DayNumber << std::endl;
+		}
+
+		//if (theTimerInstance->executeTime(TimerKeySeed))
+		//{
+		//	HourNumber++;
+		//	if (!(HourNumber * DayTime >= noiseWidth))
+		//	{
+		//		for (auto i = theSeededTiles.begin(); i != theSeededTiles.end(); i++)
+		//		{
+		//			(*i)->TileHazeValue = CPlayState::Instance()->theHaze.HazeGraph[HourNumber + DayNumber * DayTime] * 8;
+		//			(*i)->childs[0]->HazeTileValue = CPlayState::Instance()->theHaze.HazeGraph[HourNumber + DayNumber * DayTime] * 8;
+		//		}
+		//	}
+		//}
+
+		if (theTimerInstance->executeTime(TimerKeyDay))
+		{
+			DayNumber++;
+			CInGameStateManager::getInstance()->ChangeState(CEndOfDayState::Instance());
 		}
 	}
-
-	if (theTimerInstance->executeTime(TimerKeyDay))
-	{
-		DayNumber++;
-		CInGameStateManager::getInstance()->ChangeState(CEndOfDayState::Instance());
-	}
-
 }
 
 void CGamePlayState::Draw(CInGameStateManager* theGSM) 

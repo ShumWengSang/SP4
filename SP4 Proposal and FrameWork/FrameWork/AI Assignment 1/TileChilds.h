@@ -4,6 +4,8 @@
 #include "Entity.h"
 #include "Tile.h"
 
+
+
 class Tiles;
 
 class CTileChilds : public Entity
@@ -14,21 +16,29 @@ private:
 	float ypos;
 	
 public:
+	int CurrentLevel;
+	int MAX_LEVEL;
 	float AlphaValue;
 	float HazeTileValue;
 	int ChildNum;
 	Tiles * ParentTile;
+	CTileChilds * ParentChildTile; 
+
 	CTileChilds * top;
 	CTileChilds * left;
 	CTileChilds * right;
 	CTileChilds * bottom;
+
+	CTileChilds * childs[4];
+
 	Vector3 getColor(void){return colour;}
 	Vector3 getPos(void){return pos;}
 	void setColor(float x, float y, float z){colour.Set(x,y,z);}
 	void setPos(float x, float y, float z){pos.Set(x,y,z);}
 
 	CTileChilds(void);	
-	CTileChilds(Tiles * ParentTile, int numb);
+	CTileChilds(Tiles * ParentTile, int numb, int = 0);
+	CTileChilds(CTileChilds * ParentTile, int numb, int CurrentLevel);
 	~CTileChilds(void){};
 
 
@@ -36,6 +46,8 @@ public:
 	void Pressure(CTileChilds &currentCell, CTileChilds &neighbourCell);
 	void init();
 	void LinkTiles();
+	void Seeded(int);
+	void ContructorInit();
 
 	//Entity functions
 	bool glRenderObject();
