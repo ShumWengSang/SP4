@@ -330,6 +330,7 @@ void CGamePlayState::DrawBuying()
 
 				if (shop1Selected)
 				{
+					CPlayState::Instance()->theStall[0]->Selected = true;
 					printw (SCREEN_WIDTH - 310, SCREEN_HEIGHT - 300, 0,  "Shop 1-", CPlayState::Instance()->theMoney.getCurrentMoney());
 					printw (SCREEN_WIDTH - 310, SCREEN_HEIGHT - 240, 0,  "Current shop's masks: %d", CPlayState::Instance()->theStall[0]->getMaskNo());
 					printw (SCREEN_WIDTH - 310, SCREEN_HEIGHT - 210, 0,  "Current shop's mask price: %d", CPlayState::Instance()->theStall[0]->getMaskPrice());
@@ -337,6 +338,7 @@ void CGamePlayState::DrawBuying()
 
 				if (shop2Selected)
 				{
+					CPlayState::Instance()->theStall[1]->Selected = true;
 					printw (SCREEN_WIDTH - 310, SCREEN_HEIGHT - 300, 0,  "Shop 2-", CPlayState::Instance()->theMoney.getCurrentMoney());
 					printw (SCREEN_WIDTH - 310, SCREEN_HEIGHT - 240, 0,  "Current shop's masks: %d", CPlayState::Instance()->theStall[1]->getMaskNo());
 					printw (SCREEN_WIDTH - 310, SCREEN_HEIGHT - 210, 0,  "Current shop's mask price: %d", CPlayState::Instance()->theStall[1]->getMaskPrice());
@@ -344,6 +346,7 @@ void CGamePlayState::DrawBuying()
 
 				if (shop3Selected)
 				{
+					CPlayState::Instance()->theStall[2]->Selected = true;
 					printw (SCREEN_WIDTH - 310, SCREEN_HEIGHT - 300, 0,  "Shop 3-", CPlayState::Instance()->theMoney.getCurrentMoney());
 					printw (SCREEN_WIDTH - 310, SCREEN_HEIGHT - 240, 0,  "Current shop's masks: %d", CPlayState::Instance()->theStall[2]->getMaskNo());
 					printw (SCREEN_WIDTH - 310, SCREEN_HEIGHT - 210, 0,  "Current shop's mask price: %d", CPlayState::Instance()->theStall[2]->getMaskPrice());
@@ -601,6 +604,10 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 				//shop 1 clicked
 				if(theButton[shop]->isInside(x, y))
 				{
+					CPlayState::Instance()->theStall[0]->Selected = true;
+					CPlayState::Instance()->theStall[1]->Selected = false;
+					CPlayState::Instance()->theStall[2]->Selected = false;
+
 					shop1Selected = true;
 					shop2Selected = false;
 					shop3Selected = false;
@@ -609,6 +616,10 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 				}
 				if(theButton[shop2]->isInside(x, y))
 				{
+					CPlayState::Instance()->theStall[0]->Selected = false;
+					CPlayState::Instance()->theStall[1]->Selected = true;
+					CPlayState::Instance()->theStall[2]->Selected = false;
+
 					shop1Selected = false;
 					shop2Selected = true;
 					shop3Selected = false;
@@ -617,6 +628,10 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 				}
 				if(theButton[shop3]->isInside(x, y))
 				{
+					CPlayState::Instance()->theStall[0]->Selected = false;
+					CPlayState::Instance()->theStall[1]->Selected = false;
+					CPlayState::Instance()->theStall[2]->Selected = true;
+
 					shop1Selected = false;
 					shop2Selected = false;
 					shop3Selected = true;
@@ -628,7 +643,10 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 				{
 					if(theBuyingButton[close]->isInside(x, y))
 					{
-						CPlayState::Instance()->oldMaskValue = CPlayState::Instance()->maskInStock;
+						CPlayState::Instance()->theStall[0]->Selected = false;
+						CPlayState::Instance()->theStall[1]->Selected = false;
+						CPlayState::Instance()->theStall[2]->Selected = false;
+
 						isBuying = false;
 					}
 
