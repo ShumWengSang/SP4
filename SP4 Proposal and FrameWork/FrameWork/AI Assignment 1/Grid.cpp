@@ -54,11 +54,19 @@ void Grid::InitGrid (void) {
 	}
 	SetPointers();
 
-	for (int j = 0; j < TILE_SIZE_X; j ++)
+	for (int j = 0; j < TILE_NO_X; j ++)
 	{
-		for (int k = 0; k < TILE_SIZE_Y; k ++)
+		for (int k = 0; k < TILE_NO_Y; k ++)
 		{
 			temp[j][k].init();
+		}
+	}
+
+	for (int j = 0; j < TILE_NO_X; j++)
+	{
+		for (int k = 0; k < TILE_NO_Y; k++)
+		{
+			temp[j][k].LinkChilds();
 		}
 	}
 }

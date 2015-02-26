@@ -8,6 +8,7 @@ CTileChilds::CTileChilds(void)
 	right = NULL;
 	bottom = NULL;
 	HazeTileValue = 0;
+	ChildNum = 0;
 }
 
 CTileChilds::CTileChilds(Tiles * ParentTile, int numb)
@@ -18,59 +19,7 @@ CTileChilds::CTileChilds(Tiles * ParentTile, int numb)
 	bottom = NULL;
 	this->ParentTile = ParentTile;
 	HazeTileValue = 0;
-
-
-	if(ParentTile->top != NULL)
-	{
-		if(numb != 0 && numb != 1)
-			top = ParentTile->top->childs[numb-2];
-		else
-			top = ParentTile->childs[numb+2];
-	}
-	else
-	{
-		if(numb != 2 && numb != 3)
-			top = ParentTile->childs[numb+2];
-	}
-
-	if(ParentTile->bottom != NULL)
-	{
-		if(numb != 2 && numb != 3)
-			bottom = ParentTile->bottom->childs[numb+2];
-		else
-			bottom = ParentTile->childs[numb-2];
-	}
-	else
-	{
-		if(numb != 0 && numb != 1)
-			bottom = ParentTile->childs[numb-2];
-	}
-
-	if(ParentTile->left != NULL)
-	{
-		if(numb != 1 && numb != 3)
-			left = ParentTile->left->childs[numb+1];
-		else
-			left = ParentTile->childs[numb-1];
-	}
-	else
-	{
-		if(numb != 0 && numb != 2)
-			left = ParentTile->childs[numb-1];
-	}
-
-	if(ParentTile->right != NULL)
-	{
-		if(numb != 0 && numb != 2)
-			right = ParentTile->right->childs[numb-1];
-		else
-			right = ParentTile->childs[numb+1];
-	}
-	else
-	{
-		if(numb != 1 && numb != 3)
-			right = ParentTile->childs[numb+1];
-	}
+	ChildNum = numb;
 }
 
 void CTileChilds::drawTile(float x, float y, float z, float tileWidth, float tileHeight)
@@ -144,5 +93,61 @@ void CTileChilds::Pressure(CTileChilds &currentCell, CTileChilds &neighbourCell)
 		float AveragePressure = TotalPressure / 2;
 		currentCell.HazeTileValue = AveragePressure;
 		neighbourCell.HazeTileValue = AveragePressure;
+	}
+}
+
+
+void CTileChilds::LinkTiles()
+{
+	if (ParentTile->top != NULL)
+	{
+		if (ChildNum != 0 && ChildNum != 1)
+			top = ParentTile->top->childs[ChildNum - 2];
+		else
+			top = ParentTile->childs[ChildNum + 2];
+	}
+	else
+	{
+		if (ChildNum != 2 && ChildNum != 3)
+			top = ParentTile->childs[ChildNum + 2];
+	}
+
+	if (ParentTile->bottom != NULL)
+	{
+		if (ChildNum != 2 && ChildNum != 3)
+			bottom = ParentTile->bottom->childs[ChildNum + 2];
+		else
+			bottom = ParentTile->childs[ChildNum - 2];
+	}
+	else
+	{
+		if (ChildNum != 0 && ChildNum != 1)
+			bottom = ParentTile->childs[ChildNum - 2];
+	}
+
+	if (ParentTile->left != NULL)
+	{
+		if (ChildNum != 1 && ChildNum != 3)
+			left = ParentTile->left->childs[ChildNum + 1];
+		else
+			left = ParentTile->childs[ChildNum - 1];
+	}
+	else
+	{
+		if (ChildNum != 0 && ChildNum != 2)
+			left = ParentTile->childs[ChildNum - 1];
+	}
+
+	if (ParentTile->right != NULL)
+	{
+		if (ChildNum != 0 && ChildNum != 2)
+			right = ParentTile->right->childs[ChildNum - 1];
+		else
+			right = ParentTile->childs[ChildNum + 1];
+	}
+	else
+	{
+		if (ChildNum != 1 && ChildNum != 3)
+			right = ParentTile->childs[ChildNum + 1];
 	}
 }

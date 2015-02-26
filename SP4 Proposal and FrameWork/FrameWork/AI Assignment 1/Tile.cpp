@@ -128,7 +128,7 @@ void Tiles::Update()
 
 	for (int i = 0; i < 4; i++)
 	{
-		childs[0]->Update();
+		childs[i]->Update();
 	}
 
 }
@@ -155,4 +155,12 @@ void Tiles::init()
 	childs[2]->init();
 	childs[3] = new CTileChilds(this, 3);
 	childs[3]->init();
+}
+
+void Tiles::LinkChilds()
+{
+	for (int i = 0; i < 4; i++)
+	{
+		childs[i]->LinkTiles();
+	}
 }

@@ -16,6 +16,7 @@ private:
 public:
 	float AlphaValue;
 	float HazeTileValue;
+	int ChildNum;
 	Tiles * ParentTile;
 	CTileChilds * top;
 	CTileChilds * left;
@@ -33,11 +34,13 @@ public:
 
 	void drawTile(float x, float y, float z, float tileWidth, float tileHeight);
 	void Pressure(CTileChilds &currentCell, CTileChilds &neighbourCell);
+	void init();
+	void LinkTiles();
 
 	//Entity functions
 	bool glRenderObject();
 	void Update();
 
-	void init();
+
 };
 
