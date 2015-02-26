@@ -135,7 +135,7 @@ void Grid::Update()
 void Grid::CalculateDiffuse()
 {
 	CTimer * theTimer = CTimer::getInstance();
-	//if (theTimer->executeTime(TimerKeyHazeDiffusal))
+	if (theTimer->executeTime(TimerKeyHazeDiffusal))
 	{
 		for (int i = 0; i < TILE_NO_X; i++)
 		{

@@ -172,10 +172,11 @@ void Tiles::LinkChilds()
 
 void Tiles::Seeded(int HazeValue)
 {
-	for (int i = 0; i < 4; i++)
-	{
-		childs[i]->Seeded(HazeValue);
-	}
+	//for (int i = 0; i < 4; i++)
+	//{
+	//	childs[i]->Seeded(HazeValue);
+	//}
+	childs[0]->Seeded(HazeValue);
 }
 
 int Tiles::GetHaze()

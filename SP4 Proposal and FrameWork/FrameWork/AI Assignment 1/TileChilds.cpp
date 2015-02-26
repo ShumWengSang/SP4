@@ -121,8 +121,9 @@ void CTileChilds::Update()
 			childs[i]->Update();
 		}
 	}
-	else
+	else if (HazeTileValue < 10)
 	{
+
 		if (top != NULL)
 			Pressure(*this, *top);
 		if (bottom != NULL)
@@ -134,9 +135,21 @@ void CTileChilds::Update()
 	}
 
 
-	if (HazeTileValue > 0.0000000005f)
+	if (HazeTileValue > 1.f)
 	{
 		colour.Set(1, 1, 0);
+	}
+	if (HazeTileValue > 50.f)
+	{
+		colour.Set(0, 1, 0);
+	}
+	if (HazeTileValue > 100.f)
+	{
+		colour.Set(255.f / 255.f, 105.f / 255.f, 180.f / 255.f);
+	}
+	if (HazeTileValue > 200.f)
+	{
+		colour.Set(0, 0, 1);
 	}
 }
 
