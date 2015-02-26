@@ -15,6 +15,7 @@ CInputSystem::CInputSystem()
 	mouseInfo.lastY = SCREEN_HEIGHT >> 1;
 	mouseInfo.clickedX = SCREEN_WIDTH >> 1;
 	mouseInfo.clickedY = SCREEN_HEIGHT >> 1;
+	mouseInfo.mRButtonUp = true;
 
 	//Initialise Camera Variables
 	angle = previousVelocity = 0.0f;
@@ -35,23 +36,23 @@ CInputSystem* CInputSystem::getInstance()
 void CInputSystem::moveMeForward(bool mode, float timeDiff) 
 {
 	if (mode) //Forward Movement
-		CApplication::getInstance()->theCamera->Walk(calculateDistanceMoved(0.01f, 50.0f, timeDiff));
+		Camera::getInstance()->Walk(calculateDistanceMoved(0.01f, 50.0f, timeDiff));
 	else //Backward Movement
-		CApplication::getInstance()->theCamera->Walk(calculateDistanceMoved(-0.01f, 50.0f, timeDiff));
+		Camera::getInstance()->Walk(calculateDistanceMoved(-0.01f, 50.0f, timeDiff));
 }
 
 void CInputSystem::moveMeSideway(bool mode, float timeDiff)
 {
 	if (mode) //Left Movement
-		CApplication::getInstance()->theCamera->Strafe(calculateDistanceMoved(-0.01f, 50.0f, timeDiff));
+		Camera::getInstance()->Strafe(calculateDistanceMoved(-0.01f, 50.0f, timeDiff));
 	else //Right Movement
-		CApplication::getInstance()->theCamera->Strafe(calculateDistanceMoved(0.01f, 50.0f, timeDiff));
+		Camera::getInstance()->Strafe(calculateDistanceMoved(0.01f, 50.0f, timeDiff));
 }
 
 void CInputSystem::orientMe(float ang) 
 {
 	//Camera Orientation
-	CApplication::getInstance()->theCamera->Yaw(ang);
+	Camera::getInstance()->Yaw(ang);
 }
 
 void CInputSystem::KeyboardDown(unsigned char key, int x, int y)
@@ -74,7 +75,7 @@ void CInputSystem::MouseMove (int x, int y) {
 
 	//Update on y axis
 	if (OrientCam)
-		CApplication::getInstance()->theCamera->Pitch(diffY * 3.142f / 180.0f);
+		Camera::getInstance()->Pitch(diffY * 3.142f / 180.0f);
 
 	//Update on x and z axis
 	angle += (float) diffX * 3.142f / 180.0f;
@@ -83,7 +84,7 @@ void CInputSystem::MouseMove (int x, int y) {
 	else if (angle < -6.284f)
 		angle += 6.284f;
 	if (OrientCam)
-		CApplication::getInstance()->theCamera->Yaw(-angle);*/
+		Camera::getInstance()->Yaw(-angle);*/
 
 	//mouseInfo.lastX = x;
 	//mouseInfo.lastY = y;
@@ -136,13 +137,13 @@ void CInputSystem::MouseWheel(int button, int dir, int x, int y) {
 	//if (dir > 0) {//Zoom In
 	//	/*if(camDist-zoomSpeed*15 > 0)
 	//		camDist -= zoomSpeed;*/
-	//	Vector3 temp = CApplication::getInstance()->theCamera->GetPosition() + CApplication::getInstance()->theCamera->GetDirection();
-	//	CApplication::getInstance()->theCamera->SetPosition(temp.x,temp.y,temp.z);
+	//	Vector3 temp = Camera::getInstance()->GetPosition() + Camera::getInstance()->GetDirection();
+	//	Camera::getInstance()->SetPosition(temp.x,temp.y,temp.z);
 	//}
  //   else {//Zoom Out
 	//	//camDist += zoomSpeed;
-	//	Vector3 temp = CApplication::getInstance()->theCamera->GetPosition() - CApplication::getInstance()->theCamera->GetDirection();
-	//	CApplication::getInstance()->theCamera->SetPosition(temp.x,temp.y,temp.z);
+	//	Vector3 temp = Camera::getInstance()->GetPosition() - Camera::getInstance()->GetDirection();
+	//	Camera::getInstance()->SetPosition(temp.x,temp.y,temp.z);
 	//}
 
 	CApplication::getInstance()->MouseWheel(button, dir, x, y);

@@ -35,20 +35,6 @@ enum BUYING_BUTTON
 	bpMenu
 };
 
-struct cameraValues_
-{
-	Vector3 camPos;		//position of cam
-	Vector3 camPoint;	//position cam is pointing at
-	Vector3 camDir;		//direction cam is pointing to
-	float camDist;		//zoom dist of cam
-	float camDist_max;	//Max zoom dist of cam
-	float angle;		//angle of cam along y-axis
-	float VEL_X;		//speed of camera rotation along y-axis
-	float VEL_Y;		//speed of camera rotation upwards/downwards
-	float MAX_Y;		//maximum speed of VEL_Y
-
-};
-
 class CInputSystem;
 
 class CGamePlayState : public CInGameState
@@ -59,13 +45,11 @@ private:
 	TextureImage button[7];
 	TextureImage map[1];
 	TextureImage skyBox[6];
-	
 
 	TextureImage buyingButton[4];
 	TextureImage buyingBackground[1];
 	
 	bool isBuying;
-
 
 	bool isPause;
 	bool shop1Selected;
@@ -94,7 +78,6 @@ public:
 	void DrawBuying();
 
 	void DrawTimeBar();
-
 
 	void buyMask(int stall, int maskNo);
 
@@ -130,16 +113,12 @@ private:
 	CButtons* theButton[4];
 	CStalls* theStall[3];
 	Grid* theGrid;
-
 	
 	CButtons* theBuyingButton[4];
 
-
 	Bar theTimeBar;
 
-	//Camera
-	cameraValues_ camValues;
-
+	//Camera rotation
 	void OnRotate(int x, int y);
 
 };

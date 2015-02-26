@@ -22,11 +22,11 @@ class CInputSystem
 {
 private:
 	static CInputSystem *instance;
+	CInputSystem();
+	~CInputSystem();
 
 public:
 	static CInputSystem* getInstance();
-	CInputSystem();
-	~CInputSystem();
 
 	//Mouse Input
 	theMouseInfo mouseInfo;
