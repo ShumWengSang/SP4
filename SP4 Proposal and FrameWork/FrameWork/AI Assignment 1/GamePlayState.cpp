@@ -55,11 +55,19 @@ void CGamePlayState::Init()
 
 	//Input System
 	CInputSystem::getInstance()->OrientCam = true;
+
+	//camValues
+	camValues.camDir.Set(0,0,1);
+	camValues.camPoint.Set(0,0,0);
+	camValues.camPos.Set(50.0, 50.0, -70.0);
+	camValues.VEL_X = 0.1f;
+	camValues.VEL_Y = 0.01f;
+	camValues.MAX_Y = 50.0f;
 	
 	//Isometric view
 	CApplication::getInstance()->theCamera->SetCameraType(Camera::AIR_CAM);
-	CApplication::getInstance()->theCamera->SetPosition(50.0, 50.0, -70.0);
-	Vector3 temp = -CApplication::getInstance()->theCamera->GetPosition();
+	CApplication::getInstance()->theCamera->SetPosition(camValues.camPos.x, camValues.camPos.y, camValues.camPos.z);
+	Vector3 temp = camValues.camPoint-camValues.camPos;
 	CApplication::getInstance()->theCamera->SetDirection(temp.Normalized().x, temp.Normalized().y, temp.Normalized().z);
 
 	CPlayState * PlayState = CPlayState::Instance();
@@ -686,5 +694,11 @@ void CGamePlayState::printw (float x, float y, float z, char* format, ...)
 
 	//  Free the allocated memory for the string
 	free(text);
+}
+
+//Camera rotate function
+void CGamePlayState::OnRotate(int x, int y)
+{
+
 }
 
