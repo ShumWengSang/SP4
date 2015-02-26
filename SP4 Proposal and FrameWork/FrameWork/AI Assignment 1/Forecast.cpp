@@ -13,7 +13,8 @@ void CForecast::init()
 {
 	currentDay = 1;
 
-	for(int i=0; i<7; i++){
+	for(int i=0; i<7; i++)
+	{
 		forecastNum[i] = 0;
 		forecastNumRange[i] = 0;
 		actualNumRange[i] = 0;

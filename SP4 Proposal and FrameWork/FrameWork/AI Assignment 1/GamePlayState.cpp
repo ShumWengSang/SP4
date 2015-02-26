@@ -86,25 +86,26 @@ void CGamePlayState::Init()
 
 	CPlayState * PlayState = CPlayState::Instance();
 
-	for (int i = 0; i < SEEDCOUNT; i++)
-	{
-		int x = rand() % TILE_NO_X;
-		int y = rand() % TILE_NO_Y;
+	//for (int i = 0; i < SEEDCOUNT; i++)
+	//{
+	//	int x = rand() % TILE_NO_X;
+	//	int y = rand() % TILE_NO_Y;
 
-		theGrid->temp[x][y].Seeded(CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime] * 100);//CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime]
-		theSeededTiles.push_back(&theGrid->temp[x][y]);
-		//for (int m = 0; m < TILE_NO_X; i++)
-		//{
-		//	for (int k = 0; k < TILE_SIZE_Y; k++)
-		//	{
-		//		for (int j = 0; )
-		//		theGrid->temp[i][k].TileHazeValue = 0;
-		//	}
-		//}
+	//	theGrid->temp[x][y].Seeded(CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime] * 10000);//CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime]
+	//	theSeededTiles.push_back(&theGrid->temp[x][y]);
+	//	//for (int m = 0; m < TILE_NO_X; i++)
+	//	//{
+	//	//	for (int k = 0; k < TILE_SIZE_Y; k++)
+	//	//	{
+	//	//		for (int j = 0; )
+	//	//		theGrid->temp[i][k].TileHazeValue = 0;
+	//	//	}
+	//	//}
 
-		//GET TILE INFO FROM POSITION
-		//SET THE HAZE
-	}
+	//	//GET TILE INFO FROM POSITION
+	//	//SET THE HAZE
+	//}
+	theGrid->temp[3][3].Seeded(CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime] * 10000);//CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime]
 
 	theTimerInstance = CTimer::getInstance();
 	TimerKeySeed = theTimerInstance->insertNewTime(3000);

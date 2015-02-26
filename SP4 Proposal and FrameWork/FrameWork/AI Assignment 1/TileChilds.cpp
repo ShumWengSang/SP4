@@ -121,17 +121,24 @@ void CTileChilds::Update()
 			childs[i]->Update();
 		}
 	}
-	else if (HazeTileValue < 10)
+	else if (HazeTileValue > 50)
 	{
 
 		if (top != NULL)
+		{
 			Pressure(*this, *top);
+		}
 		if (bottom != NULL)
 			Pressure(*this, *bottom);
 		if (left != NULL)
 			Pressure(*this, *left);
 		if (right != NULL)
 			Pressure(*this, *right);
+
+		if (top != NULL)
+		{
+			Pressure(*this, *top);
+		}
 	}
 
 
@@ -149,7 +156,7 @@ void CTileChilds::Update()
 	}
 	if (HazeTileValue > 200.f)
 	{
-		colour.Set(0, 0, 1);
+		colour.Set(1, 0, 0);
 	}
 }
 
@@ -173,8 +180,8 @@ void CTileChilds::Pressure(CTileChilds &currentCell, CTileChilds &neighbourCell)
 	float PressureFlow = currentCell.HazeTileValue - neighbourCell.HazeTileValue;
 
 	//pressure diffuse to neightbour
-	neighbourCell.HazeTileValue += PressureFlow * 0.25;
-	currentCell.HazeTileValue -= PressureFlow * 0.25;
+	neighbourCell.HazeTileValue += PressureFlow * 0.25 * 2;
+	currentCell.HazeTileValue -= PressureFlow * 0.35;
 
 	//detect and remove oscillations
 	if ((PressureFlow > 0) && (neighbourCell.HazeTileValue < currentCell.HazeTileValue))

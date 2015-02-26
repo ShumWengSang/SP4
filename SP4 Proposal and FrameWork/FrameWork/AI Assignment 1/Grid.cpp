@@ -10,7 +10,7 @@ Grid::Grid(void)
 	Click = false;
 
 	CTimer * theTimer = CTimer::getInstance();
-	TimerKeyHazeDiffusal = theTimer->insertNewTime(200);
+	TimerKeyHazeDiffusal = theTimer->insertNewTime(100);
 
 	for(int a = 0; a < TILE_NO_X; ++a)
 	{
@@ -135,7 +135,7 @@ void Grid::Update()
 void Grid::CalculateDiffuse()
 {
 	CTimer * theTimer = CTimer::getInstance();
-	if (theTimer->executeTime(TimerKeyHazeDiffusal))
+	//if (theTimer->executeTime(TimerKeyHazeDiffusal))
 	{
 		for (int i = 0; i < TILE_NO_X; i++)
 		{
@@ -160,7 +160,7 @@ void Grid::SetPointers()
 			//temp[0][i].top = &temp[0][i - 1];
 			temp[0][i].bottom = &temp[0][i - 1];
 		}
-		else if (i != TILE_NO_Y - 1)
+		if (i != TILE_NO_Y - 1)
 		{
 			//temp[0][i].bottom = &temp[0][i + 1];
 			temp[0][i].top = &temp[0][i + 1];
@@ -174,9 +174,8 @@ void Grid::SetPointers()
 		if (i != 0)
 		{
 			temp[i][0].left = &temp[i - 1][0];
-
 		}
-		else if (i != TILE_NO_X - 1)
+		if (i != TILE_NO_X - 1)
 		{
 			temp[i][0].right = &temp[1 + i][0];
 		}
@@ -192,7 +191,7 @@ void Grid::SetPointers()
 			temp[TILE_NO_X - 1][i].bottom = &temp[TILE_NO_X - 1][i - 1];
 			//temp[TILE_NO_X - 1][i].bottom = &temp[TILE_NO_X - 1][i + 1];
 		}
-		else if (i != TILE_NO_Y - 1)
+		if (i != TILE_NO_Y - 1)
 		{
 			temp[TILE_NO_X - 1][i].top = &temp[TILE_NO_X - 1][i + 1];
 			//temp[TILE_NO_X - 1][i].top = &temp[TILE_NO_X - 1][i - 1];
@@ -208,7 +207,7 @@ void Grid::SetPointers()
 		{
 			temp[i][TILE_NO_Y - 1].left = &temp[i - 1][TILE_NO_Y - 1];
 		}
-		else if (i != TILE_NO_X - 1)
+		if (i != TILE_NO_X - 1)
 		{
 			temp[i][TILE_NO_Y - 1].right = &temp[1 + i][TILE_NO_Y - 1];
 		}
