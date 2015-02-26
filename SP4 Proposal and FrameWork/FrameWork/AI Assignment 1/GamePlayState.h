@@ -12,6 +12,7 @@
 #include "Grid.h"
 #include "Stalls.h"
 #include "Buyer.h"
+#include "Bar.h"
 
 using namespace std;
 
@@ -55,6 +56,8 @@ private:
 	bool shop2Selected;
 	bool shop3Selected;
 
+	Vector3 barPos;
+
 public:
 	void Init();
 	void Cleanup();
@@ -71,6 +74,7 @@ public:
 	void DrawButtons();
 	void drawInfo();
 	void DrawSkyBox();
+	void DrawTimeBar();
 
 	void buyMask(int stall, int maskNo);
 
@@ -106,6 +110,7 @@ private:
 	CButtons* theButton[4];
 	CStalls* theStall[3];
 	Grid* theGrid;
+	Bar theTimeBar;
 
 	//Camera
 	cameraValues_ camValues;

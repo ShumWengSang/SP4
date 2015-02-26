@@ -51,6 +51,8 @@ void CGamePlayState::Init()
 	LoadTextures();
 	LoadButtons();
 
+	barPos.Set(80, 10, 0);
+
 	font_style = GLUT_BITMAP_HELVETICA_18;
 
 	//Input System
@@ -95,7 +97,7 @@ void CGamePlayState::Init()
 
 	theTimerInstance = CTimer::getInstance();
 	TimerKeySeed = theTimerInstance->insertNewTime(3000);
-	TimerKeyDay = theTimerInstance->insertNewTime(27000);
+	TimerKeyDay = theTimerInstance->insertNewTime(270000);
 	HourNumber = 0;
 	
 	Buyer * newBuyer;
@@ -258,7 +260,7 @@ void CGamePlayState::Draw(CInGameStateManager* theGSM)
 
 	DrawButtons();//pause button here
 	drawInfo();
-
+	DrawTimeBar();
 	CApplication::getInstance()->theCamera->SetHUD(false);
 }
 
@@ -357,6 +359,13 @@ void CGamePlayState::DrawSkyBox()
 		glEnable(GL_BLEND);
 		glPopAttrib();
 	glPopMatrix();
+}
+
+void CGamePlayState::DrawTimeBar()
+{
+	theTimeBar.init(1.0f, 0.2f, 0.2f, barPos);
+	theTimeBar.update(HourNumber);
+	theTimeBar.draw();
 }
 
 void CGamePlayState::buyMask(int stall, int maskNo) //0 is first stall
@@ -655,8 +664,8 @@ void CGamePlayState::drawInfo()
 		glPushAttrib(GL_DEPTH_TEST);
 			//print shop number
 			glColor3f( 1.0f, 0.0f, 0.0f);
-			printw (SCREEN_WIDTH - 100, 96, 0, "PSI: 123");
-			printw (SCREEN_WIDTH - 100, 160, 0,  "Time: ");
+			printw (20, 40, 0, "PSI: 123");
+			printw (20, 20, 0,  "Time: ");
 		glPopAttrib();
 	glPopMatrix();
 }
