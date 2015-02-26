@@ -12,6 +12,7 @@
 #include "Grid.h"
 #include "Stalls.h"
 #include "Buyer.h"
+#include "Bar.h"
 
 using namespace std;
 
@@ -25,6 +26,29 @@ enum PLAYSTATE_BUTTON
 	shop3
 };
 
+enum BUYING_BUTTON
+{
+	close,
+	bpFifty,
+	bpHundred,
+	bpTwohundred,
+	bpMenu
+};
+
+struct cameraValues_
+{
+	Vector3 camPos;		//position of cam
+	Vector3 camPoint;	//position cam is pointing at
+	Vector3 camDir;		//direction cam is pointing to
+	float camDist;		//zoom dist of cam
+	float camDist_max;	//Max zoom dist of cam
+	float angle;		//angle of cam along y-axis
+	float VEL_X;		//speed of camera rotation along y-axis
+	float VEL_Y;		//speed of camera rotation upwards/downwards
+	float MAX_Y;		//maximum speed of VEL_Y
+
+};
+
 class CInputSystem;
 
 class CGamePlayState : public CInGameState
@@ -35,11 +59,20 @@ private:
 	TextureImage button[7];
 	TextureImage map[1];
 	TextureImage skyBox[6];
+	
+
+	TextureImage buyingButton[4];
+	TextureImage buyingBackground[1];
+	
+	bool isBuying;
+
 
 	bool isPause;
 	bool shop1Selected;
 	bool shop2Selected;
 	bool shop3Selected;
+
+	Vector3 barPos;
 
 public:
 	void Init();
@@ -57,6 +90,11 @@ public:
 	void DrawButtons();
 	void drawInfo();
 	void DrawSkyBox();
+
+	void DrawBuying();
+
+	void DrawTimeBar();
+
 
 	void buyMask(int stall, int maskNo);
 
@@ -93,5 +131,14 @@ private:
 	CStalls* theStall[3];
 	Grid* theGrid;
 
+	CButtons* theBuyingButton[4];
+
+
+	Bar theTimeBar;
+
+	//Camera
+	cameraValues_ camValues;
+
+	void OnRotate(int x, int y);
 };
 

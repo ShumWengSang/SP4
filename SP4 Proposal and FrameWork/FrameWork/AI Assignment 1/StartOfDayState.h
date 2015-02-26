@@ -43,6 +43,9 @@ private:
 	bool shop2Selected;
 	bool shop3Selected;
 
+	bool mouseOverReset;
+	bool mouseOverBack;
+
 public:
 	void Init();
 	void Cleanup();

@@ -89,11 +89,8 @@ void CPlayState::Draw(CGameStateManager* theGSM)
 
 void CPlayState::keyboardUpdate()
 {
-
-	//Esc Key
 	if(CInputSystem::getInstance()->myKeys[VK_ESCAPE]) 
 		exit(0);
-		//CGameStateManager::getInstance()->ChangeState(CMenuState::Instance());
 }
 
 //Inputs

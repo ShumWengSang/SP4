@@ -1,5 +1,6 @@
 #include "Application.h"
 #include <mmsystem.h>
+#include "PlayState.h"
 
 CApplication* CApplication::instance = NULL;
 

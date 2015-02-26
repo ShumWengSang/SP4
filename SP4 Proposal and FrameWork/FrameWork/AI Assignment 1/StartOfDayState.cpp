@@ -74,6 +74,13 @@ void CStartOfDayState::Init()
 	LoadTextures();
 	LoadButtons();
 
+	shop1Selected = false;
+	shop2Selected = false;
+	shop3Selected = false;
+
+	mouseOverReset = false;
+	mouseOverBack = false;
+
 	font_style = GLUT_BITMAP_HELVETICA_18;
 	//Input System
 	CInputSystem::getInstance()->OrientCam = true;
@@ -201,9 +208,20 @@ void CStartOfDayState::keyboardUpdate()
 }
 
 //Inputs
-void CStartOfDayState::MouseMove (int x, int y) {
+void CStartOfDayState::MouseMove (int x, int y) 
+{
 	CInputSystem::getInstance()->mouseInfo.lastX = x;
 	CInputSystem::getInstance()->mouseInfo.lastY = y;
+
+	if(theButton[reset]->isInside(x, y))
+		mouseOverReset = true;
+	else
+		mouseOverReset = false;
+
+	if(theButton[back]->isInside(x, y))
+		mouseOverBack = true;
+	else
+		mouseOverBack = false;
 }
 
 void CStartOfDayState::MouseClick(int button, int state, int x, int y) {
@@ -384,8 +402,9 @@ void CStartOfDayState::drawInfo()
 	glPushMatrix();
 		glPushAttrib(GL_DEPTH_TEST);
 			//print shop number
-			glColor3f( 0.0f, 0.0f, 0.0f);
+			glColor3f(0.8f, 0.1f, 0.1f);
 			printw (150, 70, 0, "Click the shops and decide the number of mask and price for sell.");
+			glColor3f( 0.0f, 0.0f, 0.0f);
 			printw (100, 120, 0, "SHOP1");
 			printw (50.0, 250.0, 0, "Number of mask for sell: %d", CPlayState::Instance()->theStall[0]->getMaskNo());
 			printw (50.0, 270.0, 0, "Each price for sell: %d", CPlayState::Instance()->theStall[0]->getMaskPrice());
@@ -398,13 +417,18 @@ void CStartOfDayState::drawInfo()
 			printw (550.0, 250.0, 0, "Number of mask for sell: %d", CPlayState::Instance()->theStall[2]->getMaskNo());
 			printw (550.0, 270.0, 0, "Each price for sell: %d", CPlayState::Instance()->theStall[2]->getMaskPrice());
 
+			if(mouseOverReset)
+				printw (theButton[reset]->getButtonX(),theButton[reset]->getButtonY() , 0, "Reset");
+			if(mouseOverBack)
+				printw (theButton[back]->getButtonX(),theButton[reset]->getButtonY() , 0, "Back");
+
 			printw (50, 350, 0, "Number of mask for sell");
 			printw (SCREEN_WIDTH/2 + 80, 350, 0, "Price of each mask for sell");
 
-			glColor3f( 1.0f, 0.8f, 0.0f);
+			glColor3f( 1.0f, 0.7f, 0.2f);
 			printw (50, SCREEN_HEIGHT/2 + 180, 0, "Weather Forecast: %d - %d - %d", 50*(CPlayState::Instance()->forecasting->getCurrentDayRange()-1)+1 , (CPlayState::Instance()->forecasting->getCurrentForecast()), 50*(CPlayState::Instance()->forecasting->getCurrentDayRange()) );
 			
-			glColor3f( 0.0f, 1.0f, 0.0f);
+			glColor3f( 0.5f, 0.0f, 0.5f);
 			printw (SCREEN_WIDTH / 2 + 80, SCREEN_HEIGHT/2 +180, 0, "Mask in Stock: %d", CPlayState::Instance()->maskInStock);
 
 		glPopAttrib();
