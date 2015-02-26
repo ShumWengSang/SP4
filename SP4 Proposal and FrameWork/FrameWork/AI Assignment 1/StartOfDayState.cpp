@@ -74,10 +74,6 @@ void CStartOfDayState::Init()
 	LoadTextures();
 	LoadButtons();
 
-	shop1Selected = false;
-	shop2Selected = false;
-	shop3Selected = false;
-
 	mouseOverReset = false;
 	mouseOverBack = false;
 
@@ -140,19 +136,19 @@ void CStartOfDayState::DrawButtons()
 	theButton[fifteen]->drawButton();
 
 	theButton[sShop1]->drawButton();
-	if(shop1Selected)
+	if(CPlayState::Instance()->theStall[0]->Selected)
 		theButton[sShop1]->setButtonTexture(button[12].texID);
 	else
 		theButton[sShop1]->setButtonTexture(button[9].texID);
 
 	theButton[sShop2]->drawButton();
-	if(shop2Selected)
+	if(CPlayState::Instance()->theStall[1]->Selected)
 		theButton[sShop2]->setButtonTexture(button[13].texID);
 	else
 		theButton[sShop2]->setButtonTexture(button[10].texID);
 
 	theButton[sShop3]->drawButton();
-	if(shop3Selected)
+	if(CPlayState::Instance()->theStall[2]->Selected)
 		theButton[sShop3]->setButtonTexture(button[14].texID);
 	else
 		theButton[sShop3]->setButtonTexture(button[11].texID);
@@ -259,21 +255,21 @@ void CStartOfDayState::MouseClick(int button, int state, int x, int y) {
 
 				if(theButton[sShop1]->isInside(x, y))
 				{
-					shop1Selected = true;
-					shop2Selected = false;
-					shop3Selected = false;
+					CPlayState::Instance()->theStall[0]->Selected = true;
+					CPlayState::Instance()->theStall[1]->Selected = false;
+					CPlayState::Instance()->theStall[2]->Selected = false;
 				}
 				if(theButton[sShop2]->isInside(x, y))
 				{
-					shop1Selected = false;
-					shop2Selected = true;
-					shop3Selected = false;
+					CPlayState::Instance()->theStall[0]->Selected = false;
+					CPlayState::Instance()->theStall[1]->Selected = true;
+					CPlayState::Instance()->theStall[2]->Selected = false;
 				}
 				if(theButton[sShop3]->isInside(x, y))
 				{
-					shop1Selected = false;
-					shop2Selected = false;
-					shop3Selected = true;
+					CPlayState::Instance()->theStall[0]->Selected = false;
+					CPlayState::Instance()->theStall[1]->Selected = false;
+					CPlayState::Instance()->theStall[2]->Selected = true;
 				}
 
 				//No. of mask setting
@@ -281,17 +277,17 @@ void CStartOfDayState::MouseClick(int button, int state, int x, int y) {
 				{
 					if(!(CPlayState::Instance()->maskInStock < 50))
 					{
-						if(shop1Selected)
+						if(CPlayState::Instance()->theStall[0]->Selected)
 						{
 							CPlayState::Instance()->theStall[0]->setMaskNo(CPlayState::Instance()->theStall[0]->getMaskNo() + 50);
 							CPlayState::Instance()->maskInStock -= 50;
 						}
-						else if(shop2Selected)
+						else if(CPlayState::Instance()->theStall[1]->Selected)
 						{
 							CPlayState::Instance()->theStall[1]->setMaskNo(CPlayState::Instance()->theStall[1]->getMaskNo() + 50);
 							CPlayState::Instance()->maskInStock -= 50;
 						}
-						else if(shop3Selected)
+						else if(CPlayState::Instance()->theStall[2]->Selected)
 						{
 							CPlayState::Instance()->theStall[2]->setMaskNo(CPlayState::Instance()->theStall[2]->getMaskNo() + 50);
 							CPlayState::Instance()->maskInStock -= 50;
@@ -302,17 +298,17 @@ void CStartOfDayState::MouseClick(int button, int state, int x, int y) {
 				{
 					if(!(CPlayState::Instance()->maskInStock < 100))
 					{
-						if(shop1Selected)
+						if(CPlayState::Instance()->theStall[0]->Selected)
 						{
 							CPlayState::Instance()->theStall[0]->setMaskNo(CPlayState::Instance()->theStall[0]->getMaskNo() + 100);
 							CPlayState::Instance()->maskInStock -= 100;
 						}
-						else if(shop2Selected)
+						else if(CPlayState::Instance()->theStall[1]->Selected)
 						{
 							CPlayState::Instance()->theStall[1]->setMaskNo(CPlayState::Instance()->theStall[1]->getMaskNo() + 100);
 							CPlayState::Instance()->maskInStock -= 100;
 						}
-						else if(shop3Selected)
+						else if(CPlayState::Instance()->theStall[2]->Selected)
 						{
 							CPlayState::Instance()->theStall[2]->setMaskNo(CPlayState::Instance()->theStall[2]->getMaskNo() + 100);
 							CPlayState::Instance()->maskInStock -= 100;
@@ -323,17 +319,17 @@ void CStartOfDayState::MouseClick(int button, int state, int x, int y) {
 				{
 					if(!(CPlayState::Instance()->maskInStock < 200))
 					{
-						if(shop1Selected)
+						if(CPlayState::Instance()->theStall[0]->Selected)
 						{
 							CPlayState::Instance()->theStall[0]->setMaskNo(CPlayState::Instance()->theStall[0]->getMaskNo() + 200);
 							CPlayState::Instance()->maskInStock -= 200;
 						}
-						else if(shop2Selected)
+						else if(CPlayState::Instance()->theStall[1]->Selected)
 						{
 							CPlayState::Instance()->theStall[1]->setMaskNo(CPlayState::Instance()->theStall[1]->getMaskNo() + 200);
 							CPlayState::Instance()->maskInStock -= 200;
 						}
-						else if(shop3Selected)
+						else if(CPlayState::Instance()->theStall[2]->Selected)
 						{
 							CPlayState::Instance()->theStall[2]->setMaskNo(CPlayState::Instance()->theStall[2]->getMaskNo() + 200);
 							CPlayState::Instance()->maskInStock -= 200;
@@ -344,29 +340,29 @@ void CStartOfDayState::MouseClick(int button, int state, int x, int y) {
 				//Price setting
 				if(theButton[ten]->isInside(x, y))
 				{
-					if(shop1Selected)
+					if(CPlayState::Instance()->theStall[0]->Selected)
 						CPlayState::Instance()->theStall[0]->setMaskPrice(10);
-					else if(shop2Selected)
+					else if(CPlayState::Instance()->theStall[1]->Selected)
 						CPlayState::Instance()->theStall[1]->setMaskPrice(10);
-					else if(shop3Selected)
+					else if(CPlayState::Instance()->theStall[2]->Selected)
 						CPlayState::Instance()->theStall[2]->setMaskPrice(10);
 				}
 				if(theButton[twelve]->isInside(x, y))
 				{
-					if(shop1Selected)
+					if(CPlayState::Instance()->theStall[0]->Selected)
 						CPlayState::Instance()->theStall[0]->setMaskPrice(12);
-					else if(shop2Selected)
+					else if(CPlayState::Instance()->theStall[1]->Selected)
 						CPlayState::Instance()->theStall[1]->setMaskPrice(12);
-					else if(shop3Selected)
+					else if(CPlayState::Instance()->theStall[2]->Selected)
 						CPlayState::Instance()->theStall[2]->setMaskPrice(12);
 				}
 				if(theButton[fifteen]->isInside(x, y))
 				{
-					if(shop1Selected)
+					if(CPlayState::Instance()->theStall[0]->Selected)
 						CPlayState::Instance()->theStall[0]->setMaskPrice(15);
-					else if(shop2Selected)
+					else if(CPlayState::Instance()->theStall[1]->Selected)
 						CPlayState::Instance()->theStall[1]->setMaskPrice(15);
-					else if(shop3Selected)
+					else if(CPlayState::Instance()->theStall[2]->Selected)
 						CPlayState::Instance()->theStall[2]->setMaskPrice(15);
 				}
 			}

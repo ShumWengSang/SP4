@@ -66,9 +66,6 @@ private:
 	bool isBuying;
 
 	bool isPause;
-	bool shop1Selected;
-	bool shop2Selected;
-	bool shop3Selected;
 
 	Vector3 barPos;
 

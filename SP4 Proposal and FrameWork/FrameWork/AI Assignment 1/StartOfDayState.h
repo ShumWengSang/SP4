@@ -39,10 +39,6 @@ private:
 	TextureImage button[17];
 	TextureImage background[2];
 
-	bool shop1Selected;
-	bool shop2Selected;
-	bool shop3Selected;
-
 	bool mouseOverReset;
 	bool mouseOverBack;
 

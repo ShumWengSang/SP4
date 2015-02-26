@@ -66,13 +66,7 @@ void CGamePlayState::Init()
 	theGrid = new Grid();
 
 	isPause = false;
-	shop1Selected = false;
-	shop2Selected = false;
-	shop3Selected = false;
-
-	
 	isBuying = false;
-
 
 	LoadTextures();
 	LoadButtons();
@@ -328,30 +322,27 @@ void CGamePlayState::DrawBuying()
 				//SCREEN_WIDTH - 90, SCREEN_HEIGHT - 310
 				printw (SCREEN_WIDTH - 310, SCREEN_HEIGHT - 270, 0,  "Current money: $%d", CPlayState::Instance()->theMoney.getCurrentMoney());
 
-				if (shop1Selected)
+				if(CPlayState::Instance()->theStall[0]->Selected)
 				{
-					CPlayState::Instance()->theStall[0]->Selected = true;
 					printw (SCREEN_WIDTH - 310, SCREEN_HEIGHT - 300, 0,  "Shop 1-", CPlayState::Instance()->theMoney.getCurrentMoney());
 					printw (SCREEN_WIDTH - 310, SCREEN_HEIGHT - 240, 0,  "Current shop's masks: %d", CPlayState::Instance()->theStall[0]->getMaskNo());
 					printw (SCREEN_WIDTH - 310, SCREEN_HEIGHT - 210, 0,  "Current shop's mask price: %d", CPlayState::Instance()->theStall[0]->getMaskPrice());
 				}
 
-				if (shop2Selected)
+				if(CPlayState::Instance()->theStall[1]->Selected)
 				{
-					CPlayState::Instance()->theStall[1]->Selected = true;
 					printw (SCREEN_WIDTH - 310, SCREEN_HEIGHT - 300, 0,  "Shop 2-", CPlayState::Instance()->theMoney.getCurrentMoney());
 					printw (SCREEN_WIDTH - 310, SCREEN_HEIGHT - 240, 0,  "Current shop's masks: %d", CPlayState::Instance()->theStall[1]->getMaskNo());
 					printw (SCREEN_WIDTH - 310, SCREEN_HEIGHT - 210, 0,  "Current shop's mask price: %d", CPlayState::Instance()->theStall[1]->getMaskPrice());
 				}
 
-				if (shop3Selected)
+				if(CPlayState::Instance()->theStall[2]->Selected)
 				{
-					CPlayState::Instance()->theStall[2]->Selected = true;
 					printw (SCREEN_WIDTH - 310, SCREEN_HEIGHT - 300, 0,  "Shop 3-", CPlayState::Instance()->theMoney.getCurrentMoney());
 					printw (SCREEN_WIDTH - 310, SCREEN_HEIGHT - 240, 0,  "Current shop's masks: %d", CPlayState::Instance()->theStall[2]->getMaskNo());
 					printw (SCREEN_WIDTH - 310, SCREEN_HEIGHT - 210, 0,  "Current shop's mask price: %d", CPlayState::Instance()->theStall[2]->getMaskPrice());
 				}
-
+				
 				printw (SCREEN_WIDTH - 310, SCREEN_HEIGHT - 140, 0, "Amount of masks to buy");
 				printw (SCREEN_WIDTH - 310, SCREEN_HEIGHT - 110, 0, "Price:");
 				//10, SCREEN_HEIGHT - 250
@@ -370,19 +361,19 @@ void CGamePlayState::DrawButtons()
 
 	//shop
 	theButton[shop]->drawButton();
-	if(shop1Selected)
+	if(CPlayState::Instance()->theStall[0]->Selected)
 		theButton[shop]->setButtonTexture(button[4].texID);
 	else
 		theButton[shop]->setButtonTexture(button[1].texID);
 
 	theButton[shop2]->drawButton();
-	if(shop2Selected)
+	if(CPlayState::Instance()->theStall[1]->Selected)
 		theButton[shop2]->setButtonTexture(button[5].texID);
 	else
 		theButton[shop2]->setButtonTexture(button[2].texID);
 
 	theButton[shop3]->drawButton();
-	if(shop3Selected)
+	if(CPlayState::Instance()->theStall[2]->Selected)
 		theButton[shop3]->setButtonTexture(button[6].texID);
 	else
 		theButton[shop3]->setButtonTexture(button[3].texID);
@@ -608,10 +599,6 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 					CPlayState::Instance()->theStall[1]->Selected = false;
 					CPlayState::Instance()->theStall[2]->Selected = false;
 
-					shop1Selected = true;
-					shop2Selected = false;
-					shop3Selected = false;
-
 					isBuying = true;
 				}
 				if(theButton[shop2]->isInside(x, y))
@@ -619,10 +606,6 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 					CPlayState::Instance()->theStall[0]->Selected = false;
 					CPlayState::Instance()->theStall[1]->Selected = true;
 					CPlayState::Instance()->theStall[2]->Selected = false;
-
-					shop1Selected = false;
-					shop2Selected = true;
-					shop3Selected = false;
 					
 					isBuying = true;
 				}
@@ -631,10 +614,6 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 					CPlayState::Instance()->theStall[0]->Selected = false;
 					CPlayState::Instance()->theStall[1]->Selected = false;
 					CPlayState::Instance()->theStall[2]->Selected = true;
-
-					shop1Selected = false;
-					shop2Selected = false;
-					shop3Selected = true;
 					
 					isBuying = true;
 				}
@@ -656,11 +635,11 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 						{
 							CPlayState::Instance()->theMoney.setCurrentMoney(CPlayState::Instance()->theMoney.getCurrentMoney() - 300);
 
-							if(shop1Selected)
+							if(CPlayState::Instance()->theStall[0]->Selected)
 								CPlayState::Instance()->theStall[0]->setMaskNo(CPlayState::Instance()->theStall[0]->getMaskNo() + 50);
-							if(shop2Selected)
+							if(CPlayState::Instance()->theStall[1]->Selected)
 								CPlayState::Instance()->theStall[1]->setMaskNo(CPlayState::Instance()->theStall[1]->getMaskNo() + 50);
-							if(shop3Selected)
+							if(CPlayState::Instance()->theStall[2]->Selected)
 								CPlayState::Instance()->theStall[2]->setMaskNo(CPlayState::Instance()->theStall[2]->getMaskNo() + 50);
 						}
 
@@ -671,11 +650,11 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 						{
 							CPlayState::Instance()->theMoney.setCurrentMoney(CPlayState::Instance()->theMoney.getCurrentMoney() - 550);
 
-							if(shop1Selected)
-								CPlayState::Instance()->theStall[0]->setMaskNo(CPlayState::Instance()->theStall[0]->getMaskNo() + 100);
-							if(shop2Selected)
+							if(CPlayState::Instance()->theStall[0]->Selected)
+								CPlayState::Instance()->theStall[2]->setMaskNo(CPlayState::Instance()->theStall[0]->getMaskNo() + 100);
+							if(CPlayState::Instance()->theStall[1]->Selected)
 								CPlayState::Instance()->theStall[1]->setMaskNo(CPlayState::Instance()->theStall[1]->getMaskNo() + 100);
-							if(shop3Selected)
+							if(CPlayState::Instance()->theStall[2]->Selected)
 								CPlayState::Instance()->theStall[2]->setMaskNo(CPlayState::Instance()->theStall[2]->getMaskNo() + 100);
 						}
 					}
@@ -685,11 +664,11 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 						{
 							CPlayState::Instance()->theMoney.setCurrentMoney(CPlayState::Instance()->theMoney.getCurrentMoney() - 1050);
 
-							if(shop1Selected)
+							if(CPlayState::Instance()->theStall[0]->Selected)
 								CPlayState::Instance()->theStall[0]->setMaskNo(CPlayState::Instance()->theStall[0]->getMaskNo() + 200);
-							if(shop2Selected)
+							if(CPlayState::Instance()->theStall[1]->Selected)
 								CPlayState::Instance()->theStall[1]->setMaskNo(CPlayState::Instance()->theStall[1]->getMaskNo() + 200);
-							if(shop3Selected)
+							if(CPlayState::Instance()->theStall[2]->Selected)
 								CPlayState::Instance()->theStall[2]->setMaskNo(CPlayState::Instance()->theStall[2]->getMaskNo() + 200);
 						}
 					}
@@ -697,39 +676,6 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 				// Render Objects to be selected in the color scheme
 				theGrid->Click = true;
 				//theGrid.renderGrid(true);
-
-
-				/*GLint window_width = glutGet(GLUT_WINDOW_WIDTH);
-				GLint window_height = glutGet(GLUT_WINDOW_HEIGHT);
- 
-				unsigned char color[3];
- 
-				glReadPixels(x, window_height - y, 1, 1, GL_RGB, GL_UNSIGNED_BYTE, color);
- 
-				float colorf[3];
-				colorf[0] = (float)color[0]/255;
-				colorf[1] = (float)color[1]/255;
-				colorf[2] = (float)color[2]/255;
-
-				printf("Clicked on pixel %d, %d, color %0.2f %0.2f %0.2f\n", x, y, colorf[0], colorf[1], colorf[2]);
-
-				//Check color scheme for grids
-				int a = 0;
-				int s = 0;
-				int maxa = TILE_NO_X;
-				int maxs = TILE_NO_Y;
-				while(a == maxa) {
-					if(s == maxs) {
-						s = 0;
-						a++;
-					}
-
-					if(theGrid->temp[a][s].getColor() == Vector3(colorf[0], colorf[1], colorf[2]))
-						printf("Confirmed grid clicked %0.2f %0.2f %0.2f\n\n", colorf[0], colorf[1], colorf[2]);
-						
-					s++;
-				}*/
-
 			}
 			CInputSystem::getInstance()->mouseInfo.clickedX = x;
 			CInputSystem::getInstance()->mouseInfo.clickedY = y;
@@ -737,6 +683,10 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 			break;
 
 		case GLUT_RIGHT_BUTTON:
+			CPlayState::Instance()->theStall[0]->Selected = false;
+			CPlayState::Instance()->theStall[1]->Selected = false;
+			CPlayState::Instance()->theStall[2]->Selected = false;
+			isBuying = false;
 			break;
 
 		case GLUT_MIDDLE_BUTTON:
