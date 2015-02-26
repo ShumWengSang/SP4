@@ -47,16 +47,16 @@ void CGamePlayState::LoadButtons()
 
 
 
-	theBuyingButton[close] = new CButtons(240, SCREEN_HEIGHT - 390, 70, 50, close);
+	theBuyingButton[close] = new CButtons(SCREEN_WIDTH - 80, SCREEN_HEIGHT - 320, 70, 50, close);
 	theBuyingButton[close]->setButtonTexture(buyingButton[0].texID);
 
-	theBuyingButton[bpFifty] = new CButtons(10, SCREEN_HEIGHT - 250, 70, 50, bpFifty);
+	theBuyingButton[bpFifty] = new CButtons(SCREEN_WIDTH - 300, SCREEN_HEIGHT - 70, 70, 50, bpFifty);
 	theBuyingButton[bpFifty]->setButtonTexture(buyingButton[1].texID);
 	
-	theBuyingButton[bpHundred] = new CButtons(90, SCREEN_HEIGHT - 130, 70, 50, bpHundred);
+	theBuyingButton[bpHundred] = new CButtons(SCREEN_WIDTH - 210, SCREEN_HEIGHT - 70, 70, 50, bpHundred);
 	theBuyingButton[bpHundred]->setButtonTexture(buyingButton[2].texID);
 	
-	theBuyingButton[bpTwohundred] = new CButtons(170, SCREEN_HEIGHT - 130, 70, 50, bpTwohundred);
+	theBuyingButton[bpTwohundred] = new CButtons(SCREEN_WIDTH - 120, SCREEN_HEIGHT - 70, 70, 50, bpTwohundred);
 	theBuyingButton[bpTwohundred]->setButtonTexture(buyingButton[3].texID);
 }
 
@@ -304,7 +304,7 @@ void CGamePlayState::DrawBuying()
 			glEnable(GL_TEXTURE_2D);
 			glBindTexture(GL_TEXTURE_2D, buyingBackground[0].texID);
 			glPushMatrix();
-				glTranslatef(0, SCREEN_HEIGHT - 400, 2);
+				glTranslatef(SCREEN_WIDTH - 320, SCREEN_HEIGHT - 330, 2);
 				glScalef(0.4, 0.55, 1);
 				glBegin(GL_QUADS);
 					glTexCoord2f(0, 0);	glVertex2f(0, SCREEN_HEIGHT);
@@ -316,7 +316,6 @@ void CGamePlayState::DrawBuying()
 			glDisable(GL_TEXTURE_2D);
 			glDisable(GL_BLEND);
 		glPopMatrix();
-
 
 
 		
@@ -331,12 +330,37 @@ void CGamePlayState::DrawBuying()
 			glPushAttrib(GL_DEPTH_TEST);
 				//print shop number
 				glColor3f( 1.0f, 0.0f, 0.0f);
-				printw (10, SCREEN_HEIGHT - 370, 0,  "Current amount of money: ");
-				printw (10, SCREEN_HEIGHT - 350, 0,  "Current amount of masks: ");
 				
-				printw (10, SCREEN_HEIGHT - 180, 0, "Amount of masks to buy");
-				printw (10, SCREEN_HEIGHT - 160, 0, "Price:");
-				printw (10, SCREEN_HEIGHT - 140, 0, "$X dollars");
+				//SCREEN_WIDTH - 90, SCREEN_HEIGHT - 310
+				printw (SCREEN_WIDTH - 310, SCREEN_HEIGHT - 270, 0,  "Current money: $%d", CPlayState::Instance()->theMoney.getCurrentMoney());
+
+				if (shop1Selected)
+				{
+					printw (SCREEN_WIDTH - 310, SCREEN_HEIGHT - 300, 0,  "Shop 1-", CPlayState::Instance()->theMoney.getCurrentMoney());
+					printw (SCREEN_WIDTH - 310, SCREEN_HEIGHT - 240, 0,  "Current shop's masks: %d", CPlayState::Instance()->theStall[0]->getMaskNo());
+					printw (SCREEN_WIDTH - 310, SCREEN_HEIGHT - 210, 0,  "Current shop's mask price: %d", CPlayState::Instance()->theStall[0]->getMaskPrice());
+				}
+
+				if (shop2Selected)
+				{
+					printw (SCREEN_WIDTH - 310, SCREEN_HEIGHT - 300, 0,  "Shop 2-", CPlayState::Instance()->theMoney.getCurrentMoney());
+					printw (SCREEN_WIDTH - 310, SCREEN_HEIGHT - 240, 0,  "Current shop's masks: %d", CPlayState::Instance()->theStall[1]->getMaskNo());
+					printw (SCREEN_WIDTH - 310, SCREEN_HEIGHT - 210, 0,  "Current shop's mask price: %d", CPlayState::Instance()->theStall[1]->getMaskPrice());
+				}
+
+				if (shop3Selected)
+				{
+					printw (SCREEN_WIDTH - 310, SCREEN_HEIGHT - 300, 0,  "Shop 3-", CPlayState::Instance()->theMoney.getCurrentMoney());
+					printw (SCREEN_WIDTH - 310, SCREEN_HEIGHT - 240, 0,  "Current shop's masks: %d", CPlayState::Instance()->theStall[2]->getMaskNo());
+					printw (SCREEN_WIDTH - 310, SCREEN_HEIGHT - 210, 0,  "Current shop's mask price: %d", CPlayState::Instance()->theStall[2]->getMaskPrice());
+				}
+
+				printw (SCREEN_WIDTH - 310, SCREEN_HEIGHT - 140, 0, "Amount of masks to buy");
+				printw (SCREEN_WIDTH - 310, SCREEN_HEIGHT - 110, 0, "Price:");
+				//10, SCREEN_HEIGHT - 250
+				printw (SCREEN_WIDTH - 290, SCREEN_HEIGHT - 80, 0, "$300");
+				printw (SCREEN_WIDTH - 200, SCREEN_HEIGHT - 80, 0, "$550");
+				printw (SCREEN_WIDTH - 110, SCREEN_HEIGHT - 80, 0, "$1050");
 			glPopAttrib();
 		glPopMatrix();
 	}
@@ -616,36 +640,46 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 
 					if(theBuyingButton[bpFifty]->isInside(x, y))
 					{
-						CPlayState::Instance()->theMoney.setCurrentMoney(CPlayState::Instance()->theMoney.getCurrentMoney() - 250);
+						if(CPlayState::Instance()->theMoney.getCurrentMoney() >= 300)
+						{
+							CPlayState::Instance()->theMoney.setCurrentMoney(CPlayState::Instance()->theMoney.getCurrentMoney() - 300);
 
-						if(shop1Selected)
-							CPlayState::Instance()->theStall[0]->setMaskNo(CPlayState::Instance()->theStall[0]->getMaskNo() + 50);
-						if(shop2Selected)
-							CPlayState::Instance()->theStall[1]->setMaskNo(CPlayState::Instance()->theStall[1]->getMaskNo() + 50);
-						if(shop3Selected)
-							CPlayState::Instance()->theStall[2]->setMaskNo(CPlayState::Instance()->theStall[2]->getMaskNo() + 50);
+							if(shop1Selected)
+								CPlayState::Instance()->theStall[0]->setMaskNo(CPlayState::Instance()->theStall[0]->getMaskNo() + 50);
+							if(shop2Selected)
+								CPlayState::Instance()->theStall[1]->setMaskNo(CPlayState::Instance()->theStall[1]->getMaskNo() + 50);
+							if(shop3Selected)
+								CPlayState::Instance()->theStall[2]->setMaskNo(CPlayState::Instance()->theStall[2]->getMaskNo() + 50);
+						}
+
 					}
 					if(theBuyingButton[bpHundred]->isInside(x, y))
 					{
-						CPlayState::Instance()->theMoney.setCurrentMoney(CPlayState::Instance()->theMoney.getCurrentMoney() - 450);
+						if(CPlayState::Instance()->theMoney.getCurrentMoney() >= 550)
+						{
+							CPlayState::Instance()->theMoney.setCurrentMoney(CPlayState::Instance()->theMoney.getCurrentMoney() - 550);
 
-						if(shop1Selected)
-							CPlayState::Instance()->theStall[0]->setMaskNo(CPlayState::Instance()->theStall[0]->getMaskNo() + 100);
-						if(shop2Selected)
-							CPlayState::Instance()->theStall[1]->setMaskNo(CPlayState::Instance()->theStall[1]->getMaskNo() + 100);
-						if(shop3Selected)
-							CPlayState::Instance()->theStall[2]->setMaskNo(CPlayState::Instance()->theStall[2]->getMaskNo() + 100);
+							if(shop1Selected)
+								CPlayState::Instance()->theStall[0]->setMaskNo(CPlayState::Instance()->theStall[0]->getMaskNo() + 100);
+							if(shop2Selected)
+								CPlayState::Instance()->theStall[1]->setMaskNo(CPlayState::Instance()->theStall[1]->getMaskNo() + 100);
+							if(shop3Selected)
+								CPlayState::Instance()->theStall[2]->setMaskNo(CPlayState::Instance()->theStall[2]->getMaskNo() + 100);
+						}
 					}
 					if(theBuyingButton[bpTwohundred]->isInside(x, y))
 					{
-						CPlayState::Instance()->theMoney.setCurrentMoney(CPlayState::Instance()->theMoney.getCurrentMoney() - 850);
+						if(CPlayState::Instance()->theMoney.getCurrentMoney() >= 1050)
+						{
+							CPlayState::Instance()->theMoney.setCurrentMoney(CPlayState::Instance()->theMoney.getCurrentMoney() - 1050);
 
-						if(shop1Selected)
-							CPlayState::Instance()->theStall[0]->setMaskNo(CPlayState::Instance()->theStall[0]->getMaskNo() + 200);
-						if(shop2Selected)
-							CPlayState::Instance()->theStall[1]->setMaskNo(CPlayState::Instance()->theStall[1]->getMaskNo() + 200);
-						if(shop3Selected)
-							CPlayState::Instance()->theStall[2]->setMaskNo(CPlayState::Instance()->theStall[2]->getMaskNo() + 200);
+							if(shop1Selected)
+								CPlayState::Instance()->theStall[0]->setMaskNo(CPlayState::Instance()->theStall[0]->getMaskNo() + 200);
+							if(shop2Selected)
+								CPlayState::Instance()->theStall[1]->setMaskNo(CPlayState::Instance()->theStall[1]->getMaskNo() + 200);
+							if(shop3Selected)
+								CPlayState::Instance()->theStall[2]->setMaskNo(CPlayState::Instance()->theStall[2]->getMaskNo() + 200);
+						}
 					}
 				}
 				// Render Objects to be selected in the color scheme

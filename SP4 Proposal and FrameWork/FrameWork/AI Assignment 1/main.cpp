@@ -41,7 +41,7 @@ int main( int argc, char **argv ){
 	glutInitWindowPosition(250,50);
 	glutInitWindowSize(SCREEN_WIDTH, SCREEN_HEIGHT);
 	glutCreateWindow("AI");
-
+	//glutFullScreen();
 	glutReshapeFunc(changeSize);
 
 	glutDisplayFunc(renderScene);
