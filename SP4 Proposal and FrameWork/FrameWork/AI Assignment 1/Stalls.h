@@ -34,7 +34,6 @@ public:
 	void setScale(Vector3 scale);
 
 	void buyMask(int amt);
-	void moveStall();
 
 	CMoney theMoney;
 

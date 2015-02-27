@@ -63,11 +63,6 @@ void CStalls::buyMask(int amt)
 	gasMaskAmount -= amt;
 }
 
-void CStalls::moveStall()
-{
-	//moveeeeee
-}
-
 //Entity Functions
 bool CStalls::glRenderObject() {
 	glPushMatrix();

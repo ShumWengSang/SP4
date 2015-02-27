@@ -195,8 +195,6 @@ void CBuyMaskState::MouseMove (int x, int y) {
 
 void CBuyMaskState::keyboardUpdate()
 {
-	if(CInputSystem::getInstance()->myKeys['d'])
-		CInGameStateManager::getInstance()->ChangeState(CEndOfDayState::Instance());
 	//Esc Key
 	if(CInputSystem::getInstance()->myKeys[VK_ESCAPE]) 
 		exit(0);

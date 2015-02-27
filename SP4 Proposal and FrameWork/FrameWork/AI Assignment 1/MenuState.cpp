@@ -85,9 +85,9 @@ void CMenuState::Update(CGameStateManager* theGSM)
 void CMenuState::checkCameraPos()
 {
 	Vector3 pos;
-	pos.Set(0, -50, 300);
+	pos.Set(0, -50, 320);
 	if(skip)
-		Camera::getInstance()->SetPosition(0, -50, 300);
+		Camera::getInstance()->SetPosition(0, -50, 320);
 	if(Camera::getInstance()->GetPosition() == pos)
 	{
 		isPassed = true;
@@ -105,10 +105,6 @@ void CMenuState::Draw(CGameStateManager* theGSM)
 		DrawButtons();
 		Camera::getInstance()->SetHUD(false);
 	}
-	//Camera::getInstance()->SetHUD(true);
-	//DrawBackground();
-	//DrawButtons();
-	//Camera::getInstance()->SetHUD(false);
 }
 
 void CMenuState::DrawButtons()
@@ -148,7 +144,7 @@ void CMenuState::drawMap()
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glScalef(0.5f, 0.5f, 1);
 		glRotatef(-90, 1, 0, 0);
-		glTranslatef(-210, -300, -210);
+		glTranslatef(-210, -300, -260);
 		glBindTexture(GL_TEXTURE_2D, map[0].texID);
 		glBegin(GL_QUADS);
 			glTexCoord2f(1, 1);  glVertex3f(0, 0.0f, 420);
@@ -159,31 +155,10 @@ void CMenuState::drawMap()
 		glDisable(GL_TEXTURE_2D);
 		glDisable(GL_BLEND);
 	glPopMatrix();
-
-	//glPushMatrix();
-	//	glEnable(GL_BLEND);
-	//	glEnable(GL_TEXTURE_2D);
-	//	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	//	glBindTexture(GL_TEXTURE_2D, background[0].texID);
-	//	glRotatef(-90, 1, 0, 0);
-	//	glTranslatef(-400, -300, -300);
-	//	glPushMatrix();
-	//		glBegin(GL_QUADS);
-	//			glTexCoord2f(0, 0);	glVertex3f(0, 0, SCREEN_HEIGHT);
-	//			glTexCoord2f(1, 0);	glVertex3f(SCREEN_WIDTH, 0, SCREEN_HEIGHT);
-	//			glTexCoord2f(1, 1);	glVertex3f(SCREEN_WIDTH, 0, 0);
-	//			glTexCoord2f(0, 1);	glVertex3f(0, 0, 0);
-	//		glEnd();
-	//	glPopMatrix();
-	//	glDisable(GL_TEXTURE_2D);
-	//	glDisable(GL_BLEND);
-	//glPopMatrix();
 }
 
 void CMenuState::keyboardUpdate()
 {
-	if(InputSystem->myKeys['a'])
-		CGameStateManager::getInstance()->ChangeState(CPlayState::Instance());
 	if(CInputSystem::getInstance()->myKeys['j'])
 		Camera::getInstance()->Strafe(-1);
 	if(CInputSystem::getInstance()->myKeys['l'])
