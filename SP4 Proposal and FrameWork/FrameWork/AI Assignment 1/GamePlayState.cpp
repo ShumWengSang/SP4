@@ -107,7 +107,10 @@ void CGamePlayState::Init()
 	//	//GET TILE INFO FROM POSITION
 	//	//SET THE HAZE
 	//}
-	theGrid->temp[0][0].Seeded(CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime] * 100);//CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime]
+	theGrid->temp[2][0].Seeded(CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime] * 100000);//CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime]
+	theGrid->temp[3][0].Seeded(CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime] * 10000);
+	//theGrid->temp[1][2].Seeded(CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime] * 10000);
+	//theGrid->temp[3][4].Seeded(CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime] * 10000);
 
 	theTimerInstance = CTimer::getInstance();
 	TimerKeySeed = theTimerInstance->insertNewTime(3000);
@@ -132,6 +135,7 @@ void CGamePlayState::Init()
 	//theGrid->GetTile(CPlayState::Instance()->theStall[0]->getPosition())->ShopOnTop = CPlayState::Instance()->theStall[0];
 	//theGrid->GetTile(CPlayState::Instance()->theStall[1]->getPosition())->ShopOnTop = CPlayState::Instance()->theStall[1];
 	//theGrid->GetTile(CPlayState::Instance()->theStall[2]->getPosition())->ShopOnTop = CPlayState::Instance()->theStall[2];
+
 
 	theListofEntities.push_back(CPlayState::Instance()->theStall[0]);
 	theListofEntities.push_back(CPlayState::Instance()->theStall[1]);
@@ -222,13 +226,16 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 
 void CGamePlayState::Draw(CInGameStateManager* theGSM) 
 {
+
+
+
 	// Render Objects to be selected in the color scheme
 	if(CInputSystem::getInstance()->mouseInfo.mLClicked == true)
 	{
 		theGrid->Click = true;
 		for (auto i = theListofEntities.begin(); i != theListofEntities.end(); i++)
 		{
-			if((*i)->getObjectType() == EntityType::GRID)
+			if((*i)->getObjectType() == GRID)
 				(*i)->glRenderObject();
 		}
 		CApplication::getInstance()->setClickCheck(true);
@@ -272,14 +279,10 @@ void CGamePlayState::Draw(CInGameStateManager* theGSM)
 	}
 
 	Camera::getInstance()->SetHUD(true);
-
 	DrawButtons();//pause button here
 	drawInfo();
-
 	DrawBuying();
-
 	DrawTimeBar();
-
 	Camera::getInstance()->SetHUD(false);
 }
 

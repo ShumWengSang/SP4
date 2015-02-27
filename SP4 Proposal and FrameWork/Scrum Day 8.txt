@@ -1,0 +1,15 @@
+Day 8
+27/2
+done:
+WQ -- completed buying during gameplay.
+YT -- UI, camera + camera scenes.
+Amos -- Finished placing sounds.
+Samuel -- Remade camera into third person. Has rotation.
+roland -- Fixed linking of haze tiles + haze tile = recursive tree.
+
+todo:
+Samuel -- locking of camera in skybox. render the newspaper.
+Amos -- documentation.
+yt -- menu background
+wq -- modelling
+roland -- fixing with haze tiles, colouring the haze.

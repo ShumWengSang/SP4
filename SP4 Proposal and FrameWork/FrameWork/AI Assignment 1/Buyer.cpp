@@ -101,6 +101,7 @@ void Buyer::Update()
 	if (ReachedLocation(TargettoWalk.back()))
 	{
 		Velocity.Set(0, 0, 0);
+		GotoLocation(Vector3(0, 0, 0), 5);
 	}
 	else
 	{
@@ -139,19 +140,7 @@ void Buyer::AIUpdate()
 		theTileTemp = theGrid->GetTile(this->Position);
 		if (theTileTemp != NULL)
 		{
-			/*if (HasMask)
-			{
 
-			}
-			else
-			{
-				CStalls * theStall = StalltoBuyFrom(theTileTemp->TileHazeValue);
-				if (theStall != NULL)
-				{
-					TargettoWalk.push_back(theStall->getPosition());
-					CurrentState = GOINGTOBUY;
-				}
-			}*/
 			switch (CurrentState)
 			{
 				case IDLEWALKING:
@@ -234,8 +223,8 @@ void Buyer::Init()
 		break;*/
 
 		default:
-		this->Position.Set(rand() % (TILE_NO_X + 1) * TILE_SIZE_X, 0, 0);
-		TargettoWalk.push_back(Vector3(0, 0, TILE_NO_Y ));
+		this->Position.Set(0, 0, 0);
+		TargettoWalk.push_back(Vector3(TILE_WORLD_SIZE_X, 0, TILE_WORLD_SIZE_Y));
 		break;
 	}
 }
@@ -249,6 +238,8 @@ bool Buyer::ReachedLocation(Vector3 thePosReached)
 
 void Buyer::GotoLocation(Vector3 theNewPos, float speed)
 {
+
+	TargettoWalk.push_back(theNewPos);
 	Vector3 TheDirection(theNewPos - this->Position);
 	TheDirection.Normalize();
 	TheDirection *= speed;

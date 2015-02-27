@@ -73,7 +73,9 @@ void Grid::InitGrid (void) {
 
 void Grid::renderGrid(bool isPicking)
 {
-	glPushMatrix();
+	//glPushMatrix();
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	for (int k = 0; k < TILE_NO_X; ++k)
 	{
 		for(int l = 0; l < TILE_NO_Y; ++l)
@@ -83,7 +85,8 @@ void Grid::renderGrid(bool isPicking)
 			temp[k][l].drawTile(temp[k][l].getPos().x, temp[k][l].getPos().y, temp[k][l].getPos().z, tileWidth, tileHeight, isPicking);
 		}
 	}
-	glPopMatrix();
+	glDisable(GL_BLEND);
+	//glPopMatrix();
 
 }
 
@@ -135,7 +138,7 @@ void Grid::Update()
 void Grid::CalculateDiffuse()
 {
 	CTimer * theTimer = CTimer::getInstance();
-	//if (theTimer->executeTime(TimerKeyHazeDiffusal))
+	if (theTimer->executeTime(TimerKeyHazeDiffusal))
 	{
 		for (int i = 0; i < TILE_NO_X; i++)
 		{
