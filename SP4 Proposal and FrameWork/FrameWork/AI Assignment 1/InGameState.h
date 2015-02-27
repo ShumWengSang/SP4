@@ -1,6 +1,14 @@
 #pragma once
 #include "InGameStateManager.h"
 
+enum GameStateID
+{
+	BuyMaskState,
+	StartofDayState,
+	PlayGameState,
+	EndofDayState,
+};
+
 class CInGameState
 {
 protected:
@@ -8,6 +16,7 @@ protected:
 	CInGameState(void) {};
 
 public:
+	GameStateID thisState;
 
 	virtual void Init() = 0;
 	virtual void Cleanup() = 0;
@@ -27,4 +36,6 @@ public:
 	void ChangeState(CInGameStateManager* PS, CInGameState* state) {
 		PS->ChangeState(state);
 	}
+
+	virtual void Drop() = 0;
 };

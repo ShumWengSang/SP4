@@ -56,14 +56,16 @@ public:
 	void MouseWheel(int button, int dir, int x, int y);
 
 	static CLoadState* Instance() {
-		return &theLoadState;
+		if (theLoadState == NULL)
+			theLoadState = new CLoadState();
+		return 	theLoadState;
 	}
 
 	void *font_style;
 	void printw(float x, float y, float z, char* format, ...);
 
 private:
-	static CLoadState theLoadState;
+	static CLoadState* theLoadState;
 
 	//Input System
 	CInputSystem* InputSystem;

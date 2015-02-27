@@ -6,6 +6,7 @@ CPlayState CPlayState::thePlayState;
 
 void CPlayState::Init()
 {
+
 	cout << "CPlayState::Init\n" << endl;
 
 	//Enable Camera Orientation on Mouse Move

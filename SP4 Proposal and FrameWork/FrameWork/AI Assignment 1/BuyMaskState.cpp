@@ -4,7 +4,7 @@
 #include "LoadState.h"
 #include "EndOfDayState.h"
 
-CBuyMaskState CBuyMaskState::theBuyMaskState;
+CBuyMaskState * CBuyMaskState::theBuyMaskState = NULL;
 
 void CBuyMaskState::LoadTextures()
 {
@@ -36,6 +36,8 @@ void CBuyMaskState::LoadButtons()
 
 void CBuyMaskState::Init()
 {
+	thisState = BuyMaskState;
+
 	cout << "CBuyMaskState::Init\n" << endl;
 
 	LoadTextures();

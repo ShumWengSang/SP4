@@ -2,7 +2,7 @@
 #include "EndOfDayState.h"
 #include "PlayState.h"
 
-CGamePlayState CGamePlayState::theGamePlayState;
+CGamePlayState *CGamePlayState::theGamePlayState = NULL;
 
 void CGamePlayState::LoadTextures()
 {
@@ -62,6 +62,9 @@ void CGamePlayState::LoadButtons()
 
 void CGamePlayState::Init()
 {
+	//if ()
+	thisState = PlayGameState;
+
 	cout << "CGamePlayState::Init\n" << endl;
 	theGrid = new Grid();
 
@@ -107,13 +110,14 @@ void CGamePlayState::Init()
 	//	//GET TILE INFO FROM POSITION
 	//	//SET THE HAZE
 	//}
+	int DayNumber = CPlayState::Instance()->day;
 	theGrid->temp[2][0].Seeded(CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime] * 100000);//CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime]
 	theGrid->temp[3][0].Seeded(CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime] * 10000);
 	//theGrid->temp[1][2].Seeded(CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime] * 10000);
 	//theGrid->temp[3][4].Seeded(CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime] * 10000);
 
 	theTimerInstance = CTimer::getInstance();
-	TimerKeySeed = theTimerInstance->insertNewTime(3000);
+	TimerKeySeed = theTimerInstance->insertNewTime(30000);
 	TimerKeyDay = theTimerInstance->insertNewTime(270000);
 	HourNumber = 0;
 	
@@ -206,17 +210,20 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 		//	std::cout << "DAY CHANGE IT IS NOW DAY " << DayNumber << std::endl;
 		//}
 
+		int DayNumber = CPlayState::Instance()->day;
+
 		if (theTimerInstance->executeTime(TimerKeySeed))
 		{
+			std::cout << "HOIUR INCREASE" << std::endl;
 			HourNumber++;
-		//	if (!(HourNumber * DayTime >= noiseWidth))
-		//	{
-		//		for (auto i = theSeededTiles.begin(); i != theSeededTiles.end(); i++)
-		//		{
-		//			(*i)->TileHazeValue = CPlayState::Instance()->theHaze.HazeGraph[HourNumber + DayNumber * DayTime] * 8;
-		//			(*i)->childs[0]->HazeTileValue = CPlayState::Instance()->theHaze.HazeGraph[HourNumber + DayNumber * DayTime] * 8;
-		//		}
-		//	}
+			if (!(HourNumber * DayTime >= noiseWidth))
+			{
+				for (auto i = theSeededTiles.begin(); i != theSeededTiles.end(); i++)
+				{
+					(*i)->TileHazeValue = CPlayState::Instance()->theHaze.HazeGraph[HourNumber + DayNumber * DayTime] * 8;
+					(*i)->childs[0]->HazeTileValue = CPlayState::Instance()->theHaze.HazeGraph[HourNumber + DayNumber * DayTime] * 8;
+				}
+			}
 		}
 
 		if (theTimerInstance->executeTime(TimerKeyDay))
@@ -480,6 +487,8 @@ void CGamePlayState::keyboardUpdate()
 		Camera::getInstance()->Walk(1);
 	if(CInputSystem::getInstance()->myKeys['s'])
 		Camera::getInstance()->Walk(-1);
+	if (CInputSystem::getInstance()->myKeys['0' ])
+		CInGameStateManager::getInstance()->ChangeState(CEndOfDayState::Instance());
 	if (CInputSystem::getInstance()->myKeys['1'])
 	{
 		for (unsigned int i = 0; i < theSeededTiles.size(); i++)

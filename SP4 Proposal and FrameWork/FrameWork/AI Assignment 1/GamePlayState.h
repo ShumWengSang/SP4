@@ -42,7 +42,7 @@ class CInputSystem;
 class CGamePlayState : public CInGameState
 {
 private:
-	CGamePlayState(void) { DayNumber = 0; };
+	CGamePlayState(void) {  };
 
 	TextureImage button[7];
 	TextureImage map[1];
@@ -85,17 +85,58 @@ public:
 	void MouseWheel(int button, int dir, int x, int y);
 
 	static CGamePlayState* Instance() {
-		return &theGamePlayState;
+		if (theGamePlayState == NULL)
+			theGamePlayState = new CGamePlayState();
+		return theGamePlayState;
+	}
+	void Drop()
+	{
+		for (int i = 0; i < theListofEntities.size(); i++)
+		{
+			delete theListofEntities[i];
+			theListofEntities[i] = NULL;
+		}
+
+		for (int i = 0; i < theSeededTiles.size(); i++)
+		{
+			delete theSeededTiles[i];
+			theSeededTiles[i] = NULL;
+		}
+
+		if (theGamePlayState != NULL)
+		{
+			delete theGamePlayState;
+			theGamePlayState = NULL;
+		}
+		if (theGrid != NULL)
+		{
+			delete theGrid;
+			theGrid = NULL;
+		}
+		for (int i = 0; i < 4; i++)
+		{
+			delete theButton[i];
+			theButton[i] = NULL;
+		}
+		for (int i = 0; i < 3; i++)
+		{
+			delete theStall[i];
+			theStall[i] = NULL;
+		}
+		for (int i = 0; i < 4; i++)
+		{
+			delete theBuyingButton[i];
+			theBuyingButton[i] = NULL;
+		}
 	}
 
-	int DayNumber;
 	int HourNumber;
 
 	void *font_style;
 	void printw(float x, float y, float z, char* format, ...);
 
 private:
-	static CGamePlayState theGamePlayState;
+	static CGamePlayState *theGamePlayState;
 
 	std::vector<Entity*> theListofEntities;
 	std::vector<Tiles *> theSeededTiles;
