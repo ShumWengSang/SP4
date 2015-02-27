@@ -36,6 +36,27 @@ void CBuyMaskState::LoadButtons()
 
 void CBuyMaskState::Init()
 {
+	if (theBuyMaskState != NULL)
+	{
+		theBuyMaskState = NULL;
+	}
+
+	for (int i = 0; i < 4; i++)
+	{
+		theButton[i] = NULL;
+	}
+
+	if (sound != NULL)
+	{
+		sound = NULL;
+	}
+
+	if (se != NULL)
+	{
+		se = NULL;
+	}
+
+
 	thisState = BuyMaskState;
 
 	cout << "CBuyMaskState::Init\n" << endl;

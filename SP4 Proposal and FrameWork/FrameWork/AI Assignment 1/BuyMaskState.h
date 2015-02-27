@@ -69,6 +69,27 @@ public:
 			delete theBuyMaskState;
 			theBuyMaskState = NULL;
 		}
+
+		for (int i = 0; i < 4; i++)
+		{
+			if(theButton[i] != NULL)
+			{
+				delete theButton[i];
+				theButton[i] = NULL;
+			}
+		}
+
+		if (sound != NULL)
+		{
+			delete sound;
+			sound = NULL;
+		}
+
+		if (se != NULL)
+		{
+			delete se;
+			se = NULL;
+		}
 	}
 
 	void *font_style;
@@ -77,8 +98,8 @@ public:
 private:
 	static CBuyMaskState * theBuyMaskState;
 	CMoney theMoney;
-	CButtons* theButton[4];
-	AudioPlayer * sound;
+	CButtons *theButton[4];
+	AudioPlayer *sound;
 	ISoundEngine *se;
 	//ISound *obj;
 };

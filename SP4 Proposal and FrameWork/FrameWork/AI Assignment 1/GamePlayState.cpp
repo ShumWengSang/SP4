@@ -72,6 +72,12 @@ void CGamePlayState::Init()
 	{
 		theStall[i] = NULL;
 	}
+
+	for (int i = 0; i < 4; i++)
+	{
+		theButton[i] = NULL;
+	}
+
 	for (int i = 0; i < 4; i++)
 	{
 		theBuyingButton[i] = NULL;
