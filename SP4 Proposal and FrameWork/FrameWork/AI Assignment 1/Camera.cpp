@@ -42,11 +42,13 @@ void Camera::Reset()
 	camPos.Set(50.0, 50.0, -70.0);
 	camDir = (camPoint-camPos).Normalized();
 	camDist = 50;
-	camDist_max = 100;
+	camDist_max = 50;
 	VEL_X = 0.2f;
 	VEL_Y = 0.01f;
 	MAX_Y = 2.5f;
-	angle = VEL_X * 3.142f / 180.0f;
+	angle = 180.0f;
+
+	camDir = Vector3(sin(angle),camDir.y,-cos(angle));
 }
 
 void Camera::Yaw(GLfloat theta)

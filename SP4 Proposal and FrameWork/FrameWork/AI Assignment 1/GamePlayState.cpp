@@ -519,6 +519,16 @@ void CGamePlayState::keyboardUpdate()
 	//Esc Key
 	if(CInputSystem::getInstance()->myKeys[VK_ESCAPE]) 
 		exit(0);
+
+	//Camera Locking
+	if(Camera::getInstance()->GetPos().x <= theGrid->getX())
+	{Camera::getInstance()->SetPos(Vector3(theGrid->getX(),Camera::getInstance()->GetPos().y,Camera::getInstance()->GetPos().z));}
+	else if(Camera::getInstance()->GetPos().x >= theGrid->getX() + TILE_SIZE_X*TILE_NO_X)
+	{Camera::getInstance()->SetPos(Vector3(theGrid->getX() + TILE_SIZE_X*TILE_NO_X,Camera::getInstance()->GetPos().y,Camera::getInstance()->GetPos().z));}
+	if(Camera::getInstance()->GetPos().z <= theGrid->getY())
+	{Camera::getInstance()->SetPos(Vector3(Camera::getInstance()->GetPos().x,Camera::getInstance()->GetPos().y,theGrid->getY()));}
+	else if(Camera::getInstance()->GetPos().z >= theGrid->getY() + TILE_SIZE_Y*TILE_NO_Y)
+	{Camera::getInstance()->SetPos(Vector3(Camera::getInstance()->GetPos().x,Camera::getInstance()->GetPos().y,theGrid->getY() + TILE_SIZE_Y*TILE_NO_Y));}
 }
 
 //Inputs
@@ -823,12 +833,11 @@ void CGamePlayState::OnRotate(int x, int y)
 		Camera::getInstance()->angle -= 6.284f;
 	else if (Camera::getInstance()->angle < -6.284f)
 		Camera::getInstance()->angle += 6.284f;
-	cout << Camera::getInstance()->angle << endl;
 	//Update on y axis
-	if(Camera::getInstance()->GetDir().y - diffY*Camera::getInstance()->VEL_Y > Camera::getInstance()->MAX_Y)
-		Camera::getInstance()->SetDir(Vector3(sin(Camera::getInstance()->angle),Camera::getInstance()->MAX_Y,-cos(Camera::getInstance()->angle)));
-	else if(Camera::getInstance()->GetDir().y - diffY*Camera::getInstance()->VEL_Y < -Camera::getInstance()->MAX_Y)
+	if(Camera::getInstance()->GetDir().y - diffY*Camera::getInstance()->VEL_Y < -Camera::getInstance()->MAX_Y)
 		Camera::getInstance()->SetDir(Vector3(sin(Camera::getInstance()->angle),-Camera::getInstance()->MAX_Y,-cos(Camera::getInstance()->angle)));
+	else if(Camera::getInstance()->GetDir().y - diffY*Camera::getInstance()->VEL_Y > -Camera::getInstance()->MAX_Y/10)
+		Camera::getInstance()->SetDir(Vector3(sin(Camera::getInstance()->angle),-Camera::getInstance()->MAX_Y/10,-cos(Camera::getInstance()->angle)));
 	else
 		Camera::getInstance()->SetDir(Vector3(sin(Camera::getInstance()->angle),Camera::getInstance()->GetDir().y - diffY*Camera::getInstance()->VEL_Y,-cos(Camera::getInstance()->angle)));
 }
