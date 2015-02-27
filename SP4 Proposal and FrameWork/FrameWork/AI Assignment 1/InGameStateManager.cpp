@@ -1,5 +1,9 @@
 #include "InGameStateManager.h"
 #include "InGameState.h"
+#include "EndOfDayState.h"
+#include "BuyMaskState.h"
+#include "StartOfDayState.h"
+#include "GamePlayState.h"
 
 CInGameStateManager* CInGameStateManager::instance = NULL;
 
@@ -43,10 +47,42 @@ void CInGameStateManager::ChangeState(CInGameState* state)
 		StackOfStates_InGame.back()->Cleanup();
 		StackOfStates_InGame.pop_back();
 	}*/
+	state->Init();
+	GameStateID temp = state->thisState;
+	for (auto i = StackOfStates_InGame.begin(); i != StackOfStates_InGame.end();)
+	{
+		if ((*i)->thisState == state->thisState)
+		{
+			(*i)->Cleanup();
+			i = StackOfStates_InGame.erase(i);
+		}
+		else
+		{
+			i++;
+		}
+	}
+	state->Drop();
+	switch (temp)
+	{
+		case BuyMaskState:
+		state = CBuyMaskState::Instance();
+		break;
+		case StartofDayState:
+		state = CStartOfDayState::Instance();
+		break;
+		case PlayGameState:
+		state = CGamePlayState::Instance();
 
+		break;
+		case EndofDayState:
+		state = CEndOfDayState::Instance();
+		break;
+	}
 	// store and init the new state
 	StackOfStates_InGame.push_back(state);
 	StackOfStates_InGame.back()->Init();
+	
+
 	//cout << "CInGameStateManager::ChangeState\n" << endl;
 }
 

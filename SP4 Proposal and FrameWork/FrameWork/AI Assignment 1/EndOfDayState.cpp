@@ -3,7 +3,7 @@
 #include "SaveState.h"
 #include "BuyMaskState.h"
 
-CEndOfDayState CEndOfDayState::theEndOfDayState;
+CEndOfDayState * CEndOfDayState::theEndOfDayState = NULL;
 
 void CEndOfDayState::LoadTextures()
 {
@@ -35,6 +35,8 @@ void CEndOfDayState::LoadButtons()
 
 void CEndOfDayState::Init()
 {
+	thisState = EndofDayState;
+
 	cout << "CEndOfDayState::Init\n" << endl;
 	se = createIrrKlangDevice();
 	LoadTextures();

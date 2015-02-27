@@ -249,7 +249,8 @@ void Buyer::GotoLocation(Vector3 theNewPos, float speed)
 
 	TargettoWalk.push_back(theNewPos);
 	Vector3 TheDirection(theNewPos - this->Position);
-	TheDirection.Normalize();
+	if (TheDirection.Length() > 1)
+		TheDirection.Normalize();
 	TheDirection *= speed;
 	this->Velocity = TheDirection;
 }

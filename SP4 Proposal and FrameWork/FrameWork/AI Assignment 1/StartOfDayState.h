@@ -66,14 +66,24 @@ public:
 	void MouseWheel(int button, int dir, int x, int y);
 
 	static CStartOfDayState* Instance() {
-		return &theStartOfDayState;
+		if (theStartOfDayState == NULL)
+			theStartOfDayState = new CStartOfDayState();
+		return theStartOfDayState;
+	}
+	void Drop()
+	{
+		if (theStartOfDayState != NULL)
+		{
+			delete theStartOfDayState;
+			theStartOfDayState = NULL;
+		}
 	}
 
 	void *font_style;
 	void printw(float x, float y, float z, char* format, ...);
 
 private:
-	static CStartOfDayState theStartOfDayState;
+	static CStartOfDayState *theStartOfDayState;
 	CButtons* theButton[20];
 	AudioPlayer * sound;
 	ISoundEngine *se;

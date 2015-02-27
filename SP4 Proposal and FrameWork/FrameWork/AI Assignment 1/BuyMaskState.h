@@ -57,14 +57,25 @@ public:
 	void MouseWheel(int button, int dir, int x, int y){};
 
 	static CBuyMaskState* Instance() {
-		return &theBuyMaskState;
+		if (theBuyMaskState == NULL)
+			theBuyMaskState = new CBuyMaskState();
+		return theBuyMaskState;
+	}
+
+	void Drop()
+	{
+		if (theBuyMaskState != NULL)
+		{
+			delete theBuyMaskState;
+			theBuyMaskState = NULL;
+		}
 	}
 
 	void *font_style;
 	void printw(float x, float y, float z, char* format, ...);
 
 private:
-	static CBuyMaskState theBuyMaskState;
+	static CBuyMaskState * theBuyMaskState;
 	CMoney theMoney;
 	CButtons* theButton[4];
 	AudioPlayer * sound;

@@ -3,7 +3,7 @@
 #include "PlayState.h"
 #include "BuyMaskState.h"
 
-CStartOfDayState CStartOfDayState::theStartOfDayState;
+CStartOfDayState *CStartOfDayState::theStartOfDayState = NULL;
 
 void CStartOfDayState::LoadTextures()
 {
@@ -69,6 +69,8 @@ void CStartOfDayState::LoadButtons()
 
 void CStartOfDayState::Init()
 {
+	thisState = StartofDayState;
+
 	cout << "CStartOfDayState::Init\n" << endl;
 	se = createIrrKlangDevice();
 	LoadTextures();
@@ -85,11 +87,11 @@ void CStartOfDayState::Init()
 void CStartOfDayState::Cleanup()
 {
 	//cout << "CStartOfDayState::Cleanup\n" << Startl;
-	/*if (InputSystem != NULL)
-	{
-		delete InputSystem;
-		InputSystem = NULL;
-	}*/
+	//if (InputSystem != NULL)
+	//{
+	//	delete InputSystem;
+	//	InputSystem = NULL;
+	//}
 }
 
 void CStartOfDayState::Pause()

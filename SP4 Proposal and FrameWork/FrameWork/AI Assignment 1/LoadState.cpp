@@ -2,7 +2,7 @@
 #include "PlayState.h"
 #include "MenuState.h"
 
-CLoadState CLoadState::theLoadState;
+CLoadState *CLoadState::theLoadState = NULL;
 
 CSaveLoad* CLoadState::getLoadData()
 {
@@ -58,6 +58,7 @@ void CLoadState::LoadLoadData()
 
 void CLoadState::Init()
 {
+	
 	cout << "CLoadState::Init\n" << endl;
 	se = createIrrKlangDevice();
 	LoadTextures();
