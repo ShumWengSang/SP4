@@ -18,7 +18,7 @@ WeatherGenerator::WeatherGenerator()
 	}
 	PerlineNoise thePerlineNoise;
 
-	for (int i = 0; i < HazeGraph.size(); i++)
+	for (unsigned int i = 0; i < HazeGraph.size(); i++)
 	{
 		double Result = thePerlineNoise.PerlinNoise_1D(HazeGraph[i]);
 
@@ -58,9 +58,9 @@ void WeatherGenerator::PrintOutGraph()
 {
 
 	std::cout << std::endl;
-	for (int i = 0; i < HazeGraph.size(); i++)
+	for (unsigned int i = 0; i < HazeGraph.size(); i++)
 	{
-		for (int j = 0; j < HazeGraph[i] / 13; j++)
+		for (unsigned int j = 0; j < HazeGraph[i] / 13; j++)
 		{
 			std::cout << " ";
 		}
@@ -69,7 +69,7 @@ void WeatherGenerator::PrintOutGraph()
 	}
 
 	std::cout << std::endl;
-	for (int i = 0; i < HazeAveragePerDay.size(); i++)
+	for (unsigned int i = 0; i < HazeAveragePerDay.size(); i++)
 	{
 		std::cout << "Haze Average Number: " << i << " " << HazeAveragePerDay[i] << std::endl;
 	}

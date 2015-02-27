@@ -72,8 +72,8 @@ void Tiles::Pressure(Tiles &currentCell, Tiles &neighbourCell)
 	float PressureFlow = currentCell.TileHazeValue - neighbourCell.TileHazeValue;
 
 	//pressure diffuse to neightbour
-	neighbourCell.TileHazeValue += PressureFlow * 0.25;
-	currentCell.TileHazeValue -= PressureFlow * 0.25;
+	neighbourCell.TileHazeValue += PressureFlow/4;
+	currentCell.TileHazeValue -= PressureFlow /4;
 
 	//detect and remove oscillations
 	if ((PressureFlow > 0) && (neighbourCell.TileHazeValue < currentCell.TileHazeValue))

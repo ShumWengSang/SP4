@@ -3,7 +3,7 @@ ColorChanger * ColorChanger::instance = NULL;
 
 void ColorChanger::HSLtoRGB(float &Rh, float &Gs, float&Bl)
 {
-	float min, max;
+	//float min, max;
 	Gs /= 100;
 	Bl /= 100;
 	float R, G, B;

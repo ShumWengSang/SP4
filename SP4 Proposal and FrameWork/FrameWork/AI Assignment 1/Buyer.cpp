@@ -9,7 +9,7 @@ Buyer::Buyer()
 Buyer::Buyer(std::vector<CStalls*> theStalls, Grid * theGrid)
 {
 	this->theGrid = theGrid;
-	for (int i = 0; i < theStalls.size(); i++)
+	for (unsigned int i = 0; i < theStalls.size(); i++)
 	{
 		Insert(theStalls[i]);
 	}
@@ -20,7 +20,7 @@ Buyer::~Buyer()
 {
 	if (!theStalls.empty())
 	{
-		for (int i = 0; i < theStalls.size(); i++)
+		for (unsigned int i = 0; i < theStalls.size(); i++)
 		{
 			theStalls[i] = NULL;
 			theStalls.pop_back();
@@ -179,7 +179,7 @@ void Buyer::AIUpdate()
 										   HasMask = true;
 										   CurrentState = IDLEWALKING;
 										   theTileTemp->ShopOnTop->setMaskSold(1);
-										   for (int i = 0; i < TargettoWalk.size() - 1; i++)
+										   for (unsigned int i = 0; i < TargettoWalk.size() - 1; i++)
 										   {
 											   TargettoWalk.pop_back();
 										   }
@@ -205,13 +205,13 @@ void Buyer::Init()
 	theTileTemp = NULL;
 
 	int i = rand() % 4;
-	switch (i)
-	{
+	//switch (i)
+	//{
 		//case 0:
 		//this->Position.Set(rand() % (TILE_NO_X + 1) * TILE_SIZE_X, 0, 0);
 		//TargettoWalk.push_back(Vector3(rand() % (TILE_NO_X + 1) * TILE_SIZE_X, 0, TILE_NO_Y * TILE_SIZE_Y));
 
-		break;
+		//break;
 	/*	case 1:
 		this->Position.Set(rand() % (TILE_NO_X + 1) * TILE_SIZE_X, 0, TILE_NO_Y * TILE_SIZE_Y);
 		TargettoWalk.push_back(Vector3(rand() % TILE_NO_X + 1, 0, 0));
@@ -225,11 +225,11 @@ void Buyer::Init()
 		TargettoWalk.push_back(Vector3(TILE_NO_X * TILE_SIZE_X, 0, rand() % (TILE_NO_Y + 1) * TILE_SIZE_Y));
 		break;*/
 
-		default:
+		//default:
 		this->Position.Set(0, 0, 0);
 		TargettoWalk.push_back(Vector3(TILE_WORLD_SIZE_X, 0, TILE_WORLD_SIZE_Y));
-		break;
-	}
+		//break;
+	//}
 
 
 	theModel = new CObjectModel();

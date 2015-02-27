@@ -34,7 +34,7 @@ public:
 	{
 		if (!theStalls.empty())
 		{
-			for (int i = 0; i < theStalls.size(); i++)
+			for (unsigned int i = 0; i < theStalls.size(); i++)
 			{
 				theStalls[i] = NULL;
 				theStalls.pop_back();

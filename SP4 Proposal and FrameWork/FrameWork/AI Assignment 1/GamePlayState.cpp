@@ -482,7 +482,7 @@ void CGamePlayState::keyboardUpdate()
 		Camera::getInstance()->Walk(-1);
 	if (CInputSystem::getInstance()->myKeys['1'])
 	{
-		for (int i = 0; i < theSeededTiles.size(); i++)
+		for (unsigned int i = 0; i < theSeededTiles.size(); i++)
 		{
 			std::cout << "TILE SEED NUMBER : " << i << " : " << theSeededTiles[i]->TileHazeValue << std::endl;
 		}

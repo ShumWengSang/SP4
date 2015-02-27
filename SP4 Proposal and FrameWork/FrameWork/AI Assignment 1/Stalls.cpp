@@ -60,7 +60,7 @@ void CStalls::setMaskPrice(int mp)
 void CStalls::setPos(Vector3 pos)
 {
 	this->pos = pos;
-	theModel->SetPosition( pos);
+	theModel->SetPosition( Vector3(pos.x+4.5, pos.y, pos.z+4.5) );
 }
 void CStalls::setScale(Vector3 scale)
 {
