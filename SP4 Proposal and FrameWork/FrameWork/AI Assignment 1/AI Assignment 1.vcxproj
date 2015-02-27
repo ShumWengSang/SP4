@@ -94,6 +94,9 @@
     <ClCompile Include="GamePlayState.cpp" />
     <ClCompile Include="GameStateManager.cpp" />
     <ClCompile Include="LoadState.cpp" />
+    <ClCompile Include="ObjectModel.cpp" />
+    <ClCompile Include="ObjLoader\ObjLoader.c" />
+    <ClCompile Include="ObjLoader\tgaLoader.c" />
     <ClCompile Include="SaveLoad.cpp" />
     <ClCompile Include="SaveState.cpp" />
     <ClCompile Include="Source2.cpp" />
@@ -132,6 +135,9 @@
     <ClInclude Include="GameStateManager.h" />
     <ClInclude Include="Global.h" />
     <ClInclude Include="LoadState.h" />
+    <ClInclude Include="ObjectModel.h" />
+    <ClInclude Include="ObjLoader\ObjLoader.h" />
+    <ClInclude Include="ObjLoader\tgaLoader.h" />
     <ClInclude Include="SaveLoad.h" />
     <ClInclude Include="SaveState.h" />
     <ClInclude Include="Tile.h" />

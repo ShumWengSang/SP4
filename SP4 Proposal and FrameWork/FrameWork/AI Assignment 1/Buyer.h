@@ -12,6 +12,8 @@
 #include "Grid.h"
 #include "Timer.h"
 
+#include "ObjectModel.h"
+
 #include "gl\freeglut.h"
 //#include <Windows.h>
 //#include <gl\GL.h>
@@ -38,6 +40,8 @@ public:
 	Buyer();
 	Buyer(std::vector<CStalls*>, Grid *);
 	~Buyer();
+
+	CObjectModel* theModel;
 
 	int CurrentMoney;
 	bool HasMask;

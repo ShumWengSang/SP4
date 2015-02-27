@@ -10,6 +10,10 @@ CStalls::CStalls(Vector3 pos, Vector3 scale)
 	this->pos = pos;
 	this->scale = scale;
 	Price = 1;
+
+	theModel = new CObjectModel();
+	theModel->theObj = LoadOBJ("./models/Stall.obj");
+	theModel->SetPosition( pos);
 }
 
 CStalls::~CStalls(void)
@@ -32,6 +36,10 @@ int CStalls::getMaskPrice()
 {
 	return theMoney.getPrice();
 }
+Vector3 CStalls::getColour()
+{
+	return colour;
+}
 
 void CStalls::setMaskNo(int mn)
 {
@@ -52,10 +60,15 @@ void CStalls::setMaskPrice(int mp)
 void CStalls::setPos(Vector3 pos)
 {
 	this->pos = pos;
+	theModel->SetPosition( pos);
 }
 void CStalls::setScale(Vector3 scale)
 {
 	this->scale = scale;
+}
+void CStalls::setColour(Vector3 colour)
+{
+	this->colour = colour;
 }
 
 void CStalls::buyMask(int amt)
@@ -72,17 +85,16 @@ void CStalls::moveStall()
 bool CStalls::glRenderObject() {
 	glPushMatrix();
 		glEnable(GL_BLEND);
+		
+		glColor3f(colour.x, colour.y, colour.z);
 		if(Selected) {
-			glColor3f(0,1.0,0.0);
-			glTranslatef( pos.x, pos.y+scale.y/2+1, pos.z );
-		}else{
-			glColor3f(1.0,0.0,0.0);
-			glTranslatef( pos.x, pos.y+scale.y/2, pos.z );
+			glTranslatef(0,2,0);
 		}
-		glScalef(scale.x, scale.y, scale.z);
-		glutSolidCube(1);
+		theModel->Render();
 		glDisable(GL_BLEND);
 	glPopMatrix();
+	
+
 	return true;
 }
 

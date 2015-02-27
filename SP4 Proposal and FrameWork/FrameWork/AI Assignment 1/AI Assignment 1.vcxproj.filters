@@ -135,6 +135,15 @@
     <ClCompile Include="Bar.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
+    <ClCompile Include="ObjLoader\ObjLoader.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjLoader\tgaLoader.c">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ObjectModel.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameState.h">
@@ -243,6 +252,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Bar.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjLoader\ObjLoader.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjLoader\tgaLoader.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ObjectModel.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
   </ItemGroup>

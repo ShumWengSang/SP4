@@ -14,6 +14,8 @@
 #include "Buyer.h"
 #include "Bar.h"
 
+#include "ObjectModel.h"
+
 using namespace std;
 
 #define SEEDCOUNT 1

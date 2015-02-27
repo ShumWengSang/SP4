@@ -3,6 +3,8 @@
 #include "Money.h"
 #include "Entity.h"
 #include "freeglut.h"
+
+#include "ObjectModel.h"
 using namespace std;
 
 class CStalls : public Entity
@@ -12,6 +14,10 @@ private:
 	int maskSold;
 	Vector3 pos;
 	Vector3 scale;
+	Vector3 colour;
+
+	CObjectModel* theModel;
+
 public:
 	CStalls(Vector3 pos = Vector3(0,0,0), Vector3 scale = Vector3(4,4,4));
 	~CStalls(void);
@@ -24,6 +30,7 @@ public:
 	int getMaskSold();
 	int getTotalMaskSold();
 	int getMaskPrice();
+	Vector3 getColour();
 
 	void setMaskNo(int mn);
 	void setMaskSold(int ms);
@@ -32,6 +39,7 @@ public:
 
 	void setPos(Vector3 pos);
 	void setScale(Vector3 scale);
+	void setColour(Vector3 colour);
 
 	void buyMask(int amt);
 	void moveStall();

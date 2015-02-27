@@ -114,7 +114,7 @@ bool Buyer::glRenderObject()
 {
 	glPushMatrix();
 	glTranslatef(Position.x, Position.y, Position.z);
-	glScalef(3, 3, 3);
+	//glScalef(3, 3, 3);
 	glBegin(GL_QUADS);
 	if (HasMask)
 		glColor3f(1, 0, 0);
@@ -125,6 +125,9 @@ bool Buyer::glRenderObject()
 	glVertex3f(1.0, 0.5, 0.5);
 	glVertex3f(0.5, 0.5, 0.5);
 	glEnd();
+
+	
+	theModel->Render();
 
 	glPopMatrix();
 	return true;
@@ -238,6 +241,11 @@ void Buyer::Init()
 		TargettoWalk.push_back(Vector3(0, 0, TILE_NO_Y ));
 		break;
 	}
+
+
+	theModel = new CObjectModel();
+	theModel->theObj = LoadOBJ("./models/People.obj");
+	theModel->SetPosition( Vector3 (0,0.8,0));
 }
 
 
