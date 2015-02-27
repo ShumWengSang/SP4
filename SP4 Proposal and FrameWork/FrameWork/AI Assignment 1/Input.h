@@ -12,6 +12,8 @@ using namespace std;
 //Mouse Info
 typedef struct {
 	bool mLButtonUp;
+	bool mLClicked;
+	bool mLReclicked;
 	bool mRButtonUp;
 	bool middleButtonUp;
 	int  lastX, lastY;

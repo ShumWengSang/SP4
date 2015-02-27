@@ -12,10 +12,8 @@ public:
 
 private:
 	CAM_TYPE CameraType;
-	Vector3 Position;
 	Vector3 Along;		//100
 	Vector3 Up;			//010
-	Vector3 Forward;
 
 	static Camera *instance;
 	Camera();
@@ -39,19 +37,10 @@ public:
 
 	void SetCameraType(CAM_TYPE ct);
 	void Reset();
-	void Update();
-	Vector3 GetPosition();
-	// Get the direction of the camera
-	Vector3 GetDirection();
-	void SetPosition( GLfloat x, GLfloat y, GLfloat z );
-	void SetDirection( GLfloat x, GLfloat y, GLfloat z );
 
-	void Pitch(GLfloat theta);
 	void Yaw(GLfloat theta);
-	void Roll(GLfloat theta);
 	void Walk(GLfloat delta);//, bool Wall[4]);
 	void Strafe(GLfloat delta);//, bool Wall[4]);
-	void Fly(GLfloat delta);
 	// Toggle HUD mode
 	void SetHUD(bool m_bHUDmode);
 	// Toggle ORTHO Mode

@@ -87,8 +87,8 @@ void CMenuState::checkCameraPos()
 	Vector3 pos;
 	pos.Set(0, -50, 320);
 	if(skip)
-		Camera::getInstance()->SetPosition(0, -50, 320);
-	if(Camera::getInstance()->GetPosition() == pos)
+		Camera::getInstance()->SetPos(Vector3(0, -50, 320));
+	if(Camera::getInstance()->GetPos() == pos)
 	{
 		isPassed = true;
 	}
@@ -159,14 +159,6 @@ void CMenuState::drawMap()
 
 void CMenuState::keyboardUpdate()
 {
-	if(CInputSystem::getInstance()->myKeys['j'])
-		Camera::getInstance()->Strafe(-1);
-	if(CInputSystem::getInstance()->myKeys['l'])
-		Camera::getInstance()->Strafe(1);
-	if(CInputSystem::getInstance()->myKeys['i'])
-		Camera::getInstance()->Walk(1);
-	if(CInputSystem::getInstance()->myKeys['k'])
-		Camera::getInstance()->Walk(-1);
 	//Esc Key
 	if(InputSystem->myKeys[VK_ESCAPE]) 
 		exit(0);
@@ -174,8 +166,8 @@ void CMenuState::keyboardUpdate()
 
 //Inputs
 void CMenuState::MouseMove (int x, int y) {
-	CInputSystem::getInstance()->mouseInfo.lastX = x;
-	CInputSystem::getInstance()->mouseInfo.lastY = y;
+	InputSystem->mouseInfo.lastX = x;
+	InputSystem->mouseInfo.lastY = y;
 }
 
 void CMenuState::MouseClick(int button, int state, int x, int y) {
@@ -189,9 +181,9 @@ void CMenuState::MouseClick(int button, int state, int x, int y) {
 			{
 				skip = true;
 				se->play2D("audio/click.wav",false);
-				CInputSystem::getInstance()->mouseInfo.mLButtonUp = false;
-				CInputSystem::getInstance()->mouseInfo.clickedX = x;
-				CInputSystem::getInstance()->mouseInfo.clickedY = y;
+				InputSystem->mouseInfo.mLButtonUp = false;
+				InputSystem->mouseInfo.clickedX = x;
+				InputSystem->mouseInfo.clickedY = y;
 
 				if(isPassed)
 				{
@@ -211,7 +203,7 @@ void CMenuState::MouseClick(int button, int state, int x, int y) {
 				}
 			}
 			else
-				CInputSystem::getInstance()->mouseInfo.mLButtonUp = true;
+				InputSystem->mouseInfo.mLButtonUp = true;
 			break;
 
 		case GLUT_RIGHT_BUTTON:
@@ -224,17 +216,6 @@ void CMenuState::MouseClick(int button, int state, int x, int y) {
 
 void CMenuState::MouseWheel(int button, int dir, int x, int y) {
 
-	if (dir > 0) {//Zoom In
-		/*if(camDist-zoomSpeed*15 > 0)
-			camDist -= zoomSpeed;*/
-		Vector3 temp = Camera::getInstance()->GetPosition() + Camera::getInstance()->GetDirection();
-		Camera::getInstance()->SetPosition(temp.x,temp.y,temp.z);
-	}
-    else {//Zoom Out
-		//camDist += zoomSpeed;
-		Vector3 temp = Camera::getInstance()->GetPosition() - Camera::getInstance()->GetDirection();
-		Camera::getInstance()->SetPosition(temp.x,temp.y,temp.z);
-	}
 }
 
 void CMenuState::playSound()

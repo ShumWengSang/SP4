@@ -10,8 +10,8 @@ bool CApplication::Init()
 	theCamera = Camera::getInstance();
 	theCamera->Reset();
 	theCamera->SetCameraType(Camera::LAND_CAM);
-	theCamera->SetPosition(0.0, -50.0, -20.0);
-	theCamera->SetDirection(0.0, 0.0, 1.0);
+	theCamera->SetPos(Vector3(0.0, -50.0, -20.0));
+	theCamera->SetDir(Vector3(0.0, 0.0, 1.0));
 
 	//Game State Manager
 	GSM = CGameStateManager::getInstance();
@@ -52,7 +52,6 @@ void CApplication::renderScene() {
 	if ((timeGetTime()-timelastcall) > 1000.f / frequency) //"timeGetTime()-timelastcall" is DeltaTime
 		Update(); //Update Game
 
-	//theCamera->Update();
 	theCamera->newRender();
 
 	//Render

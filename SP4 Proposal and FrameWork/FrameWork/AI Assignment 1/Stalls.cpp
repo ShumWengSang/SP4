@@ -71,7 +71,7 @@ bool CStalls::glRenderObject() {
 			glColor3f(0,1.0,0.0);
 			glTranslatef( pos.x, pos.y+scale.y/2+1, pos.z );
 		}else{
-			glColor3f(1.0,0.0,0.0);
+			glColor3f(0.0,0.0,1.0);
 			glTranslatef( pos.x, pos.y+scale.y/2, pos.z );
 		}
 		glScalef(scale.x, scale.y, scale.z);
