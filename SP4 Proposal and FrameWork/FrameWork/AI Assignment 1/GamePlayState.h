@@ -42,7 +42,8 @@ class CInputSystem;
 class CGamePlayState : public CInGameState
 {
 private:
-	CGamePlayState(void) {  };
+	CGamePlayState(void) { 
+	};
 
 	TextureImage button[7];
 	TextureImage map[1];
@@ -91,28 +92,23 @@ public:
 	}
 	void Drop()
 	{
-		for (int i = 0; i < theListofEntities.size(); i++)
-		{
-			delete theListofEntities[i];
-			theListofEntities[i] = NULL;
-		}
 
-		for (int i = 0; i < theSeededTiles.size(); i++)
-		{
-			delete theSeededTiles[i];
-			theSeededTiles[i] = NULL;
-		}
 
-		if (theGamePlayState != NULL)
-		{
-			delete theGamePlayState;
-			theGamePlayState = NULL;
-		}
 		if (theGrid != NULL)
 		{
 			delete theGrid;
 			theGrid = NULL;
 		}
+		for (int i = 0; i < theSeededTiles.size(); i++)
+		{
+			if (theSeededTiles[i] != NULL)
+			{
+				delete theSeededTiles[i];
+				theSeededTiles[i] = NULL;
+			}
+		}
+
+
 		for (int i = 0; i < 4; i++)
 		{
 			delete theButton[i];
@@ -127,6 +123,20 @@ public:
 		{
 			delete theBuyingButton[i];
 			theBuyingButton[i] = NULL;
+		}
+		if (theGamePlayState != NULL)
+		{
+			delete theGamePlayState;
+			theGamePlayState = NULL;
+		}
+
+		for (int i = 0; i < theListofEntities.size(); i++)
+		{
+			if (theListofEntities[i] != NULL)
+			{
+				delete theListofEntities[i];
+				theListofEntities[i] = NULL;
+			}
 		}
 	}
 

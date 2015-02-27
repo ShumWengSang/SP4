@@ -54,6 +54,7 @@ void CInGameStateManager::ChangeState(CInGameState* state)
 		if ((*i)->thisState == state->thisState)
 		{
 			(*i)->Cleanup();
+			(*i)->Drop();
 			i = StackOfStates_InGame.erase(i);
 		}
 		else

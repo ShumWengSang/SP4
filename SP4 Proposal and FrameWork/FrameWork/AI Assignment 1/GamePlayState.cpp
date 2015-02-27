@@ -62,7 +62,21 @@ void CGamePlayState::LoadButtons()
 
 void CGamePlayState::Init()
 {
-	//if ()
+
+	theGrid = NULL;
+	for (int i = 0; i < 4; i++)
+	{
+		theButton[i] = NULL;
+	}
+	for (int i = 0; i < 3; i++)
+	{
+		theStall[i] = NULL;
+	}
+	for (int i = 0; i < 4; i++)
+	{
+		theBuyingButton[i] = NULL;
+	}
+
 	thisState = PlayGameState;
 
 	cout << "CGamePlayState::Init\n" << endl;
