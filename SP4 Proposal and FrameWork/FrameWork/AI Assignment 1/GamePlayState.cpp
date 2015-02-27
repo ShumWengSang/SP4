@@ -78,14 +78,13 @@ void CGamePlayState::Init()
 	//Input System
 	CInputSystem::getInstance()->OrientCam = true;
 
+	CInputSystem::getInstance()->mouseInfo.mLClicked = false;
+	CInputSystem::getInstance()->mouseInfo.mLReclicked = true;
+
 	Camera::getInstance()->Reset();
 
 	//Isometric view
-	Camera::getInstance()->SetCameraType(Camera::AIR_CAM);
-	/*Camera::getInstance()->SetPosition(50.0, 50.0, -70.0);
-	Vector3 temp = -Camera::getInstance()->GetPosition();
-	Camera::getInstance()->SetDirection(temp.Normalized().x, temp.Normalized().y, temp.Normalized().z);*/
-	
+	Camera::getInstance()->SetCameraType(Camera::AIR_CAM);	
 
 	CPlayState * PlayState = CPlayState::Instance();
 
@@ -108,7 +107,10 @@ void CGamePlayState::Init()
 	//	//GET TILE INFO FROM POSITION
 	//	//SET THE HAZE
 	//}
-	theGrid->temp[0][0].Seeded(CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime] * 100);//CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime]
+	theGrid->temp[2][0].Seeded(CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime] * 100000);//CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime]
+	theGrid->temp[3][0].Seeded(CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime] * 10000);
+	//theGrid->temp[1][2].Seeded(CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime] * 10000);
+	//theGrid->temp[3][4].Seeded(CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime] * 10000);
 
 	theTimerInstance = CTimer::getInstance();
 	TimerKeySeed = theTimerInstance->insertNewTime(3000);
@@ -133,6 +135,7 @@ void CGamePlayState::Init()
 	//theGrid->GetTile(CPlayState::Instance()->theStall[0]->getPosition())->ShopOnTop = CPlayState::Instance()->theStall[0];
 	//theGrid->GetTile(CPlayState::Instance()->theStall[1]->getPosition())->ShopOnTop = CPlayState::Instance()->theStall[1];
 	//theGrid->GetTile(CPlayState::Instance()->theStall[2]->getPosition())->ShopOnTop = CPlayState::Instance()->theStall[2];
+
 
 	theListofEntities.push_back(CPlayState::Instance()->theStall[0]);
 	theListofEntities.push_back(CPlayState::Instance()->theStall[1]);
@@ -172,15 +175,16 @@ void CGamePlayState::HandleEvents(CInGameStateManager* theGSM)
 
 void CGamePlayState::Update(CInGameStateManager* theGSM) 
 {
-	keyboardUpdate();
-	if (!isPause)
+	if(isPause)
+		Camera::getInstance()->newUpdate();
+	else
 	{
+		keyboardUpdate();
+		Camera::getInstance()->newUpdate();
 		for (auto i = theListofEntities.begin(); i != theListofEntities.end(); i++)
 		{
 			(*i)->Update();
 		}
-
-	Camera::getInstance()->newUpdate();
 
 		//if (theTimerInstance->executeTime(TimerKeyDay))
 		//{
@@ -225,18 +229,21 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 
 void CGamePlayState::Draw(CInGameStateManager* theGSM) 
 {
+
+
+
 	// Render Objects to be selected in the color scheme
-	if(CInputSystem::getInstance()->mouseInfo.mLButtonUp == false)
+	if(CInputSystem::getInstance()->mouseInfo.mLClicked == true)
 	{
+		theGrid->Click = true;
 		for (auto i = theListofEntities.begin(); i != theListofEntities.end(); i++)
 		{
-			if((*i)->getObjectType() == EntityType::GRID)
+			if((*i)->getObjectType() == GRID)
 				(*i)->glRenderObject();
 		}
 		CApplication::getInstance()->setClickCheck(true);
-		theGrid->Click = true;
 		ClickCollision();
-
+		CInputSystem::getInstance()->mouseInfo.mLClicked = false;
 	}
 	else
 	{
@@ -262,6 +269,7 @@ void CGamePlayState::Draw(CInGameStateManager* theGSM)
 		glPopMatrix();
 
 
+		theGrid->Click = false;
 		//theGrid.renderGrid(false);
 		for (auto i = theListofEntities.begin(); i != theListofEntities.end(); i++)
 		{
@@ -271,18 +279,13 @@ void CGamePlayState::Draw(CInGameStateManager* theGSM)
 		theGrid->GetTile(CPlayState::Instance()->theStall[1]->getPosition())->ShopOnTop = CPlayState::Instance()->theStall[1];
 		theGrid->GetTile(CPlayState::Instance()->theStall[2]->getPosition())->ShopOnTop = CPlayState::Instance()->theStall[2];
 		CApplication::getInstance()->setClickCheck(false);
-		theGrid->Click = false;
 	}
 
 	Camera::getInstance()->SetHUD(true);
-
 	DrawButtons();//pause button here
 	drawInfo();
-
 	DrawBuying();
-
 	DrawTimeBar();
-
 	Camera::getInstance()->SetHUD(false);
 }
 
@@ -469,19 +472,13 @@ void CGamePlayState::buyMask(int stall, int maskNo) //0 is first stall
 
 void CGamePlayState::keyboardUpdate()
 {
-	if(CInputSystem::getInstance()->myKeys['d'])
-		CInGameStateManager::getInstance()->ChangeState(CEndOfDayState::Instance());
-	if(CInputSystem::getInstance()->myKeys['w']) {
-		cout << "\t" << Camera::getInstance()->GetDirection().x << "\t" << Camera::getInstance()->GetDirection().y << "\t" << Camera::getInstance()->GetDirection().z << endl << endl;
-		cout << "\t" << Camera::getInstance()->GetPosition().x << "\t" << Camera::getInstance()->GetPosition().y << "\t" << Camera::getInstance()->GetPosition().z << endl << endl;
-	}
-	if(CInputSystem::getInstance()->myKeys['j'])
+	if(CInputSystem::getInstance()->myKeys['a'])
 		Camera::getInstance()->Strafe(-1);
-	if(CInputSystem::getInstance()->myKeys['l'])
+	if(CInputSystem::getInstance()->myKeys['d'])
 		Camera::getInstance()->Strafe(1);
-	if(CInputSystem::getInstance()->myKeys['i'])
+	if(CInputSystem::getInstance()->myKeys['w'])
 		Camera::getInstance()->Walk(1);
-	if(CInputSystem::getInstance()->myKeys['k'])
+	if(CInputSystem::getInstance()->myKeys['s'])
 		Camera::getInstance()->Walk(-1);
 	if (CInputSystem::getInstance()->myKeys['1'])
 	{
@@ -528,6 +525,16 @@ void CGamePlayState::keyboardUpdate()
 	//Esc Key
 	if(CInputSystem::getInstance()->myKeys[VK_ESCAPE]) 
 		exit(0);
+
+	//Camera Locking
+	if(Camera::getInstance()->GetPos().x <= theGrid->getX())
+	{Camera::getInstance()->SetPos(Vector3(theGrid->getX(),Camera::getInstance()->GetPos().y,Camera::getInstance()->GetPos().z));}
+	else if(Camera::getInstance()->GetPos().x >= theGrid->getX() + TILE_SIZE_X*TILE_NO_X)
+	{Camera::getInstance()->SetPos(Vector3(theGrid->getX() + TILE_SIZE_X*TILE_NO_X,Camera::getInstance()->GetPos().y,Camera::getInstance()->GetPos().z));}
+	if(Camera::getInstance()->GetPos().z <= theGrid->getY())
+	{Camera::getInstance()->SetPos(Vector3(Camera::getInstance()->GetPos().x,Camera::getInstance()->GetPos().y,theGrid->getY()));}
+	else if(Camera::getInstance()->GetPos().z >= theGrid->getY() + TILE_SIZE_Y*TILE_NO_Y)
+	{Camera::getInstance()->SetPos(Vector3(Camera::getInstance()->GetPos().x,Camera::getInstance()->GetPos().y,theGrid->getY() + TILE_SIZE_Y*TILE_NO_Y));}
 }
 
 //Inputs
@@ -539,52 +546,20 @@ void CGamePlayState::MouseMove (int x, int y) {
 	if(!CInputSystem::getInstance()->mouseInfo.mRButtonUp)
 		OnRotate(x,y);
 
-	//Checking mouse boundary. (Width)
-	//if  (CInputSystem::getInstance()->mouseInfo.lastX > w-50)
-	//{
-	//	CInputSystem::getInstance()->mouseInfo.lastX = w-50;
-	//	glutWarpPointer(CInputSystem::getInstance()->mouseInfo.lastX, CInputSystem::getInstance()->mouseInfo.lastY);
-	//	Camera::getInstance()->Strafe(1);
-	//}
-	//else if  (CInputSystem::getInstance()->mouseInfo.lastX < 50)
-	//{
-	//	CInputSystem::getInstance()->mouseInfo.lastX = 50;
-	//	glutWarpPointer(CInputSystem::getInstance()->mouseInfo.lastX, CInputSystem::getInstance()->mouseInfo.lastY);
-	//	Camera::getInstance()->Strafe(-1);
-	//}else
-	//CInputSystem::getInstance()->mouseInfo.lastX = x;
-
-	////Checking mouse boundary. (Height)
-	//if  (CInputSystem::getInstance()->mouseInfo.lastY > h-50)
-	//{
-	//	CInputSystem::getInstance()->mouseInfo.lastY = h-50;
-	//	glutWarpPointer(CInputSystem::getInstance()->mouseInfo.lastX, CInputSystem::getInstance()->mouseInfo.lastY);
-	//	Camera::getInstance()->Walk(-1);
-	//}
-	//else if  (CInputSystem::getInstance()->mouseInfo.lastY < 50)
-	//{
-	//	CInputSystem::getInstance()->mouseInfo.lastY = 50;
-	//	glutWarpPointer(CInputSystem::getInstance()->mouseInfo.lastX, CInputSystem::getInstance()->mouseInfo.lastY);
-	//	Camera::getInstance()->Walk(1);
-	//}else
-	//CInputSystem::getInstance()->mouseInfo.lastY = y;
 	CInputSystem::getInstance()->mouseInfo.lastX = x;
 	CInputSystem::getInstance()->mouseInfo.lastY = y;
 }
 
 void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 	switch (button) {
-
 		case GLUT_LEFT_BUTTON:
 			if (state == GLUT_UP) {
 				//CApplication::getInstance()->setClickCheck(false);
 				CInputSystem::getInstance()->mouseInfo.mLButtonUp = true;
+				CInputSystem::getInstance()->mouseInfo.mLReclicked = true;
 			}
-			else {
-				//CApplication::getInstance()->setClickCheck(true);
-				CInputSystem::getInstance()->mouseInfo.mLButtonUp = false;
-
-				
+			else 
+			{
 				if(theButton[pause]->isInside(x, y) && isPause == false)
 				{
 					Pause();
@@ -593,98 +568,105 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 				{
 					Resume();
 				}
+				if (!isPause)
+				{
+					//CApplication::getInstance()->setClickCheck(true);
+					CInputSystem::getInstance()->mouseInfo.mLButtonUp = false;
+					if(CInputSystem::getInstance()->mouseInfo.mLReclicked == true)
+						CInputSystem::getInstance()->mouseInfo.mLClicked = true;
+					CInputSystem::getInstance()->mouseInfo.mLReclicked = false;
 
-				//shop 1 clicked
-				if(theButton[shop]->isInside(x, y))
-				{
-					CPlayState::Instance()->theStall[0]->Selected = true;
-					CPlayState::Instance()->theStall[1]->Selected = false;
-					CPlayState::Instance()->theStall[2]->Selected = false;
-
-					isBuying = true;
-				}
-				if(theButton[shop2]->isInside(x, y))
-				{
-					CPlayState::Instance()->theStall[0]->Selected = false;
-					CPlayState::Instance()->theStall[1]->Selected = true;
-					CPlayState::Instance()->theStall[2]->Selected = false;
-					
-					isBuying = true;
-				}
-				if(theButton[shop3]->isInside(x, y))
-				{
-					CPlayState::Instance()->theStall[0]->Selected = false;
-					CPlayState::Instance()->theStall[1]->Selected = false;
-					CPlayState::Instance()->theStall[2]->Selected = true;
-					
-					isBuying = true;
-				}
-
-				if (isBuying == true)
-				{
-					if(theBuyingButton[close]->isInside(x, y))
+					//shop 1 clicked
+					if(theButton[shop]->isInside(x, y))
 					{
-						CPlayState::Instance()->theStall[0]->Selected = false;
+						CPlayState::Instance()->theStall[0]->Selected = true;
 						CPlayState::Instance()->theStall[1]->Selected = false;
 						CPlayState::Instance()->theStall[2]->Selected = false;
 
-						isBuying = false;
+						isBuying = true;
 					}
-
-					if (CPlayState::Instance()->theStall[0]->Selected ||
-						CPlayState::Instance()->theStall[1]->Selected ||
-						CPlayState::Instance()->theStall[2]->Selected)
+					if(theButton[shop2]->isInside(x, y))
 					{
+						CPlayState::Instance()->theStall[0]->Selected = false;
+						CPlayState::Instance()->theStall[1]->Selected = true;
+						CPlayState::Instance()->theStall[2]->Selected = false;
+					
+						isBuying = true;
+					}
+					if(theButton[shop3]->isInside(x, y))
+					{
+						CPlayState::Instance()->theStall[0]->Selected = false;
+						CPlayState::Instance()->theStall[1]->Selected = false;
+						CPlayState::Instance()->theStall[2]->Selected = true;
+					
+						isBuying = true;
+					}
 
-						if(theBuyingButton[bpFifty]->isInside(x, y))
+					if (isBuying == true)
+					{
+						if(theBuyingButton[close]->isInside(x, y))
 						{
-							if(CPlayState::Instance()->theMoney.getCurrentMoney() >= 300)
-							{
-								CPlayState::Instance()->theMoney.setCurrentMoney(CPlayState::Instance()->theMoney.getCurrentMoney() - 300);
+							CPlayState::Instance()->theStall[0]->Selected = false;
+							CPlayState::Instance()->theStall[1]->Selected = false;
+							CPlayState::Instance()->theStall[2]->Selected = false;
 
-								if(CPlayState::Instance()->theStall[0]->Selected)
-									CPlayState::Instance()->theStall[0]->setMaskNo(CPlayState::Instance()->theStall[0]->getMaskNo() + 50);
-								if(CPlayState::Instance()->theStall[1]->Selected)
-									CPlayState::Instance()->theStall[1]->setMaskNo(CPlayState::Instance()->theStall[1]->getMaskNo() + 50);
-								if(CPlayState::Instance()->theStall[2]->Selected)
-									CPlayState::Instance()->theStall[2]->setMaskNo(CPlayState::Instance()->theStall[2]->getMaskNo() + 50);
-							}
-
+							isBuying = false;
 						}
-						if(theBuyingButton[bpHundred]->isInside(x, y))
-						{
-							if(CPlayState::Instance()->theMoney.getCurrentMoney() >= 550)
-							{
-								CPlayState::Instance()->theMoney.setCurrentMoney(CPlayState::Instance()->theMoney.getCurrentMoney() - 550);
 
-								if(CPlayState::Instance()->theStall[0]->Selected)
-									CPlayState::Instance()->theStall[2]->setMaskNo(CPlayState::Instance()->theStall[0]->getMaskNo() + 100);
-								if(CPlayState::Instance()->theStall[1]->Selected)
-									CPlayState::Instance()->theStall[1]->setMaskNo(CPlayState::Instance()->theStall[1]->getMaskNo() + 100);
-								if(CPlayState::Instance()->theStall[2]->Selected)
-									CPlayState::Instance()->theStall[2]->setMaskNo(CPlayState::Instance()->theStall[2]->getMaskNo() + 100);
+						if (CPlayState::Instance()->theStall[0]->Selected ||
+							CPlayState::Instance()->theStall[1]->Selected ||
+							CPlayState::Instance()->theStall[2]->Selected)
+						{
+
+							if(theBuyingButton[bpFifty]->isInside(x, y))
+							{
+								if(CPlayState::Instance()->theMoney.getCurrentMoney() >= 300)
+								{
+									CPlayState::Instance()->theMoney.setCurrentMoney(CPlayState::Instance()->theMoney.getCurrentMoney() - 300);
+
+									if(CPlayState::Instance()->theStall[0]->Selected)
+										CPlayState::Instance()->theStall[0]->setMaskNo(CPlayState::Instance()->theStall[0]->getMaskNo() + 50);
+									if(CPlayState::Instance()->theStall[1]->Selected)
+										CPlayState::Instance()->theStall[1]->setMaskNo(CPlayState::Instance()->theStall[1]->getMaskNo() + 50);
+									if(CPlayState::Instance()->theStall[2]->Selected)
+										CPlayState::Instance()->theStall[2]->setMaskNo(CPlayState::Instance()->theStall[2]->getMaskNo() + 50);
+								}
+
 							}
-						}
-						if(theBuyingButton[bpTwohundred]->isInside(x, y))
-						{
-							if(CPlayState::Instance()->theMoney.getCurrentMoney() >= 1050)
+							if(theBuyingButton[bpHundred]->isInside(x, y))
 							{
-								CPlayState::Instance()->theMoney.setCurrentMoney(CPlayState::Instance()->theMoney.getCurrentMoney() - 1050);
+								if(CPlayState::Instance()->theMoney.getCurrentMoney() >= 550)
+								{
+									CPlayState::Instance()->theMoney.setCurrentMoney(CPlayState::Instance()->theMoney.getCurrentMoney() - 550);
 
-								if(CPlayState::Instance()->theStall[0]->Selected)
-									CPlayState::Instance()->theStall[0]->setMaskNo(CPlayState::Instance()->theStall[0]->getMaskNo() + 200);
-								if(CPlayState::Instance()->theStall[1]->Selected)
-									CPlayState::Instance()->theStall[1]->setMaskNo(CPlayState::Instance()->theStall[1]->getMaskNo() + 200);
-								if(CPlayState::Instance()->theStall[2]->Selected)
-									CPlayState::Instance()->theStall[2]->setMaskNo(CPlayState::Instance()->theStall[2]->getMaskNo() + 200);
+									if(CPlayState::Instance()->theStall[0]->Selected)
+										CPlayState::Instance()->theStall[2]->setMaskNo(CPlayState::Instance()->theStall[0]->getMaskNo() + 100);
+									if(CPlayState::Instance()->theStall[1]->Selected)
+										CPlayState::Instance()->theStall[1]->setMaskNo(CPlayState::Instance()->theStall[1]->getMaskNo() + 100);
+									if(CPlayState::Instance()->theStall[2]->Selected)
+										CPlayState::Instance()->theStall[2]->setMaskNo(CPlayState::Instance()->theStall[2]->getMaskNo() + 100);
+								}
+							}
+							if(theBuyingButton[bpTwohundred]->isInside(x, y))
+							{
+								if(CPlayState::Instance()->theMoney.getCurrentMoney() >= 1050)
+								{
+									CPlayState::Instance()->theMoney.setCurrentMoney(CPlayState::Instance()->theMoney.getCurrentMoney() - 1050);
+
+									if(CPlayState::Instance()->theStall[0]->Selected)
+										CPlayState::Instance()->theStall[0]->setMaskNo(CPlayState::Instance()->theStall[0]->getMaskNo() + 200);
+									if(CPlayState::Instance()->theStall[1]->Selected)
+										CPlayState::Instance()->theStall[1]->setMaskNo(CPlayState::Instance()->theStall[1]->getMaskNo() + 200);
+									if(CPlayState::Instance()->theStall[2]->Selected)
+										CPlayState::Instance()->theStall[2]->setMaskNo(CPlayState::Instance()->theStall[2]->getMaskNo() + 200);
+								}
 							}
 						}
 					}
+					// Render Objects to be selected in the color scheme
+					theGrid->Click = true;
+					//theGrid.renderGrid(true);
 				}
-				// Render Objects to be selected in the color scheme
-				theGrid->Click = true;
-				//theGrid.renderGrid(true);
-
 			}
 			CInputSystem::getInstance()->mouseInfo.clickedX = x;
 			CInputSystem::getInstance()->mouseInfo.clickedY = y;
@@ -715,19 +697,12 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 void CGamePlayState::MouseWheel(int button, int dir, int x, int y) {
 
 	if (dir > 0) {//Zoom In
-		/*if(camDist-zoomSpeed*15 > 0)
-			camDist -= zoomSpeed;*/
-		/*Vector3 temp = Camera::getInstance()->GetPosition() + Camera::getInstance()->GetDirection();
-		Camera::getInstance()->SetPosition(temp.x,temp.y,temp.z);*/
-		if(Camera::getInstance()->camDist > 1)
+		if(Camera::getInstance()->camDist > 10)
 			Camera::getInstance()->camDist -= 0.9f;
 		else
-			Camera::getInstance()->camDist = 1;
+			Camera::getInstance()->camDist = 10;
 	}
     else {//Zoom Out
-		//camDist += zoomSpeed;
-		/*Vector3 temp = Camera::getInstance()->GetPosition() - Camera::getInstance()->GetDirection();
-		Camera::getInstance()->SetPosition(temp.x,temp.y,temp.z);*/
 		if(Camera::getInstance()->camDist < Camera::getInstance()->camDist_max)
 			Camera::getInstance()->camDist += 0.9f;
 		else
@@ -760,7 +735,6 @@ void CGamePlayState::ClickCollision() {
 		for(int s = 0; s < TILE_NO_Y; ++s)
 		{
 			if(theGrid->temp[a][s].getColor() == Vector3(colorf[0], colorf[1], colorf[2])) {
-				printf("Confirmed grid clicked %d %d\n\n", a, s);
 			
 				CStalls* StallSelected = NULL;
 
@@ -774,7 +748,7 @@ void CGamePlayState::ClickCollision() {
 				//If clicked on stall
 				if(theGrid->temp[a][s].ShopOnTop != NULL)
 				{
-					printf("Confirmed shop clicked %d %d\n\n", a, s);
+					//printf("Confirmed shop clicked %d %d\n\n", a, s);
 					if(StallSelected == NULL)
 						theGrid->temp[a][s].ShopOnTop->Selected = true;
 				}
@@ -865,13 +839,11 @@ void CGamePlayState::OnRotate(int x, int y)
 		Camera::getInstance()->angle -= 6.284f;
 	else if (Camera::getInstance()->angle < -6.284f)
 		Camera::getInstance()->angle += 6.284f;
-	//Camera::getInstance()->SetDir(Vector3(sin(Camera::getInstance()->angle),Camera::getInstance()->GetDir().y,-cos(Camera::getInstance()->angle)));
-	cout << Camera::getInstance()->angle << endl;
 	//Update on y axis
-	if(Camera::getInstance()->GetDir().y - diffY*Camera::getInstance()->VEL_Y > Camera::getInstance()->MAX_Y)
-		Camera::getInstance()->SetDir(Vector3(sin(Camera::getInstance()->angle),Camera::getInstance()->MAX_Y,-cos(Camera::getInstance()->angle)));
-	else if(Camera::getInstance()->GetDir().y - diffY*Camera::getInstance()->VEL_Y < -Camera::getInstance()->MAX_Y)
+	if(Camera::getInstance()->GetDir().y - diffY*Camera::getInstance()->VEL_Y < -Camera::getInstance()->MAX_Y)
 		Camera::getInstance()->SetDir(Vector3(sin(Camera::getInstance()->angle),-Camera::getInstance()->MAX_Y,-cos(Camera::getInstance()->angle)));
+	else if(Camera::getInstance()->GetDir().y - diffY*Camera::getInstance()->VEL_Y > -Camera::getInstance()->MAX_Y/10)
+		Camera::getInstance()->SetDir(Vector3(sin(Camera::getInstance()->angle),-Camera::getInstance()->MAX_Y/10,-cos(Camera::getInstance()->angle)));
 	else
 		Camera::getInstance()->SetDir(Vector3(sin(Camera::getInstance()->angle),Camera::getInstance()->GetDir().y - diffY*Camera::getInstance()->VEL_Y,-cos(Camera::getInstance()->angle)));
 }

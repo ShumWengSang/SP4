@@ -8,6 +8,11 @@
 
 #define TILE_SIZE_X 10
 #define TILE_SIZE_Y 10
+
+#define TILE_WORLD_SIZE_X TILE_SIZE_X * TILE_NO_X
+#define TILE_WORLD_SIZE_Y TILE_SIZE_Y * TILE_NO_Y
+
+
 #define HAZE_MIN 50
 #define HAZE_MAX 400
 

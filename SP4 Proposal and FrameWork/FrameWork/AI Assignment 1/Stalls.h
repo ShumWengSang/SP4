@@ -42,7 +42,6 @@ public:
 	void setColour(Vector3 colour);
 
 	void buyMask(int amt);
-	void moveStall();
 
 	CMoney theMoney;
 

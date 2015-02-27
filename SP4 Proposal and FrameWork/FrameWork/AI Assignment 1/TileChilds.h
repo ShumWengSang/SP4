@@ -7,6 +7,21 @@
 
 
 class Tiles;
+class ColorChanger
+{
+
+public:
+
+	void HSLtoRGB(float &Rh, float &Gs, float &Bl);
+	~ColorChanger();
+	static ColorChanger * GetInstance();
+	private:
+		ColorChanger(){};
+		static ColorChanger * instance;
+};
+
+//Rh = 23, Gs = 5, Bl = 100 - blue;	//SET HSL COLORS. USING HSL BECAUSE IT IS EASIER TO MOVE THE COLORS AROUND FROM BLUE TO WHITE
+//HSLtoRGB(Rh, Gs, Bl);	//CONVERT FROM HSL TO RGB
 
 class CTileChilds : public Entity
 {
@@ -19,7 +34,8 @@ public:
 	int CurrentLevel;
 	int MAX_LEVEL;
 	float AlphaValue;
-	float HazeTileValue;
+	int HazeTileValue;
+	float newHazeTileValue;
 	int ChildNum;
 	Tiles * ParentTile;
 	CTileChilds * ParentChildTile; 
@@ -42,13 +58,18 @@ public:
 	~CTileChilds(void){};
 
 
-	void drawTile(float x, float y, float z, float tileWidth, float tileHeight);
-	void Pressure(CTileChilds &currentCell, CTileChilds &neighbourCell);
+	void drawTile(float x, float y, float z, float  tileWidth, float tileHeight);
+	void Pressure(CTileChilds &currentCell, CTileChilds &neighbourCell, const float &Ratio1);
+	void Pressure2(CTileChilds &currentCell, CTileChilds &neighbourCell, const float &Ratio1, const float &Ratio2);
+	void DiffusePressureOnEdge();
 	void init();
 	void LinkTiles();
 	void Seeded(int);
 	void ContructorInit();
 	void GetHaze(int &Haze, int&Number);
+	void MoveHaze(CTileChilds * other);
+	ColorChanger * theColor;
+
 
 	//Entity functions
 	bool glRenderObject();

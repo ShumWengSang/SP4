@@ -239,17 +239,6 @@ void CSaveState::MouseClick(int button, int state, int x, int y) {
 
 void CSaveState::MouseWheel(int button, int dir, int x, int y) {
 
-	if (dir > 0) {//Zoom In
-		/*if(camDist-zoomSpeed*15 > 0)
-			camDist -= zoomSpeed;*/
-		Vector3 temp = Camera::getInstance()->GetPosition() + Camera::getInstance()->GetDirection();
-		Camera::getInstance()->SetPosition(temp.x,temp.y,temp.z);
-	}
-    else {//Zoom Out
-		//camDist += zoomSpeed;
-		Vector3 temp = Camera::getInstance()->GetPosition() - Camera::getInstance()->GetDirection();
-		Camera::getInstance()->SetPosition(temp.x,temp.y,temp.z);
-	}
 }
 
 void CSaveState::printw (float x, float y, float z, char* format, ...)

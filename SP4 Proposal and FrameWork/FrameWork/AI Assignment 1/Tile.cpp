@@ -4,45 +4,10 @@ void Tiles::drawTile(int x, int y, int z, int tileWidth, int tileHeight, bool is
 {
 
 	//pos.Set(x,y,z);
-	scale.Set(tileWidth,0,tileHeight);
-	CalcHazeAlpha();
-	if(!isPicking) {
+	//scale.Set(tileWidth,0,tileHeight);
 
-		//if (x == (TILE_NO_X - 1 * TILE_SIZE_X)
-		//Vector3 temp(this->top->pos);
 
-		glBegin(GL_LINES);
-		glPushMatrix();
-		//glColor3f(color.x,color.y,color.z);
-		glColor3f(0,0,0);
-	
-		//Top left to top right
-		glVertex3i(x,0,z+tileWidth);
-		glVertex3i(x+tileHeight,0,z+tileWidth);
-	
-		//Top Right to bottom right
-		glVertex3i(x+tileHeight,0,z+tileWidth);
-		glVertex3i(x+tileHeight,0,z);
-
-		//Bottom right to bottom left
-		glVertex3i(x+tileHeight,0,z);
-		glVertex3i(x, 0, z);
-
-		//Bottom right to top Left
-		glVertex3i(x, 0, z);
-		glVertex3i(x,0,z+tileWidth);
-		glPopMatrix();
-		glEnd();
-
-		//glPushMatrix();
-
-		childs[0]->drawTile(x, 0, z, tileWidth / 2, tileHeight / 2);
-		childs[1]->drawTile(x + tileHeight / 2, 0, z, tileWidth / 2, tileHeight / 2);
-		childs[2]->drawTile(x, 0, z + tileWidth / 2, tileWidth / 2, tileHeight / 2);
-		childs[3] ->drawTile(x + tileHeight / 2, 0, z + tileWidth / 2, tileWidth / 2, tileHeight / 2);
-	}
-
-	glPushMatrix();
+	//glPushMatrix();
 		if(isPicking)
 		{
 			glColor4f(color.x, color.y, color.z, HazeAlpha);
@@ -52,11 +17,6 @@ void Tiles::drawTile(int x, int y, int z, int tileWidth, int tileHeight, bool is
 		{
 			glColor4f(0, 1, 0, HazeAlpha);
 			tempC = Vector3(0, 1, 0);
-		}
-		else if (TileHazeValue > 50)
-		{
-			glColor4f(1, 1, 0, HazeAlpha);
-			tempC = Vector3(1, 1, 0);
 		}
 		else {
 			glColor4f(1, 1, 1, HazeAlpha);
@@ -68,7 +28,17 @@ void Tiles::drawTile(int x, int y, int z, int tileWidth, int tileHeight, bool is
 			glVertex3f(x+tileHeight,0,z);
 			glVertex3f(x,0,z);
 		glEnd();
-	glPopMatrix();
+	//glPopMatrix();
+
+	if(!isPicking) 
+	{
+		int tW = tileWidth / 2;
+		int tH = tileHeight / 2;
+		childs[0]->drawTile(x, 0, z, tW, tH);
+		childs[1]->drawTile(x + tileHeight / 2, 0, z, tW, tH);
+		childs[2]->drawTile(x, 0, z + tileWidth / 2, tW, tH);
+		childs[3]->drawTile(x + tileHeight / 2, 0, z + tileWidth / 2, tW, tH);
+	}
 }
 
 bool Tiles::isWithin(Vector3 pos)
@@ -118,18 +88,6 @@ void Tiles::Pressure(Tiles &currentCell, Tiles &neighbourCell)
 
 void Tiles::Update()
 {
-	if (this->TileHazeValue <= 50)
-	{
-		//return;
-	}
-	//if (top != NULL)
-	//	Pressure(*this, *top);
-	//if (bottom != NULL)
-	//	Pressure(*this, *bottom);
-	//if (left != NULL)
-	//	Pressure(*this, *left);
-	//if (right != NULL)
-	//	Pressure(*this, *right);
 
 	for (int i = 0; i < 4; i++)
 	{
@@ -176,7 +134,7 @@ void Tiles::Seeded(int HazeValue)
 	//{
 	//	childs[i]->Seeded(HazeValue);
 	//}
-	childs[0]->Seeded(HazeValue);
+	childs[1]->Seeded(HazeValue);
 }
 
 int Tiles::GetHaze()

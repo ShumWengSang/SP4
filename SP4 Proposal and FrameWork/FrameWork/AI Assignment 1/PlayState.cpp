@@ -80,9 +80,6 @@ void CPlayState::Update(CGameStateManager* theGSM)
 
 void CPlayState::Draw(CGameStateManager* theGSM) 
 {
-	//Camera::getInstance()->SetHUD(true);
-	//Camera::getInstance()->SetHUD(false);
-
 	//Render
 	IGSM->Draw();
 }

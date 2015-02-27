@@ -33,63 +33,28 @@ void Camera::SetCameraType(CAM_TYPE ct) {
 
 void Camera::Reset()
 {
-	Position = Vector3(0.0, 0.0, 0.0);
 	Along = Vector3(1.0, 0.0, 0.0);
 	Up = Vector3(0.0, 1.0, 0.0);
-	Forward = Vector3(0.0, 0.0, -1.0);
 
-	MAXSPEED_MOVE = 1.0f;
+	MAXSPEED_MOVE = 10.0f;
 
 	camPoint.Set(0,0,0);
 	camPos.Set(50.0, 50.0, -70.0);
 	camDir = (camPoint-camPos).Normalized();
 	camDist = 50;
-	camDist_max = 100;
+	camDist_max = 50;
 	VEL_X = 0.2f;
 	VEL_Y = 0.01f;
 	MAX_Y = 2.5f;
-	angle = VEL_X * 3.142f / 180.0f;
+	angle = 180.0f;
+
+	camDir = Vector3(sin(angle),camDir.y,-cos(angle));
 }
 
-void Camera::Update() {
-	/*gluLookAt(Position.x, Position.y, Position.z, 
-			  Position.x + Forward.x, Position.y + Forward.y, Position.z + Forward.z, 
-			  0.0f,1.0f,0.0f);*/
-	newRender();
-}
-
-Vector3 Camera::GetPosition() {
-	//return Position;
-	return GetPos();
-}
-
-void Camera::SetPosition( GLfloat x, GLfloat y, GLfloat z )
-{
-	//this->Position.Set( x, y, z );
-	SetPos(Vector3(x, y, z));
-}
-
-void Camera::SetDirection( GLfloat x, GLfloat y, GLfloat z )
-{
-	//this->Forward.Set( x, y, z );
-	SetDir(Vector3(x, y, z));
-}
-
-void Camera::Pitch(GLfloat theta)
-{
-	Forward.y -= theta;
-	if (Forward.y > 3.142f)
-		Forward.y = 3.142f;
-	else if (Forward.y < -3.142f)
-		Forward.y = -3.142f;
-}
 void Camera::Yaw(GLfloat theta)
 {
-	Forward.x = sin(-theta);
-	Forward.z = -cos(-theta);
-}
-void Camera::Roll(GLfloat theta)
-{
+	camDir.x = sin(-theta);
+	camDir.z = -cos(-theta);
 }
 void Camera::Walk(GLfloat delta)
 {
@@ -111,9 +76,6 @@ void Camera::Strafe(GLfloat delta)
 	Along.Normalize();
 	//Position.Set( Position.x + Along.x * delta, Position.y + Along.y * delta, Position.z + Along.z * delta );
 	camPoint.Set( camPoint.x + Along.x * delta, camPoint.y + Along.y * delta, camPoint.z + Along.z * delta );
-}
-void Camera::Fly(GLfloat delta)
-{
 }
 
 // Toggle HUD mode
@@ -176,10 +138,4 @@ void Camera::SetORTHO(bool mode)
 	}
 }
 
-// Get the direction of the camera
-Vector3 Camera::GetDirection()
-{
-	//return Forward;
-	return GetDir();
-}
 

@@ -69,40 +69,6 @@ void CInputSystem::KeyboardUp(unsigned char key, int x, int y)
 
 void CInputSystem::MouseMove (int x, int y) {
 
-	//Variables to store currentPos-lastPos
-	/*int diffX = x - mouseInfo.lastX;
-	int diffY = y - mouseInfo.lastY;
-
-	//Update on y axis
-	if (OrientCam)
-		Camera::getInstance()->Pitch(diffY * 3.142f / 180.0f);
-
-	//Update on x and z axis
-	angle += (float) diffX * 3.142f / 180.0f;
-	if (angle > 6.284f)
-		angle -= 6.284f;
-	else if (angle < -6.284f)
-		angle += 6.284f;
-	if (OrientCam)
-		Camera::getInstance()->Yaw(-angle);*/
-
-	//mouseInfo.lastX = x;
-	//mouseInfo.lastY = y;
-
-	//Checking mouse boundary. (Width)
-	/*if  (mouseInfo.lastX > SCREEN_WIDTH-20 || mouseInfo.lastX < 20)
-	{
-		mouseInfo.lastX = (SCREEN_WIDTH >> 1);
-		glutWarpPointer(mouseInfo.lastX, mouseInfo.lastY);
-	}
-
-	//Checking mouse boundary. (Height)
-	if (mouseInfo.lastY > SCREEN_HEIGHT-20 || mouseInfo.lastY < 20)
-	{
-		mouseInfo.lastY = (SCREEN_HEIGHT >> 1);
-		glutWarpPointer(mouseInfo.lastX, mouseInfo.lastY);
-	}*/
-
 	CApplication::getInstance()->MouseMove(x, y);
 }
 
@@ -131,21 +97,6 @@ void CInputSystem::MouseClick(int button, int state, int x, int y) {
 
 void CInputSystem::MouseWheel(int button, int dir, int x, int y) {
 	
-	//if(typeid(CApplication::getInstance()->GSM->GetCurrentState()).name() == typeid(CGameState*).name())
-	//	cout << typeid(CApplication::getInstance()->GSM->GetCurrentState()).name() << endl;
-
-	//if (dir > 0) {//Zoom In
-	//	/*if(camDist-zoomSpeed*15 > 0)
-	//		camDist -= zoomSpeed;*/
-	//	Vector3 temp = Camera::getInstance()->GetPosition() + Camera::getInstance()->GetDirection();
-	//	Camera::getInstance()->SetPosition(temp.x,temp.y,temp.z);
-	//}
- //   else {//Zoom Out
-	//	//camDist += zoomSpeed;
-	//	Vector3 temp = Camera::getInstance()->GetPosition() - Camera::getInstance()->GetDirection();
-	//	Camera::getInstance()->SetPosition(temp.x,temp.y,temp.z);
-	//}
-
 	CApplication::getInstance()->MouseWheel(button, dir, x, y);
 }
 
