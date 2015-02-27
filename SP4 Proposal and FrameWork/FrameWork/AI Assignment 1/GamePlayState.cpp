@@ -168,10 +168,12 @@ void CGamePlayState::HandleEvents(CInGameStateManager* theGSM)
 
 void CGamePlayState::Update(CInGameStateManager* theGSM) 
 {
-	Camera::getInstance()->newUpdate();
-	if (!isPause)
+	if(isPause)
+		Camera::getInstance()->newUpdate();
+	else
 	{
 		keyboardUpdate();
+		Camera::getInstance()->newUpdate();
 		for (auto i = theListofEntities.begin(); i != theListofEntities.end(); i++)
 		{
 			(*i)->Update();
@@ -717,7 +719,6 @@ void CGamePlayState::ClickCollision() {
 		for(int s = 0; s < TILE_NO_Y; ++s)
 		{
 			if(theGrid->temp[a][s].getColor() == Vector3(colorf[0], colorf[1], colorf[2])) {
-				printf("Confirmed grid clicked %d %d\n\n", a, s);
 			
 				CStalls* StallSelected = NULL;
 
@@ -731,7 +732,7 @@ void CGamePlayState::ClickCollision() {
 				//If clicked on stall
 				if(theGrid->temp[a][s].ShopOnTop != NULL)
 				{
-					printf("Confirmed shop clicked %d %d\n\n", a, s);
+					//printf("Confirmed shop clicked %d %d\n\n", a, s);
 					if(StallSelected == NULL)
 						theGrid->temp[a][s].ShopOnTop->Selected = true;
 				}
