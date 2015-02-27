@@ -196,6 +196,8 @@ int CForecast::prediction(int lowRange, int highRange, int highestChance)
 		else
 			sum += temp[i];
 	}
+
+	return 0;
 }
 
 
@@ -230,7 +232,7 @@ int CForecast::getCurrentForecast()
 {
 	return forecastNum[currentDay-1];
 }
-float CForecast::getActual()
+int CForecast::getActual()
 {
 	return actualNum[currentDay-1];
 }

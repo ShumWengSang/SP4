@@ -34,6 +34,6 @@ public:
 	int getCurrentForecast();
 
 	
-	float getActual();
+	int getActual();
 };
 
