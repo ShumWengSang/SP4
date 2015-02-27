@@ -628,47 +628,53 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 						isBuying = false;
 					}
 
-					if(theBuyingButton[bpFifty]->isInside(x, y))
+					if (CPlayState::Instance()->theStall[0]->Selected ||
+						CPlayState::Instance()->theStall[1]->Selected ||
+						CPlayState::Instance()->theStall[2]->Selected)
 					{
-						if(CPlayState::Instance()->theMoney.getCurrentMoney() >= 300)
-						{
-							CPlayState::Instance()->theMoney.setCurrentMoney(CPlayState::Instance()->theMoney.getCurrentMoney() - 300);
 
-							if(CPlayState::Instance()->theStall[0]->Selected)
-								CPlayState::Instance()->theStall[0]->setMaskNo(CPlayState::Instance()->theStall[0]->getMaskNo() + 50);
-							if(CPlayState::Instance()->theStall[1]->Selected)
-								CPlayState::Instance()->theStall[1]->setMaskNo(CPlayState::Instance()->theStall[1]->getMaskNo() + 50);
-							if(CPlayState::Instance()->theStall[2]->Selected)
-								CPlayState::Instance()->theStall[2]->setMaskNo(CPlayState::Instance()->theStall[2]->getMaskNo() + 50);
+						if(theBuyingButton[bpFifty]->isInside(x, y))
+						{
+							if(CPlayState::Instance()->theMoney.getCurrentMoney() >= 300)
+							{
+								CPlayState::Instance()->theMoney.setCurrentMoney(CPlayState::Instance()->theMoney.getCurrentMoney() - 300);
+
+								if(CPlayState::Instance()->theStall[0]->Selected)
+									CPlayState::Instance()->theStall[0]->setMaskNo(CPlayState::Instance()->theStall[0]->getMaskNo() + 50);
+								if(CPlayState::Instance()->theStall[1]->Selected)
+									CPlayState::Instance()->theStall[1]->setMaskNo(CPlayState::Instance()->theStall[1]->getMaskNo() + 50);
+								if(CPlayState::Instance()->theStall[2]->Selected)
+									CPlayState::Instance()->theStall[2]->setMaskNo(CPlayState::Instance()->theStall[2]->getMaskNo() + 50);
+							}
+
 						}
-
-					}
-					if(theBuyingButton[bpHundred]->isInside(x, y))
-					{
-						if(CPlayState::Instance()->theMoney.getCurrentMoney() >= 550)
+						if(theBuyingButton[bpHundred]->isInside(x, y))
 						{
-							CPlayState::Instance()->theMoney.setCurrentMoney(CPlayState::Instance()->theMoney.getCurrentMoney() - 550);
+							if(CPlayState::Instance()->theMoney.getCurrentMoney() >= 550)
+							{
+								CPlayState::Instance()->theMoney.setCurrentMoney(CPlayState::Instance()->theMoney.getCurrentMoney() - 550);
 
-							if(CPlayState::Instance()->theStall[0]->Selected)
-								CPlayState::Instance()->theStall[2]->setMaskNo(CPlayState::Instance()->theStall[0]->getMaskNo() + 100);
-							if(CPlayState::Instance()->theStall[1]->Selected)
-								CPlayState::Instance()->theStall[1]->setMaskNo(CPlayState::Instance()->theStall[1]->getMaskNo() + 100);
-							if(CPlayState::Instance()->theStall[2]->Selected)
-								CPlayState::Instance()->theStall[2]->setMaskNo(CPlayState::Instance()->theStall[2]->getMaskNo() + 100);
+								if(CPlayState::Instance()->theStall[0]->Selected)
+									CPlayState::Instance()->theStall[2]->setMaskNo(CPlayState::Instance()->theStall[0]->getMaskNo() + 100);
+								if(CPlayState::Instance()->theStall[1]->Selected)
+									CPlayState::Instance()->theStall[1]->setMaskNo(CPlayState::Instance()->theStall[1]->getMaskNo() + 100);
+								if(CPlayState::Instance()->theStall[2]->Selected)
+									CPlayState::Instance()->theStall[2]->setMaskNo(CPlayState::Instance()->theStall[2]->getMaskNo() + 100);
+							}
 						}
-					}
-					if(theBuyingButton[bpTwohundred]->isInside(x, y))
-					{
-						if(CPlayState::Instance()->theMoney.getCurrentMoney() >= 1050)
+						if(theBuyingButton[bpTwohundred]->isInside(x, y))
 						{
-							CPlayState::Instance()->theMoney.setCurrentMoney(CPlayState::Instance()->theMoney.getCurrentMoney() - 1050);
+							if(CPlayState::Instance()->theMoney.getCurrentMoney() >= 1050)
+							{
+								CPlayState::Instance()->theMoney.setCurrentMoney(CPlayState::Instance()->theMoney.getCurrentMoney() - 1050);
 
-							if(CPlayState::Instance()->theStall[0]->Selected)
-								CPlayState::Instance()->theStall[0]->setMaskNo(CPlayState::Instance()->theStall[0]->getMaskNo() + 200);
-							if(CPlayState::Instance()->theStall[1]->Selected)
-								CPlayState::Instance()->theStall[1]->setMaskNo(CPlayState::Instance()->theStall[1]->getMaskNo() + 200);
-							if(CPlayState::Instance()->theStall[2]->Selected)
-								CPlayState::Instance()->theStall[2]->setMaskNo(CPlayState::Instance()->theStall[2]->getMaskNo() + 200);
+								if(CPlayState::Instance()->theStall[0]->Selected)
+									CPlayState::Instance()->theStall[0]->setMaskNo(CPlayState::Instance()->theStall[0]->getMaskNo() + 200);
+								if(CPlayState::Instance()->theStall[1]->Selected)
+									CPlayState::Instance()->theStall[1]->setMaskNo(CPlayState::Instance()->theStall[1]->getMaskNo() + 200);
+								if(CPlayState::Instance()->theStall[2]->Selected)
+									CPlayState::Instance()->theStall[2]->setMaskNo(CPlayState::Instance()->theStall[2]->getMaskNo() + 200);
+							}
 						}
 					}
 				}
