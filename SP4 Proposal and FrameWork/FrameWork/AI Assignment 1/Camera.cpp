@@ -36,7 +36,7 @@ void Camera::Reset()
 	Along = Vector3(1.0, 0.0, 0.0);
 	Up = Vector3(0.0, 1.0, 0.0);
 
-	MAXSPEED_MOVE = 1.0f;
+	MAXSPEED_MOVE = 10.0f;
 
 	camPoint.Set(0,0,0);
 	camPos.Set(50.0, 50.0, -70.0);

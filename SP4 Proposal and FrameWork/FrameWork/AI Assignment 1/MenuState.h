@@ -69,5 +69,6 @@ private:
 
 	bool isPassed;
 	bool skip;
+	double exponent;
 };
 

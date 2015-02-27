@@ -691,10 +691,10 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 void CGamePlayState::MouseWheel(int button, int dir, int x, int y) {
 
 	if (dir > 0) {//Zoom In
-		if(Camera::getInstance()->camDist > 1)
+		if(Camera::getInstance()->camDist > 10)
 			Camera::getInstance()->camDist -= 0.9f;
 		else
-			Camera::getInstance()->camDist = 1;
+			Camera::getInstance()->camDist = 10;
 	}
     else {//Zoom Out
 		if(Camera::getInstance()->camDist < Camera::getInstance()->camDist_max)

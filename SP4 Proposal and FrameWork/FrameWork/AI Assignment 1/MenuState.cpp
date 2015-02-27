@@ -38,6 +38,7 @@ void CMenuState::Init()
 
 	isPassed = false;
 	skip = false;
+	exponent = 0;
 
 	//Input System
 	InputSystem = CInputSystem::getInstance();
@@ -79,7 +80,8 @@ void CMenuState::Update(CGameStateManager* theGSM)
 	if(isPassed)
 		Camera::getInstance()->Walk(0);
 	else
-		Camera::getInstance()->Walk(1);
+		Camera::getInstance()->Walk(pow(10,exponent));
+	exponent+=0.01;
 }
 
 void CMenuState::checkCameraPos()
@@ -88,7 +90,7 @@ void CMenuState::checkCameraPos()
 	pos.Set(0, -50, 320);
 	if(skip)
 		Camera::getInstance()->SetPos(Vector3(0, -50, 320));
-	if(Camera::getInstance()->GetPos() == pos)
+	if(Camera::getInstance()->GetPos().z >= pos.z)
 	{
 		isPassed = true;
 	}
