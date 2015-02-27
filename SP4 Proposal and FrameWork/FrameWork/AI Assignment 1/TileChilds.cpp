@@ -21,7 +21,7 @@ void ColorChanger::HSLtoRGB(float &Rh, float &Gs, float&Bl)
 		//USE RIGHT FORMULA TO FIND RGB
 		if (Bl < 0.5)
 		{
-			temp1 = Bl * (1.0 + Gs);
+			temp1 = Bl * ((static_cast<float>(1.0)) + Gs);
 		}
 		else if (Bl >= 0.5)
 		{
@@ -304,8 +304,8 @@ void CTileChilds::Pressure(CTileChilds &currentCell, CTileChilds &neighbourCell,
 
 	//float CurrentTemp = currentCell.HazeTileValue;
 	//pressure diffuse to neightbour
-	currentCell.HazeTileValue -= PressureFlow * Ratio1;
-	neighbourCell.HazeTileValue += PressureFlow * Ratio1;
+	currentCell.HazeTileValue -= (static_cast<int>(PressureFlow * Ratio1));
+	neighbourCell.HazeTileValue += (static_cast<int>(PressureFlow * Ratio1));
 	
 
 	//detect and remove oscillations
@@ -314,8 +314,8 @@ void CTileChilds::Pressure(CTileChilds &currentCell, CTileChilds &neighbourCell,
 		//calculate the average pressure of currentcell and neighbourcell and distribute evenly
 		float TotalPressure = currentCell.HazeTileValue + neighbourCell.HazeTileValue;
 		float AveragePressure = TotalPressure / 2;
-		currentCell.HazeTileValue = AveragePressure;
-		neighbourCell.HazeTileValue = AveragePressure;
+		currentCell.HazeTileValue = (int)AveragePressure;
+		neighbourCell.HazeTileValue = (int)AveragePressure;
 	}
 }
 
@@ -326,8 +326,8 @@ void CTileChilds::Pressure2(CTileChilds &currentCell, CTileChilds &neighbourCell
 
 	//float CurrentTemp = currentCell.HazeTileValue;
 	//pressure diffuse to neightbour
-	currentCell.HazeTileValue -= PressureFlow * Ratio1;
-	neighbourCell.HazeTileValue += PressureFlow * Ratio2;
+	currentCell.HazeTileValue -= (static_cast<int>(PressureFlow * Ratio1));
+	neighbourCell.HazeTileValue += (static_cast<int>(PressureFlow * Ratio2));
 
 
 	//detect and remove oscillations
@@ -336,7 +336,7 @@ void CTileChilds::Pressure2(CTileChilds &currentCell, CTileChilds &neighbourCell
 		//calculate the average pressure of currentcell and neighbourcell and distribute evenly
 		float TotalPressure = currentCell.HazeTileValue + neighbourCell.HazeTileValue;
 		float AveragePressure = TotalPressure / 2;
-		currentCell.HazeTileValue = AveragePressure;
+		currentCell.HazeTileValue = (int)AveragePressure;
 		neighbourCell.HazeTileValue = AveragePressure;
 	}
 }

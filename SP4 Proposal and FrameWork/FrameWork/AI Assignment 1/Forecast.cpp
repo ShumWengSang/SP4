@@ -210,7 +210,7 @@ void CForecast::setActualArray(std::vector<float> actual)
 {
 	for (int i = 0; i < 7; i++)
 	{
-		actualNum[i] = actual.at(i);
+		actualNum[i] = (static_cast<int>(actual.at(i)));
 		for (int j = 1; j < 11; j++)
 		{
 			if (actualNum[i] > (j-1)*50 && actualNum[i] < j*50)

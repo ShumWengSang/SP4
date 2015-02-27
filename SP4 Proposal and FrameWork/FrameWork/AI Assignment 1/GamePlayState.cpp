@@ -300,7 +300,7 @@ void CGamePlayState::DrawBuying()
 			glBindTexture(GL_TEXTURE_2D, buyingBackground[0].texID);
 			glPushMatrix();
 				glTranslatef(SCREEN_WIDTH - 320, SCREEN_HEIGHT - 330, 2);
-				glScalef(0.4, 0.55, 1);
+				glScalef((static_cast<GLfloat>(0.4)), (static_cast<GLfloat>(0.55)), (static_cast<GLfloat>(1)));
 				glBegin(GL_QUADS);
 					glTexCoord2f(0, 0);	glVertex2f(0, SCREEN_HEIGHT);
 					glTexCoord2f(1, 0);	glVertex2f(SCREEN_WIDTH, SCREEN_HEIGHT);

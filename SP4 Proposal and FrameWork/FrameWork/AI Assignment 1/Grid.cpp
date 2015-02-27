@@ -16,7 +16,7 @@ Grid::Grid(void)
 	{
 		for(int b = 0; b < TILE_NO_Y; ++b)
 		{
-			temp [a][b].setPos(a*tileHeight, 0, b*tileWidth);
+			temp [a][b].setPos( (static_cast<float>(a*tileHeight)), 0, (static_cast<float>(b*tileWidth)) );
 		}
 	}
 
@@ -82,7 +82,7 @@ void Grid::renderGrid(bool isPicking)
 		{
 			//drawTile(k*tileHeight, 0, l*tileWidth, isPicking);
 			//temp[k][l].drawTile(k*tileHeight, 0, l*tileWidth, tileWidth, tileHeight, isPicking);
-			temp[k][l].drawTile(temp[k][l].getPos().x, temp[k][l].getPos().y, temp[k][l].getPos().z, tileWidth, tileHeight, isPicking);
+			temp[k][l].drawTile( (static_cast<int>(temp[k][l].getPos().x)), (static_cast<int>(temp[k][l].getPos().y)), (static_cast<int>(temp[k][l].getPos().z)), tileWidth, tileHeight, isPicking);
 		}
 	}
 	glDisable(GL_BLEND);

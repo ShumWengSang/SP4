@@ -72,11 +72,11 @@ void CButtons::drawButton()
 		glBindTexture(GL_TEXTURE_2D, button);
 		glColor3f(1, 1, 1);
 		glPushMatrix();
-		glTranslatef(x, y, 0);
+		glTranslatef((static_cast<GLfloat>(x)), (static_cast<GLfloat>(y)), 0);
 			glBegin(GL_QUADS);
-			glTexCoord2f(0, 0);	glVertex2f(0,  h);
-			glTexCoord2f(1, 0);	glVertex2f(w, h);
-			glTexCoord2f(1, 1);	glVertex2f(w, 0);
+			glTexCoord2f(0, 0);	glVertex2f(0, (static_cast<GLfloat>(h)));
+			glTexCoord2f(1, 0);	glVertex2f((static_cast<GLfloat>(w)), (static_cast<GLfloat>(h)));
+			glTexCoord2f(1, 1);	glVertex2f((static_cast<GLfloat>(w)), 0);
 			glTexCoord2f(0, 1);	glVertex2f(0, 0);			
 			glEnd();
 		glPopMatrix();

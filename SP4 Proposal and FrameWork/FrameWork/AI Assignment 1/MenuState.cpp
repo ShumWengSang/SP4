@@ -162,8 +162,8 @@ void CMenuState::DrawBackground()
 			Rh = 23, Gs = 5, Bl = 100 - blue;	//SET HSL COLORS. USING HSL BECAUSE IT IS EASIER TO MOVE THE COLORS AROUND FROM BLUE TO WHITE
 			HSLtoRGB(Rh, Gs, Bl);	//CONVERT FROM HSL TO RGB
 			glColor3f(Rh, Gs, Bl);
-			glVertex2f(k * number2, i  * number);
-			glVertex2f(k * number2, (i + 1) * number);
+			glVertex2f((static_cast<GLfloat>(k * number2)), (static_cast<GLfloat>(i  * number)));
+			glVertex2f((static_cast<GLfloat>(k * number2)), (static_cast<GLfloat>((i + 1) * number)));
 		}
 		glEnd();
 		glPopMatrix();
@@ -175,7 +175,7 @@ void CMenuState::DrawBackground()
 //HSL: Hue, Saturation, lightness
 void CMenuState::HSLtoRGB(float &Rh, float &Gs, float &Bl)
 {
-	float min, max;
+	//float min, max;
 	Gs /= 100;
 	Bl /= 100;
 	float R, G, B;

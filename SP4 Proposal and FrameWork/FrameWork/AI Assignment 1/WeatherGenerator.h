@@ -29,7 +29,7 @@ public:
 
 	double SmoothedNoise_1(float x)
 	{
-		return Noise1(x) / 2 + Noise1(x - 1) / 4 + Noise1(x + 1) / 4;
+		return Noise1(static_cast<int>(x / 2)) + Noise1(static_cast<int>(x - 1)) / 4 + Noise1(static_cast<int>(x + 1)) / 4;
 	}
 
 	double Cosine_Interpolate(double a, double b, double x)
@@ -45,8 +45,8 @@ public:
 		int integer_X = int(x);
 		int fractional_X = x - integer_X;
 
-		double v1 = SmoothedNoise_1(integer_X);
-		double v2 = SmoothedNoise_1(integer_X + 1);
+		double v1 = SmoothedNoise_1((static_cast<float>(integer_X)));
+		double v2 = SmoothedNoise_1((static_cast<float>(integer_X+1)));
 
 		return Cosine_Interpolate(v1, v2, fractional_X);
 

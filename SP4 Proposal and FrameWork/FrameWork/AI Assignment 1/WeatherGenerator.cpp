@@ -24,7 +24,7 @@ WeatherGenerator::WeatherGenerator()
 
 		std::cout << "Result: " << i << " " << Result + HazeGraph[i] * 13 << std::endl;
 
-		HazeGraph[i] += Result;
+		HazeGraph[i] += (static_cast<float>(Result));
 		HazeGraph[i] *= 13;
 
 		if ((i+1) % 9 == 0 && i != 0)

@@ -35,7 +35,7 @@ void CleanUpUponExit()
 }
 
 int main( int argc, char **argv ){
-	srand(time(NULL));
+	srand( (static_cast<unsigned int>(time(NULL))) );
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE | GLUT_RGBA);
 	glutInitWindowPosition(250,50);

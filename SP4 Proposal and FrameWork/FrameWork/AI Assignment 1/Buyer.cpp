@@ -47,7 +47,7 @@ void Buyer::WillBuy(int Haze)
 	ProbabilitytoBuyMask.clear();
 	for (auto i = theStalls.begin(); i != theStalls.end(); i++)
 	{
-		if (WillBuyMask((*i)->theStall->Price))
+		if (WillBuyMask( (static_cast<int>((*i)->theStall->Price))) )
 		{
 			(*i)->Considered = true;
 			float Distance = ((*i)->theStall->getPosition() - Position).Length();
@@ -234,7 +234,7 @@ void Buyer::Init()
 
 	theModel = new CObjectModel();
 	theModel->theObj = LoadOBJ("./models/People.obj");
-	theModel->SetPosition( Vector3 (0,0.8,0));
+	theModel->SetPosition( Vector3 (0,(static_cast<int>(0.8)),0));
 }
 
 
