@@ -56,13 +56,16 @@ void CInGameStateManager::ChangeState(CInGameState* state)
 			(*i)->Cleanup();
 			(*i)->Drop();
 			i = StackOfStates_InGame.erase(i);
+			state = NULL;
+			break;
 		}
 		else
 		{
 			i++;
 		}
 	}
-	state->Drop();
+	if(state != NULL)
+		state->Drop();
 	switch (temp)
 	{
 		case BuyMaskState:

@@ -72,11 +72,33 @@ public:
 	}
 	void Drop()
 	{
+		for (int i = 0; i < 20; i++)
+		{
+			if(theButton[i] != NULL)
+			{
+				delete theButton[i];
+				theButton[i] = NULL;
+			}
+		}
+
+		if (sound != NULL)
+		{
+			delete sound;
+			sound = NULL;
+		}
+
+		if (se != NULL)
+		{
+			delete se;
+			se = NULL;
+		}
+		
 		if (theStartOfDayState != NULL)
 		{
 			delete theStartOfDayState;
 			theStartOfDayState = NULL;
 		}
+
 	}
 
 	void *font_style;

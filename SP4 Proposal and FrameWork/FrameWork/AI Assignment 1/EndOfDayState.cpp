@@ -35,6 +35,15 @@ void CEndOfDayState::LoadButtons()
 
 void CEndOfDayState::Init()
 {
+	for (int i = 0; i < 4; i++)
+	{
+		theButton[i] = NULL;
+	}
+
+	sound = NULL;
+
+	se = NULL;
+
 	thisState = EndofDayState;
 
 	cout << "CEndOfDayState::Init\n" << endl;

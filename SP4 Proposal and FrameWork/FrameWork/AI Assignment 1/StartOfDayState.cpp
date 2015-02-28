@@ -69,6 +69,15 @@ void CStartOfDayState::LoadButtons()
 
 void CStartOfDayState::Init()
 {
+	for (int i = 0; i < 20; i++)
+	{
+		theButton[i] = NULL;
+	}
+
+	sound = NULL;
+
+	se = NULL;
+
 	thisState = StartofDayState;
 
 	cout << "CStartOfDayState::Init\n" << endl;

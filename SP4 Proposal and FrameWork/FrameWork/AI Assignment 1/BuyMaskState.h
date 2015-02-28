@@ -64,12 +64,6 @@ public:
 
 	void Drop()
 	{
-		if (theBuyMaskState != NULL)
-		{
-			delete theBuyMaskState;
-			theBuyMaskState = NULL;
-		}
-
 		for (int i = 0; i < 4; i++)
 		{
 			if(theButton[i] != NULL)
@@ -89,6 +83,12 @@ public:
 		{
 			delete se;
 			se = NULL;
+		}
+
+		if (theBuyMaskState != NULL)
+		{
+			delete theBuyMaskState;
+			theBuyMaskState = NULL;
 		}
 	}
 
