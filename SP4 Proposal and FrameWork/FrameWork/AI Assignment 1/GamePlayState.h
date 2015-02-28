@@ -99,7 +99,7 @@ public:
 			delete theGrid;
 			theGrid = NULL;
 		}
-		for (int i = 0; i < theSeededTiles.size(); i++)
+		for (unsigned int i = 0; i < theSeededTiles.size(); i++)
 		{
 			if (theSeededTiles[i] != NULL)
 			{
@@ -130,7 +130,7 @@ public:
 			theGamePlayState = NULL;
 		}
 
-		for (int i = 0; i < theListofEntities.size(); i++)
+		for (unsigned int i = 0; i < theListofEntities.size(); i++)
 		{
 			if (theListofEntities[i] != NULL)
 			{

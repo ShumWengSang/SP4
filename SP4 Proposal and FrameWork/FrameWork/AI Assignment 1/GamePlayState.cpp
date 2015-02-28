@@ -131,8 +131,8 @@ void CGamePlayState::Init()
 	//	//SET THE HAZE
 	//}
 	int DayNumber = CPlayState::Instance()->day;
-	theGrid->temp[2][0].Seeded(CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime] * 100000);//CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime]
-	theGrid->temp[3][0].Seeded(CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime] * 10000);
+	theGrid->temp[2][0].Seeded( static_cast<int>(CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime] * 100000) );//CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime]
+	theGrid->temp[3][0].Seeded( static_cast<int>(CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime] * 10000) );
 	//theGrid->temp[1][2].Seeded(CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime] * 10000);
 	//theGrid->temp[3][4].Seeded(CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime] * 10000);
 
@@ -241,7 +241,7 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 				for (auto i = theSeededTiles.begin(); i != theSeededTiles.end(); i++)
 				{
 					(*i)->TileHazeValue = CPlayState::Instance()->theHaze.HazeGraph[HourNumber + DayNumber * DayTime] * 8;
-					(*i)->childs[0]->HazeTileValue = CPlayState::Instance()->theHaze.HazeGraph[HourNumber + DayNumber * DayTime] * 8;
+					(*i)->childs[0]->HazeTileValue =   static_cast<int>(CPlayState::Instance()->theHaze.HazeGraph[HourNumber + DayNumber * DayTime] * 8);
 				}
 			}
 		}
@@ -479,11 +479,11 @@ void CGamePlayState::DrawSkyBox()
 		glPopAttrib();
 	glPopMatrix();
 }
-
+			
 void CGamePlayState::DrawTimeBar()
 {
 	theTimeBar.init(1.0f, 0.2f, 0.2f, barPos);
-	theTimeBar.update(HourNumber);
+	theTimeBar.update(static_cast<float>(HourNumber) );
 	theTimeBar.draw();
 }
 
@@ -557,13 +557,13 @@ void CGamePlayState::keyboardUpdate()
 
 	//Camera Locking
 	if(Camera::getInstance()->GetPos().x <= theGrid->getX())
-	{Camera::getInstance()->SetPos(Vector3(theGrid->getX(),Camera::getInstance()->GetPos().y,Camera::getInstance()->GetPos().z));}
+	{Camera::getInstance()->SetPos(Vector3( static_cast<float>(theGrid->getX()), Camera::getInstance()->GetPos().y,Camera::getInstance()->GetPos().z));}
 	else if(Camera::getInstance()->GetPos().x >= theGrid->getX() + TILE_SIZE_X*TILE_NO_X)
-	{Camera::getInstance()->SetPos(Vector3(theGrid->getX() + TILE_SIZE_X*TILE_NO_X,Camera::getInstance()->GetPos().y,Camera::getInstance()->GetPos().z));}
+	{Camera::getInstance()->SetPos(Vector3(static_cast<float>(theGrid->getX() + TILE_SIZE_X*TILE_NO_X ),Camera::getInstance()->GetPos().y,Camera::getInstance()->GetPos().z));}
 	if(Camera::getInstance()->GetPos().z <= theGrid->getY())
-	{Camera::getInstance()->SetPos(Vector3(Camera::getInstance()->GetPos().x,Camera::getInstance()->GetPos().y,theGrid->getY()));}
+	{Camera::getInstance()->SetPos(Vector3(Camera::getInstance()->GetPos().x,Camera::getInstance()->GetPos().y, static_cast<float>(theGrid->getY()) ));}
 	else if(Camera::getInstance()->GetPos().z >= theGrid->getY() + TILE_SIZE_Y*TILE_NO_Y)
-	{Camera::getInstance()->SetPos(Vector3(Camera::getInstance()->GetPos().x,Camera::getInstance()->GetPos().y,theGrid->getY() + TILE_SIZE_Y*TILE_NO_Y));}
+	{Camera::getInstance()->SetPos(Vector3(Camera::getInstance()->GetPos().x,Camera::getInstance()->GetPos().y, static_cast<float>(theGrid->getY() + TILE_SIZE_Y*TILE_NO_Y) ));}
 }
 
 //Inputs

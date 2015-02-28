@@ -134,7 +134,7 @@ void CBuyMaskState::DrawBackground()
 		glBindTexture(GL_TEXTURE_2D, background[1].texID);
 		glPushMatrix();
 			glTranslatef(20, SCREEN_HEIGHT/2 - 100, 0);
-			glScalef(0.95, 0.4, 1);
+			glScalef( (static_cast<GLfloat>(0.95)), (static_cast<GLfloat>(0.4)), 1);
 			glBegin(GL_QUADS);
 				glTexCoord2f(0, 0);	glVertex2f(0, SCREEN_HEIGHT);
 				glTexCoord2f(1, 0);	glVertex2f(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -154,7 +154,7 @@ void CBuyMaskState::DrawBackground()
 		glBindTexture(GL_TEXTURE_2D, background[2].texID);
 		glPushMatrix();
 			glTranslatef(60, SCREEN_HEIGHT/2 - 35, 0);
-			glScalef(0.15, 0.2, 1);
+			glScalef((static_cast<GLfloat>(0.15)), (static_cast<GLfloat>(0.2)), 1);
 			glBegin(GL_QUADS);
 				glTexCoord2f(0, 0);	glVertex2f(0, SCREEN_HEIGHT);
 				glTexCoord2f(1, 0);	glVertex2f(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -173,7 +173,7 @@ void CBuyMaskState::DrawBackground()
 		glBindTexture(GL_TEXTURE_2D, background[2].texID);
 		glPushMatrix();
 			glTranslatef(SCREEN_WIDTH/2 - 60, SCREEN_HEIGHT/2 - 35, 0);
-			glScalef(0.15, 0.2, 1);
+			glScalef((static_cast<GLfloat>(0.15)), (static_cast<GLfloat>(0.2)), 1);
 			glBegin(GL_QUADS);
 				glTexCoord2f(0, 0);	glVertex2f(0, SCREEN_HEIGHT);
 				glTexCoord2f(1, 0);	glVertex2f(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -192,7 +192,7 @@ void CBuyMaskState::DrawBackground()
 		glBindTexture(GL_TEXTURE_2D, background[2].texID);
 		glPushMatrix();
 			glTranslatef(SCREEN_WIDTH - 170,  SCREEN_HEIGHT/2 - 35, 0);
-			glScalef(0.15, 0.2, 1);
+			glScalef((static_cast<GLfloat>(0.15)), (static_cast<GLfloat>(0.2)), 1);
 			glBegin(GL_QUADS);
 				glTexCoord2f(0, 0);	glVertex2f(0, SCREEN_HEIGHT);
 				glTexCoord2f(1, 0);	glVertex2f(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -304,9 +304,9 @@ void CBuyMaskState::drawInfo()
 			glColor3f( 0.0f, 0.0f, 0.0f);
 			printw (300, 250, 0, "Number of mask and cost:");
 
-			printw (theButton[bFifty]->getButtonX(), theButton[bFifty]->getButtonY() - 10, 0, "$250");
-			printw (theButton[bHundred]->getButtonX(), theButton[bHundred]->getButtonY() - 10, 0, "$450");
-			printw (theButton[bTwohundred]->getButtonX(), theButton[bTwohundred]->getButtonY() - 10, 0, "$850");
+			printw ( (static_cast<float>(theButton[bFifty]->getButtonX())),	 static_cast<float>(theButton[bFifty]->getButtonY() - 10), 0, "$250");
+			printw ( (static_cast<float>(theButton[bHundred]->getButtonX())), (static_cast<float>(theButton[bHundred]->getButtonY() - 10)), 0, "$450");
+			printw ( (static_cast<float>(theButton[bTwohundred]->getButtonX())), (static_cast<float>(theButton[bTwohundred]->getButtonY() - 10)), 0, "$850");
 
 			if(needMoney)
 			{

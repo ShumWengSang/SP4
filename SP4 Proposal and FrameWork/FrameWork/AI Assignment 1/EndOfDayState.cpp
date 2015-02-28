@@ -135,7 +135,7 @@ void CEndOfDayState::DrawBackground()
 		glBindTexture(GL_TEXTURE_2D, background[1].texID);
 		glPushMatrix();
 			glTranslatef(25, 20, 0);
-			glScalef(0.25, 0.4, 1);
+			glScalef((static_cast<GLfloat>(0.25)), (static_cast<GLfloat>(0.4)), 1);
 			glBegin(GL_QUADS);
 				glTexCoord2f(0, 0);	glVertex2f(0, SCREEN_HEIGHT);
 				glTexCoord2f(1, 0);	glVertex2f(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -154,7 +154,7 @@ void CEndOfDayState::DrawBackground()
 		glBindTexture(GL_TEXTURE_2D, background[1].texID);
 		glPushMatrix();
 			glTranslatef(SCREEN_WIDTH/2 - 100, 20, 0);
-			glScalef(0.25, 0.4, 1);
+			glScalef((static_cast<GLfloat>(0.25)), (static_cast<GLfloat>(0.4)), 1);
 			glBegin(GL_QUADS);
 				glTexCoord2f(0, 0);	glVertex2f(0, SCREEN_HEIGHT);
 				glTexCoord2f(1, 0);	glVertex2f(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -173,7 +173,7 @@ void CEndOfDayState::DrawBackground()
 		glBindTexture(GL_TEXTURE_2D, background[1].texID);
 		glPushMatrix();
 			glTranslatef(SCREEN_WIDTH - 230, 20, 0);
-			glScalef(0.25, 0.4, 1);
+			glScalef((static_cast<GLfloat>(0.25)), (static_cast<GLfloat>(0.4)), 1);
 			glBegin(GL_QUADS);
 				glTexCoord2f(0, 0);	glVertex2f(0, SCREEN_HEIGHT);
 				glTexCoord2f(1, 0);	glVertex2f(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -268,7 +268,7 @@ void CEndOfDayState::drawInfo()
 			printw ((SCREEN_WIDTH/2)-150, SCREEN_HEIGHT/2 + 50, 0, "Total Money Earned Today: $%d", totalEarn);
 
 			if(mouseOverNext)
-				printw (theButton[eNext]->getButtonX()+50, theButton[eNext]->getButtonY()-3, 0, "Start next day");
+				printw ( static_cast<float>(theButton[eNext]->getButtonX()+50), static_cast<float>(theButton[eNext]->getButtonY()-3), 0, "Start next day");
 			
 			glColor3f( 0.5f, 0.0f, 0.5f);
 			int totalMaskSold = CPlayState::Instance()->theStall[0]->getTotalMaskSold() + CPlayState::Instance()->theStall[1]->getTotalMaskSold() + CPlayState::Instance()->theStall[2]->getTotalMaskSold();

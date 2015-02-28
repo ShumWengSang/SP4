@@ -84,7 +84,7 @@ void CMenuState::Update(CGameStateManager* theGSM)
 	if(isPassed)
 		Camera::getInstance()->Walk(0);
 	else
-		Camera::getInstance()->Walk(pow(10,exponent));
+		Camera::getInstance()->Walk(static_cast<GLfloat>(pow(10,exponent)));
 	exponent+=0.01;
 }
 
@@ -157,7 +157,7 @@ void CMenuState::DrawBackground()
 
 			nextB = turbulence(k, i + 1, t, turbulencenum);
 
-			blue =   (inter / 2);
+			blue =   (static_cast<float>(inter / 2));
 
 			Rh = 23, Gs = 5, Bl = 100 - blue;	//SET HSL COLORS. USING HSL BECAUSE IT IS EASIER TO MOVE THE COLORS AROUND FROM BLUE TO WHITE
 			HSLtoRGB(Rh, Gs, Bl);	//CONVERT FROM HSL TO RGB
@@ -193,9 +193,9 @@ void CMenuState::HSLtoRGB(float &Rh, float &Gs, float &Bl)
 		//USE RIGHT FORMULA TO FIND RGB
 		if (Bl < 0.5)
 		{
-			temp1 = Bl * (1.0 + Gs);
+			temp1 = Bl * (static_cast<float>((1.0 + Gs)) );
 		}
-		else if (Bl >= 0.5)
+		else if (Bl >= (static_cast<float>(0.5)) )
 		{
 			temp1 = Bl + Gs - Bl * Gs;
 		}
@@ -203,9 +203,9 @@ void CMenuState::HSLtoRGB(float &Rh, float &Gs, float &Bl)
 		
 		Rh /= 360;
 
-		R = Rh + 0.333;
+		R = Rh + static_cast<float>(0.333);
 		G = Rh;
-		B = Rh - 0.333;
+		B = Rh - static_cast<float>(0.333);
 
 		//SET ALL VALUES TO BETWEEN 0 AND 1
 		if (R > 1)
@@ -232,7 +232,7 @@ void CMenuState::HSLtoRGB(float &Rh, float &Gs, float &Bl)
 		}
 		else if (3 * R < 2)
 		{
-			R = temp2 + (temp1 - temp2) * (0.6666 - R) * 6;
+			R = temp2 + (temp1 - temp2) * static_cast<float>(0.6666 - R) * 6;
 		}
 		else
 		{
@@ -249,7 +249,7 @@ void CMenuState::HSLtoRGB(float &Rh, float &Gs, float &Bl)
 		}
 		else if (3 * B < 2)
 		{
-			B = temp2 + (temp1 - temp2) * (0.6666 - B) * 6;
+			B = temp2 + (temp1 - temp2) * static_cast<float>(0.6666 - B) * 6;
 		}
 		else
 		{
@@ -266,7 +266,7 @@ void CMenuState::HSLtoRGB(float &Rh, float &Gs, float &Bl)
 		}
 		else if (3 * G < 2)
 		{
-			G = temp2 + (temp1 - temp2) * (0.6666 - G) * 6;
+			G = temp2 + (temp1 - temp2) * static_cast<float>(0.6666 - G) * 6;
 		}
 		else
 		{
