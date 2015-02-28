@@ -45,6 +45,7 @@ bool Tiles::isWithin(Vector3 pos)
 {
 	if(pos.x >= this->pos.x && pos.x <= this->pos.x + TILE_SIZE_X && pos.z >= this->pos.z && pos.z <= this->pos.z + TILE_SIZE_Y)
 	{
+
 		return true;
 	}
 	else
@@ -118,6 +119,8 @@ void Tiles::init()
 	childs[2]->init();
 	childs[3] = new CTileChilds(this, 3);
 	childs[3]->init();
+
+
 }
 
 void Tiles::LinkChilds()

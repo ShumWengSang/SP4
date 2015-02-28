@@ -131,8 +131,10 @@ void CGamePlayState::Init()
 	//	//SET THE HAZE
 	//}
 	int DayNumber = CPlayState::Instance()->day;
-	theGrid->temp[2][0].Seeded( static_cast<int>(CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime] * 100000) );//CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime]
-	theGrid->temp[3][0].Seeded( static_cast<int>(CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime] * 10000) );
+
+	theGrid->temp[2][0].Seeded( static_cast<int>(CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime] * 1000) );//CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime]
+	theGrid->temp[3][0].Seeded( static_cast<int>(CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime] * 1000) );
+
 	//theGrid->temp[1][2].Seeded(CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime] * 10000);
 	//theGrid->temp[3][4].Seeded(CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime] * 10000);
 
@@ -149,7 +151,7 @@ void CGamePlayState::Init()
 		theListofStalls.push_back(CPlayState::Instance()->theStall[i]);
 	}
 
-	for (int i = 0; i < 1; i++)
+	for (int i = 0; i < STARTINGAMOUNTOFBUYERS; i++)
 	{
 		newBuyer = new Buyer(theListofStalls, theGrid);
 		theListofEntities.push_back(newBuyer);

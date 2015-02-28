@@ -250,12 +250,12 @@ void CTileChilds::Update()
 		if (top != NULL)
 		{
 			Pressure(*this, *top, 0.9f);
-			Pressure2(*this, *top, 0.3f, 0.1f);
+			Pressure2(*this, *top, 0.75f, 0.25f);
 			//Pressure(*this, *top, 0.9f);
 		}
 		if (bottom != NULL)
 		{
-			Pressure(*this, *bottom, 0.8f);
+			Pressure(*this, *bottom, 0.2f);
 			Pressure2(*this, *bottom, 0.1f, 0.1f);
 			//Pressure(*this, *bottom, 0.4f);
 		}
@@ -513,4 +513,16 @@ void CTileChilds::GetHaze(int & Haze, int & Number)
 void CTileChilds::DiffusePressureOnEdge()
 {
 
+}
+
+bool CTileChilds::isWithin(Vector3 pos)
+{
+	if (pos.x >= this->pos.x && pos.x <= this->pos.x + TILE_SIZE_X && pos.z >= this->pos.z && pos.z <= this->pos.z + TILE_SIZE_Y)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }

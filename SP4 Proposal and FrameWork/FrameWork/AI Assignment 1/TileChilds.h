@@ -68,6 +68,7 @@ public:
 	void ContructorInit();
 	void GetHaze(int &Haze, int&Number);
 	void MoveHaze(CTileChilds * other);
+	bool isWithin(Vector3 Pos);
 	ColorChanger * theColor;
 
 
