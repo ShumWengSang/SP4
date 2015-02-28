@@ -8,7 +8,7 @@
 #include <iostream>
 #include "Vector3.h"
 #include "Stalls.h"
-#include "Tile.h"
+#include "TileChilds.h"
 #include "Grid.h"
 #include "Timer.h"
 
@@ -49,8 +49,10 @@ public:
 	Personality hisPersonality;
 	Vector3 Position;
 	Vector3 Velocity;
+	Vector3 Color;
 	BuyerAIStates CurrentState;
 	Tiles * theTileTemp;
+	CStalls * theShopToBuy;
 
 	void GotoLocation(Vector3 theNewPos, float speed);
 	bool ReachedLocation(Vector3 thePosReached);
