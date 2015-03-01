@@ -21,7 +21,7 @@ Personality::Personality()
 		DistancePreference = static_cast<float>(rand() % 299);
 		//the below would put money in inverse to haze and distance preference
 		MoneyPreference = total - (HazePreference + DistancePreference);
-		if (MoneyPreference > 0 && InBetween(HazePreference, 50, 150) && InBetween(DistancePreference, 50, 150) && InBetween(MoneyPreference,50,150)
+		if (MoneyPreference > 0 && InBetween(static_cast<int>(HazePreference), 50, 150) && InBetween(static_cast<int>(DistancePreference), 50, 150) && InBetween(static_cast<int>(MoneyPreference),50,150)
 			)
 			break;
 	}

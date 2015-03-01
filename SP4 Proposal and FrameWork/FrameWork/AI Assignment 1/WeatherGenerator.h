@@ -43,7 +43,7 @@ public:
 	double InterpolatedNoise_1(float x)
 	{
 		int integer_X = int(x);
-		int fractional_X = x - integer_X;
+		int fractional_X = static_cast<int>(x - integer_X);
 
 		double v1 = SmoothedNoise_1((static_cast<float>(integer_X)));
 		double v2 = SmoothedNoise_1((static_cast<float>(integer_X+1)));

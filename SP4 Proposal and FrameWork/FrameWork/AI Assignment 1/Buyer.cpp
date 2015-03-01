@@ -54,7 +54,7 @@ void Buyer::WillBuy(int Haze)
 			(*i)->Considered = true;
 			float Distance = ((*i)->theStall->getPosition() - Position).Length();
 			//float Distance = 10;
-			long long temp = (GetNumber((*i)->theStall->Price, Distance, Haze));
+			long long temp = (GetNumber( static_cast<int>((*i)->theStall->Price), static_cast<int>(Distance), Haze));
 			if (temp < 0)
 			{
 				temp = 9999 + rand() % 1000;
@@ -209,22 +209,22 @@ void Buyer::Init()
 	switch (i)
 	{
 		case 0:
-		this->Position.Set(rand() % TILE_WORLD_SIZE_X, 0, 0);
-		TargettoWalk.push_back(Vector3(rand() % TILE_WORLD_SIZE_X, 0, TILE_WORLD_SIZE_Y));
+		this->Position.Set(static_cast<float>(rand() % TILE_WORLD_SIZE_X), 0, 0);
+		TargettoWalk.push_back(Vector3(static_cast<float>(rand() % TILE_WORLD_SIZE_X), 0, TILE_WORLD_SIZE_Y));
 		break;
 
 		case 1:
-		this->Position.Set(rand() % TILE_WORLD_SIZE_X, 0, TILE_WORLD_SIZE_Y);
-		TargettoWalk.push_back(Vector3(rand() % TILE_WORLD_SIZE_X, 0, 0));
+		this->Position.Set(static_cast<float>(rand() % TILE_WORLD_SIZE_X), 0, TILE_WORLD_SIZE_Y);
+		TargettoWalk.push_back(Vector3(static_cast<float>(rand() % TILE_WORLD_SIZE_X), 0, 0));
 		break;
 
 		case 2:
-			this->Position.Set(0, 0, rand() % TILE_WORLD_SIZE_Y);
-			TargettoWalk.push_back(Vector3(TILE_WORLD_SIZE_X, 0, rand() % TILE_WORLD_SIZE_Y));
+			this->Position.Set(0, 0, static_cast<float>(rand() % TILE_WORLD_SIZE_Y));
+			TargettoWalk.push_back(Vector3(TILE_WORLD_SIZE_X, 0, static_cast<float>(rand() % TILE_WORLD_SIZE_Y)));
 		break;
 		case 3:
-			this->Position.Set(TILE_WORLD_SIZE_X, 0, rand() % TILE_WORLD_SIZE_Y);
-			TargettoWalk.push_back(Vector3(0, 0, rand() % TILE_WORLD_SIZE_Y));
+			this->Position.Set(TILE_WORLD_SIZE_X, 0, static_cast<float>(rand() % TILE_WORLD_SIZE_Y));
+			TargettoWalk.push_back(Vector3(0, 0, static_cast<float>(rand() % TILE_WORLD_SIZE_Y)));
 		break;
 
 		default:

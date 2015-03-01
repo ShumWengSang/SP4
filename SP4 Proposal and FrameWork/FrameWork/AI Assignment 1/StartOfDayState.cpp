@@ -191,7 +191,7 @@ void CStartOfDayState::DrawBackground()
 		glBindTexture(GL_TEXTURE_2D, background[1].texID);
 		glPushMatrix();
 			glTranslatef(10, 10, 0);
-			glScalef(0.98, 0.5, 1);
+			glScalef(static_cast<GLfloat>(0.98), static_cast<GLfloat>(0.5), 1);
 			glBegin(GL_QUADS);
 				glTexCoord2f(0, 0);	glVertex2f(0, SCREEN_HEIGHT);
 				glTexCoord2f(1, 0);	glVertex2f(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -414,9 +414,9 @@ void CStartOfDayState::drawInfo()
 			printw (550.0, 270.0, 0, "Each price for sell: %d", CPlayState::Instance()->theStall[2]->getMaskPrice());
 
 			if(mouseOverReset)
-				printw (theButton[reset]->getButtonX(),theButton[reset]->getButtonY() , 0, "Reset");
+				printw (static_cast<float>(theButton[reset]->getButtonX()),static_cast<float>(theButton[reset]->getButtonY()) , 0, "Reset");
 			if(mouseOverBack)
-				printw (theButton[back]->getButtonX(),theButton[reset]->getButtonY() , 0, "Back");
+				printw (static_cast<float>(theButton[back]->getButtonX()),static_cast<float>(theButton[reset]->getButtonY()) , 0, "Back");
 
 			printw (50, 350, 0, "Number of mask for sell");
 			printw (SCREEN_WIDTH/2 + 80, 350, 0, "Price of each mask for sell");

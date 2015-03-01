@@ -18,10 +18,10 @@ void Tiles::drawTile(int x, int y, int z, int tileWidth, int tileHeight, bool is
 			tempC = Vector3(1, 1, 1);
 		}
 		glBegin(GL_QUADS);
-			glVertex3f(x,0,z+tileWidth);
-			glVertex3f(x+tileHeight,0,z+tileWidth);
-			glVertex3f(x+tileHeight,0,z);
-			glVertex3f(x,0,z);
+			glVertex3f(static_cast<GLfloat>(x),0,static_cast<GLfloat>(z+tileWidth));
+			glVertex3f(static_cast<GLfloat>(x+tileHeight),0,static_cast<GLfloat>(z+tileWidth));
+			glVertex3f(static_cast<GLfloat>(x+tileHeight),0,static_cast<GLfloat>(z));
+			glVertex3f(static_cast<GLfloat>(x),0,static_cast<GLfloat>(z));
 		glEnd();
 }
 
@@ -31,10 +31,10 @@ void Tiles::drawTileChilds(int x, int y, int z, int tileWidth, int tileHeight, b
 	{
 		int tW = tileWidth / 2;
 		int tH = tileHeight / 2;
-		childs[0]->drawTile(x, 0, z, tW, tH);
-		childs[1]->drawTile(x + tileHeight / 2, 0, z, tW, tH);
-		childs[2]->drawTile(x, 0, z + tileWidth / 2, tW, tH);
-		childs[3]->drawTile(x + tileHeight / 2, 0, z + tileWidth / 2, tW, tH);
+		childs[0]->drawTile(static_cast<float>(x), 0, static_cast<float>(z), static_cast<float>(tW), static_cast<float>(tH));
+		childs[1]->drawTile(static_cast<float>(x + tileHeight / 2), 0, static_cast<float>(z), static_cast<float>(tW), static_cast<float>(tH));
+		childs[2]->drawTile(static_cast<float>(x), 0, static_cast<float>(z + tileWidth / 2), static_cast<float>(tW), static_cast<float>(tH));
+		childs[3]->drawTile(static_cast<float>(x + tileHeight / 2), 0, static_cast<float>(z + tileWidth / 2), static_cast<float>(tW), static_cast<float>(tH));
 	}
 }
 

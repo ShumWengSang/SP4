@@ -31,9 +31,9 @@ void ColorChanger::HSLtoRGB(float &Rh, float &Gs, float&Bl)
 
 		Rh /= 360;
 
-		R = Rh + 0.333;
+		R = Rh + static_cast<float>(0.333);
 		G = Rh;
-		B = Rh - 0.333;
+		B = Rh - static_cast<float>(0.333);
 
 		//SET ALL VALUES TO BETWEEN 0 AND 1
 		if (R > 1)
@@ -60,7 +60,7 @@ void ColorChanger::HSLtoRGB(float &Rh, float &Gs, float&Bl)
 		}
 		else if (3 * R < 2)
 		{
-			R = temp2 + (temp1 - temp2) * (0.6666 - R) * 6;
+			R = temp2 + (temp1 - temp2) * static_cast<float>(0.6666 - R) * 6;
 		}
 		else
 		{
@@ -77,7 +77,7 @@ void ColorChanger::HSLtoRGB(float &Rh, float &Gs, float&Bl)
 		}
 		else if (3 * B < 2)
 		{
-			B = temp2 + (temp1 - temp2) * (0.6666 - B) * 6;
+			B = temp2 + (temp1 - temp2) * static_cast<float>(0.6666 - B) * 6;
 		}
 		else
 		{
@@ -94,7 +94,7 @@ void ColorChanger::HSLtoRGB(float &Rh, float &Gs, float&Bl)
 		}
 		else if (3 * G < 2)
 		{
-			G = temp2 + (temp1 - temp2) * (0.6666 - G) * 6;
+			G = temp2 + (temp1 - temp2) * static_cast<float>(0.6666 - G) * 6;
 		}
 		else
 		{
@@ -184,7 +184,7 @@ void CTileChilds::drawTile(float  x, float  y, float  z, float tileWidth, float 
 	else
 	{
 		glBegin(GL_QUADS);
-		if (colour == Vector3(0.8, 0.8, 0.8))
+		if (colour == Vector3(static_cast<float>(0.8), static_cast<float>(0.8), static_cast<float>(0.8)) )
 			glColor4f(0, 0, 0, 0);
 		else
 			glColor4f(colour.x, colour.y, colour.z, AlphaValue);
@@ -218,7 +218,7 @@ void CTileChilds::Update()
 	{
 		
 		float Rh, Gs, Bl;
-		Rh = 38, Gs = 9, Bl = HazeTileValue / 10;	//SET HSL COLORS. USING HSL BECAUSE IT IS EASIER TO MOVE THE COLORS AROUND FROM BLUE TO WHITE
+		Rh = 38, Gs = 9, Bl = static_cast<float>(HazeTileValue / 10);	//SET HSL COLORS. USING HSL BECAUSE IT IS EASIER TO MOVE THE COLORS AROUND FROM BLUE TO WHITE
 		
 		if (Bl > 50)
 			Bl = 50;
@@ -239,9 +239,9 @@ void CTileChilds::Update()
 		Bl = 1 / Bl;
 		AlphaValue = Bl / 50.f;
 		if (AlphaValue > 0.8)
-			AlphaValue = 0.8;
+			AlphaValue = static_cast<float>(0.8);
 		if (AlphaValue < 0.4)
-			AlphaValue = 0.4;
+			AlphaValue = static_cast<float>(0.4);
 		//AlphaValue = 1 / AlphaValue;
 
 
@@ -283,7 +283,7 @@ void CTileChilds::Update()
 	}
 	else
 	{
-		colour.Set(0.8, 0.8, 0.8);
+		colour.Set(static_cast<float>(0.8), static_cast<float>(0.8), static_cast<float>(0.8) );
 	}
 
 
@@ -300,7 +300,7 @@ void CTileChilds::Pressure(CTileChilds &currentCell, CTileChilds &neighbourCell,
 {
 
 	//Pressure difference
-	float PressureFlow = currentCell.HazeTileValue - neighbourCell.HazeTileValue;
+	float PressureFlow = static_cast<float>(currentCell.HazeTileValue - neighbourCell.HazeTileValue);
 
 	//float CurrentTemp = currentCell.HazeTileValue;
 	//pressure diffuse to neightbour
@@ -312,7 +312,7 @@ void CTileChilds::Pressure(CTileChilds &currentCell, CTileChilds &neighbourCell,
 	if ((PressureFlow > 0) && (neighbourCell.HazeTileValue < currentCell.HazeTileValue))
 	{
 		//calculate the average pressure of currentcell and neighbourcell and distribute evenly
-		float TotalPressure = currentCell.HazeTileValue + neighbourCell.HazeTileValue;
+		float TotalPressure = static_cast<float>(currentCell.HazeTileValue + neighbourCell.HazeTileValue);
 		float AveragePressure = TotalPressure / 2;
 		currentCell.HazeTileValue = (int)AveragePressure;
 		neighbourCell.HazeTileValue = (int)AveragePressure;
@@ -322,7 +322,7 @@ void CTileChilds::Pressure(CTileChilds &currentCell, CTileChilds &neighbourCell,
 void CTileChilds::Pressure2(CTileChilds &currentCell, CTileChilds &neighbourCell, const float &Ratio1, const float &Ratio2)
 {
 	//Pressure difference
-	float PressureFlow = currentCell.HazeTileValue - neighbourCell.HazeTileValue;
+	float PressureFlow = static_cast<float>(currentCell.HazeTileValue - neighbourCell.HazeTileValue);
 
 	//float CurrentTemp = currentCell.HazeTileValue;
 	//pressure diffuse to neightbour
@@ -334,10 +334,10 @@ void CTileChilds::Pressure2(CTileChilds &currentCell, CTileChilds &neighbourCell
 	if ((PressureFlow > 0) && (neighbourCell.HazeTileValue < currentCell.HazeTileValue))
 	{
 		//calculate the average pressure of currentcell and neighbourcell and distribute evenly
-		float TotalPressure = currentCell.HazeTileValue + neighbourCell.HazeTileValue;
+		float TotalPressure = static_cast<float>(currentCell.HazeTileValue + neighbourCell.HazeTileValue);
 		float AveragePressure = TotalPressure / 2;
 		currentCell.HazeTileValue = (int)AveragePressure;
-		neighbourCell.HazeTileValue = AveragePressure;
+		neighbourCell.HazeTileValue = static_cast<int>(AveragePressure);
 	}
 }
 
