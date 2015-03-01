@@ -15,6 +15,7 @@ private:
 	Vector3 pos;
 	Vector3 scale;
 	Vector3 colour;
+	Vector3 colour2;
 
 	CObjectModel* theModel;
 
@@ -31,6 +32,7 @@ public:
 	int getTotalMaskSold();
 	int getMaskPrice();
 	Vector3 getColour();
+	Vector3 getColour2();
 
 	void setMaskNo(int mn);
 	void setMaskSold(int ms);
@@ -40,6 +42,7 @@ public:
 	void setPos(Vector3 pos);
 	void setScale(Vector3 scale);
 	void setColour(Vector3 colour);
+	void setColour2(Vector3 colour2);
 
 	void buyMask(int amt);
 
@@ -48,6 +51,7 @@ public:
 	float Price;
 
 	bool Selected;
+	bool isPicking;
 
 	// Entity Functions
 	bool glRenderObject();

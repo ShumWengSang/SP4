@@ -168,9 +168,9 @@ void CGamePlayState::Init()
 	theListofEntities.push_back(CPlayState::Instance()->theStall[2]);
 	theListofEntities.push_back(theGrid);
 
-	CPlayState::Instance()->theStall[0]->setColour(Vector3(0,0,1));
-	CPlayState::Instance()->theStall[1]->setColour(Vector3(1,0,0));
-	CPlayState::Instance()->theStall[2]->setColour(Vector3(0,1,0));
+	CPlayState::Instance()->theStall[0]->setColour2(Vector3(0,0,1));
+	CPlayState::Instance()->theStall[1]->setColour2(Vector3(1,0,0));
+	CPlayState::Instance()->theStall[2]->setColour2(Vector3(0,1,0));
 }
 
 void CGamePlayState::Cleanup()
@@ -258,16 +258,20 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 
 void CGamePlayState::Draw(CInGameStateManager* theGSM) 
 {
-
-
-
 	// Render Objects to be selected in the color scheme
 	if(CInputSystem::getInstance()->mouseInfo.mLClicked == true)
 	{
 		theGrid->Click = true;
+		CPlayState::Instance()->theStall[0]->isPicking = true;
+		CPlayState::Instance()->theStall[1]->isPicking = true;
+		CPlayState::Instance()->theStall[2]->isPicking = true;
+		
+		CPlayState::Instance()->theStall[0]->setColour(theGrid->GetTile(CPlayState::Instance()->theStall[0]->getPosition())->getColor());
+		CPlayState::Instance()->theStall[1]->setColour(theGrid->GetTile(CPlayState::Instance()->theStall[1]->getPosition())->getColor());
+		CPlayState::Instance()->theStall[2]->setColour(theGrid->GetTile(CPlayState::Instance()->theStall[2]->getPosition())->getColor());
 		for (auto i = theListofEntities.begin(); i != theListofEntities.end(); i++)
 		{
-			if((*i)->getObjectType() == GRID)
+			if((*i)->getObjectType() == GRID || (*i)->getObjectType() == STALLS)
 				(*i)->glRenderObject();
 		}
 		CApplication::getInstance()->setClickCheck(true);
@@ -299,6 +303,9 @@ void CGamePlayState::Draw(CInGameStateManager* theGSM)
 
 
 		theGrid->Click = false;
+		CPlayState::Instance()->theStall[0]->isPicking = false;
+		CPlayState::Instance()->theStall[1]->isPicking = false;
+		CPlayState::Instance()->theStall[2]->isPicking = false;
 		//theGrid.renderGrid(false);
 		for (auto i = theListofEntities.begin(); i != theListofEntities.end(); i++)
 		{

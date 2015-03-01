@@ -6,6 +6,9 @@ CStalls::CStalls(Vector3 pos, Vector3 scale)
 	maskSold = 0;
 	totalMaskSold = 0;
 	Selected = false;
+	isPicking = false;
+	colour.SetZero();
+	colour2.SetZero();
 
 	this->pos = pos;
 	this->scale = scale;
@@ -40,6 +43,10 @@ Vector3 CStalls::getColour()
 {
 	return colour;
 }
+Vector3 CStalls::getColour2()
+{
+	return colour2;
+}
 
 void CStalls::setMaskNo(int mn)
 {
@@ -70,6 +77,10 @@ void CStalls::setColour(Vector3 colour)
 {
 	this->colour = colour;
 }
+void CStalls::setColour2(Vector3 colour2)
+{
+	this->colour2 = colour2;
+}
 
 void CStalls::buyMask(int amt)
 {
@@ -81,7 +92,10 @@ bool CStalls::glRenderObject() {
 	glPushMatrix();
 		glEnable(GL_BLEND);
 		
-		glColor3f(colour.x, colour.y, colour.z);
+		if(isPicking)
+			glColor3f(colour.x, colour.y, colour.z);
+		else
+			glColor3f(colour2.x, colour2.y, colour2.z);
 		if(Selected) {
 			glTranslatef(0,2,0);
 		}
