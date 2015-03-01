@@ -74,12 +74,13 @@ public:
 	void DrawButtons();
 	void drawInfo();
 	void DrawSkyBox();
-
+	
 	void DrawBuying();
 
 	void DrawTimeBar();
 
 	void buyMask(int stall, int maskNo);
+	void SeedHaze();
 
 	//Inputs
 	void MouseMove (int x, int y);

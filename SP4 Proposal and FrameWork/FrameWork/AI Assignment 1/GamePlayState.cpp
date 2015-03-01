@@ -110,38 +110,13 @@ void CGamePlayState::Init()
 	Camera::getInstance()->SetCameraType(Camera::AIR_CAM);	
 
 	CPlayState * PlayState = CPlayState::Instance();
-
-	//for (int i = 0; i < SEEDCOUNT; i++)
-	//{
-	//	int x = rand() % TILE_NO_X;
-	//	int y = rand() % TILE_NO_Y;
-
-	//	theGrid->temp[x][y].Seeded(CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime] * 10000);//CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime]
-	//	theSeededTiles.push_back(&theGrid->temp[x][y]);
-	//	//for (int m = 0; m < TILE_NO_X; i++)
-	//	//{
-	//	//	for (int k = 0; k < TILE_SIZE_Y; k++)
-	//	//	{
-	//	//		for (int j = 0; )
-	//	//		theGrid->temp[i][k].TileHazeValue = 0;
-	//	//	}
-	//	//}
-
-	//	//GET TILE INFO FROM POSITION
-	//	//SET THE HAZE
-	//}
-	int DayNumber = CPlayState::Instance()->day;
-
-	theGrid->temp[2][0].Seeded( static_cast<int>(CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime] * 1000) );//CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime]
-	theGrid->temp[3][0].Seeded( static_cast<int>(CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime] * 1000) );
-
-	//theGrid->temp[1][2].Seeded(CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime] * 10000);
-	//theGrid->temp[3][4].Seeded(CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime] * 10000);
+	HourNumber = 0;
+	SeedHaze();
 
 	theTimerInstance = CTimer::getInstance();
 	TimerKeySeed = theTimerInstance->insertNewTime(30000);
 	TimerKeyDay = theTimerInstance->insertNewTime(270000);
-	HourNumber = 0;
+
 	
 	Buyer * newBuyer;
 
@@ -171,6 +146,25 @@ void CGamePlayState::Init()
 	CPlayState::Instance()->theStall[0]->setColour2(Vector3(0,0,1));
 	CPlayState::Instance()->theStall[1]->setColour2(Vector3(1,0,0));
 	CPlayState::Instance()->theStall[2]->setColour2(Vector3(0,1,0));
+}
+
+void CGamePlayState::SeedHaze()
+{
+	int DayNumber = CPlayState::Instance()->day;
+	int Seeds = 0;
+	while (Seeds != SEEDCOUNT)
+	{
+		int x = rand() % TILE_NO_X;
+		int y = rand() % TILE_NO_Y;
+
+		if (!((x == 0 || (x == (TILE_NO_X - 1))) && ((y == 0 || y == (TILE_NO_Y - 1)))))
+		{
+			theGrid->temp[x][y].Seeded(CPlayState::Instance()->theHaze.HazeGraph[HourNumber + DayNumber * DayTime] * 1000);//CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime]
+			theSeededTiles.push_back(&theGrid->temp[x][y]);
+			Seeds++;
+		}
+
+	}
 }
 
 void CGamePlayState::Cleanup()
@@ -822,7 +816,7 @@ void CGamePlayState::drawInfo()
 		glPushAttrib(GL_DEPTH_TEST);
 			glColor3f( 1.0f, 0.0f, 0.0f);
 			printw (20, 20, 0,  "Time: ");
-			printw (20, 45, 0, "PSI: 123");
+			printw(20, 45, 0, "PSI: %i", CPlayState::Instance()->theHaze.HazeGraph[HourNumber + CPlayState::Instance()->day * DayTime]);
 			printw(20, 65, 0, "FPS: %f", theTimerInstance->getFPS());
 		glPopAttrib();
 	glPopMatrix();
