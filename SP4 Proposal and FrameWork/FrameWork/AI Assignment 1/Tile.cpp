@@ -3,11 +3,6 @@
 void Tiles::drawTile(int x, int y, int z, int tileWidth, int tileHeight, bool isPicking)
 {
 
-	//pos.Set(x,y,z);
-	//scale.Set(tileWidth,0,tileHeight);
-
-
-	//glPushMatrix();
 		if(isPicking)
 		{
 			glColor4f(color.x, color.y, color.z, HazeAlpha);
@@ -28,9 +23,11 @@ void Tiles::drawTile(int x, int y, int z, int tileWidth, int tileHeight, bool is
 			glVertex3f(x+tileHeight,0,z);
 			glVertex3f(x,0,z);
 		glEnd();
-	//glPopMatrix();
+}
 
-	if(!isPicking) 
+void Tiles::drawTileChilds(int x, int y, int z, int tileWidth, int tileHeight, bool isPicking)
+{
+	if (!isPicking)
 	{
 		int tW = tileWidth / 2;
 		int tH = tileHeight / 2;
@@ -40,6 +37,7 @@ void Tiles::drawTile(int x, int y, int z, int tileWidth, int tileHeight, bool is
 		childs[3]->drawTile(x + tileHeight / 2, 0, z + tileWidth / 2, tW, tH);
 	}
 }
+
 
 bool Tiles::isWithin(Vector3 pos)
 {

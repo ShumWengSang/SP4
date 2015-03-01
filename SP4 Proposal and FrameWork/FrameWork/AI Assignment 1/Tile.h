@@ -49,6 +49,7 @@ public:
 	bool isWithin(Vector3);
 	void CalcHazeAlpha();
 	void drawTile(int x, int y, int z, int tileWidth, int tileHeight, bool isPicking);
+	void drawTileChilds(int x, int y, int z, int tileWidth, int tileHeight, bool isPicking);
 	void LinkChilds();
 	void Seeded(int);
 	int GetHaze();

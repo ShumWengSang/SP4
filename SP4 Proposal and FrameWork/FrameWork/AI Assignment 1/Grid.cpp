@@ -85,6 +85,16 @@ void Grid::renderGrid(bool isPicking)
 			temp[k][l].drawTile( (static_cast<int>(temp[k][l].getPos().x)), (static_cast<int>(temp[k][l].getPos().y)), (static_cast<int>(temp[k][l].getPos().z)), tileWidth, tileHeight, isPicking);
 		}
 	}
+
+	for (int k = 0; k < TILE_NO_X; ++k)
+	{
+		for (int l = 0; l < TILE_NO_Y; ++l)
+		{
+			//drawTile(k*tileHeight, 0, l*tileWidth, isPicking);
+			//temp[k][l].drawTile(k*tileHeight, 0, l*tileWidth, tileWidth, tileHeight, isPicking);
+			temp[k][l].drawTileChilds((static_cast<int>(temp[k][l].getPos().x)), (static_cast<int>(temp[k][l].getPos().y)), (static_cast<int>(temp[k][l].getPos().z)), tileWidth, tileHeight, isPicking);
+		}
+	}
 	glDisable(GL_BLEND);
 	//glPopMatrix();
 

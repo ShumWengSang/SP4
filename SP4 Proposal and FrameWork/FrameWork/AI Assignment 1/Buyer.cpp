@@ -193,6 +193,7 @@ void Buyer::AIUpdate()
 
 void Buyer::Init()
 {
+	Color.Set(0, 0, 0);
 	CurrentMoney = rand() % 20 + 1;
 	theType = BUYER;
 	CurrentState = IDLEWALKING;
