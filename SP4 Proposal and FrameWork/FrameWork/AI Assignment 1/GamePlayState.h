@@ -18,7 +18,7 @@
 
 using namespace std;
 
-#define SEEDCOUNT 1
+#define SEEDCOUNT 2
 #define STARTINGAMOUNTOFBUYERS 10
 
 enum PLAYSTATE_BUTTON
@@ -95,20 +95,21 @@ public:
 	void Drop()
 	{
 
+		for (unsigned int i = 0; i < theSeededTiles.size(); i++)
+		{
+			if (theSeededTiles[i] != NULL)
+			{
+				theSeededTiles[i] = NULL;
+			}
+		}
+		//Don't delete it. Let the grid handle the deletion.
 
 		if (theGrid != NULL)
 		{
 			delete theGrid;
 			theGrid = NULL;
 		}
-		for (unsigned int i = 0; i < theSeededTiles.size(); i++)
-		{
-			if (theSeededTiles[i] != NULL)
-			{
-				delete theSeededTiles[i];
-				theSeededTiles[i] = NULL;
-			}
-		}
+
 
 
 		for (int i = 0; i < 4; i++)

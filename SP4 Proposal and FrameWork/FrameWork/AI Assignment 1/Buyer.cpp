@@ -54,7 +54,12 @@ void Buyer::WillBuy(int Haze)
 			(*i)->Considered = true;
 			float Distance = ((*i)->theStall->getPosition() - Position).Length();
 			//float Distance = 10;
-			ProbabilitytoBuyMask.insert(std::pair<long long, CStalls*>((GetNumber((*i)->theStall->Price, Distance, Haze)), (*i)->theStall));
+			long long temp = (GetNumber((*i)->theStall->Price, Distance, Haze));
+			if (temp < 0)
+			{
+				temp = 9999 + rand() % 1000;
+			}
+			ProbabilitytoBuyMask.insert(std::pair<long long, CStalls*>(temp, (*i)->theStall));
 			//(GetNumber((*i)->theStall->Price, Distance, Haze));
 		}
 	}

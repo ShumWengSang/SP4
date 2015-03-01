@@ -159,7 +159,7 @@ void CGamePlayState::SeedHaze()
 
 		if (!((x == 0 || (x == (TILE_NO_X - 1))) && ((y == 0 || y == (TILE_NO_Y - 1)))))
 		{
-			theGrid->temp[x][y].Seeded(CPlayState::Instance()->theHaze.HazeGraph[HourNumber + DayNumber * DayTime] * 1000);//CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime]
+			theGrid->temp[x][y].Seeded(CPlayState::Instance()->theHaze.HazeGraph[HourNumber + DayNumber * DayTime] * 10000);//CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime]
 			theSeededTiles.push_back(&theGrid->temp[x][y]);
 			Seeds++;
 		}
@@ -206,46 +206,18 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 			(*i)->Update();
 		}
 
-		//if (theTimerInstance->executeTime(TimerKeyDay))
-		//{
-		//	DayNumber++;
-		//	//CInGameStateManager::getInstance()->ChangeState(CEndOfDayState::Instance());
-		//	HourNumber = 0;
-		//	theSeededTiles.clear();
-		//	for (int i = 0; i < SEEDCOUNT; i++)
-		//	{
-		//		int x = rand() % TILE_NO_X;
-		//		int y = rand() % TILE_NO_Y;
+		if (theTimerInstance->executeTime(TimerKeyDay))
+		{
+			CPlayState::Instance()->day++;
+			CInGameStateManager::getInstance()->ChangeState(CEndOfDayState::Instance());
+		}
 
-		//		theGrid->temp[x][y].childs[0]->HazeTileValue = CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime];
-		//		theGrid->temp[x][y].TileHazeValue = CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime];
-		//		theSeededTiles.push_back(&theGrid->temp[x][y]);
-		//		//GET TILE INFO FROM POSITION
-		//		//SET THE HAZE
-		//	}
-		//	std::cout << "DAY CHANGE IT IS NOW DAY " << DayNumber << std::endl;
-		//}
-
-		int DayNumber = CPlayState::Instance()->day;
 
 		if (theTimerInstance->executeTime(TimerKeySeed))
 		{
 			std::cout << "HOIUR INCREASE" << std::endl;
 			HourNumber++;
-			if (!(HourNumber * DayTime >= noiseWidth))
-			{
-				for (auto i = theSeededTiles.begin(); i != theSeededTiles.end(); i++)
-				{
-					(*i)->TileHazeValue = CPlayState::Instance()->theHaze.HazeGraph[HourNumber + DayNumber * DayTime] * 8;
-					(*i)->childs[0]->HazeTileValue =   static_cast<int>(CPlayState::Instance()->theHaze.HazeGraph[HourNumber + DayNumber * DayTime] * 8);
-				}
-			}
-		}
-
-		if (theTimerInstance->executeTime(TimerKeyDay))
-		{
-			DayNumber++;
-			CInGameStateManager::getInstance()->ChangeState(CEndOfDayState::Instance());
+			SeedHaze();
 		}
 	}
 }
@@ -816,7 +788,7 @@ void CGamePlayState::drawInfo()
 		glPushAttrib(GL_DEPTH_TEST);
 			glColor3f( 1.0f, 0.0f, 0.0f);
 			printw (20, 20, 0,  "Time: ");
-			printw(20, 45, 0, "PSI: %i", CPlayState::Instance()->theHaze.HazeGraph[HourNumber + CPlayState::Instance()->day * DayTime]);
+			printw(20, 45, 0, "PSI: %f", CPlayState::Instance()->theHaze.HazeGraph[HourNumber + CPlayState::Instance()->day * DayTime]);
 			printw(20, 65, 0, "FPS: %f", theTimerInstance->getFPS());
 		glPopAttrib();
 	glPopMatrix();
