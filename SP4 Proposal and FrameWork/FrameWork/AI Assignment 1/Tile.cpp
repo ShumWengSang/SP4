@@ -10,8 +10,8 @@ void Tiles::drawTile(int x, int y, int z, int tileWidth, int tileHeight, bool is
 		}
 		else if(ShopOnTop != NULL)
 		{
-			glColor4f(0, 1, 0, HazeAlpha);
-			tempC = Vector3(0, 1, 0);
+			glColor4f(1, 1, 0, HazeAlpha);
+			tempC = Vector3(1, 1, 0);
 		}
 		else {
 			glColor4f(1, 1, 1, HazeAlpha);

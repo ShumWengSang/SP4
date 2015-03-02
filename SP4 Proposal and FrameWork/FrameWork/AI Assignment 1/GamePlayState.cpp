@@ -158,7 +158,7 @@ void CGamePlayState::SeedHaze()
 
 		if (!((x == 0 || (x == (TILE_NO_X - 1))) && ((y == 0 || y == (TILE_NO_Y - 1)))))
 		{
-			theGrid->temp[x][y].Seeded(static_cast<int>(CPlayState::Instance()->theHaze.HazeGraph[HourNumber + DayNumber * DayTime] * 10000));//CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime]
+			theGrid->temp[x][y].Seeded(static_cast<int>(CPlayState::Instance()->theHaze.HazeGraph[HourNumber + (DayNumber-1) * DayTime] * 10000));
 			theSeededTiles.push_back(&theGrid->temp[x][y]);
 			Seeds++;
 		}
@@ -748,7 +748,7 @@ void CGamePlayState::drawInfo()
 		glPushAttrib(GL_DEPTH_TEST);
 			glColor3f( 0.0f, 0.0f, 0.0f);
 			printw (20, 20, 0,  "Time: ");
-			printw(20, 45, 0, "PSI: %f", CPlayState::Instance()->theHaze.HazeGraph[HourNumber + CPlayState::Instance()->day * DayTime]);
+			printw(20, 45, 0, "PSI: %f", CPlayState::Instance()->theHaze.HazeGraph[HourNumber + (CPlayState::Instance()->day-1) * DayTime]);
 			printw(20, 65, 0, "FPS: %f", theTimerInstance->getFPS());
 			printw(20, 85, 0, "Day: %d", CPlayState::Instance()->day);
 			printw(20, 105, 0, "Hour: %d", HourNumber);
