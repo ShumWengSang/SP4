@@ -54,7 +54,7 @@ void CEndOfDayState::Init()
 	font_style = GLUT_BITMAP_HELVETICA_18;
 	//Input System
 	CInputSystem::getInstance()->OrientCam = true;
-	if(!reinit) {
+	if(!reinit && !CPlayState::Instance()->firstDay) {
 		CPlayState::Instance()->forecasting->setCurrentDay(CPlayState::Instance()->forecasting->getCurrentDay() + 1);
 		reinit = true;
 	}
@@ -279,7 +279,7 @@ void CEndOfDayState::drawInfo()
 			printw ((SCREEN_WIDTH / 2) - 200, SCREEN_HEIGHT/2 + 150, 0, "Mask Left: %d", CPlayState::Instance()->maskLeft);
 
 			glColor3f( 0.5f, 0.0f, 0.8f);
-			CPlayState::Instance()->newMoneyValue = totalEarn + CPlayState::Instance()->theMoney.getCurrentMoney();
+			CPlayState::Instance()->newMoneyValue = CPlayState::Instance()->theMoney.getCurrentMoney();
 			printw ((SCREEN_WIDTH/2)+50, SCREEN_HEIGHT/2 + 150, 0, "Total Money: $%d", CPlayState::Instance()->newMoneyValue);
 		glPopAttrib();
 	glPopMatrix();

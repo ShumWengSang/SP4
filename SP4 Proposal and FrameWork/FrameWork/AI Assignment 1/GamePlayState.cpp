@@ -115,7 +115,7 @@ void CGamePlayState::Init()
 
 	theTimerInstance = CTimer::getInstance();
 	TimerKeySeed = theTimerInstance->insertNewTime(3000);
-	TimerKeyDay = theTimerInstance->insertNewTime(270000);
+	TimerKeyDay = theTimerInstance->insertNewTime(27000);
 
 	
 	Buyer * newBuyer;
@@ -206,18 +206,24 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 			(*i)->Update();
 		}
 
-		if (theTimerInstance->executeTime(TimerKeyDay))
-		{
-			//CPlayState::Instance()->day++;
-			CInGameStateManager::getInstance()->ChangeState(CEndOfDayState::Instance());
-		}
-
-
 		if (theTimerInstance->executeTime(TimerKeySeed))
 		{
-			std::cout << "HOIUR INCREASE" << std::endl;
-			HourNumber++;
+			//HourNumber++;
 			SeedHaze();
+
+			CPlayState::Instance()->earned = CPlayState::Instance()->theStall[0]->getTotalMaskSold() * CPlayState::Instance()->theStall[0]->getMaskPrice();
+			CPlayState::Instance()->earned2 = CPlayState::Instance()->theStall[1]->getTotalMaskSold() * CPlayState::Instance()->theStall[1]->getMaskPrice();
+			CPlayState::Instance()->earned3 = CPlayState::Instance()->theStall[2]->getTotalMaskSold() * CPlayState::Instance()->theStall[2]->getMaskPrice();
+			int totalEarn = CPlayState::Instance()->earned + CPlayState::Instance()->earned2 + CPlayState::Instance()->earned3;
+			CPlayState::Instance()->theMoney.setCurrentMoney(totalEarn + CPlayState::Instance()->moneyAfterBuy);
+		}
+
+		//if (theTimerInstance->executeTime(TimerKeyDay))
+		if (HourNumber == DayTime)
+		{
+			//CPlayState::Instance()->day++;
+			//HourNumber = 0;
+			CInGameStateManager::getInstance()->ChangeState(CEndOfDayState::Instance());
 		}
 	}
 }
@@ -462,16 +468,6 @@ void CGamePlayState::DrawTimeBar()
 	theTimeBar.draw();
 }
 
-void CGamePlayState::buyMask(int stall, int maskNo) //0 is first stall
-{
-	CPlayState::Instance()->theStall[stall]->setMaskSold(2);
-	CPlayState::Instance()->theStall[stall]->setTotalMaskSold(CPlayState::Instance()->theStall[stall]->getMaskSold());
-	CPlayState::Instance()->theStall[stall]->setMaskNo(CPlayState::Instance()->theStall[stall]->getMaskNo() - CPlayState::Instance()->theStall[stall]->getMaskSold());
-	cout << "mask sold " << CPlayState::Instance()->theStall[stall]->getMaskSold() << endl;
-	cout << "mask in stall: " << CPlayState::Instance()->theStall[stall]->getMaskNo() << endl;
-	cout << "total mask sold: " << CPlayState::Instance()->theStall[stall]->getTotalMaskSold() << endl;
-}
-
 void CGamePlayState::keyboardUpdate()
 {
 	if(CInputSystem::getInstance()->myKeys['a'])
@@ -490,40 +486,6 @@ void CGamePlayState::keyboardUpdate()
 		{
 			std::cout << "TILE SEED NUMBER : " << i << " : " << theSeededTiles[i]->TileHazeValue << std::endl;
 		}
-	}
-
-	if(CInputSystem::getInstance()->myKeys['z'])
-	{
-		if(CPlayState::Instance()->theStall[0]->getMaskNo() >= CPlayState::Instance()->theStall[0]->getMaskSold())
-		{
-			buyMask(0, 2);
-			CPlayState::Instance()->earned = CPlayState::Instance()->theStall[0]->getTotalMaskSold() * CPlayState::Instance()->theStall[0]->getMaskPrice();
-			cout << CPlayState::Instance()->earned << endl;
-		}
-		else
-			cout << "no mask" << endl;
-	}
-	if(CInputSystem::getInstance()->myKeys['x'])
-	{
-		if(CPlayState::Instance()->theStall[1]->getMaskNo() >= CPlayState::Instance()->theStall[1]->getMaskSold())
-		{
-			buyMask(1, 2);
-			CPlayState::Instance()->earned2 = CPlayState::Instance()->theStall[1]->getTotalMaskSold() * CPlayState::Instance()->theStall[1]->getMaskPrice();
-			cout << CPlayState::Instance()->earned2 << endl;
-		}
-		else
-			cout << "no mask" << endl;
-	}
-	if(CInputSystem::getInstance()->myKeys['c'])
-	{
-		if(CPlayState::Instance()->theStall[2]->getMaskNo() >= CPlayState::Instance()->theStall[2]->getMaskSold())
-		{
-			buyMask(2, 2);
-			CPlayState::Instance()->earned3 = CPlayState::Instance()->theStall[2]->getTotalMaskSold() * CPlayState::Instance()->theStall[2]->getMaskPrice();
-			cout << CPlayState::Instance()->earned3 << endl;
-		}
-		else
-			cout << "no mask" << endl;
 	}
 
 	//Esc Key
@@ -790,6 +752,8 @@ void CGamePlayState::drawInfo()
 			printw (20, 20, 0,  "Time: ");
 			printw(20, 45, 0, "PSI: %f", CPlayState::Instance()->theHaze.HazeGraph[HourNumber + CPlayState::Instance()->day * DayTime]);
 			printw(20, 65, 0, "FPS: %f", theTimerInstance->getFPS());
+			printw(20, 85, 0, "Day: %d", CPlayState::Instance()->day);
+			printw(20, 105, 0, "Hour: %d", HourNumber);
 		glPopAttrib();
 	glPopMatrix();
 }

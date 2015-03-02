@@ -44,7 +44,7 @@ public:
 	void setColour(Vector3 colour);
 	void setColour2(Vector3 colour2);
 
-	void buyMask(int amt);
+	void buyMask(int maskNo);
 
 	CMoney theMoney;
 
@@ -60,6 +60,5 @@ public:
 	bool operator== (Entity& o);
 	Vector3 GetScale();
 	void Update();
-
 };
 

@@ -42,9 +42,15 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules />
+    <CodeAnalysisRuleAssemblies />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules />
+    <CodeAnalysisRuleAssemblies />
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -93,6 +99,7 @@
     <ClCompile Include="Forecast.cpp" />
     <ClCompile Include="GamePlayState.cpp" />
     <ClCompile Include="GameStateManager.cpp" />
+    <ClCompile Include="helpState.cpp" />
     <ClCompile Include="LoadState.cpp" />
     <ClCompile Include="ObjectModel.cpp" />
     <ClCompile Include="ObjLoader\ObjLoader.c" />
@@ -134,6 +141,7 @@
     <ClInclude Include="GameState.h" />
     <ClInclude Include="GameStateManager.h" />
     <ClInclude Include="Global.h" />
+    <ClInclude Include="helpState.h" />
     <ClInclude Include="LoadState.h" />
     <ClInclude Include="ObjectModel.h" />
     <ClInclude Include="ObjLoader\ObjLoader.h" />

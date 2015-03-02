@@ -19,7 +19,7 @@
 using namespace std;
 
 #define SEEDCOUNT 2
-#define STARTINGAMOUNTOFBUYERS 2
+#define STARTINGAMOUNTOFBUYERS 10
 
 enum PLAYSTATE_BUTTON
 {
@@ -79,7 +79,6 @@ public:
 
 	void DrawTimeBar();
 
-	void buyMask(int stall, int maskNo);
 	void SeedHaze();
 
 	//Inputs
@@ -109,8 +108,6 @@ public:
 			delete theGrid;
 			theGrid = NULL;
 		}
-
-
 
 		for (int i = 0; i < 4; i++)
 		{

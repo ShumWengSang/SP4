@@ -147,7 +147,7 @@ void Buyer::AIUpdate()
 	switch (CurrentState)
 	{
 		case IDLEWALKING:
-		{	if (theTileTemp != theGrid->GetTile(this->Position) && theGrid->GetTile(this->Position)!= NULL)
+		{	if (theTileTemp != theGrid->GetTile(this->Position) && theGrid->GetTile(this->Position) != NULL)
 		{
 			theTileTemp = theGrid->GetTile(this->Position);
 			if (theTileTemp != NULL)
@@ -161,13 +161,14 @@ void Buyer::AIUpdate()
 					CStalls * theStall = StalltoBuyFrom(theTileTemp->GetHaze());
 
 					if (theStall != NULL)
-					{	
+					{
 						theShopToBuy = theStall;
 						Color.Set(0, 0, 1);
 						TargettoWalk.push_back(&theShopToBuy->pos);
 						CurrentState = GOINGTOBUY;
 
 					}
+
 				}
 			}
 		}
@@ -188,11 +189,6 @@ void Buyer::AIUpdate()
 								   TargettoWalk.pop_back();
 							   }
 						   }
-						   //if (TargettoWalk.back() != &theShopToBuy->getPosition())
-						   //{
-						   //	cout << "TARGET CJHANGED" << endl;
-						   //	TargettoWalk.back() = *theShopToBuy->getPosition();
-						   //}
 		}
 		break;
 		default:

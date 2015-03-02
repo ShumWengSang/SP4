@@ -12,7 +12,7 @@
 class CInputSystem;
 class WinLose;
 
-class EndGameState
+class EndGameState : public CGameState
 {
 protected:
 	TextureImage background[2];

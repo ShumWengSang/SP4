@@ -28,9 +28,9 @@ void Bar::draw()
 			glTexCoord2f(0,0);
 			glVertex2f(0,Height);
 			glTexCoord2f(1,0);
-			glVertex2f(Percentage,Height);
+			glVertex2f(Percentage * SECONDS/DayTime,Height);
 			glTexCoord2f(1,1);
-			glVertex2f(Percentage,0);
+			glVertex2f(Percentage * SECONDS/DayTime,0);
 			glTexCoord2f(0,1);
 			glVertex2f(0,0);				
 		glEnd();
