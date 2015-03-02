@@ -11,6 +11,7 @@
 #include "TileChilds.h"
 #include "Grid.h"
 #include "Timer.h"
+#include "Global.h"
 
 #include "ObjectModel.h"
 

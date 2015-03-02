@@ -176,7 +176,7 @@ void Buyer::AIUpdate()
 					break;
 				case GOINGTOBUY:
 					{
-						if (theTileTemp->ShopOnTop == theShopToBuy)
+						if (theTileTemp->ShopOnTop == theShopToBuy && HasMask == false)
 						{
 							HasMask = true;
 							Color.Set(1, 0, 0);
@@ -186,6 +186,10 @@ void Buyer::AIUpdate()
 							{
 								TargettoWalk.pop_back();
 							}
+						}
+						if (TargettoWalk.back() != theShopToBuy->getPosition())
+						{
+							TargettoWalk.back() = theShopToBuy->getPosition();
 						}
 					}
 					break;

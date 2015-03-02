@@ -3,8 +3,8 @@
 #include "Money.h"
 #include "Entity.h"
 #include "freeglut.h"
-
 #include "ObjectModel.h"
+#include "Global.h"
 using namespace std;
 
 class CStalls : public Entity
