@@ -10,6 +10,7 @@
 #include "TextureImage.h"
 #include "Buttons.h"
 #include "AudioPlayer.h"
+#include "LoadState.h"
 
 using namespace std;
 

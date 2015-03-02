@@ -210,12 +210,6 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 		{
 			//HourNumber++;
 			SeedHaze();
-
-			CPlayState::Instance()->earned = CPlayState::Instance()->theStall[0]->getTotalMaskSold() * CPlayState::Instance()->theStall[0]->getMaskPrice();
-			CPlayState::Instance()->earned2 = CPlayState::Instance()->theStall[1]->getTotalMaskSold() * CPlayState::Instance()->theStall[1]->getMaskPrice();
-			CPlayState::Instance()->earned3 = CPlayState::Instance()->theStall[2]->getTotalMaskSold() * CPlayState::Instance()->theStall[2]->getMaskPrice();
-			int totalEarn = CPlayState::Instance()->earned + CPlayState::Instance()->earned2 + CPlayState::Instance()->earned3;
-			CPlayState::Instance()->theMoney.setCurrentMoney(totalEarn + CPlayState::Instance()->moneyAfterBuy);
 		}
 
 		//if (theTimerInstance->executeTime(TimerKeyDay))
@@ -225,6 +219,11 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 			//HourNumber = 0;
 			CInGameStateManager::getInstance()->ChangeState(CEndOfDayState::Instance());
 		}
+		CPlayState::Instance()->earned = CPlayState::Instance()->theStall[0]->getTotalMaskSold() * CPlayState::Instance()->theStall[0]->getMaskPrice();
+		CPlayState::Instance()->earned2 = CPlayState::Instance()->theStall[1]->getTotalMaskSold() * CPlayState::Instance()->theStall[1]->getMaskPrice();
+		CPlayState::Instance()->earned3 = CPlayState::Instance()->theStall[2]->getTotalMaskSold() * CPlayState::Instance()->theStall[2]->getMaskPrice();
+		int totalEarn = CPlayState::Instance()->earned + CPlayState::Instance()->earned2 + CPlayState::Instance()->earned3;
+		CPlayState::Instance()->theMoney.setCurrentMoney(totalEarn + CPlayState::Instance()->moneyAfterBuy);
 	}
 }
 

@@ -20,6 +20,42 @@ void helpState::LoadTextures()
 	CApplication::getInstance()->LoadTGA(&background[0],"images/background.tga"); //help state Background image
 }
 
+void helpState::LoadButtons()
+{
+}
+
+void helpState::Init()
+{
+	cout << "CHelpState::Init\n" << endl;
+
+	LoadTextures();
+	LoadButtons();
+
+	//Input System
+	InputSystem = CInputSystem::getInstance();
+
+	//Audio Player
+	se = createIrrKlangDevice();
+
+	//Enable Camera Orientation on Mouse Move
+	InputSystem->OrientCam = true;
+	sound = AudioPlayer::Instance();
+}
+void helpState::HandleEvents(CGameStateManager* theGSM)
+{
+
+}
+
+void helpState::Update(CGameStateManager* theGSM) 
+{
+	keyboardUpdate();
+}
+
+void helpState::Draw(CGameStateManager* theGSM) 
+{
+	Camera::getInstance()->SetHUD(true);
+	Camera::getInstance()->SetHUD(false);
+}
 
 void helpState::keyboardUpdate()
 {
@@ -55,7 +91,6 @@ void helpState::MouseClick(int button, int state, int x, int y) {
 					if(theButton[back]->isInside(x, y))
 					{
 						//CGameStateManager::getInstance()->ChangeState(CPlayState::Instance());
-						//CInGameStateManager::getInstance()->PopState();
 					}
 
 					//load game
