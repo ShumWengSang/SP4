@@ -35,11 +35,11 @@ public:
 	helpState(void);
 	~helpState(void);
 
-	void Init(){};
+	void Init();
 
-	void HandleEvents(CGameStateManager* GSM){};
-	void Update(CGameStateManager* GSM){};
-	void Draw(CGameStateManager* GSM){};
+	void HandleEvents(CGameStateManager* GSM);
+	void Update(CGameStateManager* GSM);
+	void Draw(CGameStateManager* GSM);
 
 	void LoadTextures();
 	void keyboardUpdate(void);

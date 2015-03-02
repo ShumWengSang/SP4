@@ -114,10 +114,9 @@ void CGamePlayState::Init()
 	SeedHaze();
 
 	theTimerInstance = CTimer::getInstance();
-	TimerKeySeed = theTimerInstance->insertNewTime(3000);
-	TimerKeyDay = theTimerInstance->insertNewTime(27000);
+	TimerKeySeed = theTimerInstance->insertNewTime(HourTime);
+	TimerKeyDay = theTimerInstance->insertNewTime(HourTime * DayTime);
 
-	
 	Buyer * newBuyer;
 
 	std::vector<CStalls*> theListofStalls;
@@ -208,7 +207,7 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 
 		if (theTimerInstance->executeTime(TimerKeySeed))
 		{
-			//HourNumber++;
+			HourNumber++;
 			SeedHaze();
 		}
 
