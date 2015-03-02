@@ -114,7 +114,7 @@ void CGamePlayState::Init()
 	SeedHaze();
 
 	theTimerInstance = CTimer::getInstance();
-	TimerKeySeed = theTimerInstance->insertNewTime(30000);
+	TimerKeySeed = theTimerInstance->insertNewTime(3000);
 	TimerKeyDay = theTimerInstance->insertNewTime(270000);
 
 	
@@ -786,7 +786,7 @@ void CGamePlayState::drawInfo()
 {
 	glPushMatrix();
 		glPushAttrib(GL_DEPTH_TEST);
-			glColor3f( 1.0f, 0.0f, 0.0f);
+			glColor3f( 0.0f, 0.0f, 0.0f);
 			printw (20, 20, 0,  "Time: ");
 			printw(20, 45, 0, "PSI: %f", CPlayState::Instance()->theHaze.HazeGraph[HourNumber + CPlayState::Instance()->day * DayTime]);
 			printw(20, 65, 0, "FPS: %f", theTimerInstance->getFPS());
