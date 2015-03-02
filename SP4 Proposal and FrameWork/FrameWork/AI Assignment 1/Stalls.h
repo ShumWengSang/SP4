@@ -5,6 +5,8 @@
 #include "freeglut.h"
 #include "ObjectModel.h"
 #include "Global.h"
+#include "Application.h"
+#include "TextureImage.h"
 using namespace std;
 
 class CStalls : public Entity
@@ -16,7 +18,8 @@ private:
 	Vector3 scale;
 	Vector3 colour;
 	Vector3 colour2;
-
+	
+	TextureImage stallTex[1];
 	CObjectModel* theModel;
 
 public:

@@ -145,9 +145,9 @@ void CGamePlayState::Init()
 	theListofEntities.push_back(CPlayState::Instance()->theStall[2]);
 	theListofEntities.push_back(theGrid);
 
-	CPlayState::Instance()->theStall[0]->setColour2(Vector3(0,0,1));
-	CPlayState::Instance()->theStall[1]->setColour2(Vector3(1,0,0));
-	CPlayState::Instance()->theStall[2]->setColour2(Vector3(0,1,0));
+	CPlayState::Instance()->theStall[0]->setColour2(Vector3(1,1,1));
+	CPlayState::Instance()->theStall[1]->setColour2(Vector3(1,1,1));
+	CPlayState::Instance()->theStall[2]->setColour2(Vector3(1,1,1));
 }
 
 void CGamePlayState::SeedHaze()
