@@ -240,6 +240,7 @@ void CLoadState::MouseClick(int button, int state, int x, int y) {
 			break;
 
 		case GLUT_RIGHT_BUTTON:
+			CGameStateManager::getInstance()->PopState();
 			break;
 
 		case GLUT_MIDDLE_BUTTON:

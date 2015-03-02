@@ -6,6 +6,8 @@
 #include "ObjectModel.h"
 #include "Global.h"
 #include "MoneyAnimation.h"
+#include "Application.h"
+#include "TextureImage.h"
 
 using namespace std;
 
@@ -14,17 +16,18 @@ class CStalls : public Entity
 private:
 	int gasMaskAmount;
 	int maskSold;
-	Vector3 pos;
+
 	Vector3 scale;
 	Vector3 colour;
 	Vector3 colour2;
-
+	
+	TextureImage stallTex[1];
 	CObjectModel* theModel;
 
 public:
 	CStalls(Vector3 pos = Vector3(0,0,0), Vector3 scale = Vector3(4,4,4));
 	~CStalls(void);
-
+	Vector3 pos;
 	int totalMaskSold;
 
 	CMoney theStoreMoney;

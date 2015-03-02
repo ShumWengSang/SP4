@@ -14,6 +14,8 @@ CStalls::CStalls(Vector3 pos, Vector3 scale)
 	this->scale = scale;
 	Price = 1;
 
+	CApplication::getInstance()->LoadTGA(&stallTex[0], "models/stallOutUV.tga");
+
 	theModel = new CObjectModel();
 	theModel->theObj = LoadOBJ("./models/Stall.obj");
 	theModel->SetPosition( pos);
@@ -106,6 +108,8 @@ void CStalls::buyMask(int maskNo)
 bool CStalls::glRenderObject() {
 	glPushMatrix();
 		glEnable(GL_BLEND);
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, stallTex[0].texID);
 		
 		if(isPicking)
 			glColor3f(colour.x, colour.y, colour.z);
@@ -115,6 +119,8 @@ bool CStalls::glRenderObject() {
 			glTranslatef(0,2,0);
 		}
 		theModel->Render();
+		
+		glDisable(GL_TEXTURE_2D);
 		glDisable(GL_BLEND);
 	glPopMatrix();
 	

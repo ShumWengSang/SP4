@@ -7,7 +7,7 @@ CGamePlayState *CGamePlayState::theGamePlayState = NULL;
 void CGamePlayState::LoadTextures()
 {
 	//Textures
-	CApplication::getInstance()->LoadTGA(&map[0],"images/playState/map.tga");
+	CApplication::getInstance()->LoadTGA(&map[0],"images/playState/map.tga");//images/playState/map.tga
 	CApplication::getInstance()->LoadTGA(&button[0], "images/playState/pause.tga");
 	CApplication::getInstance()->LoadTGA(&button[1], "images/playState/shop.tga");
 	CApplication::getInstance()->LoadTGA(&button[2], "images/playState/shop2.tga");
@@ -22,7 +22,9 @@ void CGamePlayState::LoadTextures()
 	CApplication::getInstance()->LoadTGA(&skyBox[4], "images/playState/SkyBox/skybox_top.tga");
 	CApplication::getInstance()->LoadTGA(&skyBox[5], "images/playState/SkyBox/skybox_bottom.tga");
 
-	
+	TextureImage theImg;
+	CApplication::getInstance()->LoadTGA(&theImg, "images/Gress_Texture.tga");
+	Tiles::TexID = theImg.texID;
 
 	CApplication::getInstance()->LoadTGA(&buyingButton[0],"images/playState/x.tga");
 	CApplication::getInstance()->LoadTGA(&buyingButton[1],"images/playState/50.tga");
@@ -91,6 +93,7 @@ void CGamePlayState::Init()
 	isPause = false;
 	isBuying = false;
 
+	//TODO drop these textures hopefully.
 	LoadTextures();
 	LoadButtons();
 
@@ -114,10 +117,9 @@ void CGamePlayState::Init()
 	SeedHaze();
 
 	theTimerInstance = CTimer::getInstance();
-	TimerKeySeed = theTimerInstance->insertNewTime(3000);
-	TimerKeyDay = theTimerInstance->insertNewTime(27000);
+	TimerKeySeed = theTimerInstance->insertNewTime(HourTime);
+	TimerKeyDay = theTimerInstance->insertNewTime(HourTime * DayTime);
 
-	
 	Buyer * newBuyer;
 
 	std::vector<CStalls*> theListofStalls;
@@ -143,9 +145,9 @@ void CGamePlayState::Init()
 	theListofEntities.push_back(CPlayState::Instance()->theStall[2]);
 	theListofEntities.push_back(theGrid);
 
-	CPlayState::Instance()->theStall[0]->setColour2(Vector3(0,0,1));
-	CPlayState::Instance()->theStall[1]->setColour2(Vector3(1,0,0));
-	CPlayState::Instance()->theStall[2]->setColour2(Vector3(0,1,0));
+	CPlayState::Instance()->theStall[0]->setColour2(Vector3(1,1,1));
+	CPlayState::Instance()->theStall[1]->setColour2(Vector3(1,1,1));
+	CPlayState::Instance()->theStall[2]->setColour2(Vector3(1,1,1));
 }
 
 void CGamePlayState::SeedHaze()
@@ -159,7 +161,7 @@ void CGamePlayState::SeedHaze()
 
 		if (!((x == 0 || (x == (TILE_NO_X - 1))) && ((y == 0 || y == (TILE_NO_Y - 1)))))
 		{
-			theGrid->temp[x][y].Seeded(static_cast<int>(CPlayState::Instance()->theHaze.HazeGraph[HourNumber + DayNumber * DayTime] * 10000));//CPlayState::Instance()->theHaze.HazeGraph[DayNumber * DayTime]
+			theGrid->temp[x][y].Seeded(static_cast<int>(CPlayState::Instance()->theHaze.HazeGraph[HourNumber + (DayNumber-1) * DayTime] * 10000));
 			theSeededTiles.push_back(&theGrid->temp[x][y]);
 			Seeds++;
 		}
@@ -215,7 +217,7 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 
 		if (theTimerInstance->executeTime(TimerKeySeed))
 		{
-			//HourNumber++;
+			HourNumber++;
 			SeedHaze();
 		}
 
@@ -579,9 +581,9 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 					{
 						if(theBuyingButton[close]->isInside(x, y))
 						{
-						CPlayState::Instance()->shop1selected = false;
-						CPlayState::Instance()->shop2selected = false;
-						CPlayState::Instance()->shop3selected = false;
+							CPlayState::Instance()->shop1selected = false;
+							CPlayState::Instance()->shop2selected = false;
+							CPlayState::Instance()->shop3selected = false;
 
 							isBuying = false;
 						}
@@ -757,7 +759,7 @@ void CGamePlayState::drawInfo()
 		glPushAttrib(GL_DEPTH_TEST);
 			glColor3f( 0.0f, 0.0f, 0.0f);
 			printw (20, 20, 0,  "Time: ");
-			printw(20, 45, 0, "PSI: %f", CPlayState::Instance()->theHaze.HazeGraph[HourNumber + CPlayState::Instance()->day * DayTime]);
+			printw(20, 45, 0, "PSI: %f", CPlayState::Instance()->theHaze.HazeGraph[HourNumber + (CPlayState::Instance()->day-1) * DayTime]);
 			printw(20, 65, 0, "FPS: %f", theTimerInstance->getFPS());
 			printw(20, 85, 0, "Day: %d", CPlayState::Instance()->day);
 			printw(20, 105, 0, "Hour: %d", HourNumber);

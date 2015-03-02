@@ -23,7 +23,8 @@
 enum BuyerAIStates
 {
 	IDLEWALKING,
-	GOINGTOBUY
+	GOINGTOBUY,
+	NOTHINGTOBUYWALK
 };
 
 class StoreHolder
@@ -60,7 +61,10 @@ public:
 
 	std::vector<StoreHolder*> theStalls;
 	std::map<long long, CStalls*> ProbabilitytoBuyMask;
-	std::vector<Vector3> TargettoWalk;
+	std::vector<Vector3*> TargettoWalk;
+	std::vector<CStalls*> StorePriorities;
+
+	int StorePriority;
 
 	bool WillBuyMask(int Price);
 	float GetFactors(int Price, int Distance, int Haze);
