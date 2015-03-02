@@ -1,36 +1,40 @@
 #include "GamePlayState.h"
 #include "EndOfDayState.h"
 #include "PlayState.h"
+#include "TextureSingleton.h"
 
 CGamePlayState *CGamePlayState::theGamePlayState = NULL;
 
 void CGamePlayState::LoadTextures()
 {
+	TextureSingleton * theInstance = TextureSingleton::getInstance();
+	Tiles::TexID = theInstance->GetNumber(36);
+	
 	//Textures
-	CApplication::getInstance()->LoadTGA(&map[0],"images/playState/map.tga");//images/playState/map.tga
-	CApplication::getInstance()->LoadTGA(&button[0], "images/playState/pause.tga");
-	CApplication::getInstance()->LoadTGA(&button[1], "images/playState/shop.tga");
-	CApplication::getInstance()->LoadTGA(&button[2], "images/playState/shop2.tga");
-	CApplication::getInstance()->LoadTGA(&button[3], "images/playState/shop3.tga");
-	CApplication::getInstance()->LoadTGA(&button[4],"images/playState/shopSelected.tga");
-	CApplication::getInstance()->LoadTGA(&button[5],"images/playState/shop2Selected.tga");
-	CApplication::getInstance()->LoadTGA(&button[6],"images/playState/shop3Selected.tga");
-	CApplication::getInstance()->LoadTGA(&skyBox[0], "images/playState/SkyBox/skybox_near.tga");
-	CApplication::getInstance()->LoadTGA(&skyBox[1], "images/playState/SkyBox/skybox_far.tga");
-	CApplication::getInstance()->LoadTGA(&skyBox[2], "images/playState/SkyBox/skybox_left.tga");
-	CApplication::getInstance()->LoadTGA(&skyBox[3], "images/playState/SkyBox/skybox_right.tga");
-	CApplication::getInstance()->LoadTGA(&skyBox[4], "images/playState/SkyBox/skybox_top.tga");
-	CApplication::getInstance()->LoadTGA(&skyBox[5], "images/playState/SkyBox/skybox_bottom.tga");
+	//CApplication::getInstance()->LoadTGA(&map[0],"images/playState/map.tga");//images/playState/map.tga
+	//CApplication::getInstance()->LoadTGA(&button[0], "images/playState/pause.tga");
+	//CApplication::getInstance()->LoadTGA(&button[1], "images/playState/shop.tga");
+	//CApplication::getInstance()->LoadTGA(&button[2], "images/playState/shop2.tga");
+	//CApplication::getInstance()->LoadTGA(&button[3], "images/playState/shop3.tga");
+	//CApplication::getInstance()->LoadTGA(&button[4],"images/playState/shopSelected.tga");
+	//CApplication::getInstance()->LoadTGA(&button[5],"images/playState/shop2Selected.tga");
+	//CApplication::getInstance()->LoadTGA(&button[6],"images/playState/shop3Selected.tga");
+	//CApplication::getInstance()->LoadTGA(&skyBox[0], "images/playState/SkyBox/skybox_near.tga");
+	//CApplication::getInstance()->LoadTGA(&skyBox[1], "images/playState/SkyBox/skybox_far.tga");
+	//CApplication::getInstance()->LoadTGA(&skyBox[2], "images/playState/SkyBox/skybox_left.tga");
+	//CApplication::getInstance()->LoadTGA(&skyBox[3], "images/playState/SkyBox/skybox_right.tga");
+	//CApplication::getInstance()->LoadTGA(&skyBox[4], "images/playState/SkyBox/skybox_top.tga");
+	//CApplication::getInstance()->LoadTGA(&skyBox[5], "images/playState/SkyBox/skybox_bottom.tga");
 
-	TextureImage theImg;
-	CApplication::getInstance()->LoadTGA(&theImg, "images/Gress_Texture.tga");
-	Tiles::TexID = theImg.texID;
+	//TextureImage theImg;
+	//CApplication::getInstance()->LoadTGA(&theImg, "images/Gress_Texture.tga");
+	//Tiles::TexID = theImg.texID;
 
-	CApplication::getInstance()->LoadTGA(&buyingButton[0],"images/playState/x.tga");
-	CApplication::getInstance()->LoadTGA(&buyingButton[1],"images/playState/50.tga");
-	CApplication::getInstance()->LoadTGA(&buyingButton[2],"images/playState/100.tga");
-	CApplication::getInstance()->LoadTGA(&buyingButton[3],"images/playState/200.tga");
-	CApplication::getInstance()->LoadTGA(&buyingBackground[0],"images/playState/box.tga");
+	//CApplication::getInstance()->LoadTGA(&buyingButton[0],"images/playState/x.tga");
+	//CApplication::getInstance()->LoadTGA(&buyingButton[1],"images/playState/50.tga");
+	//CApplication::getInstance()->LoadTGA(&buyingButton[2],"images/playState/100.tga");
+	//CApplication::getInstance()->LoadTGA(&buyingButton[3],"images/playState/200.tga");
+	//CApplication::getInstance()->LoadTGA(&buyingBackground[0],"images/playState/box.tga");
 }
 void CGamePlayState::LoadButtons()
 {

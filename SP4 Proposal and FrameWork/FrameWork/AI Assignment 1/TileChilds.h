@@ -32,10 +32,9 @@ private:
 	
 public:
 	int CurrentLevel;
-	int MAX_LEVEL;
+	static int MAX_LEVEL;
 	float AlphaValue;
 	int HazeTileValue;
-	float newHazeTileValue;
 	int ChildNum;
 	Tiles * ParentTile;
 	CTileChilds * ParentChildTile; 

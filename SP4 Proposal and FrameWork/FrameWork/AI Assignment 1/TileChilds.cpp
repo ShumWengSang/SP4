@@ -105,6 +105,8 @@ void ColorChanger::HSLtoRGB(float &Rh, float &Gs, float&Bl)
 	}
 }
 
+int CTileChilds::MAX_LEVEL = 4;
+
 void CTileChilds::ContructorInit()
 {
 	top = NULL;
@@ -114,9 +116,7 @@ void CTileChilds::ContructorInit()
 	HazeTileValue = 0;
 	ChildNum = 0;
 	CurrentLevel = 0;
-	MAX_LEVEL = 5;
 	ypos = 5;
-	newHazeTileValue = 0;
 	AlphaValue = 1;
 	this->ParentChildTile = NULL;
 	this->ParentTile = NULL;
@@ -170,16 +170,12 @@ CTileChilds::CTileChilds(CTileChilds * ParentTile, int numb, int CurrentLevel = 
 
 void CTileChilds::drawTile(float  x, float  y, float  z, float tileWidth, float tileHeight)
 {
-
 	if (this->CurrentLevel != MAX_LEVEL)
 	{
-		float tileW = tileHeight / 2;
-		float tileH = tileHeight / 2;
-
-		childs[0]->drawTile(x, 0, z, tileW, tileH);
-		childs[1]->drawTile(x + tileHeight / 2, 0, z, tileW, tileW);
-		childs[2]->drawTile(x, 0, z + tileWidth / 2, tileW, tileW);
-		childs[3]->drawTile(x + tileHeight / 2, 0, z + tileWidth / 2, tileW, tileW);
+		childs[0]->drawTile(x, 0, z, tileHeight / 2, tileHeight / 2);
+		childs[1]->drawTile(x + tileHeight / 2, 0, z, tileHeight / 2, tileHeight / 2);
+		childs[2]->drawTile(x, 0, z + tileWidth / 2, tileHeight / 2, tileHeight / 2);
+		childs[3]->drawTile(x + tileHeight / 2, 0, z + tileWidth / 2, tileHeight / 2, tileHeight / 2);
 	}
 	else
 	{
@@ -195,8 +191,6 @@ void CTileChilds::drawTile(float  x, float  y, float  z, float tileWidth, float 
 		glEnd();
 		//std::cout << " X IS: " << x << std::endl;
 	}
-
-
 }
 
 bool CTileChilds::glRenderObject()

@@ -109,6 +109,7 @@
     <ClCompile Include="SaveLoad.cpp" />
     <ClCompile Include="SaveState.cpp" />
     <ClCompile Include="Source2.cpp" />
+    <ClCompile Include="TextureSingleton.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="InGameStateManager.cpp" />
     <ClCompile Include="Input.cpp" />
@@ -152,6 +153,7 @@
     <ClInclude Include="ObjLoader\tgaLoader.h" />
     <ClInclude Include="SaveLoad.h" />
     <ClInclude Include="SaveState.h" />
+    <ClInclude Include="TextureSingleton.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="InGameState.h" />
     <ClInclude Include="InGameStateManager.h" />

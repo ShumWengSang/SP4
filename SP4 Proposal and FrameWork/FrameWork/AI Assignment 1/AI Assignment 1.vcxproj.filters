@@ -153,6 +153,9 @@
     <ClCompile Include="MoneyAnimation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="TextureSingleton.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameState.h">
@@ -280,6 +283,9 @@
     </ClInclude>
     <ClInclude Include="MoneyAnimation.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TextureSingleton.h">
+      <Filter>Resource Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

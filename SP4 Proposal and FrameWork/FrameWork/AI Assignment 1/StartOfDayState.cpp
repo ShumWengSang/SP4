@@ -8,23 +8,24 @@ CStartOfDayState *CStartOfDayState::theStartOfDayState = NULL;
 void CStartOfDayState::LoadTextures()
 {
 	//Textures
-	CApplication::getInstance()->LoadTGA(&background[0],"images/background.tga");
-	CApplication::getInstance()->LoadTGA(&background[1],"images/startState/box.tga");
-	CApplication::getInstance()->LoadTGA(&button[0],"images/startState/go.tga");
-	CApplication::getInstance()->LoadTGA(&button[1],"images/startState/50.tga");
-	CApplication::getInstance()->LoadTGA(&button[2],"images/startState/100.tga");
-	CApplication::getInstance()->LoadTGA(&button[3],"images/startState/200.tga");
-	CApplication::getInstance()->LoadTGA(&button[4],"images/startState/10.tga");
-	CApplication::getInstance()->LoadTGA(&button[5],"images/startState/12.tga");
-	CApplication::getInstance()->LoadTGA(&button[6],"images/startState/15.tga");
-	CApplication::getInstance()->LoadTGA(&button[7],"images/startState/back.tga");
-	CApplication::getInstance()->LoadTGA(&button[8],"images/startState/reset.tga");
-	CApplication::getInstance()->LoadTGA(&button[9],"images/startState/shop.tga");
-	CApplication::getInstance()->LoadTGA(&button[10],"images/startState/shop2.tga");
-	CApplication::getInstance()->LoadTGA(&button[11],"images/startState/shop3.tga");
-	CApplication::getInstance()->LoadTGA(&button[12],"images/startState/shopSelected.tga");
-	CApplication::getInstance()->LoadTGA(&button[13],"images/startState/shop2Selected.tga");
-	CApplication::getInstance()->LoadTGA(&button[14],"images/startState/shop3Selected.tga");
+
+	//CApplication::getInstance()->LoadTGA(&background[0],"images/background.tga");
+	//CApplication::getInstance()->LoadTGA(&background[1],"images/startState/box.tga");
+	//CApplication::getInstance()->LoadTGA(&button[0],"images/startState/go.tga");
+	//CApplication::getInstance()->LoadTGA(&button[1],"images/startState/50.tga");
+	//CApplication::getInstance()->LoadTGA(&button[2],"images/startState/100.tga");
+	//CApplication::getInstance()->LoadTGA(&button[3],"images/startState/200.tga");
+	//CApplication::getInstance()->LoadTGA(&button[4],"images/startState/10.tga");
+	//CApplication::getInstance()->LoadTGA(&button[5],"images/startState/12.tga");
+	//CApplication::getInstance()->LoadTGA(&button[6],"images/startState/15.tga");
+	//CApplication::getInstance()->LoadTGA(&button[7],"images/startState/back.tga");
+	//CApplication::getInstance()->LoadTGA(&button[8],"images/startState/reset.tga");
+	//CApplication::getInstance()->LoadTGA(&button[9],"images/startState/shop.tga");
+	//CApplication::getInstance()->LoadTGA(&button[10],"images/startState/shop2.tga");
+	//CApplication::getInstance()->LoadTGA(&button[11],"images/startState/shop3.tga");
+	//CApplication::getInstance()->LoadTGA(&button[12],"images/startState/shopSelected.tga");
+	//CApplication::getInstance()->LoadTGA(&button[13],"images/startState/shop2Selected.tga");
+	//CApplication::getInstance()->LoadTGA(&button[14],"images/startState/shop3Selected.tga");
 }
 
 void CStartOfDayState::LoadButtons()
