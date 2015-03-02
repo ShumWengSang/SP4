@@ -208,7 +208,7 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 
 		if (theTimerInstance->executeTime(TimerKeyDay))
 		{
-			CPlayState::Instance()->day++;
+			//CPlayState::Instance()->day++;
 			CInGameStateManager::getInstance()->ChangeState(CEndOfDayState::Instance());
 		}
 
