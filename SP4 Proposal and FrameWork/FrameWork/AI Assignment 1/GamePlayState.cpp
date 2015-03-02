@@ -644,7 +644,7 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 									CPlayState::Instance()->theMoney.setCurrentMoney(CPlayState::Instance()->theMoney.getCurrentMoney() - 550);
 
 									if(CPlayState::Instance()->shop1selected)
-										CPlayState::Instance()->theStall[2]->setMaskNo(CPlayState::Instance()->theStall[0]->getMaskNo() + 100);
+										CPlayState::Instance()->theStall[0]->setMaskNo(CPlayState::Instance()->theStall[0]->getMaskNo() + 100);
 									if(CPlayState::Instance()->shop2selected)
 										CPlayState::Instance()->theStall[1]->setMaskNo(CPlayState::Instance()->theStall[1]->getMaskNo() + 100);
 									if(CPlayState::Instance()->shop3selected)
