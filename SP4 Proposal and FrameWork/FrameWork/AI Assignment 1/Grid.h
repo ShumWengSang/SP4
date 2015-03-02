@@ -31,7 +31,7 @@ public:
 				if (temp[i][j].isWithin(pos) == true)
 				{
 					theTile = &temp[i][j];
-					return theTile;;
+					return theTile;
 				}
 			}
 		}

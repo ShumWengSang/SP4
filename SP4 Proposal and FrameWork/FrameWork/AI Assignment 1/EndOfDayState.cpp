@@ -54,11 +54,6 @@ void CEndOfDayState::Init()
 	font_style = GLUT_BITMAP_HELVETICA_18;
 	//Input System
 	CInputSystem::getInstance()->OrientCam = true;
-	if(!reinit && !CPlayState::Instance()->firstDay) {
-		CPlayState::Instance()->forecasting->setCurrentDay(CPlayState::Instance()->forecasting->getCurrentDay() + 1);
-		reinit = true;
-	}
-	CPlayState::Instance()->day = CPlayState::Instance()->forecasting->getCurrentDay();
 }
 
 void CEndOfDayState::Cleanup()
@@ -225,6 +220,12 @@ void CEndOfDayState::MouseClick(int button, int state, int x, int y) {
 				//back to buyMaskState
 				if(theButton[eNext]->isInside(x, y))
 				{
+					//if(!reinit && !CPlayState::Instance()->firstDay) {
+					if(!reinit) {
+						CPlayState::Instance()->forecasting->setCurrentDay(CPlayState::Instance()->forecasting->getCurrentDay() + 1);
+						CPlayState::Instance()->day = CPlayState::Instance()->forecasting->getCurrentDay();
+						reinit = true;
+					}
 					CPlayState::Instance()->firstDay = false;
 					CPlayState::Instance()->maskInStock = CPlayState::Instance()->maskLeft;
 					CPlayState::Instance()->resetValues();
