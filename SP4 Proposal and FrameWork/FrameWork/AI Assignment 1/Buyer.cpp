@@ -87,8 +87,6 @@ CStalls * Buyer::StalltoBuyFrom(int Haze)
 			LeastNumber = iterator->first;
 		}
 	}
-	if (LeastNumber)
-		std::cout << "LeastNumber " << LeastNumber << std::endl;
 	if (LeastNumber < 50)
 		return NULL;
 	return ProbabilitytoBuyMask.find(LeastNumber)->second;
@@ -105,7 +103,7 @@ void Buyer::Insert(CStalls * theStall)
 void Buyer::Update()
 {
 	AIUpdate();
-	if (ReachedLocation(TargettoWalk.front()))
+	if (ReachedLocation(*TargettoWalk.front()))
 	{
 		Velocity.Set(0, 0, 0);
 		TargettoWalk.clear();
@@ -114,7 +112,7 @@ void Buyer::Update()
 	}
 	else
 	{
-		GotoLocation(TargettoWalk.back(), 5);
+		GotoLocation(*TargettoWalk.back(), 5);
 	}
 
 	Position += Velocity * CTimer::getInstance()->getDelta();
@@ -144,59 +142,61 @@ void Buyer::AIUpdate()
 {
 	//TODO 
 	//	if (theTileTemp != /*GET TILE INFO*/){
-	if (theTileTemp != theGrid->GetTile(this->Position))
+
+
+	switch (CurrentState)
 	{
-		theTileTemp = theGrid->GetTile(this->Position);
-		if (theTileTemp != NULL)
+		case IDLEWALKING:
+		{	if (theTileTemp != theGrid->GetTile(this->Position) && theGrid->GetTile(this->Position)!= NULL)
 		{
-
-			switch (CurrentState)
+			theTileTemp = theGrid->GetTile(this->Position);
+			if (theTileTemp != NULL)
 			{
-				case IDLEWALKING:
-					{
-						if (HasMask)
-						{
-							Color.Set(0, 1, 0);
-						}
-						else
-						{
-							CStalls * theStall = StalltoBuyFrom(theTileTemp->GetHaze());
-							std::cout << "HAZE NMBER" << theTileTemp->GetHaze() << std::endl;
+				if (HasMask)
+				{
+					Color.Set(0, 1, 0);
+				}
+				else
+				{
+					CStalls * theStall = StalltoBuyFrom(theTileTemp->GetHaze());
 
-							if (theStall != NULL)
-							{
-								Color.Set(0, 0, 1);
-								TargettoWalk.push_back(theStall->getPosition());
-								CurrentState = GOINGTOBUY;
-								theShopToBuy = theStall;
-							}
-						}
+					if (theStall != NULL)
+					{	
+						theShopToBuy = theStall;
+						Color.Set(0, 0, 1);
+						TargettoWalk.push_back(&theShopToBuy->pos);
+						CurrentState = GOINGTOBUY;
 
 					}
-					break;
-				case GOINGTOBUY:
-					{
-						if (theTileTemp->ShopOnTop == theShopToBuy && HasMask == false)
-						{
-							HasMask = true;
-							Color.Set(1, 0, 0);
-							CurrentState = IDLEWALKING;
-							theTileTemp->ShopOnTop->setMaskSold(1);
-							for (unsigned int i = 0; i < TargettoWalk.size() - 1; i++)
-							{
-								TargettoWalk.pop_back();
-							}
-						}
-						if (TargettoWalk.back() != theShopToBuy->getPosition())
-						{
-							TargettoWalk.back() = theShopToBuy->getPosition();
-						}
-					}
-					break;
-				default:
-					break;
+				}
 			}
 		}
+
+		}
+		break;
+		case GOINGTOBUY:
+		{
+						   theTileTemp = theGrid->GetTile(this->Position);
+						   if (theTileTemp->ShopOnTop == theShopToBuy && HasMask == false)
+						   {
+							   HasMask = true;
+							   Color.Set(1, 0, 0);
+							   CurrentState = IDLEWALKING;
+							   theTileTemp->ShopOnTop->setMaskSold(1);
+							   for (unsigned int i = 0; i < TargettoWalk.size() - 1; i++)
+							   {
+								   TargettoWalk.pop_back();
+							   }
+						   }
+						   //if (TargettoWalk.back() != &theShopToBuy->getPosition())
+						   //{
+						   //	cout << "TARGET CJHANGED" << endl;
+						   //	TargettoWalk.back() = *theShopToBuy->getPosition();
+						   //}
+		}
+		break;
+		default:
+		break;
 	}
 }
 
@@ -210,25 +210,30 @@ void Buyer::Init()
 	theTileTemp = NULL;
 
 	int i = rand() % 4;
+	Vector3 * temp;
 	switch (i)
 	{
 		case 0:
 		this->Position.Set(static_cast<float>(rand() % TILE_WORLD_SIZE_X), 0, 0);
-		TargettoWalk.push_back(Vector3(static_cast<float>(rand() % TILE_WORLD_SIZE_X), 0, TILE_WORLD_SIZE_Y));
+		temp = new Vector3(Vector3(static_cast<float>(rand() % TILE_WORLD_SIZE_X), 0, TILE_WORLD_SIZE_Y));
+		TargettoWalk.push_back(temp);
 		break;
 
 		case 1:
 		this->Position.Set(static_cast<float>(rand() % TILE_WORLD_SIZE_X), 0, TILE_WORLD_SIZE_Y);
-		TargettoWalk.push_back(Vector3(static_cast<float>(rand() % TILE_WORLD_SIZE_X), 0, 0));
+		temp = new Vector3(static_cast<float>(rand() % TILE_WORLD_SIZE_X), 0, 0);
+		TargettoWalk.push_back(temp);
 		break;
 
 		case 2:
 			this->Position.Set(0, 0, static_cast<float>(rand() % TILE_WORLD_SIZE_Y));
-			TargettoWalk.push_back(Vector3(TILE_WORLD_SIZE_X, 0, static_cast<float>(rand() % TILE_WORLD_SIZE_Y)));
+			temp = new Vector3(TILE_WORLD_SIZE_X, 0, static_cast<float>(rand() % TILE_WORLD_SIZE_Y));
+			TargettoWalk.push_back(temp);
 		break;
 		case 3:
 			this->Position.Set(TILE_WORLD_SIZE_X, 0, static_cast<float>(rand() % TILE_WORLD_SIZE_Y));
-			TargettoWalk.push_back(Vector3(0, 0, static_cast<float>(rand() % TILE_WORLD_SIZE_Y)));
+			temp = new Vector3(0, 0, static_cast<float>(rand() % TILE_WORLD_SIZE_Y));
+			TargettoWalk.push_back(temp);
 		break;
 
 		default:

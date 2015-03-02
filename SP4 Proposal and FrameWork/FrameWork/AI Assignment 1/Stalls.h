@@ -12,7 +12,7 @@ class CStalls : public Entity
 private:
 	int gasMaskAmount;
 	int maskSold;
-	Vector3 pos;
+
 	Vector3 scale;
 	Vector3 colour;
 	Vector3 colour2;
@@ -22,7 +22,7 @@ private:
 public:
 	CStalls(Vector3 pos = Vector3(0,0,0), Vector3 scale = Vector3(4,4,4));
 	~CStalls(void);
-
+	Vector3 pos;
 	int totalMaskSold;
 
 	CMoney theStoreMoney;

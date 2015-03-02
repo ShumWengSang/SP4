@@ -60,7 +60,7 @@ public:
 
 	std::vector<StoreHolder*> theStalls;
 	std::map<long long, CStalls*> ProbabilitytoBuyMask;
-	std::vector<Vector3> TargettoWalk;
+	std::vector<Vector3*> TargettoWalk;
 
 	bool WillBuyMask(int Price);
 	float GetFactors(int Price, int Distance, int Haze);
