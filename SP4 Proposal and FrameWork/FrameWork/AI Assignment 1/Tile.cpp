@@ -1,5 +1,5 @@
 #include "Tile.h"
-
+int Tiles::TexID = 0;
 void Tiles::drawTile(int x, int y, int z, int tileWidth, int tileHeight, bool isPicking)
 {
 
@@ -17,12 +17,26 @@ void Tiles::drawTile(int x, int y, int z, int tileWidth, int tileHeight, bool is
 			glColor4f(1, 1, 1, HazeAlpha);
 			tempC = Vector3(1, 1, 1);
 		}
+		
+		glPushMatrix();
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, TexID);
 		glBegin(GL_QUADS);
+	
+			glTexCoord2f(0, 0);
 			glVertex3f(static_cast<GLfloat>(x),0,static_cast<GLfloat>(z+tileWidth));
+			glTexCoord2f(1, 0);
 			glVertex3f(static_cast<GLfloat>(x+tileHeight),0,static_cast<GLfloat>(z+tileWidth));
+			glTexCoord2f(1, 1);
 			glVertex3f(static_cast<GLfloat>(x+tileHeight),0,static_cast<GLfloat>(z));
+			glTexCoord2f(0, 1);
 			glVertex3f(static_cast<GLfloat>(x),0,static_cast<GLfloat>(z));
+			
 		glEnd();
+		glDisable(GL_TEXTURE_2D);
+		glPopMatrix();
+		//glDisable(GL_BLEND);
 }
 
 void Tiles::drawTileChilds(int x, int y, int z, int tileWidth, int tileHeight, bool isPicking)

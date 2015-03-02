@@ -7,7 +7,7 @@ CGamePlayState *CGamePlayState::theGamePlayState = NULL;
 void CGamePlayState::LoadTextures()
 {
 	//Textures
-	CApplication::getInstance()->LoadTGA(&map[0],"images/playState/map.tga");
+	CApplication::getInstance()->LoadTGA(&map[0],"images/playState/map.tga");//images/playState/map.tga
 	CApplication::getInstance()->LoadTGA(&button[0], "images/playState/pause.tga");
 	CApplication::getInstance()->LoadTGA(&button[1], "images/playState/shop.tga");
 	CApplication::getInstance()->LoadTGA(&button[2], "images/playState/shop2.tga");
@@ -22,7 +22,9 @@ void CGamePlayState::LoadTextures()
 	CApplication::getInstance()->LoadTGA(&skyBox[4], "images/playState/SkyBox/skybox_top.tga");
 	CApplication::getInstance()->LoadTGA(&skyBox[5], "images/playState/SkyBox/skybox_bottom.tga");
 
-	
+	TextureImage theImg;
+	CApplication::getInstance()->LoadTGA(&theImg, "images/Gress_Texture.tga");
+	Tiles::TexID = theImg.texID;
 
 	CApplication::getInstance()->LoadTGA(&buyingButton[0],"images/playState/x.tga");
 	CApplication::getInstance()->LoadTGA(&buyingButton[1],"images/playState/50.tga");
@@ -91,6 +93,7 @@ void CGamePlayState::Init()
 	isPause = false;
 	isBuying = false;
 
+	//TODO drop these textures hopefully.
 	LoadTextures();
 	LoadButtons();
 
