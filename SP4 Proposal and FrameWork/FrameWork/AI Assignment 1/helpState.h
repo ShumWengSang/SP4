@@ -26,29 +26,40 @@ class CInputSystem;
 class helpState : public CGameState
 {
 protected:
+	helpState(void){};
 	TextureImage button[4];
 	TextureImage popUp[4];
 	TextureImage background[1];
 
 public:
-	helpState(void);
+	
 	~helpState(void);
 
 	void Init();
+	void Cleanup(){}
 
-	void HandleEvents(CGameStateManager* GSM);
-	void Update(CGameStateManager* GSM);
-	void Draw(CGameStateManager* GSM);
+	void Pause(){}
+	void Resume(){}
 
-	void LoadTextures();
-	void keyboardUpdate(void);
+	void HandleEvents(CGameStateManager* GSM);//
+	void Update(CGameStateManager* GSM);//
+	void Draw(CGameStateManager* GSM);//
+
+	void LoadTextures();//
+	void keyboardUpdate(void);//
 	void LoadButtons();
 	void DrawButtons();
 	void DrawBackground();
 
 	//Inputs
-	void MouseMove (int x, int y);
-	void MouseClick(int button, int state, int x, int y);
+	void MouseMove (int x, int y);//
+	void MouseClick(int button, int state, int x, int y);//
+	void MouseWheel(int button, int dir, int x, int y){}
+
+	static helpState* Instance() 
+	{
+		return &theHelpState;
+	}
 
 private:
 	static helpState theHelpState;
