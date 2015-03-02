@@ -235,6 +235,7 @@ void CBuyMaskState::MouseClick(int button, int state, int x, int y) {
 				{
 					se->play2D("audio/cashRegister.mp3",false);
 					CPlayState::Instance()->oldMaskValue = CPlayState::Instance()->maskInStock;
+					CPlayState::Instance()->moneyAfterBuy = CPlayState::Instance()->theMoney.getCurrentMoney();
 					CInGameStateManager::getInstance()->ChangeState(CStartOfDayState::Instance());
 				}
 

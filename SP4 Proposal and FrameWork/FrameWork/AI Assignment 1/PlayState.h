@@ -43,6 +43,7 @@ public:
 	int earned2; //money earned by shop 2
 	int earned3; //money earned by shop 3
 	int newMoneyValue;
+	int moneyAfterBuy;
 
 	bool firstDay;
 
