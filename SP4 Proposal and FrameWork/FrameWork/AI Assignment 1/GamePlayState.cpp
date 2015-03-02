@@ -114,7 +114,7 @@ void CGamePlayState::Init()
 	SeedHaze();
 
 	theTimerInstance = CTimer::getInstance();
-	TimerKeySeed = theTimerInstance->insertNewTime(3000);
+	TimerKeySeed = theTimerInstance->insertNewTime(1000);
 	TimerKeyDay = theTimerInstance->insertNewTime(270000);
 
 	
@@ -215,8 +215,7 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 
 		if (theTimerInstance->executeTime(TimerKeySeed))
 		{
-			std::cout << "HOIUR INCREASE" << std::endl;
-			HourNumber++;
+			//HourNumber++;
 			SeedHaze();
 		}
 	}
@@ -462,16 +461,6 @@ void CGamePlayState::DrawTimeBar()
 	theTimeBar.draw();
 }
 
-void CGamePlayState::buyMask(int stall, int maskNo) //0 is first stall
-{
-	CPlayState::Instance()->theStall[stall]->setMaskSold(2);
-	CPlayState::Instance()->theStall[stall]->setTotalMaskSold(CPlayState::Instance()->theStall[stall]->getMaskSold());
-	CPlayState::Instance()->theStall[stall]->setMaskNo(CPlayState::Instance()->theStall[stall]->getMaskNo() - CPlayState::Instance()->theStall[stall]->getMaskSold());
-	cout << "mask sold " << CPlayState::Instance()->theStall[stall]->getMaskSold() << endl;
-	cout << "mask in stall: " << CPlayState::Instance()->theStall[stall]->getMaskNo() << endl;
-	cout << "total mask sold: " << CPlayState::Instance()->theStall[stall]->getTotalMaskSold() << endl;
-}
-
 void CGamePlayState::keyboardUpdate()
 {
 	if(CInputSystem::getInstance()->myKeys['a'])
@@ -492,39 +481,37 @@ void CGamePlayState::keyboardUpdate()
 		}
 	}
 
-	if(CInputSystem::getInstance()->myKeys['z'])
-	{
-		if(CPlayState::Instance()->theStall[0]->getMaskNo() >= CPlayState::Instance()->theStall[0]->getMaskSold())
-		{
-			buyMask(0, 2);
-			CPlayState::Instance()->earned = CPlayState::Instance()->theStall[0]->getTotalMaskSold() * CPlayState::Instance()->theStall[0]->getMaskPrice();
-			cout << CPlayState::Instance()->earned << endl;
-		}
-		else
-			cout << "no mask" << endl;
-	}
-	if(CInputSystem::getInstance()->myKeys['x'])
-	{
-		if(CPlayState::Instance()->theStall[1]->getMaskNo() >= CPlayState::Instance()->theStall[1]->getMaskSold())
-		{
-			buyMask(1, 2);
-			CPlayState::Instance()->earned2 = CPlayState::Instance()->theStall[1]->getTotalMaskSold() * CPlayState::Instance()->theStall[1]->getMaskPrice();
-			cout << CPlayState::Instance()->earned2 << endl;
-		}
-		else
-			cout << "no mask" << endl;
-	}
-	if(CInputSystem::getInstance()->myKeys['c'])
-	{
-		if(CPlayState::Instance()->theStall[2]->getMaskNo() >= CPlayState::Instance()->theStall[2]->getMaskSold())
-		{
-			buyMask(2, 2);
-			CPlayState::Instance()->earned3 = CPlayState::Instance()->theStall[2]->getTotalMaskSold() * CPlayState::Instance()->theStall[2]->getMaskPrice();
-			cout << CPlayState::Instance()->earned3 << endl;
-		}
-		else
-			cout << "no mask" << endl;
-	}
+	//if(CInputSystem::getInstance()->myKeys['z'])
+	//{
+	//	if(CPlayState::Instance()->theStall[0]->getMaskNo() >= CPlayState::Instance()->theStall[0]->getMaskSold())
+	//	{
+	//		CPlayState::Instance()->earned = CPlayState::Instance()->theStall[0]->getTotalMaskSold() * CPlayState::Instance()->theStall[0]->getMaskPrice();
+	//		cout << CPlayState::Instance()->earned << endl;
+	//	}
+	//	else
+	//		cout << "no mask" << endl;
+	//}
+	//if(CInputSystem::getInstance()->myKeys['x'])
+	//{
+	//	if(CPlayState::Instance()->theStall[1]->getMaskNo() >= CPlayState::Instance()->theStall[1]->getMaskSold())
+	//	{
+	//		CPlayState::Instance()->earned2 = CPlayState::Instance()->theStall[1]->getTotalMaskSold() * CPlayState::Instance()->theStall[1]->getMaskPrice();
+	//		cout << CPlayState::Instance()->earned2 << endl;
+	//	}
+	//	else
+	//		cout << "no mask" << endl;
+	//}
+	//if(CInputSystem::getInstance()->myKeys['c'])
+	//{
+	//	if(CPlayState::Instance()->theStall[2]->getMaskNo() >= CPlayState::Instance()->theStall[2]->getMaskSold())
+	//	{
+
+	//		CPlayState::Instance()->earned3 = CPlayState::Instance()->theStall[2]->getTotalMaskSold() * CPlayState::Instance()->theStall[2]->getMaskPrice();
+	//		cout << CPlayState::Instance()->earned3 << endl;
+	//	}
+	//	else
+	//		cout << "no mask" << endl;
+	//}
 
 	//Esc Key
 	if(CInputSystem::getInstance()->myKeys[VK_ESCAPE]) 

@@ -181,7 +181,7 @@ void Buyer::AIUpdate()
 							HasMask = true;
 							Color.Set(1, 0, 0);
 							CurrentState = IDLEWALKING;
-							theTileTemp->ShopOnTop->setMaskSold(1);
+							theTileTemp->ShopOnTop->buyMask(2);
 							for (unsigned int i = 0; i < TargettoWalk.size() - 1; i++)
 							{
 								TargettoWalk.pop_back();

@@ -82,9 +82,20 @@ void CStalls::setColour2(Vector3 colour2)
 	this->colour2 = colour2;
 }
 
-void CStalls::buyMask(int amt)
+void CStalls::buyMask(int maskNo)
 {
-	gasMaskAmount -= amt;
+	if(getMaskNo() >= getMaskSold())
+	{
+		setMaskSold(maskNo);
+		setTotalMaskSold(maskNo);
+		setMaskNo(getMaskNo() - getMaskSold());
+		theMoney.setCurrentMoney(getTotalMaskSold() * getMaskPrice());
+
+		cout << "mask sold " <<  getMaskSold() << endl;
+		cout << "mask in stall: " << getMaskNo() << endl;
+		cout << "total mask sold: " << getTotalMaskSold() << endl;
+		cout << "Money: " << theMoney.getCurrentMoney() << endl;
+	}
 }
 
 //Entity Functions
