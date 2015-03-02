@@ -41,12 +41,12 @@ Vector3 CMoneyAnimation::getPos()
 
 int CMoneyAnimation::getPosX()
 {
-	return position.x;
+	return static_cast<int>(position.x);
 }
 
 int CMoneyAnimation::getPosY()
 {
-	return position.y;
+	return static_cast<int>(position.y);
 }
 
 int CMoneyAnimation::getAnimationCounter(void)
@@ -61,12 +61,12 @@ void CMoneyAnimation::setPos(Vector3 pos)
 
 void CMoneyAnimation::setPosX(int x)
 {
-	this->position.x = x;
+	this->position.x = static_cast<float>(x);
 }
 
 void CMoneyAnimation::setPosY(int y)
 {
-	this->position.y = y;
+	this->position.y = static_cast<float>(y);
 }
 
 void CMoneyAnimation::setFly()
