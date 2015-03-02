@@ -100,6 +100,7 @@
     <ClCompile Include="GamePlayState.cpp" />
     <ClCompile Include="GameStateManager.cpp" />
     <ClCompile Include="helpState.cpp" />
+    <ClCompile Include="Highscore.cpp" />
     <ClCompile Include="LoadState.cpp" />
     <ClCompile Include="MoneyAnimation.cpp" />
     <ClCompile Include="ObjectModel.cpp" />
@@ -143,6 +144,7 @@
     <ClInclude Include="GameStateManager.h" />
     <ClInclude Include="Global.h" />
     <ClInclude Include="helpState.h" />
+    <ClInclude Include="Highscore.h" />
     <ClInclude Include="LoadState.h" />
     <ClInclude Include="MoneyAnimation.h" />
     <ClInclude Include="ObjectModel.h" />

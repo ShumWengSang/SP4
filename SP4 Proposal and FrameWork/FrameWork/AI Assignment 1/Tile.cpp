@@ -21,6 +21,8 @@ void Tiles::drawTile(int x, int y, int z, int tileWidth, int tileHeight, bool is
 		glPushMatrix();
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glEnable(GL_TEXTURE_2D);
+		if (isPicking)
+			glDisable(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D, TexID);
 		glBegin(GL_QUADS);
 	
