@@ -65,7 +65,7 @@ public:
 			double frequency = 2 * i;
 			double  amplitude = p * i;
 
-			total = total + InterpolatedNoise_1(x * frequency) * amplitude;
+			total = total + InterpolatedNoise_1(x * static_cast<float>(frequency) ) * amplitude;
 
 		}
 

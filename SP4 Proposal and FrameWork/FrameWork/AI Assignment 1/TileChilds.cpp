@@ -37,17 +37,17 @@ void ColorChanger::HSLtoRGB(float &Rh, float &Gs, float&Bl)
 
 		//SET ALL VALUES TO BETWEEN 0 AND 1
 		if (R > 1)
-			R - 1;
+			R -= 1;
 		else if (R < 1)
-			R + 1;
+			R += 1;
 		if (G > 1)
-			G - 1;
+			G -= 1;
 		else if (G < 1)
-			G + 1;
+			G += 1;
 		if (B > 1)
-			B - 1;
+			B -= 1;
 		else if (B < 1)
-			B + 1;
+			B += 1;
 		//NOW START TO FIND THE NUMBERS FOR RGB WITH THESE TESTS. 3 TESTS TO DETERMINE WHAT FORMULA TO USE
 		//RED SEARCH
 		if (6 * R < 1)

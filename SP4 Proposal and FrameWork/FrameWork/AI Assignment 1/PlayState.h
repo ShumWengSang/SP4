@@ -46,6 +46,10 @@ public:
 
 	bool firstDay;
 
+	bool shop1selected;
+	bool shop2selected;
+	bool shop3selected;
+
 	void resetValues();
 
 	//Inputs

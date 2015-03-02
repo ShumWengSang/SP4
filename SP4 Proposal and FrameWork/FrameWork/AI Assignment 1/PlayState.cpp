@@ -23,6 +23,10 @@ void CPlayState::Init()
 	newMoneyValue = 0;
 	firstDay = true;
 
+	shop1selected = false;
+	shop2selected = false;
+	shop3selected = false;
+
 	theStall[0] = new CStalls(Vector3(25,0,25));
 	theStall[1] = new CStalls(Vector3(15,0,45));
 	theStall[2] = new CStalls(Vector3(45,0,15));
