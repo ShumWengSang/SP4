@@ -26,7 +26,7 @@ class CInputSystem;
 class CEndOfDayState : public CInGameState
 {
 private:
-	CEndOfDayState(void) {};
+	CEndOfDayState(void):reinit(false) {};
 
 	TextureImage button[5];
 	TextureImage background[2];
@@ -34,6 +34,9 @@ private:
 	bool mouseOverNext;
 
 public:
+
+	bool reinit;
+
 	void Init();
 	void Cleanup();
 

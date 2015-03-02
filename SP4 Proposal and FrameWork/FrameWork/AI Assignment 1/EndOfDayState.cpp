@@ -54,7 +54,10 @@ void CEndOfDayState::Init()
 	font_style = GLUT_BITMAP_HELVETICA_18;
 	//Input System
 	CInputSystem::getInstance()->OrientCam = true;
-	CPlayState::Instance()->forecasting->setCurrentDay(CPlayState::Instance()->forecasting->getCurrentDay() + 1);
+	if(!reinit) {
+		CPlayState::Instance()->forecasting->setCurrentDay(CPlayState::Instance()->forecasting->getCurrentDay() + 1);
+		reinit = true;
+	}
 	CPlayState::Instance()->day = CPlayState::Instance()->forecasting->getCurrentDay();
 }
 
