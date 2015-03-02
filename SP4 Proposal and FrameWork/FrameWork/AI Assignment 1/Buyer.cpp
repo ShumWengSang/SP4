@@ -105,7 +105,7 @@ void Buyer::Insert(CStalls * theStall)
 void Buyer::Update()
 {
 	AIUpdate();
-	if (ReachedLocation(TargettoWalk.back()))
+	if (ReachedLocation(TargettoWalk.front()))
 	{
 		Velocity.Set(0, 0, 0);
 		TargettoWalk.clear();
