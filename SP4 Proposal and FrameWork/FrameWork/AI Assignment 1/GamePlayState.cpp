@@ -10,8 +10,12 @@ void CGamePlayState::LoadTextures()
 	TextureSingleton * theInstance = TextureSingleton::getInstance();
 	Tiles::TexID = theInstance->GetNumber(36);
 	
+
 	//Textures
-	//CApplication::getInstance()->LoadTGA(&map[0],"images/playState/map.tga");//images/playState/map.tga
+	for (int i = 0; i < 7; i++)
+	{
+		button[i].texID = theInstance->GetNumber(i + 22);
+	}
 	//CApplication::getInstance()->LoadTGA(&button[0], "images/playState/pause.tga");
 	//CApplication::getInstance()->LoadTGA(&button[1], "images/playState/shop.tga");
 	//CApplication::getInstance()->LoadTGA(&button[2], "images/playState/shop2.tga");
@@ -19,6 +23,11 @@ void CGamePlayState::LoadTextures()
 	//CApplication::getInstance()->LoadTGA(&button[4],"images/playState/shopSelected.tga");
 	//CApplication::getInstance()->LoadTGA(&button[5],"images/playState/shop2Selected.tga");
 	//CApplication::getInstance()->LoadTGA(&button[6],"images/playState/shop3Selected.tga");
+
+	for (int i = 0; i < 6; i++)
+	{
+		skyBox[i].texID = theInstance->GetNumber(i + 30);
+	}
 	//CApplication::getInstance()->LoadTGA(&skyBox[0], "images/playState/SkyBox/skybox_near.tga");
 	//CApplication::getInstance()->LoadTGA(&skyBox[1], "images/playState/SkyBox/skybox_far.tga");
 	//CApplication::getInstance()->LoadTGA(&skyBox[2], "images/playState/SkyBox/skybox_left.tga");
@@ -30,6 +39,12 @@ void CGamePlayState::LoadTextures()
 	//CApplication::getInstance()->LoadTGA(&theImg, "images/Gress_Texture.tga");
 	//Tiles::TexID = theImg.texID;
 
+	buyingButton[0].texID = theInstance->GetNumber(29);
+	for (int i = 0; i < 3; i++)
+	{
+		buyingButton[i + 1].texID = theInstance->GetNumber(i + 10);
+	}
+	buyingBackground[0].texID = theInstance->GetNumber(13);
 	//CApplication::getInstance()->LoadTGA(&buyingButton[0],"images/playState/x.tga");
 	//CApplication::getInstance()->LoadTGA(&buyingButton[1],"images/playState/50.tga");
 	//CApplication::getInstance()->LoadTGA(&buyingButton[2],"images/playState/100.tga");

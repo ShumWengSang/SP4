@@ -2,6 +2,7 @@
 #include "GamePlayState.h"
 #include "PlayState.h"
 #include "BuyMaskState.h"
+#include "TextureSingleton.h"
 
 CStartOfDayState *CStartOfDayState::theStartOfDayState = NULL;
 
@@ -9,6 +10,13 @@ void CStartOfDayState::LoadTextures()
 {
 	//Textures
 
+	TextureSingleton * theInstance = TextureSingleton::getInstance();
+	background[0].texID = theInstance->GetNumber(38);
+	background[1].texID = theInstance->GetNumber(13);
+	for (int i = 0; i < 15; i++)
+	{
+		button[i].texID = theInstance->GetNumber(i + 14);
+	}
 	//CApplication::getInstance()->LoadTGA(&background[0],"images/background.tga");
 	//CApplication::getInstance()->LoadTGA(&background[1],"images/startState/box.tga");
 	//CApplication::getInstance()->LoadTGA(&button[0],"images/startState/go.tga");
