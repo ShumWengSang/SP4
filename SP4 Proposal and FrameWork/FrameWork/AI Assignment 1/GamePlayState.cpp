@@ -206,13 +206,6 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 			(*i)->Update();
 		}
 
-		if (theTimerInstance->executeTime(TimerKeyDay))
-		{
-			//CPlayState::Instance()->day++;
-			CInGameStateManager::getInstance()->ChangeState(CEndOfDayState::Instance());
-		}
-
-
 		if (theTimerInstance->executeTime(TimerKeySeed))
 		{
 			//HourNumber++;
@@ -223,6 +216,14 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 			CPlayState::Instance()->earned3 = CPlayState::Instance()->theStall[2]->getTotalMaskSold() * CPlayState::Instance()->theStall[2]->getMaskPrice();
 			int totalEarn = CPlayState::Instance()->earned + CPlayState::Instance()->earned2 + CPlayState::Instance()->earned3;
 			CPlayState::Instance()->theMoney.setCurrentMoney(totalEarn + CPlayState::Instance()->moneyAfterBuy);
+		}
+
+		//if (theTimerInstance->executeTime(TimerKeyDay))
+		if (HourNumber == DayTime)
+		{
+			//CPlayState::Instance()->day++;
+			//HourNumber = 0;
+			CInGameStateManager::getInstance()->ChangeState(CEndOfDayState::Instance());
 		}
 	}
 }
@@ -751,6 +752,8 @@ void CGamePlayState::drawInfo()
 			printw (20, 20, 0,  "Time: ");
 			printw(20, 45, 0, "PSI: %f", CPlayState::Instance()->theHaze.HazeGraph[HourNumber + CPlayState::Instance()->day * DayTime]);
 			printw(20, 65, 0, "FPS: %f", theTimerInstance->getFPS());
+			printw(20, 85, 0, "Day: %d", CPlayState::Instance()->day);
+			printw(20, 105, 0, "Hour: %d", HourNumber);
 		glPopAttrib();
 	glPopMatrix();
 }

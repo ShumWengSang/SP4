@@ -14,6 +14,8 @@
 #define TILE_WORLD_SIZE_X TILE_SIZE_X * TILE_NO_X
 #define TILE_WORLD_SIZE_Y TILE_SIZE_Y * TILE_NO_Y
 
-
 #define HAZE_MIN 50
 #define HAZE_MAX 400
+
+#define DayTime 9
+#define noiseWidth DayTime * 7

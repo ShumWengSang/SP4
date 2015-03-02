@@ -1,8 +1,7 @@
 #pragma once
 #include <vector>
 #include <iostream>
-#define DayTime 9
-#define noiseWidth DayTime * 7
+#include "Global.h"
 
 //There are 9 hours of work time, meaning 4.5 minutes total game.
 //Every hour, the haze forecast would update. Meaning every 30 seconds.
