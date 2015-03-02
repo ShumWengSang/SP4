@@ -570,9 +570,9 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 					{
 						if(theBuyingButton[close]->isInside(x, y))
 						{
-						CPlayState::Instance()->shop1selected = false;
-						CPlayState::Instance()->shop2selected = false;
-						CPlayState::Instance()->shop3selected = false;
+							CPlayState::Instance()->shop1selected = false;
+							CPlayState::Instance()->shop2selected = false;
+							CPlayState::Instance()->shop3selected = false;
 
 							isBuying = false;
 						}
