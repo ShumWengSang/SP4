@@ -108,13 +108,14 @@ void CStalls::buyMask(int maskNo)
 bool CStalls::glRenderObject() {
 	glPushMatrix();
 		glEnable(GL_BLEND);
-		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, stallTex[0].texID);
 		
 		if(isPicking)
 			glColor3f(colour.x, colour.y, colour.z);
-		else
+		else {
+			glEnable(GL_TEXTURE_2D);
+			glBindTexture(GL_TEXTURE_2D, stallTex[0].texID);
 			glColor3f(colour2.x, colour2.y, colour2.z);
+		}
 		if(Selected) {
 			glTranslatef(0,2,0);
 		}

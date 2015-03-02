@@ -529,7 +529,6 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 	switch (button) {
 		case GLUT_LEFT_BUTTON:
 			if (state == GLUT_UP) {
-				//CApplication::getInstance()->setClickCheck(false);
 				CInputSystem::getInstance()->mouseInfo.mLButtonUp = true;
 				CInputSystem::getInstance()->mouseInfo.mLReclicked = true;
 			}
@@ -547,9 +546,6 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 				{
 					//CApplication::getInstance()->setClickCheck(true);
 					CInputSystem::getInstance()->mouseInfo.mLButtonUp = false;
-					if(CInputSystem::getInstance()->mouseInfo.mLReclicked == true)
-						CInputSystem::getInstance()->mouseInfo.mLClicked = true;
-					CInputSystem::getInstance()->mouseInfo.mLReclicked = false;
 
 					//shop 1 clicked
 					if(theButton[shop]->isInside(x, y))
@@ -560,7 +556,7 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 
 						isBuying = true;
 					}
-					if(theButton[shop2]->isInside(x, y))
+					else if(theButton[shop2]->isInside(x, y))
 					{
 						CPlayState::Instance()->shop1selected = false;
 						CPlayState::Instance()->shop2selected = true;
@@ -568,7 +564,7 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 					
 						isBuying = true;
 					}
-					if(theButton[shop3]->isInside(x, y))
+					else if(theButton[shop3]->isInside(x, y))
 					{
 						CPlayState::Instance()->shop1selected = false;
 						CPlayState::Instance()->shop2selected = false;
@@ -577,7 +573,14 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 						isBuying = true;
 					}
 
-					if (isBuying == true)
+					else if(!isBuying)
+					{
+						if(CInputSystem::getInstance()->mouseInfo.mLReclicked == true)
+							CInputSystem::getInstance()->mouseInfo.mLClicked = true;
+						CInputSystem::getInstance()->mouseInfo.mLReclicked = false;
+					}
+
+					else if (isBuying)
 					{
 						if(theBuyingButton[close]->isInside(x, y))
 						{

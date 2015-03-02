@@ -22,6 +22,8 @@ void Tiles::drawTile(int x, int y, int z, int tileWidth, int tileHeight, bool is
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glEnable(GL_TEXTURE_2D);
 		glBindTexture(GL_TEXTURE_2D, TexID);
+		if (isPicking)
+			glDisable(GL_TEXTURE_2D);
 		glBegin(GL_QUADS);
 	
 			glTexCoord2f(0, 0);

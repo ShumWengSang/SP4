@@ -108,11 +108,17 @@
     <ClCompile Include="AudioPlayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LoadState.cpp">
+      <Filter>PlayStates</Filter>
+    </ClCompile>
     <ClCompile Include="Forecast.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
     <ClCompile Include="SaveLoad.cpp">
       <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SaveState.cpp">
+      <Filter>PlayStates</Filter>
     </ClCompile>
     <ClCompile Include="BuyMaskState.cpp">
       <Filter>PlayStates</Filter>
@@ -138,14 +144,11 @@
     <ClCompile Include="ObjectModel.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="LoadState.cpp">
-      <Filter>OtherGameStates</Filter>
-    </ClCompile>
-    <ClCompile Include="SaveState.cpp">
-      <Filter>OtherGameStates</Filter>
-    </ClCompile>
     <ClCompile Include="helpState.cpp">
-      <Filter>OtherGameStates</Filter>
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Highscore.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MoneyAnimation.cpp">
       <Filter>Source Files</Filter>
@@ -233,11 +236,17 @@
     <ClInclude Include="AudioPlayer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="LoadState.h">
+      <Filter>PlayStates</Filter>
+    </ClInclude>
     <ClInclude Include="Forecast.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
     <ClInclude Include="SaveLoad.h">
       <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveState.h">
+      <Filter>PlayStates</Filter>
     </ClInclude>
     <ClInclude Include="BuyMaskState.h">
       <Filter>PlayStates</Filter>
@@ -263,14 +272,11 @@
     <ClInclude Include="ObjectModel.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
-    <ClInclude Include="LoadState.h">
-      <Filter>OtherGameStates</Filter>
-    </ClInclude>
-    <ClInclude Include="SaveState.h">
-      <Filter>OtherGameStates</Filter>
-    </ClInclude>
     <ClInclude Include="helpState.h">
-      <Filter>OtherGameStates</Filter>
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Highscore.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MoneyAnimation.h">
       <Filter>Header Files</Filter>
