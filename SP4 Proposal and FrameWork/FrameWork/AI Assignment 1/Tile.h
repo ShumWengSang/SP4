@@ -61,6 +61,6 @@ public:
 	void Update();
 	Vector3 GetScale();
 
-
+	static int TexID;
 };
 

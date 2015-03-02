@@ -72,6 +72,7 @@ long long Buyer::GetNumber(int Price, int Distance, int Haze)
 
 CStalls * Buyer::StalltoBuyFrom(int Haze)
 {
+	StorePriorities.clear();
 	WillBuy(Haze);
 	if (ProbabilitytoBuyMask.empty())
 	{
@@ -79,16 +80,22 @@ CStalls * Buyer::StalltoBuyFrom(int Haze)
 	}
 	long long LeastNumber = ProbabilitytoBuyMask.begin()->first;
 
+	if (LeastNumber > 50)
+		StorePriorities.push_back(ProbabilitytoBuyMask.begin()->second);
+
 	typedef std::map<long long, CStalls*>::iterator it_type;
 	for (it_type iterator = ProbabilitytoBuyMask.begin(); iterator != ProbabilitytoBuyMask.end(); iterator++)
 	{
 		if (LeastNumber < iterator->first)
 		{
 			LeastNumber = iterator->first;
+			if (LeastNumber > 50)
+				StorePriorities.push_back(iterator->second);
 		}
 	}
 	if (LeastNumber < 50)
 		return NULL;
+
 	return ProbabilitytoBuyMask.find(LeastNumber)->second;
 }
 
@@ -147,49 +154,75 @@ void Buyer::AIUpdate()
 	switch (CurrentState)
 	{
 		case IDLEWALKING:
-		{	if (theTileTemp != theGrid->GetTile(this->Position) && theGrid->GetTile(this->Position) != NULL)
 		{
-			theTileTemp = theGrid->GetTile(this->Position);
-			if (theTileTemp != NULL)
-			{
-				if (HasMask)
-				{
-					Color.Set(0, 1, 0);
-				}
-				else
-				{
-					CStalls * theStall = StalltoBuyFrom(theTileTemp->GetHaze());
+							if (theTileTemp != theGrid->GetTile(this->Position) && theGrid->GetTile(this->Position) != NULL)
+							{
+								theTileTemp = theGrid->GetTile(this->Position);
+								if (theTileTemp != NULL)
+								{
+									if (HasMask)
+									{
+										Color.Set(0, 1, 0);
+									}
+									else
+									{
+										CStalls * theStall = StalltoBuyFrom(theTileTemp->GetHaze());
 
-					if (theStall != NULL)
-					{
-						theShopToBuy = theStall;
-						Color.Set(0, 0, 1);
-						TargettoWalk.push_back(&theShopToBuy->pos);
-						CurrentState = GOINGTOBUY;
+										if (theStall != NULL)
+										{
+											theShopToBuy = theStall;
+											Color.Set(0, 0, 1);
+											TargettoWalk.push_back(&theShopToBuy->pos);
+											CurrentState = GOINGTOBUY;
 
-					}
+										}
 
-				}
-			}
-		}
-
+									}
+								}
+							}
 		}
 		break;
 		case GOINGTOBUY:
 		{
 						   theTileTemp = theGrid->GetTile(this->Position);
+						   if (theTileTemp == NULL)
+							   break;
 						   if (theTileTemp->ShopOnTop == theShopToBuy && HasMask == false)
 						   {
-							   HasMask = true;
-							   Color.Set(1, 0, 0);
-							   CurrentState = IDLEWALKING;
-							   theTileTemp->ShopOnTop->setMaskSold(1);
-							   for (unsigned int i = 0; i < TargettoWalk.size() - 1; i++)
+							   if (theShopToBuy->getMaskNo() <= 0)
 							   {
-								   TargettoWalk.pop_back();
+								   StorePriority++;
+								   if (StorePriority >= StorePriorities.size())
+								   {
+									   CurrentState = NOTHINGTOBUYWALK;
+									   for (unsigned int i = TargettoWalk.size(); i !=  1; i--)
+									   {
+										   TargettoWalk.pop_back();
+									   }
+								   }
+								   else
+								   {
+									   theShopToBuy = StorePriorities[StorePriority];
+									   Color.Set(0, 0, 1);
+									   TargettoWalk.push_back(&theShopToBuy->pos);
+								   }
+							   }
+							   else
+							   {
+								   HasMask = true;
+								   Color.Set(1, 0, 0);
+								   CurrentState = IDLEWALKING;
+								   theTileTemp->ShopOnTop->buyMask(1);
+								   for (unsigned int i = TargettoWalk.size(); i != 1; i--)
+								   {
+									   TargettoWalk.pop_back();
+								   }
 							   }
 						   }
 		}
+		break;
+		case NOTHINGTOBUYWALK:
+
 		break;
 		default:
 		break;
@@ -204,6 +237,7 @@ void Buyer::Init()
 	CurrentState = IDLEWALKING;
 	HasMask = false;
 	theTileTemp = NULL;
+	StorePriority = 0;
 
 	int i = rand() % 4;
 	Vector3 * temp;
