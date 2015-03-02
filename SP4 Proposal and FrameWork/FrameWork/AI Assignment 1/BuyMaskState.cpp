@@ -8,7 +8,6 @@ CBuyMaskState * CBuyMaskState::theBuyMaskState = NULL;
 
 void CBuyMaskState::LoadTextures()
 {
-	//Textures
 	CApplication::getInstance()->LoadTGA(&background[0],"images/background.tga");
 	CApplication::getInstance()->LoadTGA(&background[1],"images/buyMaskState/box.tga");
 	CApplication::getInstance()->LoadTGA(&background[2],"images/buyMaskState/box2.tga");

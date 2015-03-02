@@ -147,6 +147,9 @@
     <ClCompile Include="helpState.cpp">
       <Filter>OtherGameStates</Filter>
     </ClCompile>
+    <ClCompile Include="MoneyAnimation.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameState.h">
@@ -268,6 +271,9 @@
     </ClInclude>
     <ClInclude Include="helpState.h">
       <Filter>OtherGameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="MoneyAnimation.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

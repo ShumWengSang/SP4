@@ -15,6 +15,7 @@
 #include "Bar.h"
 
 #include "ObjectModel.h"
+#include "MoneyAnimation.h"
 
 using namespace std;
 
@@ -153,7 +154,6 @@ private:
 
 	CTimer * theTimerInstance;
 	int TimerKeySeed;
-
 	int TimerKeyDay;
 
 	void ClickCollision();
@@ -163,6 +163,7 @@ private:
 	CStalls* theStall[3];
 	Grid* theGrid;
 	CButtons* theBuyingButton[4];
+	CMoneyAnimation theMAnimation;
 
 	Bar theTimeBar;
 

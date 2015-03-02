@@ -124,24 +124,6 @@ void CMenuState::DrawButtons()
 
 void CMenuState::DrawBackground()
 {
-	//glPushMatrix();
-	//	glEnable(GL_BLEND);
-	//	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-	//	glEnable(GL_TEXTURE_2D);
-	//	glBindTexture(GL_TEXTURE_2D, background[0].texID);
-	//	glPushMatrix();
-	//		glBegin(GL_QUADS);
-	//			glTexCoord2f(0, 0);	glVertex2f(0, SCREEN_HEIGHT);
-	//			glTexCoord2f(1, 0);	glVertex2f(SCREEN_WIDTH, SCREEN_HEIGHT);
-	//			glTexCoord2f(1, 1);	glVertex2f(SCREEN_WIDTH, 0);
-	//			glTexCoord2f(0, 1);	glVertex2f(0, 0);			
-	//		glEnd();
-	//	glPopMatrix();
-	//	glDisable(GL_TEXTURE_2D);
-	//	glDisable(GL_BLEND);
-	//glPopMatrix();
-
-
 	glPushMatrix();
 	double t = timeGetTime() / 40.0;
 	int number = SCREEN_WIDTH / mWidth;

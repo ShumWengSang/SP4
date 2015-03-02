@@ -199,6 +199,13 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 		Camera::getInstance()->newUpdate();
 	else
 	{
+		//theMAnimation.setPos(CPlayState::Instance()->theStall[0]->getPosition());
+		theMAnimation.Update();
+		theMAnimation.setAnimationCounter(theMAnimation.getAnimationCounter() + 2);
+		//theMAnimation.setFly();
+		if(theMAnimation.getPosY() >= 5)
+			theMAnimation.active = false;
+
 		keyboardUpdate();
 		Camera::getInstance()->newUpdate();
 		for (auto i = theListofEntities.begin(); i != theListofEntities.end(); i++)
@@ -252,7 +259,6 @@ void CGamePlayState::Draw(CInGameStateManager* theGSM)
 	else
 	{
 		// Actual Render Here
-
 		DrawSkyBox();
 
 		glPushMatrix();
@@ -272,7 +278,6 @@ void CGamePlayState::Draw(CInGameStateManager* theGSM)
 			glDisable(GL_BLEND);
 		glPopMatrix();
 
-
 		theGrid->Click = false;
 		CPlayState::Instance()->theStall[0]->isPicking = false;
 		CPlayState::Instance()->theStall[1]->isPicking = false;
@@ -286,10 +291,13 @@ void CGamePlayState::Draw(CInGameStateManager* theGSM)
 		theGrid->GetTile(CPlayState::Instance()->theStall[1]->getPosition())->ShopOnTop = CPlayState::Instance()->theStall[1];
 		theGrid->GetTile(CPlayState::Instance()->theStall[2]->getPosition())->ShopOnTop = CPlayState::Instance()->theStall[2];
 		CApplication::getInstance()->setClickCheck(false);
-	}
 
+		if(theMAnimation.active == true)
+			theMAnimation.drawMoney();
+	}
+	
 	Camera::getInstance()->SetHUD(true);
-	DrawButtons();//pause button here
+	DrawButtons();
 	drawInfo();
 	DrawBuying();
 	DrawTimeBar();

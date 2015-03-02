@@ -91,10 +91,14 @@ void CStalls::buyMask(int maskNo)
 		setMaskNo(getMaskNo() - getMaskSold());
 		theMoney.setCurrentMoney(getTotalMaskSold() * getMaskPrice());
 
+		theMAnimation.active = true;
+		theMAnimation.setPos(getPosition());
+
 		cout << "mask sold " <<  getMaskSold() << endl;
 		cout << "mask in stall: " << getMaskNo() << endl;
 		cout << "total mask sold: " << getTotalMaskSold() << endl;
 		cout << "Money: " << theMoney.getCurrentMoney() << endl;
+		cout << "/////////////////////////////////////" << theMAnimation.active << endl;
 	}
 }
 

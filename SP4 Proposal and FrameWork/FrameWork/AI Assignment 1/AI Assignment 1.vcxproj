@@ -101,6 +101,7 @@
     <ClCompile Include="GameStateManager.cpp" />
     <ClCompile Include="helpState.cpp" />
     <ClCompile Include="LoadState.cpp" />
+    <ClCompile Include="MoneyAnimation.cpp" />
     <ClCompile Include="ObjectModel.cpp" />
     <ClCompile Include="ObjLoader\ObjLoader.c" />
     <ClCompile Include="ObjLoader\tgaLoader.c" />
@@ -143,6 +144,7 @@
     <ClInclude Include="Global.h" />
     <ClInclude Include="helpState.h" />
     <ClInclude Include="LoadState.h" />
+    <ClInclude Include="MoneyAnimation.h" />
     <ClInclude Include="ObjectModel.h" />
     <ClInclude Include="ObjLoader\ObjLoader.h" />
     <ClInclude Include="ObjLoader\tgaLoader.h" />

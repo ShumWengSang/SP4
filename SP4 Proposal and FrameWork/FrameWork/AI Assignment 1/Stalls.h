@@ -5,6 +5,8 @@
 #include "freeglut.h"
 #include "ObjectModel.h"
 #include "Global.h"
+#include "MoneyAnimation.h"
+
 using namespace std;
 
 class CStalls : public Entity
@@ -47,6 +49,7 @@ public:
 	void buyMask(int maskNo);
 
 	CMoney theMoney;
+	CMoneyAnimation theMAnimation;
 
 	float Price;
 
