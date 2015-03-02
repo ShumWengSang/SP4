@@ -4,18 +4,8 @@
 #include "Entity.h"
 #include "Stalls.h"
 #include "TileChilds.h"
+#include "Global.h"
 //#include "Grid.h"
-
-#define TILE_SIZE_X 10
-#define TILE_SIZE_Y 10
-
-#define TILE_WORLD_SIZE_X TILE_SIZE_X * TILE_NO_X
-#define TILE_WORLD_SIZE_Y TILE_SIZE_Y * TILE_NO_Y
-
-
-#define HAZE_MIN 50
-#define HAZE_MAX 400
-
 class CTileChilds;
 
 class Tiles : public Entity
