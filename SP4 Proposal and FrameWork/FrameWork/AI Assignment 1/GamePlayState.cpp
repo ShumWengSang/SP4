@@ -220,10 +220,8 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 		Camera::getInstance()->newUpdate();
 	else
 	{
-		//theMAnimation.setPos(CPlayState::Instance()->theStall[0]->getPosition());
 		theMAnimation.Update();
 		theMAnimation.setAnimationCounter(theMAnimation.getAnimationCounter() + 2);
-		//theMAnimation.setFly();
 		if(theMAnimation.getPosY() >= 5)
 			theMAnimation.active = false;
 

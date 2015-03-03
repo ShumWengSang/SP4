@@ -26,7 +26,7 @@ void CMoneyAnimation::Init()
 
 void CMoneyAnimation::Update()
 {
-	if(active)
+	if(this->active)
 	{
 		this->setFly();
 	}
