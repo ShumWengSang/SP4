@@ -164,6 +164,10 @@ void CGamePlayState::Init()
 	theListofEntities.push_back(CPlayState::Instance()->theStall[1]);
 	theListofEntities.push_back(CPlayState::Instance()->theStall[2]);
 	theListofEntities.push_back(theGrid);
+	
+	CPlayState::Instance()->theStall[0]->Selected = false;
+	CPlayState::Instance()->theStall[1]->Selected = false;
+	CPlayState::Instance()->theStall[2]->Selected = false;
 
 	CPlayState::Instance()->theStall[0]->setColour2(Vector3(0.5,0.5,1)); //B
 	CPlayState::Instance()->theStall[1]->setColour2(Vector3(1,0.5,0.5)); //R

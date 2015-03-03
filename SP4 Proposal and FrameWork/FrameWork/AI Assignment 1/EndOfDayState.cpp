@@ -16,7 +16,7 @@ void CEndOfDayState::LoadTextures()
 	button[1].texID = theInstance->GetNumber(9);
 	for (int i = 2; i < 5; i++)
 	{
-		button[i].texID = theInstance->GetNumber(i + 23);
+		button[i].texID = theInstance->GetNumber(i + 23-2);
 	}
 
 	//CApplication::getInstance()->LoadTGA(&background[0],"images/endState/background.tga");
