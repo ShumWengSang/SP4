@@ -69,8 +69,7 @@ public:
 		LoadTexture("images/startState/shop2Selected.tga");
 		LoadTexture("images/startState/shop3Selected.tga");
 
-		//29 - 38
-
+		//29 - 37
 		//Textures GAMEPLAYSTATE
 		LoadTexture("images/playState/pause.tga");
 		LoadTexture("images/playState/SkyBox/skybox_near.tga");
@@ -82,31 +81,26 @@ public:
 		LoadTexture("images/Gress_Texture.tga");
 		LoadTexture("images/playState/x.tga");
 
-		//39 - 40 END OF DAY
+		//38 - 39 END OF DAY
 		LoadTexture("images/endState/background.tga");
 		LoadTexture("images/endState/save.tga");
 
-		//end game state 41 - 42
+		//end game state 40 - 41
 		LoadTexture("images/win.tga");
 		LoadTexture("images/lose.tga");
 
-		//MoneyAnimation 43
+		//MoneyAnimation 42
 		LoadTexture("images/playState/money.tga");
 
-		//help state 44 - 47
+		//help state 43 - 46
 		LoadTexture("images/startState/back.tga"); // Back Button
 		LoadTexture("images/volDown.tga"); // Vol up Button 
 		LoadTexture("images/volUp.tga"); // Vol down Button
 		LoadTexture("images/description.tga"); //help state Background image
 
-
-
-		//SAVE
-
-		//Load
-
-
-
+		//START OF DAY 47 - 48
+		LoadTexture("images/startState/yes.tga");
+		LoadTexture("images/startState/no.tga");
 	}
 	int LoadTexture(std::string filename)
 	{

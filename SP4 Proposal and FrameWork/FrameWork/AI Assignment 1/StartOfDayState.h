@@ -26,7 +26,9 @@ enum STARTSTATE_BUTTON
 	fifteen,
 	sShop1,
 	sShop2,
-	sShop3
+	sShop3,
+	yes,
+	no
 };
 
 class CInputSystem;
@@ -41,6 +43,7 @@ private:
 
 	bool mouseOverReset;
 	bool mouseOverBack;
+	bool amtOrMoney;
 
 	float r, g, b;
 	float r2, g2, b2;
@@ -64,6 +67,8 @@ public:
 	void mouseClick(void);
 	void drawInfo();
 	void ChangeColor();
+	void DrawMsg();
+	bool checkZero();
 
 	//Inputs
 	void MouseMove (int x, int y);
