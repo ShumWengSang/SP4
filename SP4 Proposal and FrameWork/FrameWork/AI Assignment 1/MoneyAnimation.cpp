@@ -26,6 +26,7 @@ void CMoneyAnimation::Init()
 	spdCounter = 2;
 	animationCounter = 0;
 	count = 0;
+	speed = 0.5f;
 	active = false;
 }
 
@@ -40,8 +41,11 @@ void CMoneyAnimation::Update()
 	{
 		this->setFly();
 	}
-	if(position.y >= 20)
+	if(position.y >= 10)
+	{
 		active = false;
+		position.y = 0;
+	}
 }
 
 Vector3 CMoneyAnimation::getPos()
@@ -81,7 +85,7 @@ void CMoneyAnimation::setPosY(int y)
 
 void CMoneyAnimation::setFly()
 {
-	this->position.y ++;
+	this->position.y += speed;
 }
 
 void CMoneyAnimation::setAnimationCounter(int ac)
@@ -92,30 +96,21 @@ void CMoneyAnimation::setAnimationCounter(int ac)
 void CMoneyAnimation::drawMoney()
 {
 	glPushMatrix();
-		glTranslatef(position.x, position.y, position.z);
-		glEnable( GL_BLEND );
-		glEnable( GL_TEXTURE_2D );
+		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glColor4f(1.0f, 1.0f, 1.0f, 1.0f);
-		glBindTexture( GL_TEXTURE_2D, moneyTexture[0].texID );
-		noSpriteframe = 2;
-		deltaSprite = (float)1/noSpriteframe;
-		spdCounter = 10;
-
-		if(animationCounter >= spdCounter) {
-			++count;
-			animationCounter = 0;
-			if(count > noSpriteframe-1) {
-				count = 0;
-			}
-		}
-		glBegin(GL_QUADS);
-			glTexCoord2f(deltaSprite * count,1);				glVertex2f(10,10);
-			glTexCoord2f(deltaSprite * count,0);				glVertex2f(10,0);
-			glTexCoord2f(deltaSprite * count + deltaSprite,0);	glVertex2f(0,0);
-			glTexCoord2f(deltaSprite * count + deltaSprite,1);	glVertex2f(0,10);
-		glEnd();
-		glDisable( GL_TEXTURE_2D );
-		glDisable( GL_BLEND );
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, moneyTexture[0].texID);
+		glColor3f(1, 1, 1);
+		glPushMatrix();
+		glTranslatef(position.x, position.y, position.z);
+			glBegin(GL_QUADS);
+				glTexCoord2f(0, 0);	glVertex2f(0,0);
+				glTexCoord2f(1, 0); glVertex2f(1,0);
+				glTexCoord2f(1, 1);	glVertex2f(1,1);
+				glTexCoord2f(0, 1); glVertex2f(0,1);
+			glEnd();
+		glPopMatrix();
+		glDisable(GL_TEXTURE_2D);
+		glDisable(GL_BLEND);
 	glPopMatrix();
 }

@@ -130,6 +130,8 @@ bool CStalls::glRenderObject() {
 	{
 		glPushMatrix();
 		glTranslatef(pos.x, pos.y, pos.z);
+		theMAnimation.setAnimationCounter(theMAnimation.getAnimationCounter() + 2);
+		theMAnimation.Update();
 		theMAnimation.drawMoney();
 		glPopMatrix();
 	}

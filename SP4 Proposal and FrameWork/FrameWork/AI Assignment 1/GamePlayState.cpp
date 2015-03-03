@@ -221,12 +221,13 @@ void CGamePlayState::HandleEvents(CInGameStateManager* theGSM)
 
 void CGamePlayState::Update(CInGameStateManager* theGSM) 
 {
+	keyboardUpdate();
 	if(isPause)
 		Camera::getInstance()->newUpdate();
 	else
 	{
 
-		keyboardUpdate();
+		
 		Camera::getInstance()->newUpdate();
 		for (auto i = theListofEntities.begin(); i != theListofEntities.end(); i++)
 		{
@@ -247,12 +248,6 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 			//HourNumber = 0;
 			CInGameStateManager::getInstance()->ChangeState(CEndOfDayState::Instance());
 		}
-		//if(theMAnimation.active == true)
-		//{
-		//	theMAnimation.Update();
-		//	theMAnimation.setPos(Vector3(0,0,0));
-		//	theMAnimation.setAnimationCounter(theMAnimation.getAnimationCounter() + 2);
-		//}
 
 		CPlayState::Instance()->earned = CPlayState::Instance()->theStall[0]->getTotalMaskSold() * CPlayState::Instance()->theStall[0]->getMaskPrice();
 		CPlayState::Instance()->earned2 = CPlayState::Instance()->theStall[1]->getTotalMaskSold() * CPlayState::Instance()->theStall[1]->getMaskPrice();
@@ -289,22 +284,22 @@ void CGamePlayState::Draw(CInGameStateManager* theGSM)
 		// Actual Render Here
 		DrawSkyBox();
 
-		glPushMatrix();
-			glEnable(GL_BLEND);
-			glEnable(GL_TEXTURE_2D);
-			glTranslatef( -150.0f, -0.1f, -150.0f );
-			glScalef(0.5f, 0.5f, 0.5f);
-			glColor3f(1.0,1.0,1.0);
-			glBindTexture(GL_TEXTURE_2D, map[0].texID);
-			glBegin(GL_QUADS);
-				glTexCoord2f(0, 0);  glVertex3f(SCREEN_WIDTH, 0.0f, 0);
-				glTexCoord2f(1, 0);  glVertex3f(0, 0.0f, 0);
-				glTexCoord2f(1, 1);	 glVertex3f(0, 0.0f, SCREEN_HEIGHT);
-				glTexCoord2f(0, 1);	 glVertex3f(SCREEN_WIDTH, 0.0f, SCREEN_HEIGHT);
-			glEnd();
-			glDisable(GL_TEXTURE_2D);
-			glDisable(GL_BLEND);
-		glPopMatrix();
+		//glPushMatrix();
+		//	glEnable(GL_BLEND);
+		//	glEnable(GL_TEXTURE_2D);
+		//	glTranslatef( -150.0f, -0.1f, -150.0f );
+		//	glScalef(0.5f, 0.5f, 0.5f);
+		//	glColor3f(1.0,1.0,1.0);
+		//	glBindTexture(GL_TEXTURE_2D, map[0].texID);
+		//	glBegin(GL_QUADS);
+		//		glTexCoord2f(0, 0);  glVertex3f(SCREEN_WIDTH, 0.0f, 0);
+		//		glTexCoord2f(1, 0);  glVertex3f(0, 0.0f, 0);
+		//		glTexCoord2f(1, 1);	 glVertex3f(0, 0.0f, SCREEN_HEIGHT);
+		//		glTexCoord2f(0, 1);	 glVertex3f(SCREEN_WIDTH, 0.0f, SCREEN_HEIGHT);
+		//	glEnd();
+		//	glDisable(GL_TEXTURE_2D);
+		//	glDisable(GL_BLEND);
+		//glPopMatrix();
 
 		theGrid->Click = false;
 		CPlayState::Instance()->theStall[0]->isPicking = false;
@@ -318,12 +313,8 @@ void CGamePlayState::Draw(CInGameStateManager* theGSM)
 		theGrid->GetTile(CPlayState::Instance()->theStall[0]->getPosition())->ShopOnTop = CPlayState::Instance()->theStall[0];
 		theGrid->GetTile(CPlayState::Instance()->theStall[1]->getPosition())->ShopOnTop = CPlayState::Instance()->theStall[1];
 		theGrid->GetTile(CPlayState::Instance()->theStall[2]->getPosition())->ShopOnTop = CPlayState::Instance()->theStall[2];
-		CApplication::getInstance()->setClickCheck(false);
-
-		/*if(theMAnimation.active == true)
-			theMAnimation.drawMoney();*/
+		CApplication::getInstance()->setClickCheck(false);	
 	}
-	
 	Camera::getInstance()->SetHUD(true);
 	DrawButtons();
 	drawInfo();
