@@ -238,6 +238,7 @@ void Buyer::Init()
 	HasMask = false;
 	theTileTemp = NULL;
 	StorePriority = 0;
+	hisPersonality.Init();
 
 	int i = rand() % 4;
 	Vector3 * temp;

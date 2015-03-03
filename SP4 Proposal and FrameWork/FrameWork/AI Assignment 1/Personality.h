@@ -18,6 +18,7 @@ public:
 	float DistancePreference;
 	float MoneyPreference;
 	
+	void Init();
 
 };
 

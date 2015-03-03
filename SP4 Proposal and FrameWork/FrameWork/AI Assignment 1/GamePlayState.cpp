@@ -128,7 +128,7 @@ void CGamePlayState::Init()
 	CInputSystem::getInstance()->mouseInfo.mLReclicked = true;
 
 	Camera::getInstance()->Reset();
-
+	Camera::getInstance()->SetPos(Vector3(TILE_NO_X * TILE_SIZE_X / 2, 0, TILE_NO_X * TILE_SIZE_X / 2));
 	//Isometric view
 	Camera::getInstance()->SetCameraType(Camera::AIR_CAM);	
 
@@ -435,7 +435,7 @@ void CGamePlayState::DrawSkyBox()
 		glDisable(GL_BLEND);
 		glColor4f(1,1,1,1);
 		glTranslatef(0, 50, 0);
-
+		glTranslatef(TILE_NO_X * TILE_SIZE_X / 2, 0, TILE_NO_X * TILE_SIZE_X / 2);
 		// Render the front quad
 		glBindTexture(GL_TEXTURE_2D, skyBox[0].texID);
 		glBegin(GL_QUADS);
