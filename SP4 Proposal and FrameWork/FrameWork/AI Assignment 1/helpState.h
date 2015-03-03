@@ -11,6 +11,7 @@
 #include "Buttons.h"
 #include "AudioPlayer.h"
 #include "LoadState.h"
+#include "MenuState.h"
 
 using namespace std;
 
@@ -18,8 +19,7 @@ enum HELP_BUTTON
 {
 	back,
 	volUp,
-	volDown,
-	help
+	volDown
 };
 
 class CInputSystem;
@@ -28,8 +28,8 @@ class helpState : public CGameState
 {
 protected:
 	helpState(void){};
-	TextureImage button[4];
-	TextureImage popUp[4];
+	TextureImage button[3];
+	TextureImage slider[2];
 	TextureImage background[1];
 
 public:
@@ -51,6 +51,7 @@ public:
 	void LoadButtons();
 	void DrawButtons();
 	void DrawBackground();
+	void DrawInfo();
 
 	//Inputs
 	void MouseMove (int x, int y);//
@@ -62,12 +63,16 @@ public:
 		return &theHelpState;
 	}
 
+	void *font_style;
+	void printw(float x, float y, float z, char* format, ...);
+	
+	
 private:
 	static helpState theHelpState;
-
-	CInputSystem* InputSystem;
-	CButtons* theButton[4];
 	AudioPlayer * sound;
+	CInputSystem* InputSystem;
+	CButtons* theButton[3];
+
 	ISoundEngine *se;
 
 

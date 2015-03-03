@@ -68,6 +68,8 @@ public:
 		return &theMenuState;
 	}
 
+	
+
 private:
 	static CMenuState theMenuState;
 
