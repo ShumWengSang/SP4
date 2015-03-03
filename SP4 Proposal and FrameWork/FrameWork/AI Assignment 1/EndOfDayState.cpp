@@ -241,7 +241,10 @@ void CEndOfDayState::MouseClick(int button, int state, int x, int y) {
 					CPlayState::Instance()->firstDay = false;
 					CPlayState::Instance()->maskInStock = CPlayState::Instance()->maskLeft;
 					CPlayState::Instance()->resetValues();
-					CInGameStateManager::getInstance()->ChangeState(CBuyMaskState::Instance());
+					if(CPlayState::Instance()->day <= 7)
+						CInGameStateManager::getInstance()->ChangeState(CBuyMaskState::Instance());
+					else
+						CGameStateManager::getInstance()->ChangeState(EndGameState::Instance());
 					
 				}
 			}

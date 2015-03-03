@@ -237,7 +237,8 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 		if (theTimerInstance->executeTime(TimerKeySeed))
 		{
 			HourNumber++;
-			SeedHaze();
+			if(HourNumber != DayTime)
+				SeedHaze();
 		}
 
 		//if (theTimerInstance->executeTime(TimerKeyDay))

@@ -9,6 +9,7 @@
 #include "TextureImage.h"
 #include "Buttons.h"
 #include "AudioPlayer.h"
+#include "EndGameState.h"
 
 using namespace std;
 
