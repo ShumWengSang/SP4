@@ -20,7 +20,7 @@
 using namespace std;
 
 #define SEEDCOUNT 2
-#define STARTINGAMOUNTOFBUYERS 10
+#define STARTINGAMOUNTOFBUYERS 50
 
 enum PLAYSTATE_BUTTON
 {

@@ -85,18 +85,20 @@ public:
 		LoadTexture("images/endState/background.tga");
 		LoadTexture("images/endState/save.tga");
 
+		//end game state 40 - 41
+		LoadTexture("images/win.tga");
+		LoadTexture("images/lose.tga");
+
+		//MoneyAnimation 42
+		LoadTexture("images/playState/money.tga");
+
 		//help state 42 - 45
 		LoadTexture("images/.tga"); // Vol up Button 
 		LoadTexture("images/.tga"); // Vol down Button
 		LoadTexture("images/.tga"); // Information Button
 		LoadTexture("images/description.tga"); //help state Background image
 
-		//end game state 46 - 47
-		LoadTexture("images/win.tga");
-		LoadTexture("images/lose.tga");
 
-		//MoneyAnimation 48
-		LoadTexture("images/playState/money.tga");
 
 		//SAVE
 

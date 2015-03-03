@@ -128,7 +128,10 @@ bool CStalls::glRenderObject() {
 	
 	if (theMAnimation.isActive())
 	{
+		glPushMatrix();
+		glTranslatef(pos.x, pos.y, pos.z);
 		theMAnimation.drawMoney();
+		glPopMatrix();
 	}
 
 	return true;

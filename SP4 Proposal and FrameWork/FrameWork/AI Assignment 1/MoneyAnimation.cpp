@@ -16,7 +16,7 @@ void CMoneyAnimation::LoadTexture()
 {
 	TextureSingleton * theTex = TextureSingleton::getInstance();
 
-	moneyTexture[0].texID = theTex->GetNumber(48);
+	moneyTexture[0].texID = theTex->GetNumber(42);
 }
 
 void CMoneyAnimation::Init()
