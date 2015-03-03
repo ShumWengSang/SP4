@@ -17,23 +17,9 @@ void CStartOfDayState::LoadTextures()
 	{
 		button[i].texID = theInstance->GetNumber(i + 14);
 	}
-	//CApplication::getInstance()->LoadTGA(&background[0],"images/background.tga");
-	//CApplication::getInstance()->LoadTGA(&background[1],"images/startState/box.tga");
-	//CApplication::getInstance()->LoadTGA(&button[0],"images/startState/go.tga");
-	//CApplication::getInstance()->LoadTGA(&button[1],"images/startState/50.tga");
-	//CApplication::getInstance()->LoadTGA(&button[2],"images/startState/100.tga");
-	//CApplication::getInstance()->LoadTGA(&button[3],"images/startState/200.tga");
-	//CApplication::getInstance()->LoadTGA(&button[4],"images/startState/10.tga");
-	//CApplication::getInstance()->LoadTGA(&button[5],"images/startState/12.tga");
-	//CApplication::getInstance()->LoadTGA(&button[6],"images/startState/15.tga");
-	//CApplication::getInstance()->LoadTGA(&button[7],"images/startState/back.tga");
-	//CApplication::getInstance()->LoadTGA(&button[8],"images/startState/reset.tga");
-	//CApplication::getInstance()->LoadTGA(&button[9],"images/startState/shop.tga");
-	//CApplication::getInstance()->LoadTGA(&button[10],"images/startState/shop2.tga");
-	//CApplication::getInstance()->LoadTGA(&button[11],"images/startState/shop3.tga");
-	//CApplication::getInstance()->LoadTGA(&button[12],"images/startState/shopSelected.tga");
-	//CApplication::getInstance()->LoadTGA(&button[13],"images/startState/shop2Selected.tga");
-	//CApplication::getInstance()->LoadTGA(&button[14],"images/startState/shop3Selected.tga");
+
+	button[15].texID = theInstance->GetNumber(47);
+	button[16].texID = theInstance->GetNumber(48);
 }
 
 void CStartOfDayState::LoadButtons()
@@ -74,6 +60,12 @@ void CStartOfDayState::LoadButtons()
 
 	theButton[sShop3] = new CButtons(SCREEN_WIDTH - 200, 150, 90, 64, sShop3);
 	theButton[sShop3]->setButtonTexture(button[11].texID);
+
+	theButton[yes] = new CButtons(SCREEN_WIDTH/2 + 30, SCREEN_HEIGHT/2, 125, 60, yes);
+	theButton[yes]->setButtonTexture(button[15].texID);
+
+	theButton[no] = new CButtons(SCREEN_WIDTH/2 - 140, SCREEN_HEIGHT/2, 125, 60, no);
+	theButton[no]->setButtonTexture(button[16].texID);
 }
 
 void CStartOfDayState::Init()
@@ -96,6 +88,7 @@ void CStartOfDayState::Init()
 
 	mouseOverReset = false;
 	mouseOverBack = false;
+	amtOrMoney = 0;
 
 	r = 0, g = 0, b = 0;
 	r2 = 0, g2 = 0, b2 = 0;
@@ -142,6 +135,8 @@ void CStartOfDayState::Draw(CInGameStateManager* theGSM)
 	DrawBackground();
 	DrawButtons();
 	drawInfo();
+	if(amtOrMoney == true)
+		DrawMsg();
 	Camera::getInstance()->SetHUD(false);
 }
 
@@ -217,6 +212,53 @@ void CStartOfDayState::DrawBackground()
 	glPopMatrix();
 }
 
+void CStartOfDayState::DrawMsg()
+{
+	glPushMatrix();
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, background[1].texID);
+		glPushMatrix();
+			glTranslatef(SCREEN_WIDTH/2 - 200, SCREEN_HEIGHT/2 - 200, 0);
+			glScalef(static_cast<GLfloat>(0.5), static_cast<GLfloat>(0.5), 1);
+			glBegin(GL_QUADS);
+				glTexCoord2f(0, 0);	glVertex2f(0, SCREEN_HEIGHT);
+				glTexCoord2f(1, 0);	glVertex2f(SCREEN_WIDTH, SCREEN_HEIGHT);
+				glTexCoord2f(1, 1);	glVertex2f(SCREEN_WIDTH, 0);
+				glTexCoord2f(0, 1);	glVertex2f(0, 0);			
+			glEnd();
+		glPopMatrix();
+		glDisable(GL_TEXTURE_2D);
+		glDisable(GL_BLEND);
+	glPopMatrix();
+
+	glPushMatrix();
+		glPushAttrib(GL_DEPTH_TEST);
+		glColor3f(0, 0, 0);
+		printw (SCREEN_WIDTH/2 - 50, SCREEN_HEIGHT/2 - 150, 0, "You Have");
+		printw (SCREEN_WIDTH/2 - 100, SCREEN_HEIGHT/2 - 120, 0, "the Number Of Mask or Price");
+		printw (SCREEN_WIDTH/2 - 150, SCREEN_HEIGHT/2 - 90, 0, "Do you want to start the day?");
+		glPopAttrib();
+	glPopMatrix();
+
+	theButton[yes]->drawButton();
+	theButton[no]->drawButton();
+}
+
+bool CStartOfDayState::checkZero()
+{
+	for(int i = 0; i < 3; i++)
+	{
+		if(CPlayState::Instance()->theStall[i]->getMaskNo() == 0 || CPlayState::Instance()->theStall[i]->getMaskPrice() == 0)
+		{
+			amtOrMoney = true;
+			return true;
+		}
+	}
+	return false;
+}
+
 void CStartOfDayState::ChangeColor()
 {
 	if(CPlayState::Instance()->theStall[0]->Selected)
@@ -280,8 +322,23 @@ void CStartOfDayState::MouseClick(int button, int state, int x, int y) {
 				//start the day
 				if(theButton[go]->isInside(x, y))
 				{
+					if(checkZero())
+						amtOrMoney = true;
+					else{
+						CInGameStateManager::getInstance()->ChangeState(CGamePlayState::Instance());
+						CPlayState::Instance()->totalMaskForSell = CPlayState::Instance()->theStall[0]->getMaskNo() + CPlayState::Instance()->theStall[1]->getMaskNo() + CPlayState::Instance()->theStall[2]->getMaskNo();
+					}
+				}
+
+				if(theButton[yes]->isInside(x, y))
+				{
 					CInGameStateManager::getInstance()->ChangeState(CGamePlayState::Instance());
 					CPlayState::Instance()->totalMaskForSell = CPlayState::Instance()->theStall[0]->getMaskNo() + CPlayState::Instance()->theStall[1]->getMaskNo() + CPlayState::Instance()->theStall[2]->getMaskNo();
+				}
+
+				if(theButton[no]->isInside(x, y))
+				{
+					amtOrMoney = false;
 				}
 
 				//back to buy mask

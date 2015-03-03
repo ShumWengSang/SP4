@@ -66,9 +66,12 @@ private:
 	AudioPlayer * sound;
 	int money;
 	int profit;
-	float time;
 	float alpha;
-	bool fadein;
+	int Speed, Dir;
 	Highscore highscore;
+	bool KeyInHighscore;
+	bool drawHighscore;
+	bool doneInput;
+	string input;
 
 };

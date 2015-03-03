@@ -86,7 +86,7 @@ void CBuyMaskState::Init()
 	else
 	{
 		if(CPlayState::Instance()->firstDay)
-			CPlayState::Instance()->theMoney.setCurrentMoney(900);
+			CPlayState::Instance()->theMoney.setCurrentMoney(StartMoney);
 		else
 			CPlayState::Instance()->theMoney.setCurrentMoney(CPlayState::Instance()->newMoneyValue);
 	}
