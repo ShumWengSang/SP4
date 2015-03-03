@@ -1,0 +1,15 @@
+3/3/15
+Day 10
+things done:
+WQ -- UV mapping, fix some warnings.
+amos -- help state
+samuel -- fix transition to next day bugs.
+Roland -- highscore class, texture singleton
+YT -- money animation.
+
+todo
+samuel -- changing end state to singleton. making the entire thing work.
+amos -- finish slider. more sounds.
+yt -- finish money, change price of mask.
+wq -- find bug, fix bug.
+roland-- color aesthetics.//

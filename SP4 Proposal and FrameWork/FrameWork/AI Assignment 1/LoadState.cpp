@@ -1,6 +1,7 @@
 #include "LoadState.h"
 #include "PlayState.h"
 #include "MenuState.h"
+#include "TextureSingleton.h"
 
 CLoadState *CLoadState::theLoadState = NULL;
 
@@ -18,10 +19,14 @@ bool CLoadState::getLoaded()
 
 void CLoadState::LoadTextures()
 {
+	TextureSingleton * theInstance = TextureSingleton::getInstance();
+	background[0].texID = theInstance->GetNumber(38);
+	button[0].texID = theInstance->GetNumber(13);
+	button[1].texID = theInstance->GetNumber(21);
 	//Textures
-	CApplication::getInstance()->LoadTGA(&background[0],"images/background.tga");
-	CApplication::getInstance()->LoadTGA(&button[0],"images/buyMaskState/box.tga");
-	CApplication::getInstance()->LoadTGA(&button[1],"images/startState/back.tga");
+	//CApplication::getInstance()->LoadTGA(&background[0],"images/background.tga");
+	//CApplication::getInstance()->LoadTGA(&button[0],"images/buyMaskState/box.tga");
+	//CApplication::getInstance()->LoadTGA(&button[1],"images/startState/back.tga");
 }
 void CLoadState::LoadButtons()
 {

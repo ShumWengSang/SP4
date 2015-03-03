@@ -12,10 +12,11 @@ void CGamePlayState::LoadTextures()
 	
 
 	//Textures
-	for (int i = 0; i < 7; i++)
+	for (int i = 0; i < 6; i++)
 	{
-		button[i].texID = theInstance->GetNumber(i + 22);
+		button[i + 1].texID = theInstance->GetNumber(i + 23);
 	}
+	button[0].texID = theInstance->GetNumber(29);
 	//CApplication::getInstance()->LoadTGA(&button[0], "images/playState/pause.tga");
 	//CApplication::getInstance()->LoadTGA(&button[1], "images/playState/shop.tga");
 	//CApplication::getInstance()->LoadTGA(&button[2], "images/playState/shop2.tga");

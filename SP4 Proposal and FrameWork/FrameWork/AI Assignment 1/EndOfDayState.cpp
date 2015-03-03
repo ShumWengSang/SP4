@@ -2,18 +2,30 @@
 #include "PlayState.h"
 #include "SaveState.h"
 #include "BuyMaskState.h"
+#include "TextureSingleton.h"
 
 CEndOfDayState * CEndOfDayState::theEndOfDayState = NULL;
 
 void CEndOfDayState::LoadTextures()
 {
-	CApplication::getInstance()->LoadTGA(&background[0],"images/endState/background.tga");
-	CApplication::getInstance()->LoadTGA(&background[1],"images/endState/box.tga");
-	CApplication::getInstance()->LoadTGA(&button[0],"images/endState/save.tga");
-	CApplication::getInstance()->LoadTGA(&button[1],"images/endState/next.tga");
-	CApplication::getInstance()->LoadTGA(&button[2],"images/endState/shop.tga");
-	CApplication::getInstance()->LoadTGA(&button[3],"images/endState/shop2.tga");
-	CApplication::getInstance()->LoadTGA(&button[4],"images/endState/shop3.tga");
+	TextureSingleton * theInstance = TextureSingleton::getInstance();
+	background[0].texID = theInstance->GetNumber(6);
+	background[1].texID = theInstance->GetNumber(7);
+
+	button[0].texID = theInstance->GetNumber(39);
+	button[1].texID = theInstance->GetNumber(9);
+	for (int i = 2; i < 5; i++)
+	{
+		button[i].texID = theInstance->GetNumber(i + 23);
+	}
+
+	//CApplication::getInstance()->LoadTGA(&background[0],"images/endState/background.tga");
+	//CApplication::getInstance()->LoadTGA(&background[1],"images/endState/box.tga");
+	//CApplication::getInstance()->LoadTGA(&button[0],"images/endState/save.tga");
+	//CApplication::getInstance()->LoadTGA(&button[1],"images/endState/next.tga");
+	//CApplication::getInstance()->LoadTGA(&button[2],"images/endState/shop.tga");
+	//CApplication::getInstance()->LoadTGA(&button[3],"images/endState/shop2.tga");
+	//CApplication::getInstance()->LoadTGA(&button[4],"images/endState/shop3.tga");
 }
 void CEndOfDayState::LoadButtons()
 {
