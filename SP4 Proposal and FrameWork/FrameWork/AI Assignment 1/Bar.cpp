@@ -3,6 +3,8 @@
 
 Bar::Bar(void)
 {
+	Speed = 100;
+	Dir = 1;
 }
 
 
@@ -17,6 +19,7 @@ void Bar::init(float r,float g,float b ,Vector3 pos)
 	Height = 16;
 	Color.Set(r,g,b);
 	done = false;
+
 }
 
 void Bar::draw()
@@ -57,6 +60,20 @@ void Bar::update(float r)
 {
 
 	Percentage+=r;
+	if (r >= 5)
+	{
+		Color.x += Speed * Dir * CTimer::getInstance()->getDelta();
+		if (Color.x <= 0)
+		{
+			Color.x = 0; 
+			Dir *= Dir;
+		}
+		else if (Color.x >= 1)
+		{
+			Color.x = 1;
+			Dir *= -Dir;
+		}
+	}
 	if(Percentage>=270)
 	{
 		Percentage=270;

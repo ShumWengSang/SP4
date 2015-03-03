@@ -12,11 +12,11 @@ void CGamePlayState::LoadTextures()
 	
 
 	//Textures
-	button[0].texID = theInstance->GetNumber(29);
 	for (int i = 0; i < 6; i++)
 	{
 		button[i + 1].texID = theInstance->GetNumber(i + 23);
 	}
+	button[0].texID = theInstance->GetNumber(29);
 	//CApplication::getInstance()->LoadTGA(&button[0], "images/playState/pause.tga");
 	//CApplication::getInstance()->LoadTGA(&button[1], "images/playState/shop.tga");
 	//CApplication::getInstance()->LoadTGA(&button[2], "images/playState/shop2.tga");
@@ -40,7 +40,7 @@ void CGamePlayState::LoadTextures()
 	//CApplication::getInstance()->LoadTGA(&theImg, "images/Gress_Texture.tga");
 	//Tiles::TexID = theImg.texID;
 
-	buyingButton[0].texID = theInstance->GetNumber(37);
+	buyingButton[0].texID = theInstance->GetNumber(29);
 	for (int i = 0; i < 3; i++)
 	{
 		buyingButton[i + 1].texID = theInstance->GetNumber(i + 10);
@@ -68,6 +68,7 @@ void CGamePlayState::LoadButtons()
 	theButton[shop3]->setButtonTexture(button[3].texID);
 
 
+
 	theBuyingButton[close] = new CButtons(SCREEN_WIDTH - 45, SCREEN_HEIGHT - 320, 32, 32, close);
 	theBuyingButton[close]->setButtonTexture(buyingButton[0].texID);
 
@@ -83,7 +84,6 @@ void CGamePlayState::LoadButtons()
 
 void CGamePlayState::Init()
 {
-	theMAnimation = NULL;
 
 	theGrid = NULL;
 	for (int i = 0; i < 4; i++)
@@ -142,8 +142,6 @@ void CGamePlayState::Init()
 
 	Buyer * newBuyer;
 
-	theMAnimation = CMoneyAnimation::Instance();
-
 	std::vector<CStalls*> theListofStalls;
 	for (int i = 0; i < 3; i++)
 	{
@@ -167,9 +165,9 @@ void CGamePlayState::Init()
 	theListofEntities.push_back(CPlayState::Instance()->theStall[2]);
 	theListofEntities.push_back(theGrid);
 
-	CPlayState::Instance()->theStall[0]->setColour2(Vector3(0.5,0.5,1)); //B
-	CPlayState::Instance()->theStall[1]->setColour2(Vector3(1,0.5,0.5)); //R
-	CPlayState::Instance()->theStall[2]->setColour2(Vector3(0.5,1,0.5)); //G
+	CPlayState::Instance()->theStall[0]->setColour2(Vector3(1,1,1));
+	CPlayState::Instance()->theStall[1]->setColour2(Vector3(1,1,1));
+	CPlayState::Instance()->theStall[2]->setColour2(Vector3(1,1,1));
 }
 
 void CGamePlayState::SeedHaze()
@@ -223,6 +221,7 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 		Camera::getInstance()->newUpdate();
 	else
 	{
+
 		keyboardUpdate();
 		Camera::getInstance()->newUpdate();
 		for (auto i = theListofEntities.begin(); i != theListofEntities.end(); i++)
@@ -243,12 +242,11 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 			//HourNumber = 0;
 			CInGameStateManager::getInstance()->ChangeState(CEndOfDayState::Instance());
 		}
-
-		//if(theMAnimation->active == true)
+		//if(theMAnimation.active == true)
 		//{
-		//	theMAnimation->Update();
-		//	theMAnimation->setPos(Vector3(0,0,0));
-		//	theMAnimation->setAnimationCounter(theMAnimation->getAnimationCounter() + 2);
+		//	theMAnimation.Update();
+		//	theMAnimation.setPos(Vector3(0,0,0));
+		//	theMAnimation.setAnimationCounter(theMAnimation.getAnimationCounter() + 2);
 		//}
 
 		CPlayState::Instance()->earned = CPlayState::Instance()->theStall[0]->getTotalMaskSold() * CPlayState::Instance()->theStall[0]->getMaskPrice();
@@ -317,8 +315,8 @@ void CGamePlayState::Draw(CInGameStateManager* theGSM)
 		theGrid->GetTile(CPlayState::Instance()->theStall[2]->getPosition())->ShopOnTop = CPlayState::Instance()->theStall[2];
 		CApplication::getInstance()->setClickCheck(false);
 
-		if(theMAnimation->active == true)
-			theMAnimation->drawMoney();
+		/*if(theMAnimation.active == true)
+			theMAnimation.drawMoney();*/
 	}
 	
 	Camera::getInstance()->SetHUD(true);
@@ -495,7 +493,6 @@ void CGamePlayState::DrawSkyBox()
 			
 void CGamePlayState::DrawTimeBar()
 {
-	theTimeBar.init(1.0f, 0.2f, 0.2f, barPos);
 	theTimeBar.update(static_cast<float>(HourNumber) );
 	theTimeBar.draw();
 }

@@ -318,9 +318,9 @@ void CBuyMaskState::drawInfo()
 			glColor3f( 0.0f, 0.0f, 0.0f);
 			printw (300, 250, 0, "Number of mask and cost:");
 
-			printw ( (static_cast<float>(theButton[bFifty]->getButtonX())),	 static_cast<float>(theButton[bFifty]->getButtonY() - 10), 0, "$250");
-			printw ( (static_cast<float>(theButton[bHundred]->getButtonX())), (static_cast<float>(theButton[bHundred]->getButtonY() - 10)), 0, "$450");
-			printw ( (static_cast<float>(theButton[bTwohundred]->getButtonX())), (static_cast<float>(theButton[bTwohundred]->getButtonY() - 10)), 0, "$850");
+			printw ( (static_cast<float>(theButton[bFifty]->getButtonX() + theButton[bFifty]->getWidth() / 2)),	 static_cast<float>(theButton[bFifty]->getButtonY() - 10), 0, "$250");
+			printw((static_cast<float>(theButton[bHundred]->getButtonX()) + theButton[bHundred]->getWidth() / 2), (static_cast<float>(theButton[bHundred]->getButtonY() - 10)), 0, "$450");
+			printw((static_cast<float>(theButton[bTwohundred]->getButtonX() + theButton[bTwohundred]->getWidth() / 2)), (static_cast<float>(theButton[bTwohundred]->getButtonY() - 10)), 0, "$850");
 
 			if(needMoney)
 			{

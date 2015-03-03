@@ -32,19 +32,11 @@ public:
 	void setFly();
 	void setAnimationCounter(int ac);
 
-	bool isActive();
+	bool isActive(){ return active; };
 
 	void drawMoney();
 
 	bool active;
-
-	static CMoneyAnimation* Instance() {
-		if(theMAni == NULL)
-			theMAni = new CMoneyAnimation();
-		return theMAni;
-	}
-
 private:
-	static CMoneyAnimation *theMAni;
 };
 

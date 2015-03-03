@@ -1,7 +1,6 @@
 #include "MoneyAnimation.h"
 #include "TextureSingleton.h"
 
-CMoneyAnimation *CMoneyAnimation::theMAni = NULL;
 
 CMoneyAnimation::CMoneyAnimation(void)
 {
@@ -32,11 +31,7 @@ void CMoneyAnimation::Init()
 
 void CMoneyAnimation::drop()
 {
-	if(theMAni != NULL)
-	{
-		delete theMAni;
-		theMAni = NULL;
-	}
+
 }
 
 void CMoneyAnimation::Update()

@@ -52,7 +52,7 @@ public:
 	void buyMask(int maskNo);
 
 	CMoney theMoney;
-	CMoneyAnimation *theMAnimation;
+	CMoneyAnimation theMAnimation;
 
 	float Price;
 
@@ -69,11 +69,6 @@ public:
 
 	void Drop()
 	{
-		if(theMAnimation != NULL)
-		{
-			delete theMAnimation;
-			theMAnimation = NULL;
-		}
 	}
 };
 

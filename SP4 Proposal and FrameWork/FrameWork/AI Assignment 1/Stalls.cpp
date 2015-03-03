@@ -2,8 +2,6 @@
 
 CStalls::CStalls(Vector3 pos, Vector3 scale)
 {
-	
-	theMAnimation = NULL;
 
 	gasMaskAmount = 0;
 	maskSold = 0;
@@ -17,7 +15,6 @@ CStalls::CStalls(Vector3 pos, Vector3 scale)
 	this->scale = scale;
 	Price = 1;
 	
-	theMAnimation = CMoneyAnimation::Instance();
 
 	CApplication::getInstance()->LoadTGA(&stallTex[0], "models/stallOutUV.tga");
 
@@ -98,13 +95,13 @@ void CStalls::buyMask(int maskNo)
 		setMaskNo(getMaskNo() - getMaskSold());
 		theMoney.setCurrentMoney(getTotalMaskSold() * getMaskPrice());
 
-		//theMAnimation->active =  true;
+		theMAnimation.active =  true;
 
 		cout << "mask sold " <<  getMaskSold() << endl;
 		cout << "mask in stall: " << getMaskNo() << endl;
 		cout << "total mask sold: " << getTotalMaskSold() << endl;
 		cout << "Money: " << theMoney.getCurrentMoney() << endl;
-		cout << "/////////////////////////////////////" << theMAnimation->active << endl;
+		cout << "/////////////////////////////////////" << theMAnimation.active << endl;
 	}
 }
 
@@ -129,6 +126,10 @@ bool CStalls::glRenderObject() {
 		glDisable(GL_BLEND);
 	glPopMatrix();
 	
+	if (theMAnimation.isActive())
+	{
+		theMAnimation.drawMoney();
+	}
 
 	return true;
 }

@@ -2,6 +2,7 @@
 #include "Vector3.h"
 #include "freeglut.h"
 #include "Global.h"
+#include "Timer.h"
 
 class Bar
 {
@@ -12,6 +13,8 @@ class Bar
 		Vector3 Color;
 		bool Active;
 		bool done;
+		int Dir;
+		int Speed;
 	public:
 		Bar(void);
 		~Bar(void);
