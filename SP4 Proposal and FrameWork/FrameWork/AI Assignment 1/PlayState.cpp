@@ -12,7 +12,7 @@ void CPlayState::Init()
 	//Enable Camera Orientation on Mouse Move
 	CInputSystem::getInstance()->OrientCam = true;
 	
-	day = 1;
+	day = StartDay;
 
 	maskInStock = 0;
 	maskLeft = 0;

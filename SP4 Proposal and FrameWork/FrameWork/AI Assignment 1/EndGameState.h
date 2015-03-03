@@ -8,6 +8,7 @@
 #include "Buttons.h"
 #include "AudioPlayer.h"
 #include "WinLose.h"
+#include "Highscore.h"
 
 class CInputSystem;
 class WinLose;
@@ -47,10 +48,15 @@ public:
 	void MouseMove (int x, int y);
 	void MouseClick(int button, int state, int x, int y);
 	void MouseWheel(int button, int dir, int x, int y);
+	void *font_style;
+	void printw(float x, float y, float z, char* format, ...);
 
 	void LoadTextures();
 	void DrawBackground();
+	void DrawHighscore();
 	void outcome();
+	void InputUsername();
+	void SetHighscore(string username);
 
 	void SetMoney(int money);
 
@@ -59,5 +65,10 @@ public:
 private:
 	AudioPlayer * sound;
 	int money;
+	int profit;
+	float time;
+	float alpha;
+	bool fadein;
+	Highscore highscore;
 
 };
