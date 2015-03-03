@@ -243,8 +243,10 @@ void CEndOfDayState::MouseClick(int button, int state, int x, int y) {
 					CPlayState::Instance()->resetValues();
 					if(CPlayState::Instance()->day <= 7)
 						CInGameStateManager::getInstance()->ChangeState(CBuyMaskState::Instance());
-					else
+					else {
+						EndGameState::Instance()->SetMoney(CPlayState::Instance()->newMoneyValue);
 						CGameStateManager::getInstance()->ChangeState(EndGameState::Instance());
+					}
 					
 				}
 			}
@@ -286,7 +288,7 @@ void CEndOfDayState::drawInfo()
 			int totalEarn = CPlayState::Instance()->earned + CPlayState::Instance()->earned2 + CPlayState::Instance()->earned3;
 			printw ((SCREEN_WIDTH/2)-150, SCREEN_HEIGHT/2 + 50, 0, "Total Money Earned Today: $%d", totalEarn);
 
-			if(mouseOverNext)
+			if(mouseOverNext && CPlayState::Instance()->day < 7)
 				printw ( static_cast<float>(theButton[eNext]->getButtonX()+50), static_cast<float>(theButton[eNext]->getButtonY()-3), 0, "Start next day");
 			
 			glColor3f( 0.5f, 0.0f, 0.5f);

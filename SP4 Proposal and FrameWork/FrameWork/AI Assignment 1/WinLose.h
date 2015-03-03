@@ -1,4 +1,5 @@
 #include "Money.h"
+#include "Global.h"
 using namespace std;
 
 #pragma once

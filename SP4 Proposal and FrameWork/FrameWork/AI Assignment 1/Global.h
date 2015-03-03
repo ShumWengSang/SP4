@@ -20,3 +20,5 @@
 #define DayTime		9			//How long an in-gam daye is in in-game hours
 #define HourTime	3000		//How long an in-game hour is in milliseconds
 #define noiseWidth	DayTime * 7
+
+#define WinMoneyCondition	900

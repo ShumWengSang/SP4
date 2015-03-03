@@ -52,10 +52,12 @@ public:
 	void DrawBackground();
 	void outcome();
 
+	void SetMoney(int money);
+
 	WinLose *profitLoss;
 
 private:
 	AudioPlayer * sound;
-	ISoundEngine *se;
+	int money;
 
 };

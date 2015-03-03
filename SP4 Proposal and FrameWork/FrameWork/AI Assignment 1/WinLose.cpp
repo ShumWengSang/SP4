@@ -14,10 +14,9 @@ WinLose::~WinLose(void)
 
 void WinLose::calcOutcome(int money)
 {
-	if (money > 900)
+	if (money > WinMoneyCondition)
 	{
 		win = true;
-		
 	}
 	else 
 	{

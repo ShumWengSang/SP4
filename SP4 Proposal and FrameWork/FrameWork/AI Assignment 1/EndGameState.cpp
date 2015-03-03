@@ -4,46 +4,40 @@ EndGameState *EndGameState::singleton = NULL;
 
 EndGameState::EndGameState(void)
 {
-	result = false;
-	Init();
-	outcome();
 }
 
 EndGameState::~EndGameState(void)
 {
+	Drop();
 }
 
 void EndGameState::Drop()
 {
-		if (se != NULL)
-		{
-			delete se;
-			se = NULL;
-		}
-
-		if (sound != NULL)
-		{
-			delete sound;
-			sound = NULL;
-		}
+	if (sound != NULL)
+	{
+		delete sound;
+		sound = NULL;
+	}
 }
 
 void EndGameState::outcome ()
 {
-	//profitLoss->calcOutcome();
+	profitLoss->calcOutcome(money);
 	result = profitLoss->GetResult();
 	if (result == true)
 	{
 		sound->setFileName("audio/win.mp3");
-		//se->play2D("audio/win.mp3",false);
 	}
 	else
 	{
 		sound->setFileName("audio/lose.mp3");
-		//se->play2D("audio/lose.mp3",false);
 	}
-	sound->playSoundThreaded();
 
+}
+
+void EndGameState::SetMoney(int money)
+{
+	this->money = money;
 }
 
 void EndGameState::LoadTextures()
@@ -84,11 +78,10 @@ void EndGameState::Init()
 	LoadTextures();
 	profitLoss = new WinLose();
 
-	/*se = NULL;
-	sound = NULL;*/
 	//Audio Player
-	se = createIrrKlangDevice();
 	sound = AudioPlayer::Instance();
+	outcome();
+	sound->playSoundThreaded();
 }
 
 void EndGameState::Pause()
@@ -108,7 +101,6 @@ void EndGameState::HandleEvents(CGameStateManager * GSM)
 
 void EndGameState::Update(CGameStateManager * GSM)
 {
-
 }
 
 void EndGameState::Draw(CGameStateManager * GSM)
