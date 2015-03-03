@@ -12,6 +12,7 @@ class CMoneyAnimation
 	int spdCounter;
 	int animationCounter;
 	int count;
+	float speed;
 public:
 	CMoneyAnimation(void);
 	~CMoneyAnimation(void);

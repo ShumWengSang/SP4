@@ -248,12 +248,6 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 			//HourNumber = 0;
 			CInGameStateManager::getInstance()->ChangeState(CEndOfDayState::Instance());
 		}
-		//if(theMAnimation.active == true)
-		//{
-		//	theMAnimation.Update();
-		//	theMAnimation.setPos(Vector3(0,0,0));
-		//	theMAnimation.setAnimationCounter(theMAnimation.getAnimationCounter() + 2);
-		//}
 
 		CPlayState::Instance()->earned = CPlayState::Instance()->theStall[0]->getTotalMaskSold() * CPlayState::Instance()->theStall[0]->getMaskPrice();
 		CPlayState::Instance()->earned2 = CPlayState::Instance()->theStall[1]->getTotalMaskSold() * CPlayState::Instance()->theStall[1]->getMaskPrice();
@@ -319,12 +313,8 @@ void CGamePlayState::Draw(CInGameStateManager* theGSM)
 		theGrid->GetTile(CPlayState::Instance()->theStall[0]->getPosition())->ShopOnTop = CPlayState::Instance()->theStall[0];
 		theGrid->GetTile(CPlayState::Instance()->theStall[1]->getPosition())->ShopOnTop = CPlayState::Instance()->theStall[1];
 		theGrid->GetTile(CPlayState::Instance()->theStall[2]->getPosition())->ShopOnTop = CPlayState::Instance()->theStall[2];
-		CApplication::getInstance()->setClickCheck(false);
-
-		/*if(theMAnimation.active == true)
-			theMAnimation.drawMoney();*/
+		CApplication::getInstance()->setClickCheck(false);	
 	}
-	
 	Camera::getInstance()->SetHUD(true);
 	DrawButtons();
 	drawInfo();
