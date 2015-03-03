@@ -221,12 +221,13 @@ void CGamePlayState::HandleEvents(CInGameStateManager* theGSM)
 
 void CGamePlayState::Update(CInGameStateManager* theGSM) 
 {
+	keyboardUpdate();
 	if(isPause)
 		Camera::getInstance()->newUpdate();
 	else
 	{
 
-		keyboardUpdate();
+		
 		Camera::getInstance()->newUpdate();
 		for (auto i = theListofEntities.begin(); i != theListofEntities.end(); i++)
 		{
@@ -289,22 +290,22 @@ void CGamePlayState::Draw(CInGameStateManager* theGSM)
 		// Actual Render Here
 		DrawSkyBox();
 
-		glPushMatrix();
-			glEnable(GL_BLEND);
-			glEnable(GL_TEXTURE_2D);
-			glTranslatef( -150.0f, -0.1f, -150.0f );
-			glScalef(0.5f, 0.5f, 0.5f);
-			glColor3f(1.0,1.0,1.0);
-			glBindTexture(GL_TEXTURE_2D, map[0].texID);
-			glBegin(GL_QUADS);
-				glTexCoord2f(0, 0);  glVertex3f(SCREEN_WIDTH, 0.0f, 0);
-				glTexCoord2f(1, 0);  glVertex3f(0, 0.0f, 0);
-				glTexCoord2f(1, 1);	 glVertex3f(0, 0.0f, SCREEN_HEIGHT);
-				glTexCoord2f(0, 1);	 glVertex3f(SCREEN_WIDTH, 0.0f, SCREEN_HEIGHT);
-			glEnd();
-			glDisable(GL_TEXTURE_2D);
-			glDisable(GL_BLEND);
-		glPopMatrix();
+		//glPushMatrix();
+		//	glEnable(GL_BLEND);
+		//	glEnable(GL_TEXTURE_2D);
+		//	glTranslatef( -150.0f, -0.1f, -150.0f );
+		//	glScalef(0.5f, 0.5f, 0.5f);
+		//	glColor3f(1.0,1.0,1.0);
+		//	glBindTexture(GL_TEXTURE_2D, map[0].texID);
+		//	glBegin(GL_QUADS);
+		//		glTexCoord2f(0, 0);  glVertex3f(SCREEN_WIDTH, 0.0f, 0);
+		//		glTexCoord2f(1, 0);  glVertex3f(0, 0.0f, 0);
+		//		glTexCoord2f(1, 1);	 glVertex3f(0, 0.0f, SCREEN_HEIGHT);
+		//		glTexCoord2f(0, 1);	 glVertex3f(SCREEN_WIDTH, 0.0f, SCREEN_HEIGHT);
+		//	glEnd();
+		//	glDisable(GL_TEXTURE_2D);
+		//	glDisable(GL_BLEND);
+		//glPopMatrix();
 
 		theGrid->Click = false;
 		CPlayState::Instance()->theStall[0]->isPicking = false;
