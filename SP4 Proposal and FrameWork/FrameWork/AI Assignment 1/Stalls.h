@@ -52,7 +52,7 @@ public:
 	void buyMask(int maskNo);
 
 	CMoney theMoney;
-	CMoneyAnimation theMAnimation;
+	CMoneyAnimation *theMAnimation;
 
 	float Price;
 
@@ -66,5 +66,14 @@ public:
 	bool operator== (Entity& o);
 	Vector3 GetScale();
 	void Update();
+
+	void Drop()
+	{
+		if(theMAnimation != NULL)
+		{
+			delete theMAnimation;
+			theMAnimation = NULL;
+		}
+	}
 };
 

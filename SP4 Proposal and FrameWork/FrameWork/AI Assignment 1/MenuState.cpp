@@ -10,7 +10,8 @@ void CMenuState::LoadTextures()
 {
 	TextureSingleton * theTex = TextureSingleton::getInstance();
 
-	background[1].texID = theTex->GetNumber(0);
+	background[0].texID = theTex->GetNumber(0);
+	map[0].texID = theTex->GetNumber(1);
 	button[0].texID = theTex->GetNumber(2);
 	button[1].texID = theTex->GetNumber(3);
 	button[2].texID = theTex->GetNumber(4);
@@ -28,7 +29,6 @@ void CMenuState::LoadTextures()
 
 void CMenuState::LoadButtons()
 {
-	//buttons
 	theButton[start] = new CButtons(SCREEN_WIDTH/2 - 150, SCREEN_HEIGHT - 400, 300, 80, start);
 	theButton[start]->setButtonTexture(button[0].texID);
 	
@@ -345,7 +345,7 @@ void CMenuState::gameTitle()
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, background[1].texID);
+		glBindTexture(GL_TEXTURE_2D, background[0].texID);
 		glTranslatef(SCREEN_WIDTH/2 - 235, 100, 0);
 		glPushMatrix();
 			glBegin(GL_QUADS);

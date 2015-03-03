@@ -68,7 +68,6 @@ void CGamePlayState::LoadButtons()
 	theButton[shop3]->setButtonTexture(button[3].texID);
 
 
-
 	theBuyingButton[close] = new CButtons(SCREEN_WIDTH - 45, SCREEN_HEIGHT - 320, 32, 32, close);
 	theBuyingButton[close]->setButtonTexture(buyingButton[0].texID);
 
@@ -84,6 +83,7 @@ void CGamePlayState::LoadButtons()
 
 void CGamePlayState::Init()
 {
+	theMAnimation = NULL;
 
 	theGrid = NULL;
 	for (int i = 0; i < 4; i++)
@@ -141,6 +141,8 @@ void CGamePlayState::Init()
 	TimerKeyDay = theTimerInstance->insertNewTime(HourTime * DayTime);
 
 	Buyer * newBuyer;
+
+	theMAnimation = CMoneyAnimation::Instance();
 
 	std::vector<CStalls*> theListofStalls;
 	for (int i = 0; i < 3; i++)
@@ -225,11 +227,6 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 		Camera::getInstance()->newUpdate();
 	else
 	{
-		theMAnimation.Update();
-		theMAnimation.setAnimationCounter(theMAnimation.getAnimationCounter() + 2);
-		if(theMAnimation.getPosY() >= 5)
-			theMAnimation.active = false;
-
 		keyboardUpdate();
 		Camera::getInstance()->newUpdate();
 		for (auto i = theListofEntities.begin(); i != theListofEntities.end(); i++)
@@ -250,6 +247,14 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 			//HourNumber = 0;
 			CInGameStateManager::getInstance()->ChangeState(CEndOfDayState::Instance());
 		}
+
+		//if(theMAnimation->active == true)
+		//{
+		//	theMAnimation->Update();
+		//	theMAnimation->setPos(Vector3(0,0,0));
+		//	theMAnimation->setAnimationCounter(theMAnimation->getAnimationCounter() + 2);
+		//}
+
 		CPlayState::Instance()->earned = CPlayState::Instance()->theStall[0]->getTotalMaskSold() * CPlayState::Instance()->theStall[0]->getMaskPrice();
 		CPlayState::Instance()->earned2 = CPlayState::Instance()->theStall[1]->getTotalMaskSold() * CPlayState::Instance()->theStall[1]->getMaskPrice();
 		CPlayState::Instance()->earned3 = CPlayState::Instance()->theStall[2]->getTotalMaskSold() * CPlayState::Instance()->theStall[2]->getMaskPrice();
@@ -316,8 +321,8 @@ void CGamePlayState::Draw(CInGameStateManager* theGSM)
 		theGrid->GetTile(CPlayState::Instance()->theStall[2]->getPosition())->ShopOnTop = CPlayState::Instance()->theStall[2];
 		CApplication::getInstance()->setClickCheck(false);
 
-		if(theMAnimation.active == true)
-			theMAnimation.drawMoney();
+		if(theMAnimation->active == true)
+			theMAnimation->drawMoney();
 	}
 	
 	Camera::getInstance()->SetHUD(true);

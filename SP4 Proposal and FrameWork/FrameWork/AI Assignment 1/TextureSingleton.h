@@ -34,7 +34,7 @@ public:
 
 	void Init()
 	{
-		//Start from 0 to 5 MENU
+		//Start from 0 to 6 MENU
 		LoadTexture("images/menuState/gameTitle.tga");
 		LoadTexture("images/menuState/map.tga");
 		LoadTexture("images/menuState/start.tga");
@@ -42,7 +42,7 @@ public:
 		LoadTexture("images/menuState/options.tga");
 		LoadTexture("images/menuState/quit.tga");
 
-		//6  to 12 BUY MASK
+		//7  to 13 BUY MASK
 		LoadTexture("images/background.tga");
 		LoadTexture("images/buyMaskState/box.tga");
 		LoadTexture("images/buyMaskState/box2.tga");
@@ -51,7 +51,7 @@ public:
 		LoadTexture("images/buyMaskState/100.tga");
 		LoadTexture("images/buyMaskState/200.tga");
 
-		//13 - 28 START OF DAY
+		//14 - 29 START OF DAY
 		LoadTexture("images/startState/box.tga");
 		LoadTexture("images/startState/go.tga");
 		LoadTexture("images/startState/50.tga");
@@ -69,7 +69,7 @@ public:
 		LoadTexture("images/startState/shop2Selected.tga");
 		LoadTexture("images/startState/shop3Selected.tga");
 
-		//29 - 37
+		//30 - 39
 		//Textures GAMEPLAYSTATE
 		LoadTexture("images/playState/pause.tga");
 		LoadTexture("images/playState/SkyBox/skybox_near.tga");
@@ -81,23 +81,26 @@ public:
 		LoadTexture("images/Gress_Texture.tga");
 		LoadTexture("images/playState/x.tga");
 
-		//38 - 39 END OF DAY
+		//40 - 41 END OF DAY
 		LoadTexture("images/endState/background.tga");
 		LoadTexture("images/endState/save.tga");
 
-		//help state 40 - 43
+		//help state 42 - 45
 		LoadTexture("images/.tga"); // Vol up Button 
 		LoadTexture("images/.tga"); // Vol down Button
 		LoadTexture("images/.tga"); // Information Button
 		LoadTexture("images/description.tga"); //help state Background image
 
-		//end game state 44 - 45
+		//end game state 46 - 47
 		LoadTexture("images/win.tga");
 		LoadTexture("images/lose.tga");
 
-		//SAVE 68 - 71
+		//MoneyAnimation 48
+		LoadTexture("images/playState/money.tga");
 
-		//Load 72 - 75
+		//SAVE
+
+		//Load
 
 
 

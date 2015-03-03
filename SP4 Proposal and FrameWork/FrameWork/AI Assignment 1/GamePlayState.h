@@ -125,6 +125,13 @@ public:
 			delete theBuyingButton[i];
 			theBuyingButton[i] = NULL;
 		}
+
+		if(theMAnimation != NULL)
+		{
+			delete theMAnimation;
+			theMAnimation = NULL;
+		}
+
 		if (theGamePlayState != NULL)
 		{
 			delete theGamePlayState;
@@ -163,7 +170,7 @@ private:
 	CStalls* theStall[3];
 	Grid* theGrid;
 	CButtons* theBuyingButton[4];
-	CMoneyAnimation theMAnimation;
+	CMoneyAnimation *theMAnimation;
 
 	Bar theTimeBar;
 

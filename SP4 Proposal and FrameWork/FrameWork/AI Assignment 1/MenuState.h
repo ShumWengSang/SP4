@@ -31,7 +31,7 @@ protected:
 
 	TextureImage map[1];
 	TextureImage button[4];
-	TextureImage background[2];
+	TextureImage background[1];
 
 public:
 	void Init();
