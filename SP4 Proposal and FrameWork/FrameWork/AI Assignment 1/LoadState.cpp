@@ -129,35 +129,41 @@ void CLoadState::DrawLoadInfo()
 
 			if (loadedFiles[0]->getHere())
 			{
-			printw (SCREEN_WIDTH/2 - 145, 225.0, 0, "Day: %d", loadedFiles[0]->getDay());
-			printw (SCREEN_WIDTH/2 - 145, 275.0, 0, "Money: %d", loadedFiles[0]->getMoney());
+			printw (SCREEN_WIDTH/2 - 140, 225.0, 0, "Day: %d", loadedFiles[0]->getDay());
+			printw (SCREEN_WIDTH/2 - 140, 275.0, 0, "Money: %d", loadedFiles[0]->getMoney());
+			printw (SCREEN_WIDTH/2, 275.0, 0, "Mask: %d", loadedFiles[0]->getMask());
 			}
 			else
 			{
-			printw (SCREEN_WIDTH/2 - 145, 225.0, 0, "Day: ---");
-			printw (SCREEN_WIDTH/2 - 145, 275.0, 0, "Money: ---");
+			printw (SCREEN_WIDTH/2 - 140, 225.0, 0, "Day: ---");
+			printw (SCREEN_WIDTH/2 - 140, 275.0, 0, "Money: ---");
+			printw (SCREEN_WIDTH/2, 275.0, 0, "Mask: ---");
 			}
 
 			if (loadedFiles[1]->getHere())
 			{
-			printw (SCREEN_WIDTH/2 - 145, 325.0, 0, "Day: %d", loadedFiles[1]->getDay());
-			printw (SCREEN_WIDTH/2 - 145, 375.0, 0, "Money: %d", loadedFiles[1]->getMoney());
+			printw (SCREEN_WIDTH/2 - 140, 325.0, 0, "Day: %d", loadedFiles[1]->getDay());
+			printw (SCREEN_WIDTH/2 - 140, 375.0, 0, "Money: %d", loadedFiles[1]->getMoney());
+			printw (SCREEN_WIDTH/2, 375.0, 0, "Mask: %d", loadedFiles[1]->getMask());
 			}
 			else
 			{
-			printw (SCREEN_WIDTH/2 - 145, 325.0, 0, "Day: ---");
-			printw (SCREEN_WIDTH/2 - 145, 375.0, 0, "Money: ---");
+			printw (SCREEN_WIDTH/2 - 140, 325.0, 0, "Day: ---");
+			printw (SCREEN_WIDTH/2 - 140, 375.0, 0, "Money: ---");
+			printw (SCREEN_WIDTH/2, 375.0, 0, "Mask: ---");
 			}
 
 			if (loadedFiles[2]->getHere())
 			{
-			printw (SCREEN_WIDTH/2 - 145, 425.0, 0, "Day: %d", loadedFiles[2]->getDay());
-			printw (SCREEN_WIDTH/2 - 145, 475.0, 0, "Money: %d", loadedFiles[2]->getMoney());
+			printw (SCREEN_WIDTH/2 - 140, 425.0, 0, "Day: %d", loadedFiles[2]->getDay());
+			printw (SCREEN_WIDTH/2 - 140, 475.0, 0, "Money: %d", loadedFiles[2]->getMoney());
+			printw (SCREEN_WIDTH/2, 475.0, 0, "Mask: %d", loadedFiles[2]->getMask());
 			}
 			else
 			{
-			printw (SCREEN_WIDTH/2 - 145, 425.0, 0, "Day: ---");
-			printw (SCREEN_WIDTH/2 - 145, 475.0, 0, "Money: ---");
+			printw (SCREEN_WIDTH/2 - 140, 425.0, 0, "Day: ---");
+			printw (SCREEN_WIDTH/2 - 140, 475.0, 0, "Money: ---");
+			printw (SCREEN_WIDTH/2, 475.0, 0, "Mask: ---");
 			}
 
 		glPopAttrib();
