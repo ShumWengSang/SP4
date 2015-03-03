@@ -69,7 +69,7 @@ public:
 		LoadTexture("images/startState/shop2Selected.tga");
 		LoadTexture("images/startState/shop3Selected.tga");
 
-		//30 - 39
+		//30 - 38
 		//Textures GAMEPLAYSTATE
 		LoadTexture("images/playState/pause.tga");
 		LoadTexture("images/playState/SkyBox/skybox_near.tga");
@@ -81,18 +81,19 @@ public:
 		LoadTexture("images/Gress_Texture.tga");
 		LoadTexture("images/playState/x.tga");
 
-		//40 - 41 END OF DAY
+		//39 - 40 END OF DAY
 		LoadTexture("images/endState/background.tga");
 		LoadTexture("images/endState/save.tga");
 
-		//end game state 40 - 41
+		//end game state 41 - 42
 		LoadTexture("images/win.tga");
 		LoadTexture("images/lose.tga");
 
-		//MoneyAnimation 42
+		//MoneyAnimation 43
 		LoadTexture("images/playState/money.tga");
-
-		//help state 42 - 45
+		//controls 44
+		LoadTexture("images/playState/MouseControls.tga");
+		//help state 45 - 48
 		LoadTexture("images/.tga"); // Vol up Button 
 		LoadTexture("images/.tga"); // Vol down Button
 		LoadTexture("images/.tga"); // Information Button
@@ -110,8 +111,8 @@ public:
 	int LoadTexture(std::string filename)
 	{
 		TextureImage theImg;
-		CApplication::getInstance()->LoadTGA(&theImg, (char*)filename.c_str());
-		TextureInts.push_back(theImg.texID);
+		if (		CApplication::getInstance()->LoadTGA(&theImg, (char*)filename.c_str()))
+			TextureInts.push_back(theImg.texID);
 		return TextureInts.size() - 1;
 	}
 
