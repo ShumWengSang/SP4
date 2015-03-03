@@ -17,6 +17,7 @@ public:
 	~CMoneyAnimation(void);
 	void Init();
 	void Update();
+	void drop();
 
 	void LoadTexture();
 
@@ -36,5 +37,14 @@ public:
 	void drawMoney();
 
 	bool active;
+
+	static CMoneyAnimation* Instance() {
+		if(theMAni == NULL)
+			theMAni = new CMoneyAnimation();
+		return theMAni;
+	}
+
+private:
+	static CMoneyAnimation *theMAni;
 };
 

@@ -1,4 +1,7 @@
 #include "MoneyAnimation.h"
+#include "TextureSingleton.h"
+
+CMoneyAnimation *CMoneyAnimation::theMAni = NULL;
 
 CMoneyAnimation::CMoneyAnimation(void)
 {
@@ -7,11 +10,14 @@ CMoneyAnimation::CMoneyAnimation(void)
 
 CMoneyAnimation::~CMoneyAnimation(void)
 {
+	//drop();
 }
 
 void CMoneyAnimation::LoadTexture()
 {
-	CApplication::getInstance()->LoadTGA(&moneyTexture[0],"images/playState/money.tga");
+	TextureSingleton * theTex = TextureSingleton::getInstance();
+
+	moneyTexture[0].texID = theTex->GetNumber(48);
 }
 
 void CMoneyAnimation::Init()
@@ -22,6 +28,15 @@ void CMoneyAnimation::Init()
 	animationCounter = 0;
 	count = 0;
 	active = false;
+}
+
+void CMoneyAnimation::drop()
+{
+	if(theMAni != NULL)
+	{
+		delete theMAni;
+		theMAni = NULL;
+	}
 }
 
 void CMoneyAnimation::Update()
@@ -100,10 +115,10 @@ void CMoneyAnimation::drawMoney()
 			}
 		}
 		glBegin(GL_QUADS);
-			glTexCoord2f(deltaSprite * count,1);				glVertex2f(1,1);
-			glTexCoord2f(deltaSprite * count,0);				glVertex2f(1,0);
+			glTexCoord2f(deltaSprite * count,1);				glVertex2f(10,10);
+			glTexCoord2f(deltaSprite * count,0);				glVertex2f(10,0);
 			glTexCoord2f(deltaSprite * count + deltaSprite,0);	glVertex2f(0,0);
-			glTexCoord2f(deltaSprite * count + deltaSprite,1);	glVertex2f(0,1);
+			glTexCoord2f(deltaSprite * count + deltaSprite,1);	glVertex2f(0,10);
 		glEnd();
 		glDisable( GL_TEXTURE_2D );
 		glDisable( GL_BLEND );
