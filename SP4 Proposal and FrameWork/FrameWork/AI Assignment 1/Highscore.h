@@ -56,7 +56,7 @@ public:
 		ofstream outData;
 		outData.open(FileName.c_str());
 
-		for (int i = 0; i < HighScoreList.size(); i++)
+		for (int unsigned i = 0; i < HighScoreList.size(); i++)
 		{
 			outData << HighScoreList[i].User.c_str() << endl;
 			outData << HighScoreList[i].HighScore << endl;

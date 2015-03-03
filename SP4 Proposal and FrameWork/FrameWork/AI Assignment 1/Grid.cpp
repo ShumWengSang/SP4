@@ -131,7 +131,7 @@ int Grid::getZ()
 }
 
 EntityType Grid::getObjectType(void) {
-	return EntityType::GRID;
+	return GRID;
 }
 
 bool Grid::glRenderObject()

@@ -130,7 +130,7 @@ bool CStalls::glRenderObject() {
 }
 
 EntityType CStalls::getObjectType(void) {
-	return EntityType::STALLS;
+	return STALLS;
 }
 
 Vector3 CStalls::getPosition(void) {

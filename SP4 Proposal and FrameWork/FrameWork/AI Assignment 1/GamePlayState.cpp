@@ -12,7 +12,8 @@ void CGamePlayState::LoadTextures()
 	
 
 	//Textures
-	for (int i = 0; i < 7; i++)
+	button[0].texID = theInstance->GetNumber(29);
+	for (int i = 1; i < 7; i++)
 	{
 		button[i].texID = theInstance->GetNumber(i + 22);
 	}
@@ -39,7 +40,7 @@ void CGamePlayState::LoadTextures()
 	//CApplication::getInstance()->LoadTGA(&theImg, "images/Gress_Texture.tga");
 	//Tiles::TexID = theImg.texID;
 
-	buyingButton[0].texID = theInstance->GetNumber(29);
+	buyingButton[0].texID = theInstance->GetNumber(37);
 	for (int i = 0; i < 3; i++)
 	{
 		buyingButton[i + 1].texID = theInstance->GetNumber(i + 10);
@@ -164,9 +165,9 @@ void CGamePlayState::Init()
 	theListofEntities.push_back(CPlayState::Instance()->theStall[2]);
 	theListofEntities.push_back(theGrid);
 
-	CPlayState::Instance()->theStall[0]->setColour2(Vector3(1,1,1));
-	CPlayState::Instance()->theStall[1]->setColour2(Vector3(1,1,1));
-	CPlayState::Instance()->theStall[2]->setColour2(Vector3(1,1,1));
+	CPlayState::Instance()->theStall[0]->setColour2(Vector3(0.5,0.5,1)); //B
+	CPlayState::Instance()->theStall[1]->setColour2(Vector3(1,0.5,0.5)); //R
+	CPlayState::Instance()->theStall[2]->setColour2(Vector3(0.5,1,0.5)); //G
 }
 
 void CGamePlayState::SeedHaze()

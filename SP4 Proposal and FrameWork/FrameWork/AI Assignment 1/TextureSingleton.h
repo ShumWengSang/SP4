@@ -25,7 +25,7 @@ public:
 
 	std::vector<int> TextureInts;
 
-	int GetNumber(int number)
+	int GetNumber(unsigned int number)
 	{
 		if (number <= TextureInts.size())
 			return TextureInts[number];

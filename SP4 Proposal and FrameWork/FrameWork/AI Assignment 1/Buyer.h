@@ -64,7 +64,7 @@ public:
 	std::vector<Vector3*> TargettoWalk;
 	std::vector<CStalls*> StorePriorities;
 
-	int StorePriority;
+	unsigned int StorePriority;
 
 	bool WillBuyMask(int Price);
 	float GetFactors(int Price, int Distance, int Haze);

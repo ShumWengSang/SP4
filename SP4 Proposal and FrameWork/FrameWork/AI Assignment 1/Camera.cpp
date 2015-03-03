@@ -62,7 +62,7 @@ void Camera::Walk(GLfloat delta)
 		delta = MAXSPEED_MOVE;
 	if (delta < -MAXSPEED_MOVE)
 		delta = -MAXSPEED_MOVE;
-	if(CameraType == CAM_TYPE::LAND_CAM) {
+	if(CameraType == LAND_CAM) {
 		//Position.Set( Position.x + Forward.x * delta, Position.y + Forward.y * delta, Position.z + Forward.z * delta );
 		camPoint.Set( camPoint.x + camDir.x * delta, camPoint.y + camDir.y * delta, camPoint.z + camDir.z * delta );
 	}else{
