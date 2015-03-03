@@ -74,6 +74,7 @@ void CBuyMaskState::Init()
 	font_style = GLUT_BITMAP_HELVETICA_18;
 	se = createIrrKlangDevice();
 
+	r = 0.0f, g = 0.0f, b = 0.0f;
 
 	if (CLoadState::Instance()->getLoaded())
 	{
@@ -218,6 +219,13 @@ void CBuyMaskState::DrawBackground()
 	glPopMatrix();
 }
 
+void CBuyMaskState::ChangeColor()
+{
+	r = (rand()/((float)RAND_MAX)) - 0.2f;
+	g = (rand()/((float)RAND_MAX)) - 0.5f;
+	b = rand()/((float)RAND_MAX);
+}
+
 //Inputs
 void CBuyMaskState::MouseMove (int x, int y) {
 	CInputSystem::getInstance()->mouseInfo.lastX = x;
@@ -254,6 +262,7 @@ void CBuyMaskState::MouseClick(int button, int state, int x, int y) {
 
 				if(theButton[bFifty]->isInside(x, y))
 				{
+					ChangeColor();
 					if(CPlayState::Instance()->theMoney.getCurrentMoney() < 250)
 						needMoney = true;
 					else{
@@ -269,6 +278,8 @@ void CBuyMaskState::MouseClick(int button, int state, int x, int y) {
 
 				if(theButton[bHundred]->isInside(x, y))
 				{
+					ChangeColor();
+
 					if(CPlayState::Instance()->theMoney.getCurrentMoney() < 450)
 						needMoney = true;
 					else{
@@ -284,6 +295,7 @@ void CBuyMaskState::MouseClick(int button, int state, int x, int y) {
 
 				if(theButton[bTwohundred]->isInside(x, y))
 				{
+					ChangeColor();
 					if(CPlayState::Instance()->theMoney.getCurrentMoney() < 850)
 						needMoney = true;
 					else{
@@ -328,10 +340,10 @@ void CBuyMaskState::drawInfo()
 				printw ((SCREEN_WIDTH/2)-100, SCREEN_HEIGHT/2 + 130, 0, "You need more money!!!");
 			}
 
-			glColor3f( 0.5f, 0.0f, 0.5f);
+			glColor3f( 0.0f, g, b);
 			printw (SCREEN_WIDTH/2-50, 180, 0, "Mask in Stock: %d", CPlayState::Instance()->maskInStock);
 
-			glColor3f( 0.5f, 0.0f, 0.8f);
+			glColor3f( r, 0.0f, b);
 			printw (SCREEN_WIDTH-150, 180, 0, "Money: $%d", CPlayState::Instance()->theMoney.getCurrentMoney());
 
 			glColor3f( 0.0f, 0.0f, 0.0f);

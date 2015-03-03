@@ -97,6 +97,10 @@ void CStartOfDayState::Init()
 	mouseOverReset = false;
 	mouseOverBack = false;
 
+	r = 0, g = 0, b = 0;
+	r2 = 0, g2 = 0, b2 = 0;
+	r3 = 0, g3 = 0, b3 = 0;
+
 	font_style = GLUT_BITMAP_HELVETICA_18;
 	//Input System
 	CInputSystem::getInstance()->OrientCam = true;
@@ -213,6 +217,28 @@ void CStartOfDayState::DrawBackground()
 	glPopMatrix();
 }
 
+void CStartOfDayState::ChangeColor()
+{
+	if(CPlayState::Instance()->theStall[0]->Selected)
+	{
+		r = (rand()/((float)RAND_MAX)) - 0.2f;
+		g = (rand()/((float)RAND_MAX)) - 0.5f;
+		b = rand()/((float)RAND_MAX);
+	}
+	if(CPlayState::Instance()->theStall[1]->Selected)
+	{
+		r2 = (rand()/((float)RAND_MAX)) - 0.2f;
+		g2 = (rand()/((float)RAND_MAX)) - 0.5f;
+		b2 = rand()/((float)RAND_MAX);
+	}
+	if(CPlayState::Instance()->theStall[2]->Selected)
+	{
+		r3 = (rand()/((float)RAND_MAX)) - 0.2f;
+		g3 = (rand()/((float)RAND_MAX)) - 0.5f;
+		b3 = rand()/((float)RAND_MAX);
+	}
+}
+
 void CStartOfDayState::keyboardUpdate()
 {
 	if(CInputSystem::getInstance()->myKeys['s'])
@@ -265,12 +291,15 @@ void CStartOfDayState::MouseClick(int button, int state, int x, int y) {
 				if(theButton[reset]->isInside(x, y))
 				{
 					CPlayState::Instance()->maskInStock = CPlayState::Instance()->oldMaskValue;
-					CPlayState::Instance()->theStall[0]->setMaskNo(0);
-					CPlayState::Instance()->theStall[1]->setMaskNo(0);
-					CPlayState::Instance()->theStall[2]->setMaskNo(0);
-					CPlayState::Instance()->theStall[0]->setMaskPrice(0);
-					CPlayState::Instance()->theStall[1]->setMaskPrice(0);
-					CPlayState::Instance()->theStall[2]->setMaskPrice(0);
+					for(int i = 0; i <3; i++)
+					{
+						CPlayState::Instance()->theStall[i]->setMaskNo(0);
+						CPlayState::Instance()->theStall[i]->setMaskPrice(0);
+						CPlayState::Instance()->theStall[i]->Selected = false;
+					}
+					r = 0, g = 0, b = 0;
+					r2 = 0, g2 = 0, b2 = 0;
+					r3 = 0, g3 = 0, b3 = 0;
 				}
 
 				if(theButton[sShop1]->isInside(x, y))
@@ -295,6 +324,7 @@ void CStartOfDayState::MouseClick(int button, int state, int x, int y) {
 				//No. of mask setting
 				if(theButton[fifty]->isInside(x, y))
 				{
+					ChangeColor();
 					if(!(CPlayState::Instance()->maskInStock < 50))
 					{
 						if(CPlayState::Instance()->theStall[0]->Selected)
@@ -316,6 +346,7 @@ void CStartOfDayState::MouseClick(int button, int state, int x, int y) {
 				}
 				if(theButton[hundred]->isInside(x, y))
 				{
+					ChangeColor();
 					if(!(CPlayState::Instance()->maskInStock < 100))
 					{
 						if(CPlayState::Instance()->theStall[0]->Selected)
@@ -337,6 +368,7 @@ void CStartOfDayState::MouseClick(int button, int state, int x, int y) {
 				}
 				if(theButton[twohundred]->isInside(x, y))
 				{
+					ChangeColor();
 					if(!(CPlayState::Instance()->maskInStock < 200))
 					{
 						if(CPlayState::Instance()->theStall[0]->Selected)
@@ -360,15 +392,22 @@ void CStartOfDayState::MouseClick(int button, int state, int x, int y) {
 				//Price setting
 				if(theButton[ten]->isInside(x, y))
 				{
+					ChangeColor();
 					if(CPlayState::Instance()->theStall[0]->Selected)
+					{
 						CPlayState::Instance()->theStall[0]->setMaskPrice(10);
+						ChangeColor();
+					}
 					else if(CPlayState::Instance()->theStall[1]->Selected)
+					{
 						CPlayState::Instance()->theStall[1]->setMaskPrice(10);
+					}
 					else if(CPlayState::Instance()->theStall[2]->Selected)
 						CPlayState::Instance()->theStall[2]->setMaskPrice(10);
 				}
 				if(theButton[twelve]->isInside(x, y))
 				{
+					ChangeColor();
 					if(CPlayState::Instance()->theStall[0]->Selected)
 						CPlayState::Instance()->theStall[0]->setMaskPrice(12);
 					else if(CPlayState::Instance()->theStall[1]->Selected)
@@ -378,6 +417,7 @@ void CStartOfDayState::MouseClick(int button, int state, int x, int y) {
 				}
 				if(theButton[fifteen]->isInside(x, y))
 				{
+					ChangeColor();
 					if(CPlayState::Instance()->theStall[0]->Selected)
 						CPlayState::Instance()->theStall[0]->setMaskPrice(15);
 					else if(CPlayState::Instance()->theStall[1]->Selected)
@@ -411,17 +451,22 @@ void CStartOfDayState::drawInfo()
 			printw (150, 70, 0, "Click the shops and decide the number of mask and price for sell.");
 			glColor3f( 0.0f, 0.0f, 0.0f);
 			printw (100, 120, 0, "SHOP1");
+			printw (350, 120, 0, "SHOP2");
+			printw (600, 120, 0, "SHOP3");
+
+			glColor3f( r, 0.0f, b);
 			printw (50.0, 250.0, 0, "Number of mask for sell: %d", CPlayState::Instance()->theStall[0]->getMaskNo());
 			printw (50.0, 270.0, 0, "Each price for sell: %d", CPlayState::Instance()->theStall[0]->getMaskPrice());
 
-			printw (350, 120, 0, "SHOP2");
+			glColor3f( r2, g2, b2);
 			printw (300.0, 250.0, 0, "Number of mask for sell: %d", CPlayState::Instance()->theStall[1]->getMaskNo());
 			printw (300.0, 270.0, 0, "Each price for sell: %d", CPlayState::Instance()->theStall[1]->getMaskPrice());
 
-			printw (600, 120, 0, "SHOP3");
+			glColor3f( r3, g3, b3);
 			printw (550.0, 250.0, 0, "Number of mask for sell: %d", CPlayState::Instance()->theStall[2]->getMaskNo());
 			printw (550.0, 270.0, 0, "Each price for sell: %d", CPlayState::Instance()->theStall[2]->getMaskPrice());
 
+			glColor3f( 0.0f, 0.0f, 0.0f);
 			if(mouseOverReset)
 				printw (static_cast<float>(theButton[reset]->getButtonX()),static_cast<float>(theButton[reset]->getButtonY()) , 0, "Reset");
 			if(mouseOverBack)
@@ -430,7 +475,7 @@ void CStartOfDayState::drawInfo()
 			printw (50, 350, 0, "Number of mask for sell");
 			printw (SCREEN_WIDTH/2 + 80, 350, 0, "Price of each mask for sell");
 
-			glColor3f( 1.0f, 0.7f, 0.2f);
+			glColor3f( 1.0f, 0.5f, 0.2f);
 			printw (50, SCREEN_HEIGHT/2 + 180, 0, "Weather Forecast: %d - %d - %d", 50*(CPlayState::Instance()->forecasting->getCurrentDayRange()-1)+1 , (CPlayState::Instance()->forecasting->getCurrentForecast()), 50*(CPlayState::Instance()->forecasting->getCurrentDayRange()) );
 			
 			glColor3f( 0.5f, 0.0f, 0.5f);

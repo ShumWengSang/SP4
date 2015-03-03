@@ -32,6 +32,8 @@ private:
 	TextureImage background[3];
 
 	bool needMoney;
+
+	float r, g, b;
 public:
 
 	void Init();
@@ -48,8 +50,8 @@ public:
 	void LoadButtons();
 	void DrawButtons();
 	void DrawBackground();
-
 	void drawInfo();
+	void ChangeColor();
 
 	//Inputs
 	void MouseMove (int x, int y);

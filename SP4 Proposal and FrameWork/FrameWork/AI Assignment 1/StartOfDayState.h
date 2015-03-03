@@ -42,6 +42,10 @@ private:
 	bool mouseOverReset;
 	bool mouseOverBack;
 
+	float r, g, b;
+	float r2, g2, b2;
+	float r3, g3, b3;
+
 public:
 	void Init();
 	void Cleanup();
@@ -59,6 +63,7 @@ public:
 	void keyboardUpdate(void);
 	void mouseClick(void);
 	void drawInfo();
+	void ChangeColor();
 
 	//Inputs
 	void MouseMove (int x, int y);
