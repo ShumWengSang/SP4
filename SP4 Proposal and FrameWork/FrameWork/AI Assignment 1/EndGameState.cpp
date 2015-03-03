@@ -52,6 +52,7 @@ void EndGameState::DrawBackground()
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glColor4f(1,1,1,alpha);
+		cout << "alpha\t" << alpha << endl;
 		glEnable(GL_TEXTURE_2D);
 		if(result == true)
 		{
@@ -78,10 +79,17 @@ void EndGameState::DrawHighscore()
 {
 	for (auto i = highscore.HighScoreList.begin(); i != highscore.HighScoreList.end(); i++)
 	{
-		cout << "\nUsername:\t" << (*i).User << "\tHighScore:\t" << (*i).HighScore << endl;
 		glPushMatrix();
 			glColor3f(1,1,1);
-			printw (50, 20+(i - highscore.HighScoreList.begin())*20, 0, "\nUsername:\t%s\tHighScore:\t%i", (*i).User.c_str(), (*i).HighScore);
+			printw (50, SCREEN_HEIGHT/2+(i - highscore.HighScoreList.begin())*20, 0, "\nUsername:\t%s\tHighScore:\t%i", (*i).User.c_str(), (*i).HighScore);
+		glPopMatrix();
+	}
+
+	if(KeyInHighscore)
+	{
+		glPushMatrix();
+			glColor3f(1,1,1);
+			printw (80, SCREEN_HEIGHT/3, 0, "\nUsername:\t%s\tHighScore:\t%i", input.c_str(), profit);
 		glPopMatrix();
 	}
 }
@@ -90,24 +98,21 @@ void EndGameState::Init()
 {
 	LoadTextures();
 	profitLoss = new WinLose();
-	profit = money - WinMoneyCondition;
+	profit = money - StartMoney;
 	font_style = GLUT_BITMAP_HELVETICA_18;
 
 	//Audio Player
 	sound = AudioPlayer::Instance();
 	outcome();
 	sound->playSoundThreaded();
-	time = 0.0f;
-	alpha = 1.0f;
-	fadein = true;
+	alpha = 0.0f;
+	KeyInHighscore = false;
+	drawHighscore = false;
+	doneInput = false;
 	
-	/*string temp = "Anon1";
-	highscore.InsertHighScore(10,temp);
-	string temp = "Anon2";
-	highscore.InsertHighScore(20,temp);
-	temp = "Anon3";
-	highscore.InsertHighScore(30,temp);*/
-	highscore.SaveHighScore();
+	Speed = 2;
+	Dir = 1;
+	input = "PLAYER";
 }
 
 void EndGameState::Pause()
@@ -127,31 +132,50 @@ void EndGameState::HandleEvents(CGameStateManager * GSM)
 
 void EndGameState::Update(CGameStateManager * GSM)
 {
-	if(fadein){
-		if(alpha < 1){
-			time+=0.1;
-			alpha = pow(time,2);
-		}else{
-			alpha = 1;
-			time = 0;
-			fadein = false;
-		}
-	}else{
-		if(alpha > 0 && time > 0){
-			time+=0.01;
-			alpha = 1-pow(time,2);
-		}else{
-			alpha = 0;
-			time = -1;
-		}
+	//Esc Key
+	if(CInputSystem::getInstance()->myKeys[VK_ESCAPE]) 
+		exit(0);
+
+	alpha += Speed * Dir * CTimer::getInstance()->getDelta();
+	if(alpha > 1)
+	{
+		alpha = 1;
+		Dir *= -1;
 	}
+	else if(alpha < 0)
+	{
+		alpha = 0;
+		Dir *= 0;
+	}
+
+	//Input mode
+	if(Dir == 0)
+	{
+		if(!doneInput) {
+			for (auto i = highscore.HighScoreList.begin(); i != highscore.HighScoreList.end(); i++)
+			{
+				if(profit >= (*i).HighScore) {
+					KeyInHighscore = true;
+					break;
+				}
+			}
+		}
+		drawHighscore = true;
+	}
+
+	if(KeyInHighscore){
+		if(!doneInput)
+			InputUsername();
+	}
+
 }
 
 void EndGameState::Draw(CGameStateManager * GSM)
 {
 		Camera::getInstance()->SetHUD(true);
 			DrawBackground();
-			DrawHighscore();
+			if(drawHighscore)
+				DrawHighscore();
 		Camera::getInstance()->SetHUD(false);
 }
 
@@ -206,11 +230,28 @@ void EndGameState::printw (float x, float y, float z, char* format, ...)
 
 void EndGameState::InputUsername()
 {
-
+	if(CInputSystem::getInstance()->myKeys[VK_BACK] && input.size() > 0) {
+		input.pop_back();
+		CInputSystem::getInstance()->myKeys[VK_BACK] = false;
+	}
+	if(CInputSystem::getInstance()->myKeys[VK_RETURN] && input.size() > 0){
+		SetHighscore(input);
+		KeyInHighscore = false;
+		doneInput = true;
+		CInputSystem::getInstance()->myKeys[VK_RETURN] = false;
+	}
+	for(int i = 32; i < 127; i++)
+	{
+		if(CInputSystem::getInstance()->myKeys[i] && input.size() < 25) {
+			input.push_back(i);
+			CInputSystem::getInstance()->myKeys[i] = false;
+		}
+	}
 }
 
 void EndGameState::SetHighscore(string username)
 {
-
+	highscore.InsertHighScore(profit,input);
+	highscore.SaveHighScore();
 }
 

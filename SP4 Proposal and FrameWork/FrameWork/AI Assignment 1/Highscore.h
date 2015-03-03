@@ -66,7 +66,7 @@ public:
 
 	void InsertHighScore(int newScore, string &user)
 	{
-		if(HighScoreList.size() > 0)//HighScoreList.capacity()
+		if(HighScoreList.size() > 0)
 		{
 			for (auto i = HighScoreList.begin(); i != HighScoreList.end(); i++)
 			{

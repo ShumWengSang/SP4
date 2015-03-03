@@ -244,7 +244,7 @@ void CEndOfDayState::MouseClick(int button, int state, int x, int y) {
 					if(CPlayState::Instance()->day <= 7)
 						CInGameStateManager::getInstance()->ChangeState(CBuyMaskState::Instance());
 					else {
-						CPlayState::Instance()->theMoney.setCurrentMoney(CPlayState::Instance()->newMoneyValue);
+						EndGameState::Instance()->SetMoney(CPlayState::Instance()->newMoneyValue);
 						CGameStateManager::getInstance()->ChangeState(EndGameState::Instance());
 					}
 					
