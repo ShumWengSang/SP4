@@ -7,6 +7,7 @@ enum GameStateID
 	StartofDayState,
 	PlayGameState,
 	EndofDayState,
+	TutorialState
 };
 
 class CInGameState

@@ -1,6 +1,7 @@
 #include "PlayState.h"
 #include "StartOfDayState.h"
 #include "BuyMaskState.h"
+#include "TutorialState.h"
 
 CPlayState CPlayState::thePlayState;
 
@@ -39,7 +40,7 @@ void CPlayState::Init()
 	//Game State Manager
 	IGSM = CInGameStateManager::getInstance();
 	IGSM->Init("In Game State Manager");
-	IGSM->ChangeState(CBuyMaskState::Instance());
+	IGSM->ChangeState(CTutorialState::Instance());
 
 	theHaze.GetHazeAvg();
 }
