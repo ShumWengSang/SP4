@@ -1,16 +1,21 @@
 #include "SaveState.h"
 #include "PlayState.h"
 #include "EndOfDayState.h"
-
+#include "TextureSingleton.h"
 CSaveState CSaveState::theSaveState;
 
 
 void CSaveState::LoadTextures()
 {
 	//Textures
-	CApplication::getInstance()->LoadTGA(&background[0],"images/background.tga");
-	CApplication::getInstance()->LoadTGA(&button[0],"images/buyMaskState/box.tga");
-	CApplication::getInstance()->LoadTGA(&button[1],"images/startState/back.tga");
+	TextureSingleton * theInstance = TextureSingleton::getInstance();
+	background[0].texID = theInstance->GetNumber(6);
+	button[0].texID = theInstance->GetNumber(13);
+	button[1].texID = theInstance->GetNumber(21);
+
+	//CApplication::getInstance()->LoadTGA(&background[0],"images/background.tga");
+	//CApplication::getInstance()->LoadTGA(&button[0],"images/buyMaskState/box.tga");
+	//CApplication::getInstance()->LoadTGA(&button[1],"images/startState/back.tga");
 }
 void CSaveState::LoadButtons()
 {

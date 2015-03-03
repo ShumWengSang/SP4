@@ -13,9 +13,9 @@ void CGamePlayState::LoadTextures()
 
 	//Textures
 	button[0].texID = theInstance->GetNumber(29);
-	for (int i = 1; i < 7; i++)
+	for (int i = 0; i < 6; i++)
 	{
-		button[i].texID = theInstance->GetNumber(i + 22);
+		button[i + 1].texID = theInstance->GetNumber(i + 23);
 	}
 	//CApplication::getInstance()->LoadTGA(&button[0], "images/playState/pause.tga");
 	//CApplication::getInstance()->LoadTGA(&button[1], "images/playState/shop.tga");
@@ -221,10 +221,8 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 		Camera::getInstance()->newUpdate();
 	else
 	{
-		//theMAnimation.setPos(CPlayState::Instance()->theStall[0]->getPosition());
 		theMAnimation.Update();
 		theMAnimation.setAnimationCounter(theMAnimation.getAnimationCounter() + 2);
-		//theMAnimation.setFly();
 		if(theMAnimation.getPosY() >= 5)
 			theMAnimation.active = false;
 

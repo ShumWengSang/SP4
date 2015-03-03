@@ -3,18 +3,32 @@
 #include "StartOfDayState.h"
 #include "LoadState.h"
 #include "EndOfDayState.h"
+#include "TextureSingleton.h"
 
 CBuyMaskState * CBuyMaskState::theBuyMaskState = NULL;
 
 void CBuyMaskState::LoadTextures()
 {
-	CApplication::getInstance()->LoadTGA(&background[0],"images/background.tga");
+	TextureSingleton * theInstance = TextureSingleton::getInstance();
+	
+	for (int i = 0; i < 3; i++)
+	{
+		background[i].texID = theInstance->GetNumber(i + 6);
+	}
+
+	button[0].texID = theInstance->GetNumber(9);
+	for (int i = 0; i < 3; i++)
+	{
+		button[i + 1].texID = theInstance->GetNumber(i + 15);
+	}
+
+	/*CApplication::getInstance()->LoadTGA(&background[0],"images/background.tga");
 	CApplication::getInstance()->LoadTGA(&background[1],"images/buyMaskState/box.tga");
 	CApplication::getInstance()->LoadTGA(&background[2],"images/buyMaskState/box2.tga");
 	CApplication::getInstance()->LoadTGA(&button[0],"images/buyMaskState/next.tga");
 	CApplication::getInstance()->LoadTGA(&button[1],"images/buyMaskState/50.tga");
 	CApplication::getInstance()->LoadTGA(&button[2],"images/buyMaskState/100.tga");
-	CApplication::getInstance()->LoadTGA(&button[3],"images/buyMaskState/200.tga");
+	CApplication::getInstance()->LoadTGA(&button[3],"images/buyMaskState/200.tga");*/
 }
 
 void CBuyMaskState::LoadButtons()
