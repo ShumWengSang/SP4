@@ -253,7 +253,7 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 		CPlayState::Instance()->earned2 = CPlayState::Instance()->theStall[1]->getTotalMaskSold() * CPlayState::Instance()->theStall[1]->getMaskPrice();
 		CPlayState::Instance()->earned3 = CPlayState::Instance()->theStall[2]->getTotalMaskSold() * CPlayState::Instance()->theStall[2]->getMaskPrice();
 		int totalEarn = CPlayState::Instance()->earned + CPlayState::Instance()->earned2 + CPlayState::Instance()->earned3;
-		CPlayState::Instance()->theMoney.setCurrentMoney(totalEarn + CPlayState::Instance()->theMoney.getCurrentMoney() );
+		CPlayState::Instance()->theMoney.setCurrentMoney(CPlayState::Instance()->theMoney.getCurrentMoney() );
 	}
 }
 
@@ -617,7 +617,8 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 								if(CPlayState::Instance()->theMoney.getCurrentMoney() >= 300)
 								{
 									CPlayState::Instance()->theMoney.setCurrentMoney(CPlayState::Instance()->theMoney.getCurrentMoney() - 300);
-
+									CPlayState::Instance()->maskInStock += 50;
+									
 									if(CPlayState::Instance()->shop1selected)
 										CPlayState::Instance()->theStall[0]->setMaskNo(CPlayState::Instance()->theStall[0]->getMaskNo() + 50);
 									if(CPlayState::Instance()->shop2selected)
@@ -632,6 +633,7 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 								if(CPlayState::Instance()->theMoney.getCurrentMoney() >= 550)
 								{
 									CPlayState::Instance()->theMoney.setCurrentMoney(CPlayState::Instance()->theMoney.getCurrentMoney() - 550);
+									CPlayState::Instance()->maskInStock += 100;
 
 									if(CPlayState::Instance()->shop1selected)
 										CPlayState::Instance()->theStall[0]->setMaskNo(CPlayState::Instance()->theStall[0]->getMaskNo() + 100);
@@ -646,6 +648,7 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 								if(CPlayState::Instance()->theMoney.getCurrentMoney() >= 1050)
 								{
 									CPlayState::Instance()->theMoney.setCurrentMoney(CPlayState::Instance()->theMoney.getCurrentMoney() - 1050);
+									CPlayState::Instance()->maskInStock += 200;
 
 									if(CPlayState::Instance()->shop1selected)
 										CPlayState::Instance()->theStall[0]->setMaskNo(CPlayState::Instance()->theStall[0]->getMaskNo() + 200);
