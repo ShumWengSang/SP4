@@ -101,6 +101,9 @@ public:
 		//START OF DAY 47 - 48
 		LoadTexture("images/startState/yes.tga");
 		LoadTexture("images/startState/no.tga");
+
+		//Tutorial State 49
+		LoadTexture("images/Newspaper.tga");
 	}
 	int LoadTexture(std::string filename)
 	{

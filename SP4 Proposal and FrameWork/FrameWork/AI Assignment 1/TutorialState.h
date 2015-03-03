@@ -18,6 +18,7 @@ class CInputSystem;
 class CTutorialState: public CInGameState
 {
 	TextureImage background[3];
+
 public:
 
 	CTutorialState(void);
@@ -35,6 +36,7 @@ public:
 	void keyboardUpdate(void);
 	void LoadTextures();
 	void DrawBackground();
+	void DrawNewsPaper();
 
 	//Inputs
 	void MouseMove (int x, int y){};
@@ -58,4 +60,6 @@ public:
 
 private:
 	static CTutorialState * theTutorState;
+	int rotate;
+	int speed;
 };
