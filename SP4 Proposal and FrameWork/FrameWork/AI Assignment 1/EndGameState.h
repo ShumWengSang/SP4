@@ -19,10 +19,34 @@ protected:
 
 private:
 	bool result;
-
-public:
 	EndGameState(void);
 	~EndGameState(void);
+	static EndGameState * singleton;
+
+public:
+	static EndGameState * Instance()
+	{
+		if (singleton == NULL)
+			singleton = new EndGameState;
+		return singleton;
+	}
+
+	void Drop();
+	
+	void Init();
+	void Cleanup(){Drop();}
+
+	void Pause();
+	void Resume();
+
+	void HandleEvents(CGameStateManager * GSM);
+	void Update(CGameStateManager * GSM);
+	void Draw(CGameStateManager * GSM);
+
+	//Inputs
+	void MouseMove (int x, int y);
+	void MouseClick(int button, int state, int x, int y);
+	void MouseWheel(int button, int dir, int x, int y);
 
 	void LoadTextures();
 	void DrawBackground();
@@ -31,7 +55,6 @@ public:
 	WinLose *profitLoss;
 
 private:
-	CInputSystem* InputSystem;
 	AudioPlayer * sound;
 	ISoundEngine *se;
 

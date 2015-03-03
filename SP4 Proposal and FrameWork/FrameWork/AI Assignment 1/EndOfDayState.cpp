@@ -16,7 +16,7 @@ void CEndOfDayState::LoadTextures()
 	button[1].texID = theInstance->GetNumber(9);
 	for (int i = 2; i < 5; i++)
 	{
-		button[i].texID = theInstance->GetNumber(i + 23);
+		button[i].texID = theInstance->GetNumber(i + 23-2);
 	}
 
 	//CApplication::getInstance()->LoadTGA(&background[0],"images/endState/background.tga");
@@ -241,7 +241,10 @@ void CEndOfDayState::MouseClick(int button, int state, int x, int y) {
 					CPlayState::Instance()->firstDay = false;
 					CPlayState::Instance()->maskInStock = CPlayState::Instance()->maskLeft;
 					CPlayState::Instance()->resetValues();
-					CInGameStateManager::getInstance()->ChangeState(CBuyMaskState::Instance());
+					if(CPlayState::Instance()->day <= 7)
+						CInGameStateManager::getInstance()->ChangeState(CBuyMaskState::Instance());
+					else
+						CGameStateManager::getInstance()->ChangeState(EndGameState::Instance());
 					
 				}
 			}

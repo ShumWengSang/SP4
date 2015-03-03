@@ -164,6 +164,10 @@ void CGamePlayState::Init()
 	theListofEntities.push_back(CPlayState::Instance()->theStall[1]);
 	theListofEntities.push_back(CPlayState::Instance()->theStall[2]);
 	theListofEntities.push_back(theGrid);
+	
+	CPlayState::Instance()->theStall[0]->Selected = false;
+	CPlayState::Instance()->theStall[1]->Selected = false;
+	CPlayState::Instance()->theStall[2]->Selected = false;
 
 	CPlayState::Instance()->theStall[0]->setColour2(Vector3(1,1,1));
 	CPlayState::Instance()->theStall[1]->setColour2(Vector3(1,1,1));
@@ -232,7 +236,8 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 		if (theTimerInstance->executeTime(TimerKeySeed))
 		{
 			HourNumber++;
-			SeedHaze();
+			if(HourNumber != DayTime)
+				SeedHaze();
 		}
 
 		//if (theTimerInstance->executeTime(TimerKeyDay))
