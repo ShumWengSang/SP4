@@ -1,5 +1,5 @@
 #include "helpState.h"
-
+#include "TextureSingleton.h"
 helpState helpState::theHelpState;
 
 
@@ -12,10 +12,17 @@ helpState::~helpState(void)
 
 void helpState::LoadTextures()
 {
-	CApplication::getInstance()->LoadTGA(&button[0],"images/startState/back.tga"); // Back Button
-	CApplication::getInstance()->LoadTGA(&button[1],"images/volDown.tga"); // Vol up Button 
-	CApplication::getInstance()->LoadTGA(&button[2],"images/volUp.tga"); // Vol down Button
-	CApplication::getInstance()->LoadTGA(&background[0],"images/description.tga"); //help state Background image
+	TextureSingleton * theInstance = TextureSingleton::getInstance();
+	
+	background[0].texID = theInstance->GetNumber(46);
+	button[0].texID = theInstance->GetNumber(43);
+	button[1].texID = theInstance->GetNumber(44);
+	button[2].texID = theInstance->GetNumber(45);
+
+	//CApplication::getInstance()->LoadTGA(&button[0],"images/startState/back.tga"); // Back Button
+	//CApplication::getInstance()->LoadTGA(&button[1],"images/volDown.tga"); // Vol up Button 
+	//CApplication::getInstance()->LoadTGA(&button[2],"images/volUp.tga"); // Vol down Button
+	//CApplication::getInstance()->LoadTGA(&background[0],"images/description.tga"); //help state Background image
 
 }
 

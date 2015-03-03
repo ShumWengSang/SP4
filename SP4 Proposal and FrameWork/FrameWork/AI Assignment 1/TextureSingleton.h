@@ -93,9 +93,9 @@ public:
 		LoadTexture("images/playState/money.tga");
 
 		//help state 43 - 46
-		LoadTexture("images/.tga"); // Vol up Button 
-		LoadTexture("images/.tga"); // Vol down Button
-		LoadTexture("images/.tga"); // Information Button
+		LoadTexture("images/startState/back.tga"); // Back Button
+		LoadTexture("images/volDown.tga"); // Vol up Button 
+		LoadTexture("images/volUp.tga"); // Vol down Button
 		LoadTexture("images/description.tga"); //help state Background image
 
 
