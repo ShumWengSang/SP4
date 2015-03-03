@@ -244,7 +244,7 @@ void CEndOfDayState::MouseClick(int button, int state, int x, int y) {
 					if(CPlayState::Instance()->day <= 7)
 						CInGameStateManager::getInstance()->ChangeState(CBuyMaskState::Instance());
 					else {
-						EndGameState::Instance()->SetMoney(CPlayState::Instance()->newMoneyValue);
+						CPlayState::Instance()->theMoney.setCurrentMoney(CPlayState::Instance()->newMoneyValue);
 						CGameStateManager::getInstance()->ChangeState(EndGameState::Instance());
 					}
 					
@@ -286,7 +286,7 @@ void CEndOfDayState::drawInfo()
 			printw (600, 230, 0, "Money Earned: $%d", CPlayState::Instance()->earned3);
 
 			int totalEarn = CPlayState::Instance()->earned + CPlayState::Instance()->earned2 + CPlayState::Instance()->earned3;
-			printw ((SCREEN_WIDTH/2)-150, SCREEN_HEIGHT/2 + 50, 0, "Total Money Earned Today: $%d", totalEarn);
+			printw ((SCREEN_WIDTH/2)-150, SCREEN_HEIGHT/2 + 50, 0, "Total Money Earned Today: $%d", totalEarn); //
 
 			if(mouseOverNext && CPlayState::Instance()->day < 7)
 				printw ( static_cast<float>(theButton[eNext]->getButtonX()+50), static_cast<float>(theButton[eNext]->getButtonY()-3), 0, "Start next day");
@@ -297,8 +297,8 @@ void CEndOfDayState::drawInfo()
 			printw ((SCREEN_WIDTH / 2) - 200, SCREEN_HEIGHT/2 + 150, 0, "Mask Left: %d", CPlayState::Instance()->maskLeft);
 
 			glColor3f( 0.5f, 0.0f, 0.8f);
-			CPlayState::Instance()->newMoneyValue = CPlayState::Instance()->theMoney.getCurrentMoney();
-			printw ((SCREEN_WIDTH/2)+50, SCREEN_HEIGHT/2 + 150, 0, "Total Money: $%d", CPlayState::Instance()->newMoneyValue);
+			CPlayState::Instance()->newMoneyValue = CPlayState::Instance()->theMoney.getCurrentMoney() + totalEarn;
+			printw ((SCREEN_WIDTH/2)+50, SCREEN_HEIGHT/2 + 150, 0, "Total Money: $%d", CPlayState::Instance()->newMoneyValue); //
 		glPopAttrib();
 	glPopMatrix();
 }

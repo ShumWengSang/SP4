@@ -248,18 +248,12 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 			//HourNumber = 0;
 			CInGameStateManager::getInstance()->ChangeState(CEndOfDayState::Instance());
 		}
-		//if(theMAnimation.active == true)
-		//{
-		//	theMAnimation.Update();
-		//	theMAnimation.setPos(Vector3(0,0,0));
-		//	theMAnimation.setAnimationCounter(theMAnimation.getAnimationCounter() + 2);
-		//}
 
 		CPlayState::Instance()->earned = CPlayState::Instance()->theStall[0]->getTotalMaskSold() * CPlayState::Instance()->theStall[0]->getMaskPrice();
 		CPlayState::Instance()->earned2 = CPlayState::Instance()->theStall[1]->getTotalMaskSold() * CPlayState::Instance()->theStall[1]->getMaskPrice();
 		CPlayState::Instance()->earned3 = CPlayState::Instance()->theStall[2]->getTotalMaskSold() * CPlayState::Instance()->theStall[2]->getMaskPrice();
 		int totalEarn = CPlayState::Instance()->earned + CPlayState::Instance()->earned2 + CPlayState::Instance()->earned3;
-		CPlayState::Instance()->theMoney.setCurrentMoney(totalEarn + CPlayState::Instance()->moneyAfterBuy);
+		CPlayState::Instance()->theMoney.setCurrentMoney(CPlayState::Instance()->theMoney.getCurrentMoney() );
 	}
 }
 
@@ -319,12 +313,8 @@ void CGamePlayState::Draw(CInGameStateManager* theGSM)
 		theGrid->GetTile(CPlayState::Instance()->theStall[0]->getPosition())->ShopOnTop = CPlayState::Instance()->theStall[0];
 		theGrid->GetTile(CPlayState::Instance()->theStall[1]->getPosition())->ShopOnTop = CPlayState::Instance()->theStall[1];
 		theGrid->GetTile(CPlayState::Instance()->theStall[2]->getPosition())->ShopOnTop = CPlayState::Instance()->theStall[2];
-		CApplication::getInstance()->setClickCheck(false);
-
-		/*if(theMAnimation.active == true)
-			theMAnimation.drawMoney();*/
+		CApplication::getInstance()->setClickCheck(false);	
 	}
-	
 	Camera::getInstance()->SetHUD(true);
 	DrawButtons();
 	drawInfo();
@@ -371,21 +361,21 @@ void CGamePlayState::DrawBuying()
 
 				if(CPlayState::Instance()->shop1selected)
 				{
-					printw (SCREEN_WIDTH - 310, SCREEN_HEIGHT - 300, 0,  "Shop 1-", CPlayState::Instance()->theMoney.getCurrentMoney());
+					printw (SCREEN_WIDTH - 310, SCREEN_HEIGHT - 300, 0,  "Shop 1-");
 					printw (SCREEN_WIDTH - 310, SCREEN_HEIGHT - 240, 0,  "Current shop's masks: %d", CPlayState::Instance()->theStall[0]->getMaskNo());
 					printw (SCREEN_WIDTH - 310, SCREEN_HEIGHT - 210, 0,  "Current shop's mask price: %d", CPlayState::Instance()->theStall[0]->getMaskPrice());
 				}
 
 				if(CPlayState::Instance()->shop2selected)
 				{
-					printw (SCREEN_WIDTH - 310, SCREEN_HEIGHT - 300, 0,  "Shop 2-", CPlayState::Instance()->theMoney.getCurrentMoney());
+					printw (SCREEN_WIDTH - 310, SCREEN_HEIGHT - 300, 0,  "Shop 2-");
 					printw (SCREEN_WIDTH - 310, SCREEN_HEIGHT - 240, 0,  "Current shop's masks: %d", CPlayState::Instance()->theStall[1]->getMaskNo());
 					printw (SCREEN_WIDTH - 310, SCREEN_HEIGHT - 210, 0,  "Current shop's mask price: %d", CPlayState::Instance()->theStall[1]->getMaskPrice());
 				}
 
 				if(CPlayState::Instance()->shop3selected)
 				{
-					printw (SCREEN_WIDTH - 310, SCREEN_HEIGHT - 300, 0,  "Shop 3-", CPlayState::Instance()->theMoney.getCurrentMoney());
+					printw (SCREEN_WIDTH - 310, SCREEN_HEIGHT - 300, 0,  "Shop 3-");
 					printw (SCREEN_WIDTH - 310, SCREEN_HEIGHT - 240, 0,  "Current shop's masks: %d", CPlayState::Instance()->theStall[2]->getMaskNo());
 					printw (SCREEN_WIDTH - 310, SCREEN_HEIGHT - 210, 0,  "Current shop's mask price: %d", CPlayState::Instance()->theStall[2]->getMaskPrice());
 				}
@@ -627,7 +617,8 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 								if(CPlayState::Instance()->theMoney.getCurrentMoney() >= 300)
 								{
 									CPlayState::Instance()->theMoney.setCurrentMoney(CPlayState::Instance()->theMoney.getCurrentMoney() - 300);
-
+									CPlayState::Instance()->maskInStock += 50;
+									
 									if(CPlayState::Instance()->shop1selected)
 										CPlayState::Instance()->theStall[0]->setMaskNo(CPlayState::Instance()->theStall[0]->getMaskNo() + 50);
 									if(CPlayState::Instance()->shop2selected)
@@ -642,6 +633,7 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 								if(CPlayState::Instance()->theMoney.getCurrentMoney() >= 550)
 								{
 									CPlayState::Instance()->theMoney.setCurrentMoney(CPlayState::Instance()->theMoney.getCurrentMoney() - 550);
+									CPlayState::Instance()->maskInStock += 100;
 
 									if(CPlayState::Instance()->shop1selected)
 										CPlayState::Instance()->theStall[0]->setMaskNo(CPlayState::Instance()->theStall[0]->getMaskNo() + 100);
@@ -656,6 +648,7 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 								if(CPlayState::Instance()->theMoney.getCurrentMoney() >= 1050)
 								{
 									CPlayState::Instance()->theMoney.setCurrentMoney(CPlayState::Instance()->theMoney.getCurrentMoney() - 1050);
+									CPlayState::Instance()->maskInStock += 200;
 
 									if(CPlayState::Instance()->shop1selected)
 										CPlayState::Instance()->theStall[0]->setMaskNo(CPlayState::Instance()->theStall[0]->getMaskNo() + 200);

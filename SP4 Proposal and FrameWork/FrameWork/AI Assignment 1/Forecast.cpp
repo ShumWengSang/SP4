@@ -11,7 +11,7 @@ CForecast::~CForecast(void)
 
 void CForecast::init()
 {
-	currentDay = 1;
+	currentDay = StartDay;
 
 	for(int i=0; i<7; i++)
 	{
@@ -34,7 +34,7 @@ void CForecast::forecasting()
 		cout << "Actual: " << getActual() << endl;
 		setCurrentDay(day+1);
 	}
-	currentDay = 1;
+	currentDay = StartDay;
 }
 
 void CForecast::checkDay(int curDay)
@@ -199,8 +199,6 @@ int CForecast::prediction(int lowRange, int highRange, int highestChance)
 
 	return 0;
 }
-
-
 
 void CForecast::setCurrentDay(int day)
 {

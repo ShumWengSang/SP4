@@ -64,17 +64,26 @@ public:
 		outData.close();
 	}
 
-	void InserHighScore(int newScore, string &user)
+	void InsertHighScore(int newScore, string &user)
 	{
-		for (auto i = HighScoreList.begin(); i != HighScoreList.end(); i++)
+		if(HighScoreList.size() > 0)//HighScoreList.capacity()
 		{
-			if (newScore >= (*i).HighScore)
+			for (auto i = HighScoreList.begin(); i != HighScoreList.end(); i++)
 			{
-				Scorer newScorer;
-				newScorer.HighScore = newScore;
-				newScorer.User = user;
-				HighScoreList.insert(i, newScorer);
+				if (newScore >= (*i).HighScore)
+				{
+					Scorer newScorer;
+					newScorer.HighScore = newScore;
+					newScorer.User = user;
+					HighScoreList.insert(i, newScorer);
+					break;
+				}
 			}
+		}else{
+			Scorer newScorer;
+			newScorer.HighScore = newScore;
+			newScorer.User = user;
+			HighScoreList.push_back(newScorer);
 		}
 	}
 	std::string FileName;

@@ -150,10 +150,10 @@
     <ClCompile Include="Highscore.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MoneyAnimation.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TextureSingleton.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MoneyAnimation.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -281,10 +281,10 @@
     <ClInclude Include="Highscore.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MoneyAnimation.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="TextureSingleton.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MoneyAnimation.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
   </ItemGroup>

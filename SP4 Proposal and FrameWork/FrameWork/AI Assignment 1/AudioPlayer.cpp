@@ -24,7 +24,7 @@ AudioPlayer::AudioPlayer()
         cout << "Error: Could not create sound engine" << endl;
     } 
 	fileName = "\0";
-	volume = 50;
+	volume = 100;
 	position = 0;
 	se->setSoundVolume(1);
 }
