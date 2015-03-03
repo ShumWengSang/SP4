@@ -129,7 +129,7 @@ void EndGameState::Update(CGameStateManager * GSM)
 {
 	if(fadein){
 		if(alpha < 1){
-			time+=0.1;
+			time+= static_cast<float>(0.1);
 			alpha = pow(time,2);
 		}else{
 			alpha = 1;
@@ -138,7 +138,7 @@ void EndGameState::Update(CGameStateManager * GSM)
 		}
 	}else{
 		if(alpha > 0 && time > 0){
-			time+=0.01;
+			time+= static_cast<float>(0.01);
 			alpha = 1-pow(time,2);
 		}else{
 			alpha = 0;
