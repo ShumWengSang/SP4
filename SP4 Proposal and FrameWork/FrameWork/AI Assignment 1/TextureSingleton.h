@@ -113,6 +113,11 @@ public:
 		//Tutorial State 50
 		LoadTexture("images/Newspaper.tga");
 
+		//Highscore Textures 51 - 53
+		LoadTexture("images/endgameState/highscore.tga");
+		LoadTexture("images/endgameState/highscore_bg.tga");
+		LoadTexture("images/endgameState/highscore_input.tga");
+
 	}
 	int LoadTexture(std::string filename)
 	{
