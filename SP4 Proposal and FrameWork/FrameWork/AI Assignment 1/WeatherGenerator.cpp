@@ -22,14 +22,11 @@ WeatherGenerator::WeatherGenerator()
 	{
 		double Result = thePerlineNoise.PerlinNoise_1D(HazeGraph[i]);
 
-		std::cout << "Result: " << i << " " << Result + HazeGraph[i] * 13 << std::endl;
-
 		HazeGraph[i] += (static_cast<float>(Result));
 		HazeGraph[i] *= 13;
 
 		if ((i+1) % 9 == 0 && i != 0)
 		{
-			std::cout << "END OF DAY -----------------" << std::endl;
 			//DailyStartHaze.push_back
 		}
 	}
@@ -56,24 +53,16 @@ double interpolate(double a, double b, double x)
 
 void WeatherGenerator::PrintOutGraph()
 {
-
-	std::cout << std::endl;
 	for (unsigned int i = 0; i < HazeGraph.size(); i++)
 	{
 		for (unsigned int j = 0; j < HazeGraph[i] / 13; j++)
 		{
-			std::cout << " ";
 		}
-		//std::cout << HazeGraph[i] << std::endl;
-		std::cout << "0" << std::endl;
 	}
 
 	std::cout << std::endl;
 	for (unsigned int i = 0; i < HazeAveragePerDay.size(); i++)
-	{
-		std::cout << "Haze Average Number: " << i << " " << HazeAveragePerDay[i] << std::endl;
-	}
-
+	{}
 }
 
 std::vector<float> WeatherGenerator::GetHazeAvg()

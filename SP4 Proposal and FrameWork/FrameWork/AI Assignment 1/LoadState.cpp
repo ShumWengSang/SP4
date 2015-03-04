@@ -25,14 +25,9 @@ void CLoadState::LoadTextures()
 	background[0].texID = theInstance->GetNumber(38);
 	button[0].texID = theInstance->GetNumber(13);
 	button[1].texID = theInstance->GetNumber(21);
-	//Textures
-	//CApplication::getInstance()->LoadTGA(&background[0],"images/background.tga");
-	//CApplication::getInstance()->LoadTGA(&button[0],"images/buyMaskState/box.tga");
-	//CApplication::getInstance()->LoadTGA(&button[1],"images/startState/back.tga");
 }
 void CLoadState::LoadButtons()
 {
-	//buttons
 	theButton[load1] = new CButtons(SCREEN_WIDTH/2 - 150, 200, 350, 100, load1);
 	theButton[load1]->setButtonTexture(button[0].texID);
 	
@@ -65,8 +60,6 @@ void CLoadState::LoadLoadData()
 
 void CLoadState::Init()
 {
-	
-	cout << "CLoadState::Init\n" << endl;
 	se = createIrrKlangDevice();
 	LoadTextures();
 	LoadButtons();
@@ -82,33 +75,19 @@ void CLoadState::Init()
 }
 
 void CLoadState::Cleanup()
-{
-	//cout << "CLoadState::Cleanup\n" << endl;
-	/*if (InputSystem != NULL)
-	{
-		delete InputSystem;
-		InputSystem = NULL;
-	}*/
-}
+{}
 
 void CLoadState::Pause()
-{
-	//cout << "CLoadState::Pause\n" << endl;
-}
+{}
 
 void CLoadState::Resume()
-{
-	//cout << "CLoadState::Resume\n" << endl;
-}
+{}
 
 void CLoadState::HandleEvents(CGameStateManager* theGSM)
-{
-
-}
+{}
 
 void CLoadState::Update(CGameStateManager* theGSM) 
 {
-	//cout << "CLoadState::Update\n" << endl;
 	keyboardUpdate();
 }
 
@@ -126,9 +105,7 @@ void CLoadState::DrawLoadInfo()
 {
 	glPushMatrix();
 		glPushAttrib(GL_DEPTH_TEST);
-
 			glColor3f( 0.0f, 0.0f, 0.0f);
-
 			if (loadedFiles[0]->getHere())
 			{
 			printw (SCREEN_WIDTH/2 - 140, 225.0, 0, "Day: %d", loadedFiles[0]->getDay());
@@ -160,8 +137,8 @@ void CLoadState::DrawLoadInfo()
 			{
 			printw (SCREEN_WIDTH/2 - 140, 425.0, 0, "Day: ---");
 			printw (SCREEN_WIDTH/2 - 140, 475.0, 0, "Money: ---");
-			}
 
+			}
 		glPopAttrib();
 	glPopMatrix();
 }

@@ -23,7 +23,6 @@ void CTutorialState::LoadTextures()
 
 void CTutorialState::Init()
 {
-	cout << "Tutorial state init" << endl;
 	LoadTextures();
 
 	rotate = 0;
@@ -207,7 +206,11 @@ void CTutorialState::RenderPictures()
 			DrawLastScreen();
 			break;
 		case 6:
+		{
+			//go buy mask state
 			CInGameStateManager::getInstance()->ChangeState(CBuyMaskState::Instance());
+			screen = 1;
+		}
 			break;
 	}
 }
@@ -238,10 +241,7 @@ void  CTutorialState::MouseClick(int button, int state, int x, int y)
 				}
 				else
 				{
-					cout << screen << endl;
 					screen += 1;
-					//go buy mask state
-					//CInGameStateManager::getInstance()->ChangeState(CBuyMaskState::Instance());
 				}
 			}
 			else

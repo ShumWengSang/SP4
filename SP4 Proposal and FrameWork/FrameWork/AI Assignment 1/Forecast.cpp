@@ -29,9 +29,6 @@ void CForecast::forecasting()
 	for (int day = 1; day < 8; day++)
 	{
 		checkDay(day);
-		cout << "Day: " << getCurrentDay() << endl;
-		cout << "Forecasting: " << getCurrentForecast() << endl;
-		cout << "Actual: " << getActual() << endl;
 		setCurrentDay(day+1);
 	}
 	currentDay = StartDay;

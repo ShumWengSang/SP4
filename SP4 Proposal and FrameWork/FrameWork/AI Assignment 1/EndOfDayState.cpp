@@ -19,14 +19,6 @@ void CEndOfDayState::LoadTextures()
 	{
 		button[i].texID = theInstance->GetNumber(i + 23-2);
 	}
-
-	//CApplication::getInstance()->LoadTGA(&background[0],"images/endState/background.tga");
-	//CApplication::getInstance()->LoadTGA(&background[1],"images/endState/box.tga");
-	//CApplication::getInstance()->LoadTGA(&button[0],"images/endState/save.tga");
-	//CApplication::getInstance()->LoadTGA(&button[1],"images/endState/next.tga");
-	//CApplication::getInstance()->LoadTGA(&button[2],"images/endState/shop.tga");
-	//CApplication::getInstance()->LoadTGA(&button[3],"images/endState/shop2.tga");
-	//CApplication::getInstance()->LoadTGA(&button[4],"images/endState/shop3.tga");
 }
 void CEndOfDayState::LoadButtons()
 {
@@ -59,7 +51,6 @@ void CEndOfDayState::Init()
 
 	thisState = EndofDayState;
 
-	cout << "CEndOfDayState::Init\n" << endl;
 	se = createIrrKlangDevice();
 	LoadTextures();
 	LoadButtons();
@@ -70,24 +61,13 @@ void CEndOfDayState::Init()
 }
 
 void CEndOfDayState::Cleanup()
-{
-	//cout << "CEndOfDayState::Cleanup\n" << endl;
-	/*if (InputSystem != NULL)
-	{
-		delete InputSystem;
-		InputSystem = NULL;
-	}*/
-}
+{}
 
 void CEndOfDayState::Pause()
-{
-	//cout << "CEndOfDayState::Pause\n" << endl;
-}
+{}
 
 void CEndOfDayState::Resume()
-{
-	//cout << "CEndOfDayState::Resume\n" << endl;
-}
+{}
 
 void CEndOfDayState::HandleEvents(CInGameStateManager* theGSM)
 {
@@ -95,9 +75,7 @@ void CEndOfDayState::HandleEvents(CInGameStateManager* theGSM)
 
 void CEndOfDayState::Update(CInGameStateManager* theGSM) 
 {
-	//cout << "CEndOfDayState::Update\n" << endl;
 	keyboardUpdate();
-
 }
 
 void CEndOfDayState::Draw(CInGameStateManager* theGSM) 
@@ -233,7 +211,6 @@ void CEndOfDayState::MouseClick(int button, int state, int x, int y) {
 				//back to buyMaskState
 				if(theButton[eNext]->isInside(x, y))
 				{
-					//if(!reinit && !CPlayState::Instance()->firstDay) {
 					if(!reinit) {
 						CPlayState::Instance()->forecasting->setCurrentDay(CPlayState::Instance()->forecasting->getCurrentDay() + 1);
 						CPlayState::Instance()->day = CPlayState::Instance()->forecasting->getCurrentDay();

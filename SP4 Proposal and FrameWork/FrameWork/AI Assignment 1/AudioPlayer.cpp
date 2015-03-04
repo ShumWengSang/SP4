@@ -20,9 +20,7 @@ AudioPlayer::AudioPlayer()
     se = createIrrKlangDevice();
     currentSound = 0;
     if(!se)
-    {
-        cout << "Error: Could not create sound engine" << endl;
-    } 
+    {} 
 	fileName = "\0";
 	volume = 100;
 	position = 0;
@@ -35,7 +33,6 @@ AudioPlayer::AudioPlayer(string soundFile)
     currentSound = 0;
     if(!se)
     {
-        cout << "Error: Could not create sound engine" << endl;
         exit(0);
     }
 
@@ -61,15 +58,12 @@ void AudioPlayer::playSound()
 {
     if(fileName == "\0")
     {
-        cout << "Error: No sound file selected" << endl;
         return;
     }
     currentSound = se->play2D(fileName.c_str(),true, false, true);
 
     if(!currentSound)
-    {
-        cout << "Error: Could not play file" << endl;
-    }
+    {}
     while(!currentSound->isFinished())
     Sleep(100);
     position = currentSound->getPlayPosition();
@@ -79,13 +73,11 @@ void AudioPlayer::playSound(int milliseconds)
 {
     if(fileName == "\0")
     {
-        cout << "Error: No sound file selected" << endl;
         return;
 	}
     currentSound = se->play2D(fileName.c_str(),true, false, true);
     if(!currentSound)
     {
-        cout << "Error: Could not play file" << endl;
         exit(0);
     }
     Sleep(milliseconds);
@@ -99,7 +91,6 @@ void AudioPlayer::playSound(string soundFile)
 
     if(!currentSound)
     {
-        cout << "Error: Could not play file" << endl;
         exit(0);
     }
 
@@ -116,7 +107,6 @@ void AudioPlayer::playSound(string soundFile, int milliseconds)
     currentSound = se->play2D(fileName.c_str(),true, false, true);
     if(!currentSound)
     {
-        cout << "Error: Could not play file" << endl;
         exit(0);
     }
     Sleep(milliseconds);
@@ -128,7 +118,6 @@ void AudioPlayer::playSoundThreaded()
     currentSound = se->play2D(fileName.c_str(),true, false, true);
     if(!currentSound)
     {
-        cout << "Error: Could not play file" << endl;
         exit(0);
     }
 }
@@ -195,7 +184,6 @@ void AudioPlayer::setVolume(int newVolume)
         volume = newVolume;
 	}
     currentSound->setVolume(volume/100.0);
-	cout<<"Volume reset"<<endl;
 }
 
 void AudioPlayer::increaseVolume()
