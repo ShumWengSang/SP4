@@ -67,9 +67,6 @@ void CTimer::updateTime()
 		//Reset Frame Count
 		frameCount = NULL;
 	}
-	
-	//std::cout << "\nFPS: " << fps << std::endl;
-
 }
 
 //Init this Timer instance

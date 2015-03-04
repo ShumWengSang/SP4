@@ -189,7 +189,6 @@ void CTileChilds::drawTile(float  x, float  y, float  z, float tileWidth, float 
 		glVertex3f(x + tileHeight, ypos, z);
 		glVertex3f(x, ypos, z);
 		glEnd();
-		//std::cout << " X IS: " << x << std::endl;
 	}
 }
 

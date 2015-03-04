@@ -14,17 +14,10 @@ void helpState::LoadTextures()
 	button[0].texID = theInstance->GetNumber(43);
 	button[1].texID = theInstance->GetNumber(44);
 	button[2].texID = theInstance->GetNumber(45);
-
-	//CApplication::getInstance()->LoadTGA(&button[0],"images/startState/back.tga"); // Back Button
-	//CApplication::getInstance()->LoadTGA(&button[1],"images/volDown.tga"); // Vol up Button 
-	//CApplication::getInstance()->LoadTGA(&button[2],"images/volUp.tga"); // Vol down Button
-	//CApplication::getInstance()->LoadTGA(&background[0],"images/description.tga"); //help state Background image
-
 }
 
 void helpState::LoadButtons()
 {
-	//buttons
 	theButton[back] = new CButtons(0, SCREEN_HEIGHT - 64, 64, 64, back);
 	theButton[back]->setButtonTexture(button[0].texID);
 
@@ -37,8 +30,6 @@ void helpState::LoadButtons()
 
 void helpState::Init()
 {
-	cout << "helpState::Init\n" << endl;
-
 	LoadTextures();
 	LoadButtons();
 
@@ -53,23 +44,18 @@ void helpState::Init()
 	//Audio Player
 	se = createIrrKlangDevice();
 	font_style = GLUT_BITMAP_HELVETICA_18;
-	//generatenoise();
 	//Enable Camera Orientation on Mouse Move
 	InputSystem->OrientCam = true;
-	//sound = AudioPlayer::Instance();
-	//playSound();
 
 	sound = AudioPlayer::Instance();
 	sound->getFileName();
 }
 
 void helpState::HandleEvents(CGameStateManager* theGSM)
-{
-}
+{}
 
 void helpState::Update(CGameStateManager* theGSM) 
 {
-	//cout << "CStartOfDayState::Update\n" << Startl;
 	keyboardUpdate();
 }
 
@@ -117,25 +103,6 @@ void helpState::DrawBackground()
 		glDisable(GL_TEXTURE_2D);
 		glDisable(GL_BLEND);
 	glPopMatrix();
-
-	/*glPushMatrix();
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, background[0].texID);
-		glPushMatrix();
-			glTranslatef(10, 10, 0);
-			glScalef(static_cast<GLfloat>(0.98), static_cast<GLfloat>(0.5), 1);
-			glBegin(GL_QUADS);
-				glTexCoord2f(0, 0);	glVertex2f(0, SCREEN_HEIGHT);
-				glTexCoord2f(1, 0);	glVertex2f(SCREEN_WIDTH, SCREEN_HEIGHT);
-				glTexCoord2f(1, 1);	glVertex2f(SCREEN_WIDTH, 0);
-				glTexCoord2f(0, 1);	glVertex2f(0, 0);			
-			glEnd();
-		glPopMatrix();
-		glDisable(GL_TEXTURE_2D);
-		glDisable(GL_BLEND);
-	glPopMatrix();*/
 }
 
 void helpState::DrawInfo()
@@ -186,7 +153,6 @@ void helpState::MouseClick(int button, int state, int x, int y) {
 			else if (state == GLUT_DOWN)
 			{
 				CInputSystem::getInstance()->mouseInfo.mLButtonUp = false;
-				//skip = true;
 				se->play2D("audio/click.wav",false);
 				InputSystem->mouseInfo.mLButtonUp = false;
 				InputSystem->mouseInfo.clickedX = x;
@@ -201,10 +167,8 @@ void helpState::MouseClick(int button, int state, int x, int y) {
 						//go to start of the day
 						if(theButton[back]->isInside(x, y))
 						{
-							//CGameStateManager::getInstance()->ChangeState(CPlayState::Instance());
 							CGameStateManager::getInstance()->PopState();
 						}
-
 
 						if(theButton[volUp]->isInside(x, y))
 						{						
@@ -217,8 +181,6 @@ void helpState::MouseClick(int button, int state, int x, int y) {
 							{
 								se->setSoundVolume(se->getSoundVolume() +0.10);
 							}
-							//theButton[sliding]->setButtonX(theButton[sliding]->getButtonX() + sound->getCurrentVolume());
-
 						}
 						if(theButton[volDown]->isInside(x, y))
 						{
@@ -231,7 +193,6 @@ void helpState::MouseClick(int button, int state, int x, int y) {
 							{
 								se->setSoundVolume(se->getSoundVolume() - 0.1);
 							}
-							//theButton[sliding]->setButtonX(theButton[sliding]->getButtonX() - sound->getCurrentVolume());
 						}
 						cout<<sound->getCurrentVolume()<<endl;
 						cout<<se->getSoundVolume();

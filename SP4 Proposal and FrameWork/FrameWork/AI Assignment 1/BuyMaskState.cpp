@@ -21,19 +21,10 @@ void CBuyMaskState::LoadTextures()
 	{
 		button[i + 1].texID = theInstance->GetNumber(i + 15);
 	}
-
-	/*CApplication::getInstance()->LoadTGA(&background[0],"images/background.tga");
-	CApplication::getInstance()->LoadTGA(&background[1],"images/buyMaskState/box.tga");
-	CApplication::getInstance()->LoadTGA(&background[2],"images/buyMaskState/box2.tga");
-	CApplication::getInstance()->LoadTGA(&button[0],"images/buyMaskState/next.tga");
-	CApplication::getInstance()->LoadTGA(&button[1],"images/buyMaskState/50.tga");
-	CApplication::getInstance()->LoadTGA(&button[2],"images/buyMaskState/100.tga");
-	CApplication::getInstance()->LoadTGA(&button[3],"images/buyMaskState/200.tga");*/
 }
 
 void CBuyMaskState::LoadButtons()
 {
-	//buttons
 	theButton[nextPage] = new CButtons(SCREEN_WIDTH/2 - 150, SCREEN_HEIGHT - 100, 300, 80, nextPage);
 	theButton[nextPage]->setButtonTexture(button[0].texID);
 
@@ -67,8 +58,6 @@ void CBuyMaskState::Init()
 
 	thisState = BuyMaskState;
 
-	cout << "CBuyMaskState::Init\n" << endl;
-
 	LoadTextures();
 	LoadButtons();
 	font_style = GLUT_BITMAP_HELVETICA_18;
@@ -99,7 +88,6 @@ void CBuyMaskState::Init()
 
 void CBuyMaskState::Update(CInGameStateManager* theGSM) 
 {
-	//cout << "CEndOfDayState::Update\n" << endl;
 	keyboardUpdate();
 }
 

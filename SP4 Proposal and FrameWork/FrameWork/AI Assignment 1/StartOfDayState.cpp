@@ -8,8 +8,6 @@ CStartOfDayState *CStartOfDayState::theStartOfDayState = NULL;
 
 void CStartOfDayState::LoadTextures()
 {
-	//Textures
-
 	TextureSingleton * theInstance = TextureSingleton::getInstance();
 	background[0].texID = theInstance->GetNumber(38);
 	background[1].texID = theInstance->GetNumber(13);
@@ -24,7 +22,6 @@ void CStartOfDayState::LoadTextures()
 
 void CStartOfDayState::LoadButtons()
 {
-	//buttons
 	theButton[go] = new CButtons(SCREEN_WIDTH/2 - 125, SCREEN_HEIGHT - 100, 250, 80, go);
 	theButton[go]->setButtonTexture(button[0].texID);
 
@@ -81,7 +78,6 @@ void CStartOfDayState::Init()
 
 	thisState = StartofDayState;
 
-	cout << "CStartOfDayState::Init\n" << endl;
 	se = createIrrKlangDevice();
 	LoadTextures();
 	LoadButtons();
@@ -100,24 +96,13 @@ void CStartOfDayState::Init()
 }
 
 void CStartOfDayState::Cleanup()
-{
-	//cout << "CStartOfDayState::Cleanup\n" << Startl;
-	//if (InputSystem != NULL)
-	//{
-	//	delete InputSystem;
-	//	InputSystem = NULL;
-	//}
-}
+{}
 
 void CStartOfDayState::Pause()
-{
-	//cout << "CStartOfDayState::Pause\n" << Startl;
-}
+{}
 
 void CStartOfDayState::Resume()
-{
-	//cout << "CStartOfDayState::Resume\n" << Startl;
-}
+{}
 
 void CStartOfDayState::HandleEvents(CInGameStateManager* theGSM)
 {
@@ -125,7 +110,6 @@ void CStartOfDayState::HandleEvents(CInGameStateManager* theGSM)
 
 void CStartOfDayState::Update(CInGameStateManager* theGSM) 
 {
-	//cout << "CStartOfDayState::Update\n" << Startl;
 	keyboardUpdate();
 }
 

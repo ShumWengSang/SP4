@@ -47,7 +47,6 @@ void CPlayState::Init()
 
 void CPlayState::Cleanup()
 {
-	//cout << "CPlayState::Cleanup\n" << endl;
 	if (IGSM != NULL)
 	{
 		IGSM->Cleanup();
@@ -57,23 +56,16 @@ void CPlayState::Cleanup()
 }
 
 void CPlayState::Pause()
-{
-	//cout << "CPlayState::Pause\n" << endl;
-}
+{}
 
 void CPlayState::Resume()
-{
-	//cout << "CPlayState::Resume\n" << endl;
-}
+{}
 
 void CPlayState::HandleEvents(CGameStateManager* theGSM)
-{
-
-}
+{}
 
 void CPlayState::Update(CGameStateManager* theGSM) 
 {
-	//cout << "CPlayState::Update\n" << endl;
 	keyboardUpdate();
 
 	//Handle the GSM events
@@ -81,7 +73,6 @@ void CPlayState::Update(CGameStateManager* theGSM)
 
 	//Update GSM
 	IGSM->Update();
-
 }
 
 void CPlayState::Draw(CGameStateManager* theGSM) 
@@ -100,19 +91,16 @@ void CPlayState::keyboardUpdate()
 void CPlayState::MouseMove (int x, int y) {
 
 	IGSM->GetCurrentState()->MouseMove(x, y);
-
 }
 
 void CPlayState::MouseClick(int button, int state, int x, int y) {
 
 	IGSM->GetCurrentState()->MouseClick(button, state, x, y);
-
 }
 
 void CPlayState::MouseWheel(int button, int dir, int x, int y) {
 
 	IGSM->GetCurrentState()->MouseWheel(button, dir, x, y);
-
 }
 
 void CPlayState::resetValues()

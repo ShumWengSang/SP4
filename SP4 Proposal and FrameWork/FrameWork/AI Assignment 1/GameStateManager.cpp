@@ -16,8 +16,6 @@ void CGameStateManager::Init(const char* title, int width, int height, int bpp, 
 {
 	m_fullscreen = fullscreen;
 	m_running = true;
-
-	//cout << "CGameStateManager::Init\n" << endl;
 }
 
 void CGameStateManager::Cleanup()
@@ -32,22 +30,15 @@ void CGameStateManager::Cleanup()
 	// programs won't get accidentally resized
 	if ( m_fullscreen ) {
 	}
-
-	//cout << "CGameStateManager::Cleanup\n" << endl;
 }
 
 void CGameStateManager::ChangeState(CGameState* state) 
 {
 	// cleanup the current state (Calls Destructor, destroys InputSystem, causes crash)
-	/*if ( !StackOfStates.empty() ) {
-		StackOfStates.back()->Cleanup();
-		StackOfStates.pop_back();
-	}*/
 
 	// store and init the new state
 	StackOfStates.push_back(state);
 	StackOfStates.back()->Init();
-	//cout << "CGameStateManager::ChangeState\n" << endl;
 }
 
 void CGameStateManager::PushState(CGameState* state)
@@ -60,7 +51,6 @@ void CGameStateManager::PushState(CGameState* state)
 	// store and init the new state
 	StackOfStates.push_back(state);
 	StackOfStates.back()->Init();
-	//cout << "CGameStateManager::PushState\n" << endl;
 }
 
 void CGameStateManager::PopState()
@@ -75,28 +65,24 @@ void CGameStateManager::PopState()
 	if ( !StackOfStates.empty() ) {
 		StackOfStates.back()->Resume();
 	}
-	//cout << "CGameStateManager::PopState\n" << endl;
 }
 
 void CGameStateManager::HandleEvents() 
 {
 	// let the state handle events
 	StackOfStates.back()->HandleEvents(this);
-	//cout << "CGameStateManager::HandleEvents\n" << endl;
 }
 
 void CGameStateManager::Update() 
 {
 	// let the state update the theGSM
 	StackOfStates.back()->Update(this);
-	//cout << "CGameStateManager::Update\n" << endl;
 }
 
 void CGameStateManager::Draw() 
 {
 	// let the state draw the screen
 	StackOfStates.back()->Draw(this);
-	//cout << "CGameStateManager::Draw\n" << endl;
 }
 
 CGameState* CGameStateManager::GetCurrentState()

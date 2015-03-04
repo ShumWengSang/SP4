@@ -50,7 +50,6 @@ void CGamePlayState::LoadButtons()
 	theButton[shop3] = new CButtons(160, SCREEN_HEIGHT - 50, 70, 50, shop3);
 	theButton[shop3]->setButtonTexture(button[3].texID);
 
-
 	theBuyingButton[close] = new CButtons(SCREEN_WIDTH - 45, SCREEN_HEIGHT - 320, 32, 32, close);
 	theBuyingButton[close]->setButtonTexture(buyingButton[0].texID);
 
@@ -89,7 +88,6 @@ void CGamePlayState::Init()
 
 	thisState = PlayGameState;
 
-	cout << "CGamePlayState::Init\n" << endl;
 	theGrid = new Grid();
 
 	isPause = false;
@@ -144,12 +142,6 @@ void CGamePlayState::Init()
 		theListofEntities.push_back(newBuyer);
 	}
 
-	// Stall Initialisation on Tiles
-	//theGrid->GetTile(CPlayState::Instance()->theStall[0]->getPosition())->ShopOnTop = CPlayState::Instance()->theStall[0];
-	//theGrid->GetTile(CPlayState::Instance()->theStall[1]->getPosition())->ShopOnTop = CPlayState::Instance()->theStall[1];
-	//theGrid->GetTile(CPlayState::Instance()->theStall[2]->getPosition())->ShopOnTop = CPlayState::Instance()->theStall[2];
-
-
 	theListofEntities.push_back(CPlayState::Instance()->theStall[0]);
 	theListofEntities.push_back(CPlayState::Instance()->theStall[1]);
 	theListofEntities.push_back(CPlayState::Instance()->theStall[2]);
@@ -175,7 +167,6 @@ void CGamePlayState::SeedHaze()
 
 		if (!((x == 0 || (x == (TILE_NO_X - 1))) && ((y == 0 || y == (TILE_NO_Y - 1)))))
 		{
-			//theGrid->temp[x][y].Seeded(static_cast<int>(CPlayState::Instance()->theHaze.HazeGraph[HourNumber + (DayNumber-1) * DayTime] * 1000));
 			theGrid->temp[x][y].Seeded(/*static_cast<int>*/pow((CPlayState::Instance()->theHaze.HazeGraph[HourNumber + (DayNumber - 1) * DayTime] ),3));
 			theSeededTiles.push_back(&theGrid->temp[x][y]);
 			Seeds++;
@@ -185,14 +176,7 @@ void CGamePlayState::SeedHaze()
 }
 
 void CGamePlayState::Cleanup()
-{
-	//cout << "CGamePlayState::Cleanup\n" << endl;
-	/*if (InputSystem != NULL)
-	{
-		delete InputSystem;
-		InputSystem = NULL;
-	}*/
-}
+{}
 
 void CGamePlayState::Pause()
 {
@@ -213,8 +197,7 @@ void CGamePlayState::Resume()
 }
 
 void CGamePlayState::HandleEvents(CInGameStateManager* theGSM)
-{
-}
+{}
 
 void CGamePlayState::Update(CInGameStateManager* theGSM) 
 {
@@ -278,28 +261,11 @@ void CGamePlayState::Draw(CInGameStateManager* theGSM)
 		// Actual Render Here
 		DrawSkyBox();
 
-		//glPushMatrix();
-		//	glEnable(GL_BLEND);
-		//	glEnable(GL_TEXTURE_2D);
-		//	glTranslatef( -150.0f, -0.1f, -150.0f );
-		//	glScalef(0.5f, 0.5f, 0.5f);
-		//	glColor3f(1.0,1.0,1.0);
-		//	glBindTexture(GL_TEXTURE_2D, map[0].texID);
-		//	glBegin(GL_QUADS);
-		//		glTexCoord2f(0, 0);  glVertex3f(SCREEN_WIDTH, 0.0f, 0);
-		//		glTexCoord2f(1, 0);  glVertex3f(0, 0.0f, 0);
-		//		glTexCoord2f(1, 1);	 glVertex3f(0, 0.0f, SCREEN_HEIGHT);
-		//		glTexCoord2f(0, 1);	 glVertex3f(SCREEN_WIDTH, 0.0f, SCREEN_HEIGHT);
-		//	glEnd();
-		//	glDisable(GL_TEXTURE_2D);
-		//	glDisable(GL_BLEND);
-		//glPopMatrix();
-
 		theGrid->Click = false;
 		CPlayState::Instance()->theStall[0]->isPicking = false;
 		CPlayState::Instance()->theStall[1]->isPicking = false;
 		CPlayState::Instance()->theStall[2]->isPicking = false;
-		//theGrid.renderGrid(false);
+
 		for (auto i = theListofEntities.begin(); i != theListofEntities.end(); i++)
 		{
 			(*i)->glRenderObject();
@@ -350,7 +316,6 @@ void CGamePlayState::DrawBuying()
 				//print shop number
 				glColor3f( 1.0f, 0.0f, 0.0f);
 				
-				//SCREEN_WIDTH - 90, SCREEN_HEIGHT - 310
 				printw (SCREEN_WIDTH - 310, SCREEN_HEIGHT - 270, 0,  "Current money: $%d", CPlayState::Instance()->theMoney.getCurrentMoney());
 
 				if(CPlayState::Instance()->shop1selected)
@@ -376,7 +341,7 @@ void CGamePlayState::DrawBuying()
 				
 				printw (SCREEN_WIDTH - 310, SCREEN_HEIGHT - 140, 0, "Amount of masks to buy");
 				printw (SCREEN_WIDTH - 310, SCREEN_HEIGHT - 110, 0, "Price:");
-				//10, SCREEN_HEIGHT - 250
+
 				printw (SCREEN_WIDTH - 290, SCREEN_HEIGHT - 80, 0, "$300");
 				printw (SCREEN_WIDTH - 200, SCREEN_HEIGHT - 80, 0, "$550");
 				printw (SCREEN_WIDTH - 110, SCREEN_HEIGHT - 80, 0, "$1050");
@@ -515,9 +480,7 @@ void CGamePlayState::keyboardUpdate()
 	if (CInputSystem::getInstance()->myKeys['1'])
 	{
 		for (unsigned int i = 0; i < theSeededTiles.size(); i++)
-		{
-			std::cout << "TILE SEED NUMBER : " << i << " : " << theSeededTiles[i]->TileHazeValue << std::endl;
-		}
+		{}
 	}
 
 	//Esc Key
@@ -569,7 +532,6 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 				{
 					CInputSystem::getInstance()->mouseInfo.mLButtonUp = false;
 
-					//shop 1 clicked
 					if(theButton[shop]->isInside(x, y))
 					{
 						CPlayState::Instance()->shop1selected = true;
@@ -664,7 +626,6 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 					}
 					// Render Objects to be selected in the color scheme
 					theGrid->Click = true;
-					//theGrid.renderGrid(true);
 				}
 			}
 			CInputSystem::getInstance()->mouseInfo.clickedX = x;
@@ -747,7 +708,6 @@ void CGamePlayState::ClickCollision() {
 				//If clicked on stall
 				if(theGrid->temp[a][s].ShopOnTop != NULL)
 				{
-					//printf("Confirmed shop clicked %d %d\n\n", a, s);
 					if(StallSelected == NULL)
 						theGrid->temp[a][s].ShopOnTop->Selected = true;
 				}
@@ -767,7 +727,6 @@ void CGamePlayState::ClickCollision() {
 						}
 						//Set position
 						StallSelected->setPos(Vector3(theGrid->temp[a][s].getPos()+theGrid->temp[a][s].GetScale()*0.5));
-						//theGrid->GetTile(StallSelected->getPosition())->ShopOnTop = StallSelected;
 					}
 
 				}

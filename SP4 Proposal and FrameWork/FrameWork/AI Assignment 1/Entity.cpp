@@ -8,8 +8,7 @@ Entity::Entity()
 
 
 Entity::~Entity()
-{
-}
+{}
 
 bool Entity::glRenderObject(Vector3 theCameraPosition)
 {
@@ -25,7 +24,6 @@ EntityType Entity::getObjectType(void)
 
 Vector3 Entity::getPosition(void)
  { 
-	 std::cout<<"Entered getPos"<<std::endl;
 	 Vector3 t; return t;
  };
 
@@ -40,7 +38,6 @@ bool Entity::operator == (Entity& o)
 	return bool(getObjectType() == o.getObjectType() && getPosition() == o.getPosition());
 }
 
-
 bool Entity::glRenderObject()
 {
 	return false;
@@ -52,6 +49,4 @@ Vector3 Entity::GetScale()
 }
 
 void Entity::Update()
-{
-
-}
+{}

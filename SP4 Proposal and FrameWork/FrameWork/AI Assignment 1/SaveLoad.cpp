@@ -45,7 +45,6 @@ void CSaveLoad::Load(string fileName)
 	}
 	else
 		here = false;
-		//cout << "Failed opening" << endl;
 }
 
 void CSaveLoad::Save(string fileName)

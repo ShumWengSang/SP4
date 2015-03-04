@@ -7,19 +7,13 @@ CSaveState * CSaveState::theSaveState = NULL;
 
 void CSaveState::LoadTextures()
 {
-	//Textures
 	TextureSingleton * theInstance = TextureSingleton::getInstance();
 	background[0].texID = theInstance->GetNumber(6);
 	button[0].texID = theInstance->GetNumber(13);
 	button[1].texID = theInstance->GetNumber(21);
-
-	//CApplication::getInstance()->LoadTGA(&background[0],"images/background.tga");
-	//CApplication::getInstance()->LoadTGA(&button[0],"images/buyMaskState/box.tga");
-	//CApplication::getInstance()->LoadTGA(&button[1],"images/startState/back.tga");
 }
 void CSaveState::LoadButtons()
 {
-	//buttons
 	theButton[save1] = new CButtons(SCREEN_WIDTH/2 - 150, 200, 350, 100, save1);
 	theButton[save1]->setButtonTexture(button[0].texID);
 	
@@ -60,8 +54,6 @@ void CSaveState::UpdateLoadData()
 
 void CSaveState::Init()
 {
-	cout << "CSaveState::Init\n" << endl;
-
 	LoadTextures();
 	LoadButtons();
 	LoadLoadData();
@@ -73,36 +65,20 @@ void CSaveState::Init()
 }
 
 void CSaveState::Cleanup()
-{
-	//cout << "CSaveState::Cleanup\n" << endl;
-	/*if (InputSystem != NULL)
-	{
-		delete InputSystem;
-		InputSystem = NULL;
-	}*/
-}
+{}
 
 void CSaveState::Pause()
-{
-	//cout << "CSaveState::Pause\n" << endl;
-}
+{}
 
 void CSaveState::Resume()
-{
-	//cout << "CSaveState::Resume\n" << endl;
-}
+{}
 
 void CSaveState::HandleEvents(CGameStateManager* theGSM)
-{
-
-}
+{}
 
 void CSaveState::Update(CGameStateManager* theGSM) 
 {
-	//cout << "CSaveState::Update\n" << endl;
 	keyboardUpdate();
-
-	
 	UpdateLoadData();
 }
 
@@ -124,43 +100,42 @@ void CSaveState::DrawLoadInfo()
 			glColor3f( 0.0f, 0.0f, 0.0f);
 			if (loadedFiles[0]->getHere())
 			{
-			printw (SCREEN_WIDTH/2 - 150, 225.0, 0, "Day: %d", loadedFiles[0]->getDay());
-			printw (SCREEN_WIDTH/2 - 150, 275.0, 0, "Money: %d", loadedFiles[0]->getMoney());
-			printw (SCREEN_WIDTH/2, 275.0, 0, "Mask: %d", loadedFiles[0]->getMask());
+				printw (SCREEN_WIDTH/2 - 150, 225.0, 0, "Day: %d", loadedFiles[0]->getDay());
+				printw (SCREEN_WIDTH/2 - 150, 275.0, 0, "Money: %d", loadedFiles[0]->getMoney());
+				printw (SCREEN_WIDTH/2, 275.0, 0, "Mask: %d", loadedFiles[0]->getMask());
 			}
 			else
 			{
-			printw (SCREEN_WIDTH/2 - 150, 225.0, 0, "Day: ---");
-			printw (SCREEN_WIDTH/2 - 150, 275.0, 0, "Money: ---");
-			printw (SCREEN_WIDTH/2, 275.0, 0, "Mask: ---");
+				printw (SCREEN_WIDTH/2 - 150, 225.0, 0, "Day: ---");
+				printw (SCREEN_WIDTH/2 - 150, 275.0, 0, "Money: ---");
+				printw (SCREEN_WIDTH/2, 275.0, 0, "Mask: ---");
 			}
 
 			if (loadedFiles[1]->getHere())
 			{
-			printw (SCREEN_WIDTH/2 - 150, 325.0, 0, "Day: %d", loadedFiles[1]->getDay());
-			printw (SCREEN_WIDTH/2 - 150, 375.0, 0, "Money: %d", loadedFiles[1]->getMoney());
-			printw (SCREEN_WIDTH/2, 375.0, 0, "Mask: %d", loadedFiles[1]->getMask());
+				printw (SCREEN_WIDTH/2 - 150, 325.0, 0, "Day: %d", loadedFiles[1]->getDay());
+				printw (SCREEN_WIDTH/2 - 150, 375.0, 0, "Money: %d", loadedFiles[1]->getMoney());
+				printw (SCREEN_WIDTH/2, 375.0, 0, "Mask: %d", loadedFiles[1]->getMask());
 			}
 			else
 			{
-			printw (SCREEN_WIDTH/2 - 150, 325.0, 0, "Day: ---");
-			printw (SCREEN_WIDTH/2 - 150, 375.0, 0, "Money: ---");
-			printw (SCREEN_WIDTH/2, 375.0, 0, "Mask: ---");
+				printw (SCREEN_WIDTH/2 - 150, 325.0, 0, "Day: ---");
+				printw (SCREEN_WIDTH/2 - 150, 375.0, 0, "Money: ---");
+				printw (SCREEN_WIDTH/2, 375.0, 0, "Mask: ---");
 			}
 
 			if (loadedFiles[2]->getHere())
 			{
-			printw (SCREEN_WIDTH/2 - 150, 425.0, 0, "Day: %d", loadedFiles[2]->getDay());
-			printw (SCREEN_WIDTH/2 - 150, 475.0, 0, "Money: %d", loadedFiles[2]->getMoney());
-			printw (SCREEN_WIDTH/2, 475.0, 0, "Mask: %d", loadedFiles[2]->getMask());
+				printw (SCREEN_WIDTH/2 - 150, 425.0, 0, "Day: %d", loadedFiles[2]->getDay());
+				printw (SCREEN_WIDTH/2 - 150, 475.0, 0, "Money: %d", loadedFiles[2]->getMoney());
+				printw (SCREEN_WIDTH/2, 475.0, 0, "Mask: %d", loadedFiles[2]->getMask());
 			}
 			else
 			{
-			printw (SCREEN_WIDTH/2 - 150, 425.0, 0, "Day: ---");
-			printw (SCREEN_WIDTH/2 - 150, 475.0, 0, "Money: ---");
-			printw (SCREEN_WIDTH/2, 475.0, 0, "Mask: ---");
+				printw (SCREEN_WIDTH/2 - 150, 425.0, 0, "Day: ---");
+				printw (SCREEN_WIDTH/2 - 150, 475.0, 0, "Money: ---");
+				printw (SCREEN_WIDTH/2, 475.0, 0, "Mask: ---");
 			}
-
 		glPopAttrib();
 	glPopMatrix();
 }

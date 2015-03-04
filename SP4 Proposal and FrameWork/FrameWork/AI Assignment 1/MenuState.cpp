@@ -17,14 +17,6 @@ void CMenuState::LoadTextures()
 	button[2].texID = theTex->GetNumber(4);
 	button[3].texID = theTex->GetNumber(5);
 	map[0].texID = theTex->GetNumber(1);
-
-	//CApplication::getInstance()->LoadTGA(&background[0], "images/background.tga");
-	//CApplication::getInstance()->LoadTGA(&background[1], "images/menuState/gameTitle.tga");
-	//CApplication::getInstance()->LoadTGA(&map[0], "images/menuState/map.tga");
-	//CApplication::getInstance()->LoadTGA(&button[0], "images/menuState/start.tga");
-	//CApplication::getInstance()->LoadTGA(&button[1], "images/menuState/loadGame.tga");
-	//CApplication::getInstance()->LoadTGA(&button[2], "images/menuState/options.tga");
-	//CApplication::getInstance()->LoadTGA(&button[3], "images/menuState/quit.tga");
 }
 
 void CMenuState::LoadButtons()
@@ -44,8 +36,6 @@ void CMenuState::LoadButtons()
 
 void CMenuState::Init()
 {
-	cout << "CMenuState::Init\n" << endl;
-
 	LoadTextures();
 	LoadButtons();
 
@@ -68,24 +58,16 @@ void CMenuState::Init()
 }
 
 void CMenuState::Cleanup()
-{
-	//cout << "CMenuState::Cleanup\n" << endl;
-}
+{}
 
 void CMenuState::Pause()
-{
-	//cout << "CMenuState::Pause\n" << endl;
-}
+{}
 
 void CMenuState::Resume()
-{
-	//cout << "CMenuState::Resume\n" << endl;
-}
+{}
 
 void CMenuState::HandleEvents(CGameStateManager* theGSM)
-{
-
-}
+{}
 
 void CMenuState::Update(CGameStateManager* theGSM) 
 {
