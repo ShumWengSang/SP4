@@ -220,7 +220,7 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 			if(HourNumber != DayTime)
 				SeedHaze();
 		}
-		theTimeBar.update(static_cast<float>(HourNumber) + 1.0f);
+		theTimeBar.update(static_cast<float>(HourNumber));
 		if (HourNumber == DayTime)
 		{
 			CInGameStateManager::getInstance()->ChangeState(CEndOfDayState::Instance());

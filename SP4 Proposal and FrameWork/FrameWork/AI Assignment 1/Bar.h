@@ -15,6 +15,7 @@ class Bar
 		bool done;
 		int Dir;
 		int Speed;
+		float DrawLength;
 	public:
 		Bar(void);
 		~Bar(void);

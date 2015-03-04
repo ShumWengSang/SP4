@@ -5,6 +5,7 @@ Bar::Bar(void)
 {
 	Speed = 100;
 	Dir = 1;
+	DrawLength = 0;
 }
 
 
@@ -28,8 +29,8 @@ void Bar::draw()
 		glColor4f(Color.x, Color.y, Color.z, 0.7f);
 		glBegin(GL_QUADS);
 			glTexCoord2f(0,0);	glVertex2f(0,Height);
-			glTexCoord2f(1,0);	glVertex2f(Percentage, Height);
-			glTexCoord2f(1,1);	glVertex2f(Percentage ,0);
+			glTexCoord2f(1,0);	glVertex2f(Percentage + DrawLength, Height);
+			glTexCoord2f(1,1);	glVertex2f(Percentage + DrawLength,0);
 			glTexCoord2f(0,1);	glVertex2f(0,0);				
 		glEnd();
 	glPopMatrix();
@@ -50,10 +51,26 @@ void Bar::draw()
 
 void Bar::update(float r)
 {
-	Percentage += r* CTimer::getInstance()->getDelta();
+	//Percentage += r* CTimer::getInstance()->getDelta();
+	//Percentage = r/DayTime * (BARLONG );
+	Percentage = (r/DayTime * (BARLONG ));
+	static float Checker = Percentage;
+	if(Percentage != Checker)
+	{
+		DrawLength = 0;
+		Checker = Percentage;
+	}
+	int hourlength = BARLONG / DayTime;
 
-	//std::cout << Percentage << std::endl;
-	//Percentage = r *BARLONG/DayTime;
+	//if(DrawLength >= hourlength)
+	//{
+	//	
+	//}
+	DrawLength += 3 * CTimer::getInstance()->getDelta();
+
+
+	std::cout << DrawLength << std::endl;
+
 	if (r >= TIMEBLINK)
 	{
 		Color.x += Speed * Dir * CTimer::getInstance()->getDelta();
