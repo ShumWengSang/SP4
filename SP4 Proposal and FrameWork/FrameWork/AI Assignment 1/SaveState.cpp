@@ -222,13 +222,13 @@ void CSaveState::MouseClick(int button, int state, int x, int y) {
 
 				//load files
 				if(theButton[save1]->isInside(x, y))
-					loadedFiles[0]->overwriteData("save01.txt", CPlayState::Instance()->day+1,CPlayState::Instance()->theMoney.getCurrentMoney(), CPlayState::Instance()->maskInStock);
+					loadedFiles[0]->overwriteData("save01.txt", CPlayState::Instance()->day+1, CPlayState::Instance()->newMoneyValue, CPlayState::Instance()->maskLeft);
 					
 				if(theButton[save2]->isInside(x, y))
-					loadedFiles[1]->overwriteData("save02.txt", CPlayState::Instance()->day+1,CPlayState::Instance()->theMoney.getCurrentMoney(), CPlayState::Instance()->maskInStock);
+					loadedFiles[1]->overwriteData("save02.txt", CPlayState::Instance()->day+1, CPlayState::Instance()->newMoneyValue, CPlayState::Instance()->maskLeft);
 					
 				if(theButton[save3]->isInside(x, y))
-					loadedFiles[2]->overwriteData("save03.txt", CPlayState::Instance()->day+1,CPlayState::Instance()->theMoney.getCurrentMoney(), CPlayState::Instance()->maskInStock);
+					loadedFiles[2]->overwriteData("save03.txt", CPlayState::Instance()->day+1, CPlayState::Instance()->newMoneyValue, CPlayState::Instance()->maskLeft);
 					
 
 				//go back
