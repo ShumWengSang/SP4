@@ -19,7 +19,6 @@ class EndGameState : public CGameState
 protected:
 	TextureImage background[3];
 	TextureImage highscore_text;
-	TextureImage highscore_box;
 
 private:
 	bool result;

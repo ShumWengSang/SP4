@@ -47,7 +47,6 @@ void EndGameState::LoadTextures()
 	background[1].texID = theInstance->GetNumber(41);
 	highscore_text.texID = theInstance->GetNumber(51);
 	background[2].texID = theInstance->GetNumber(52);
-	highscore_box.texID = theInstance->GetNumber(53);
 }
 
 void EndGameState::DrawBackground()
@@ -111,16 +110,16 @@ void EndGameState::DrawHighscore()
 		for (auto i = highscore.HighScoreList.begin(); i != highscore.HighScoreList.end(); i++)
 		{
 			glPushMatrix();
-				glColor3f(1,1,1);
-				printw (50, SCREEN_HEIGHT/2+(i - highscore.HighScoreList.begin())*20, 0, "\nUsername:\t%s\tHighScore:\t%i", (*i).User.c_str(), (*i).HighScore);
+				glColor3f(1,0,0);
+				printw (SCREEN_WIDTH/5, SCREEN_HEIGHT*2/3+(i - highscore.HighScoreList.begin())*30, 0, "\nUsername:\t%s\tHighScore:\t%i", (*i).User.c_str(), (*i).HighScore);
 			glPopMatrix();
 		}
 
 		if(KeyInHighscore)
 		{
 			glPushMatrix();
-				glColor3f(1,1,1);
-				printw (80, SCREEN_HEIGHT/3, 0, "\nUsername:\t%s\tHighScore:\t%i", input.c_str(), profit);
+				glColor3f(0,1,0);
+				printw (SCREEN_WIDTH/5, SCREEN_HEIGHT/2, 0, "\nUsername:\t%s\tHighScore:\t%i", input.c_str(), profit);
 			glPopMatrix();
 		}
 	glPopMatrix();
@@ -183,7 +182,7 @@ void EndGameState::Update(CGameStateManager * GSM)
 	//Input mode
 	if(Dir == 0)
 	{
-		if(!doneInput) {
+		if(!doneInput && result) {
 			for (auto i = highscore.HighScoreList.begin(); i != highscore.HighScoreList.end(); i++)
 			{
 				if(profit >= (*i).HighScore) {
