@@ -45,8 +45,8 @@ void EndGameState::LoadTextures()
 	TextureSingleton * theInstance = TextureSingleton::getInstance();
 	background[0].texID = theInstance->GetNumber(40);
 	background[1].texID = theInstance->GetNumber(41);
-	background[2].texID = theInstance->GetNumber(51);
-	highscore_text.texID = theInstance->GetNumber(52);
+	highscore_text.texID = theInstance->GetNumber(51);
+	background[2].texID = theInstance->GetNumber(52);
 	highscore_box.texID = theInstance->GetNumber(53);
 }
 
@@ -92,6 +92,17 @@ void EndGameState::DrawHighscore()
 				glTexCoord2f(1, 0);	glVertex2f(SCREEN_WIDTH, SCREEN_HEIGHT);
 				glTexCoord2f(1, 1);	glVertex2f(SCREEN_WIDTH, 0);
 				glTexCoord2f(0, 1);	glVertex2f(0, 0);			
+			glEnd();
+		glPopMatrix();
+
+		glBindTexture(GL_TEXTURE_2D, highscore_text.texID);
+		glPushMatrix();
+			glTranslatef(SCREEN_WIDTH/2,SCREEN_HEIGHT/4,0);
+			glBegin(GL_QUADS);
+				glTexCoord2f(0, 0);	glVertex2f(-SCREEN_WIDTH/10, SCREEN_HEIGHT/20);
+				glTexCoord2f(1, 0);	glVertex2f(SCREEN_WIDTH/10, SCREEN_HEIGHT/20);
+				glTexCoord2f(1, 1);	glVertex2f(SCREEN_WIDTH/10, -SCREEN_HEIGHT/20);
+				glTexCoord2f(0, 1);	glVertex2f(-SCREEN_WIDTH/10, -SCREEN_HEIGHT/20);			
 			glEnd();
 		glPopMatrix();
 		glDisable(GL_TEXTURE_2D);
