@@ -9,6 +9,7 @@
 #include "AudioPlayer.h"
 #include "WinLose.h"
 #include "Highscore.h"
+#include "TextureSingleton.h"
 
 class CInputSystem;
 class WinLose;
@@ -16,7 +17,9 @@ class WinLose;
 class EndGameState : public CGameState
 {
 protected:
-	TextureImage background[2];
+	TextureImage background[3];
+	TextureImage highscore_text;
+	TextureImage highscore_box;
 
 private:
 	bool result;

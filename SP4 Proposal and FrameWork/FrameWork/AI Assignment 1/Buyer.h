@@ -12,7 +12,7 @@
 #include "Grid.h"
 #include "Timer.h"
 #include "Global.h"
-
+#include "AudioPlayer.h"
 #include "ObjectModel.h"
 
 #include "gl\freeglut.h"
@@ -76,6 +76,7 @@ public:
 	void Init();
 
 	Grid * theGrid;
+	AudioPlayer * sound;
 	
 	/////////////////////////////////////////////////////////////////
 	//Base Entity Functions

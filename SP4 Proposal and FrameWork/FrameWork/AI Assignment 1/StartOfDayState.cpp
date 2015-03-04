@@ -18,8 +18,8 @@ void CStartOfDayState::LoadTextures()
 		button[i].texID = theInstance->GetNumber(i + 14);
 	}
 
-	button[15].texID = theInstance->GetNumber(47);
-	button[16].texID = theInstance->GetNumber(48);
+	button[15].texID = theInstance->GetNumber(48);
+	button[16].texID = theInstance->GetNumber(49);
 }
 
 void CStartOfDayState::LoadButtons()
@@ -61,10 +61,10 @@ void CStartOfDayState::LoadButtons()
 	theButton[sShop3] = new CButtons(SCREEN_WIDTH - 200, 150, 90, 64, sShop3);
 	theButton[sShop3]->setButtonTexture(button[11].texID);
 
-	theButton[yes] = new CButtons(SCREEN_WIDTH/2 + 30, SCREEN_HEIGHT/2, 125, 60, yes);
+	theButton[yes] = new CButtons(SCREEN_WIDTH/2 - 140, SCREEN_HEIGHT/2, 125, 60, yes);
 	theButton[yes]->setButtonTexture(button[15].texID);
 
-	theButton[no] = new CButtons(SCREEN_WIDTH/2 - 140, SCREEN_HEIGHT/2, 125, 60, no);
+	theButton[no] = new CButtons(SCREEN_WIDTH/2 + 30, SCREEN_HEIGHT/2, 125, 60, no);
 	theButton[no]->setButtonTexture(button[16].texID);
 }
 
@@ -236,9 +236,9 @@ void CStartOfDayState::DrawMsg()
 	glPushMatrix();
 		glPushAttrib(GL_DEPTH_TEST);
 		glColor3f(0, 0, 0);
-		printw (SCREEN_WIDTH/2 - 50, SCREEN_HEIGHT/2 - 150, 0, "You Have");
-		printw (SCREEN_WIDTH/2 - 100, SCREEN_HEIGHT/2 - 120, 0, "the Number Of Mask or Price");
-		printw (SCREEN_WIDTH/2 - 150, SCREEN_HEIGHT/2 - 90, 0, "Do you want to start the day?");
+		printw (SCREEN_WIDTH/2 - 110, SCREEN_HEIGHT/2 - 150, 0, "You Have not set the Number");
+		printw (SCREEN_WIDTH/2 - 100, SCREEN_HEIGHT/2 - 120, 0, "Of Mask or Price for a Stall");
+		printw (SCREEN_WIDTH/2 - 110, SCREEN_HEIGHT/2 - 90, 0,	"Do you want to start the day?");
 		glPopAttrib();
 	glPopMatrix();
 

@@ -14,7 +14,7 @@ using namespace irrklang;
 class AudioPlayer
 {
 private:
-	ISoundEngine* se;
+
 	ISound* currentSound;
 	string fileName;
 	int volume;
@@ -22,6 +22,7 @@ private:
 	
 	
 public:
+	ISoundEngine* se;
 	~AudioPlayer();
 	/* All play functions STOP execution of the program except
 	* playSoundThreaded(). Note: It isn't really multi-threaded.

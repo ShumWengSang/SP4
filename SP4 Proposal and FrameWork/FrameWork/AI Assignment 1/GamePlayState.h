@@ -170,5 +170,7 @@ private:
 
 	//Camera rotation
 	void OnRotate(int x, int y);
+
+	int ControlTexID;
 };
 

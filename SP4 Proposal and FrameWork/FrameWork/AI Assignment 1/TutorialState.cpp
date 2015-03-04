@@ -13,7 +13,7 @@ CTutorialState::~CTutorialState(void)
 void CTutorialState::LoadTextures()
 {
 	TextureSingleton * theInstance = TextureSingleton::getInstance();
-	background[0].texID = theInstance->GetNumber(49);
+	background[0].texID = theInstance->GetNumber(50);
 }
 void CTutorialState::Init()
 {
@@ -32,7 +32,7 @@ void CTutorialState::Init()
 void CTutorialState::Update(CInGameStateManager* GSM)
 {
 	rotate += 20;
-	speed += 3;
+	speed += pow(3.f,2.f) ;
 
 	if(speed >= 800)
 	{
@@ -88,10 +88,10 @@ void CTutorialState::DrawNewsPaper()
 		glTranslatef(0, static_cast<GLfloat>(speed), -100);
 		glBindTexture(GL_TEXTURE_2D, background[0].texID);
 		glBegin(GL_QUADS);
-			glTexCoord2f(1, 1);  glVertex3f(0, 0.0f, 420);
-			glTexCoord2f(0, 1);  glVertex3f(420, 0.0f, 420); 
-			glTexCoord2f(0, 0);	 glVertex3f(420, 0.0f, 0);
-			glTexCoord2f(1, 0);	 glVertex3f(0, 0.0f, 0);
+			glTexCoord2f(1, 1);  glVertex3f(-210, 0.0f, 210);
+			glTexCoord2f(0, 1);  glVertex3f(210, 0.0f, 210); 
+			glTexCoord2f(0, 0);	 glVertex3f(210, 0.0f, -210);
+			glTexCoord2f(1, 0);	 glVertex3f(-210, 0.0f, -210);
 		glEnd();
 		glDisable(GL_TEXTURE_2D);
 		glDisable(GL_BLEND);
@@ -131,8 +131,16 @@ void  CTutorialState::MouseClick(int button, int state, int x, int y)
 				CInputSystem::getInstance()->mouseInfo.clickedX = x;
 				CInputSystem::getInstance()->mouseInfo.clickedY = y;
 
-				//go buy mask state
-				CInGameStateManager::getInstance()->ChangeState(CBuyMaskState::Instance());
+				if (speed <= 800)
+				{
+					rotate = 0;
+					speed = 1000;
+				}
+				else
+				{
+					//go buy mask state
+					CInGameStateManager::getInstance()->ChangeState(CBuyMaskState::Instance());
+				}
 			}
 			else
 				CInputSystem::getInstance()->mouseInfo.mLButtonUp = true;

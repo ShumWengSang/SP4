@@ -19,7 +19,6 @@ void Bar::init(float r,float g,float b ,Vector3 pos)
 	Height = 16;
 	Color.Set(r,g,b);
 	done = false;
-
 }
 
 void Bar::draw()
@@ -28,14 +27,10 @@ void Bar::draw()
 		glTranslatef(Position.x, Position.y, Position.z+1);
 		glColor4f(Color.x, Color.y, Color.z, 0.7f);
 		glBegin(GL_QUADS);
-			glTexCoord2f(0,0);
-			glVertex2f(0,Height);
-			glTexCoord2f(1,0);
-			glVertex2f(Percentage, Height);
-			glTexCoord2f(1,1);
-			glVertex2f(Percentage ,0);
-			glTexCoord2f(0,1);
-			glVertex2f(0,0);				
+			glTexCoord2f(0,0);	glVertex2f(0,Height);
+			glTexCoord2f(1,0);	glVertex2f(Percentage, Height);
+			glTexCoord2f(1,1);	glVertex2f(Percentage ,0);
+			glTexCoord2f(0,1);	glVertex2f(0,0);				
 		glEnd();
 	glPopMatrix();
 
@@ -44,22 +39,19 @@ void Bar::draw()
 		glTranslatef(Position.x, Position.y, Position.z);
 		glColor4f(0, 0, 0, 1.0f);
 		glBegin(GL_LINE_LOOP);
-			glTexCoord2f(0,0);
-			glVertex2f(0,Height);
-			glTexCoord2f(1,0);
-			glVertex2f(SECONDS, Height);
-			glTexCoord2f(1,1);
-			glVertex2f(SECONDS, 0);
-			glTexCoord2f(0,1);
-			glVertex2f(0,0);				
+			glTexCoord2f(0,0);	glVertex2f(0,Height);
+			glTexCoord2f(1,0);	glVertex2f(BARLONG, Height);
+			glTexCoord2f(1,1);	glVertex2f(BARLONG, 0);
+			glTexCoord2f(0,1);	glVertex2f(0,0);				
 		glEnd();
 	glPopMatrix();
 	glColor3f(1,1,1);
 }
+
 void Bar::update(float r)
 {
-
-	Percentage+=r;
+	Percentage += r * BARLONG/HourTime;
+	//Percentage = r *BARLONG/DayTime;
 	if (r >= 5)
 	{
 		Color.x += Speed * Dir * CTimer::getInstance()->getDelta();
@@ -74,9 +66,9 @@ void Bar::update(float r)
 			Dir *= -Dir;
 		}
 	}
-	if(Percentage>=270)
+	if(Percentage>=BARLONG)
 	{
-		Percentage=270;
+		Percentage=BARLONG;
 		done = true;
 	}
 }

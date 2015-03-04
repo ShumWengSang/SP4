@@ -27,7 +27,7 @@ public:
 
 	int GetNumber(unsigned int number)
 	{
-		if (number <= TextureInts.size())
+		if (number < TextureInts.size())
 			return TextureInts[number];
 		return 0;
 	}
@@ -98,17 +98,31 @@ public:
 		LoadTexture("images/volUp.tga"); // Vol down Button
 		LoadTexture("images/description.tga"); //help state Background image
 
-		//START OF DAY 47 - 48
+		//mouse control 47
+		LoadTexture("images/playState/MouseControl.tga");
+
+		//SAVE
+
+		//Load
+
+
+		//START OF DAY 48 - 49
 		LoadTexture("images/startState/yes.tga");
 		LoadTexture("images/startState/no.tga");
 
-		//Tutorial State 49
+		//Tutorial State 50
 		LoadTexture("images/Newspaper.tga");
+
+		//Highscore Textures 51 - 53
+		LoadTexture("images/endgameState/highscore.tga");
+		LoadTexture("images/endgameState/highscore_bg.tga");
+		LoadTexture("images/endgameState/highscore_input.tga");
+
 	}
 	int LoadTexture(std::string filename)
 	{
 		TextureImage theImg;
-		if (		CApplication::getInstance()->LoadTGA(&theImg, (char*)filename.c_str()))
+		if (CApplication::getInstance()->LoadTGA(&theImg, (char*)filename.c_str()))
 			TextureInts.push_back(theImg.texID);
 		return TextureInts.size() - 1;
 	}

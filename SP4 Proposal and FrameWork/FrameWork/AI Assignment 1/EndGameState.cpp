@@ -42,8 +42,12 @@ void EndGameState::SetMoney(int money)
 
 void EndGameState::LoadTextures()
 {
-	CApplication::getInstance()->LoadTGA(&background[0],"images/win.tga");
-	CApplication::getInstance()->LoadTGA(&background[1],"images/lose.tga");
+	TextureSingleton * theInstance = TextureSingleton::getInstance();
+	background[0].texID = theInstance->GetNumber(40);
+	background[1].texID = theInstance->GetNumber(41);
+	background[2].texID = theInstance->GetNumber(51);
+	highscore_text.texID = theInstance->GetNumber(52);
+	highscore_box.texID = theInstance->GetNumber(53);
 }
 
 void EndGameState::DrawBackground()
@@ -52,7 +56,6 @@ void EndGameState::DrawBackground()
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glColor4f(1,1,1,alpha);
-		cout << "alpha\t" << alpha << endl;
 		glEnable(GL_TEXTURE_2D);
 		if(result == true)
 		{
@@ -77,21 +80,39 @@ void EndGameState::DrawBackground()
 
 void EndGameState::DrawHighscore()
 {
-	for (auto i = highscore.HighScoreList.begin(); i != highscore.HighScoreList.end(); i++)
-	{
+	glPushMatrix();
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glColor3f(1,1,1);
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, background[2].texID);
 		glPushMatrix();
-			glColor3f(1,1,1);
-			printw (50, SCREEN_HEIGHT/2+(i - highscore.HighScoreList.begin())*20, 0, "\nUsername:\t%s\tHighScore:\t%i", (*i).User.c_str(), (*i).HighScore);
+			glBegin(GL_QUADS);
+				glTexCoord2f(0, 0);	glVertex2f(0, SCREEN_HEIGHT);
+				glTexCoord2f(1, 0);	glVertex2f(SCREEN_WIDTH, SCREEN_HEIGHT);
+				glTexCoord2f(1, 1);	glVertex2f(SCREEN_WIDTH, 0);
+				glTexCoord2f(0, 1);	glVertex2f(0, 0);			
+			glEnd();
 		glPopMatrix();
-	}
+		glDisable(GL_TEXTURE_2D);
+		glDisable(GL_BLEND);
 
-	if(KeyInHighscore)
-	{
-		glPushMatrix();
-			glColor3f(1,1,1);
-			printw (80, SCREEN_HEIGHT/3, 0, "\nUsername:\t%s\tHighScore:\t%i", input.c_str(), profit);
-		glPopMatrix();
-	}
+		for (auto i = highscore.HighScoreList.begin(); i != highscore.HighScoreList.end(); i++)
+		{
+			glPushMatrix();
+				glColor3f(1,1,1);
+				printw (50, SCREEN_HEIGHT/2+(i - highscore.HighScoreList.begin())*20, 0, "\nUsername:\t%s\tHighScore:\t%i", (*i).User.c_str(), (*i).HighScore);
+			glPopMatrix();
+		}
+
+		if(KeyInHighscore)
+		{
+			glPushMatrix();
+				glColor3f(1,1,1);
+				printw (80, SCREEN_HEIGHT/3, 0, "\nUsername:\t%s\tHighScore:\t%i", input.c_str(), profit);
+			glPopMatrix();
+		}
+	glPopMatrix();
 }
 
 void EndGameState::Init()
