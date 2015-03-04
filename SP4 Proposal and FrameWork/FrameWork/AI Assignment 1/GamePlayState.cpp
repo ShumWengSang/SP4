@@ -38,7 +38,7 @@ void CGamePlayState::LoadTextures()
 
 void CGamePlayState::LoadButtons()
 {
-	theButton[pause] = new CButtons(SCREEN_WIDTH/2 - 45, 1, 32, 32, pause);
+	theButton[pause] = new CButtons(SCREEN_WIDTH/4 + 5, 1, 32, 32, pause);
 	theButton[pause]->setButtonTexture(button[0].texID);
 
 	theButton[shop] = new CButtons(0, SCREEN_HEIGHT - 50, 70, 50, shop);
@@ -276,8 +276,8 @@ void CGamePlayState::Draw(CInGameStateManager* theGSM)
 		CApplication::getInstance()->setClickCheck(false);	
 	}
 	Camera::getInstance()->SetHUD(true);
-	DrawButtons();
 	drawInfo();
+	DrawButtons();
 	DrawBuying();
 	DrawTimeBar();
 	Camera::getInstance()->SetHUD(false);
@@ -462,7 +462,11 @@ void CGamePlayState::DrawSkyBox()
 			
 void CGamePlayState::DrawTimeBar()
 {
+	glPushMatrix();
+	glTranslatef(SCREEN_WIDTH/3.5,0,0);
+	printw (20, 20, 0,  "Time: ");
 	theTimeBar.draw();
+	glPopMatrix();
 }
 
 void CGamePlayState::keyboardUpdate()
@@ -739,13 +743,30 @@ void CGamePlayState::ClickCollision() {
 void CGamePlayState::drawInfo()
 {
 	glPushMatrix();
+
+		glPushMatrix();
+			glEnable(GL_BLEND);
+			glColor4f(0, 0, 0, 0.5f);
+			glBegin(GL_QUADS);
+				glTexCoord2f(0,0);	glVertex2f(0,SCREEN_HEIGHT/3.5);
+				glTexCoord2f(1,0);	glVertex2f(SCREEN_WIDTH/4, SCREEN_HEIGHT/3.5);
+				glTexCoord2f(1,1);	glVertex2f(SCREEN_WIDTH/4 ,0);
+				glTexCoord2f(0,1);	glVertex2f(0,0);				
+			glEnd();
+			glDisable(GL_BLEND);
+		glPopMatrix();
+
 		glPushAttrib(GL_DEPTH_TEST);
-			glColor3f( 0.0f, 0.0f, 0.0f);
-			printw (20, 20, 0,  "Time: ");
-			printw(20, 45, 0, "PSI: %f", CPlayState::Instance()->theHaze.HazeGraph[HourNumber + (CPlayState::Instance()->day-1) * DayTime]);
-			printw(20, 65, 0, "FPS: %f", theTimerInstance->getFPS());
-			printw(20, 85, 0, "Day: %d", CPlayState::Instance()->day);
-			printw(20, 105, 0, "Hour: %d", HourNumber);
+			glColor3f( 1,1,1);
+			printw(20, 25, 0, "PSI: %f", CPlayState::Instance()->theHaze.HazeGraph[HourNumber + (CPlayState::Instance()->day-1) * DayTime]);
+			printw(20, 45, 0, "Day: %d", CPlayState::Instance()->day);
+			printw(20, 65, 0, "Hour: %d", HourNumber);
+			glColor3f(0.4,0.4,1); //B
+			printw (20, 105, 0,  "Shop 1's no. of masks: %d", CPlayState::Instance()->theStall[0]->getMaskNo());
+			glColor3f(1,0.2,0.2); //R
+			printw (20, 125, 0,  "Shop 2's no. of masks: %d", CPlayState::Instance()->theStall[1]->getMaskNo());
+			glColor3f(0.2,1,0.2); //G
+			printw (20, 145, 0,  "Shop 3's no. of masks: %d", CPlayState::Instance()->theStall[2]->getMaskNo());
 		glPopAttrib();
 	glPopMatrix();
 }

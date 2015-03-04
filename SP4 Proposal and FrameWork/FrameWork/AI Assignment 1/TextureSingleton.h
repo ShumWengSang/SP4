@@ -131,8 +131,5 @@ public:
 		return TextureInts.size() - 1;
 	}
 
-	
-	
-
 };
 
