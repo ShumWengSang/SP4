@@ -121,6 +121,7 @@ void CGamePlayState::Init()
 
 	barPos.Set(80, 10, 0);
 	theTimeBar.init(1.0, 0.0, 0.0, barPos);
+	
 	font_style = GLUT_BITMAP_HELVETICA_18;
 
 	//Input System
@@ -228,8 +229,6 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 		Camera::getInstance()->newUpdate();
 	else
 	{
-
-		
 		Camera::getInstance()->newUpdate();
 		for (auto i = theListofEntities.begin(); i != theListofEntities.end(); i++)
 		{
@@ -243,11 +242,8 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 				SeedHaze();
 		}
 
-		//if (theTimerInstance->executeTime(TimerKeyDay))
 		if (HourNumber == DayTime)
 		{
-			//CPlayState::Instance()->day++;
-			//HourNumber = 0;
 			CInGameStateManager::getInstance()->ChangeState(CEndOfDayState::Instance());
 		}
 
