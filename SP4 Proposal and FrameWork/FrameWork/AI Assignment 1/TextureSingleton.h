@@ -57,9 +57,9 @@ public:
 		LoadTexture("images/startState/50.tga");
 		LoadTexture("images/startState/100.tga");
 		LoadTexture("images/startState/200.tga");
-		LoadTexture("images/startState/10.tga");
-		LoadTexture("images/startState/12.tga");
-		LoadTexture("images/startState/15.tga");
+		LoadTexture("images/startState/4.tga");
+		LoadTexture("images/startState/5.tga");
+		LoadTexture("images/startState/6.tga");
 		LoadTexture("images/startState/back.tga");
 		LoadTexture("images/startState/reset.tga");
 		LoadTexture("images/startState/shop.tga");

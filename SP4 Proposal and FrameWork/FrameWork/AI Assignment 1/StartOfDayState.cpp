@@ -43,14 +43,14 @@ void CStartOfDayState::LoadButtons()
 	theButton[twohundred] = new CButtons(210, SCREEN_HEIGHT/2 + 80, 75, 45, twohundred);
 	theButton[twohundred]->setButtonTexture(button[3].texID);
 
-	theButton[ten] = new CButtons(SCREEN_WIDTH/2 + 80, SCREEN_HEIGHT/2 + 80, 75, 45, ten);
-	theButton[ten]->setButtonTexture(button[4].texID);
+	theButton[four] = new CButtons(SCREEN_WIDTH/2 + 80, SCREEN_HEIGHT/2 + 80, 75, 45, four);
+	theButton[four]->setButtonTexture(button[4].texID);
 	
-	theButton[twelve] = new CButtons(SCREEN_WIDTH/2 + 160, SCREEN_HEIGHT/2 + 80, 75, 45, twelve);
-	theButton[twelve]->setButtonTexture(button[5].texID);
+	theButton[five] = new CButtons(SCREEN_WIDTH/2 + 160, SCREEN_HEIGHT/2 + 80, 75, 45, five);
+	theButton[five]->setButtonTexture(button[5].texID);
 	
-	theButton[fifteen] = new CButtons(SCREEN_WIDTH/2 + 240, SCREEN_HEIGHT/2 + 80, 75, 45, fifteen);
-	theButton[fifteen]->setButtonTexture(button[6].texID);
+	theButton[six] = new CButtons(SCREEN_WIDTH/2 + 240, SCREEN_HEIGHT/2 + 80, 75, 45, six);
+	theButton[six]->setButtonTexture(button[6].texID);
 
 	theButton[sShop1] = new CButtons(85, 150, 90, 64, sShop1);
 	theButton[sShop1]->setButtonTexture(button[9].texID);
@@ -150,9 +150,9 @@ void CStartOfDayState::DrawButtons()
 	theButton[hundred]->drawButton();
 	theButton[twohundred]->drawButton();
 
-	theButton[ten]->drawButton();
-	theButton[twelve]->drawButton();
-	theButton[fifteen]->drawButton();
+	theButton[four]->drawButton();
+	theButton[five]->drawButton();
+	theButton[six]->drawButton();
 
 	theButton[sShop1]->drawButton();
 	if(CPlayState::Instance()->theStall[0]->Selected)
@@ -447,40 +447,40 @@ void CStartOfDayState::MouseClick(int button, int state, int x, int y) {
 				}
 
 				//Price setting
-				if(theButton[ten]->isInside(x, y))
+				if(theButton[four]->isInside(x, y))
 				{
 					ChangeColor();
 					if(CPlayState::Instance()->theStall[0]->Selected)
 					{
-						CPlayState::Instance()->theStall[0]->setMaskPrice(10);
+						CPlayState::Instance()->theStall[0]->setMaskPrice(4);
 						ChangeColor();
 					}
 					else if(CPlayState::Instance()->theStall[1]->Selected)
 					{
-						CPlayState::Instance()->theStall[1]->setMaskPrice(10);
+						CPlayState::Instance()->theStall[1]->setMaskPrice(4);
 					}
 					else if(CPlayState::Instance()->theStall[2]->Selected)
-						CPlayState::Instance()->theStall[2]->setMaskPrice(10);
+						CPlayState::Instance()->theStall[2]->setMaskPrice(4);
 				}
-				if(theButton[twelve]->isInside(x, y))
+				if(theButton[five]->isInside(x, y))
 				{
 					ChangeColor();
 					if(CPlayState::Instance()->theStall[0]->Selected)
-						CPlayState::Instance()->theStall[0]->setMaskPrice(12);
+						CPlayState::Instance()->theStall[0]->setMaskPrice(5);
 					else if(CPlayState::Instance()->theStall[1]->Selected)
-						CPlayState::Instance()->theStall[1]->setMaskPrice(12);
+						CPlayState::Instance()->theStall[1]->setMaskPrice(5);
 					else if(CPlayState::Instance()->theStall[2]->Selected)
-						CPlayState::Instance()->theStall[2]->setMaskPrice(12);
+						CPlayState::Instance()->theStall[2]->setMaskPrice(5);
 				}
-				if(theButton[fifteen]->isInside(x, y))
+				if(theButton[six]->isInside(x, y))
 				{
 					ChangeColor();
 					if(CPlayState::Instance()->theStall[0]->Selected)
-						CPlayState::Instance()->theStall[0]->setMaskPrice(15);
+						CPlayState::Instance()->theStall[0]->setMaskPrice(6);
 					else if(CPlayState::Instance()->theStall[1]->Selected)
-						CPlayState::Instance()->theStall[1]->setMaskPrice(15);
+						CPlayState::Instance()->theStall[1]->setMaskPrice(6);
 					else if(CPlayState::Instance()->theStall[2]->Selected)
-						CPlayState::Instance()->theStall[2]->setMaskPrice(15);
+						CPlayState::Instance()->theStall[2]->setMaskPrice(6);
 				}
 			}
 			else

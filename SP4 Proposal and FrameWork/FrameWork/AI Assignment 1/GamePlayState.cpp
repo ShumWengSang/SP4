@@ -142,6 +142,7 @@ void CGamePlayState::Init()
 	theTimerInstance = CTimer::getInstance();
 	TimerKeySeed = theTimerInstance->insertNewTime(HourTime);
 	TimerKeyDay = theTimerInstance->insertNewTime(HourTime * DayTime);
+	TimerHalfHour = theTimerInstance->insertNewTime(HourTime / 2);
 
 	Buyer * newBuyer;
 
@@ -188,7 +189,7 @@ void CGamePlayState::SeedHaze()
 
 		if (!((x == 0 || (x == (TILE_NO_X - 1))) && ((y == 0 || y == (TILE_NO_Y - 1)))))
 		{
-			theGrid->temp[x][y].Seeded(static_cast<int>(CPlayState::Instance()->theHaze.HazeGraph[HourNumber + (DayNumber-1) * DayTime] * 10000));
+			theGrid->temp[x][y].Seeded(static_cast<int>(CPlayState::Instance()->theHaze.HazeGraph[HourNumber + (DayNumber-1) * DayTime] * 1000));
 			theSeededTiles.push_back(&theGrid->temp[x][y]);
 			Seeds++;
 		}
@@ -238,10 +239,14 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 		if (theTimerInstance->executeTime(TimerKeySeed))
 		{
 			HourNumber++;
+
+		}
+		if (theTimerInstance->executeTime(TimerHalfHour))
+		{
 			if(HourNumber != DayTime)
 				SeedHaze();
 		}
-
+		theTimeBar.update(static_cast<float>(HourNumber));
 		if (HourNumber == DayTime)
 		{
 			CInGameStateManager::getInstance()->ChangeState(CEndOfDayState::Instance());
@@ -501,7 +506,6 @@ void CGamePlayState::DrawSkyBox()
 			
 void CGamePlayState::DrawTimeBar()
 {
-	theTimeBar.update(static_cast<float>(HourNumber));
 	theTimeBar.draw();
 }
 
