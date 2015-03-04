@@ -12,7 +12,7 @@
 
 using namespace std;
 
-enum LOAD_BUTTON
+enum SAVE_BUTTON
 {
 	save1,
 	save2,

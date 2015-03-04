@@ -1,6 +1,7 @@
 #include "EndOfDayState.h"
 #include "PlayState.h"
 #include "SaveState.h"
+#include "LoadState.h"
 #include "BuyMaskState.h"
 #include "TextureSingleton.h"
 
@@ -238,6 +239,8 @@ void CEndOfDayState::MouseClick(int button, int state, int x, int y) {
 						CPlayState::Instance()->day = CPlayState::Instance()->forecasting->getCurrentDay();
 						reinit = true;
 					}
+					if (CLoadState::Instance()->getLoaded())
+							CLoadState::Instance()->getLoadData()->off();
 					CPlayState::Instance()->firstDay = false;
 					CPlayState::Instance()->maskInStock = CPlayState::Instance()->maskLeft;
 					CPlayState::Instance()->resetValues();

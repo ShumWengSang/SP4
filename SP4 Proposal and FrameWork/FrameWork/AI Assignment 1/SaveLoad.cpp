@@ -95,3 +95,7 @@ bool CSaveLoad::getHere()
 {
 	return here;
 }
+void CSaveLoad::off()
+{
+	here = false;
+}

@@ -75,7 +75,7 @@ private:
 
 	ISoundEngine *se;
 
-
-
+	bool volumeUp;
+	bool volumeDown;
 };
 

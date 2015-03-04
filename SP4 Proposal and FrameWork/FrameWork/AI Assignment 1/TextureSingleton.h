@@ -39,7 +39,7 @@ public:
 		LoadTexture("images/menuState/map.tga");
 		LoadTexture("images/menuState/start.tga");
 		LoadTexture("images/menuState/loadGame.tga");
-		LoadTexture("images/menuState/options.tga");
+		LoadTexture("images/menuState/help.tga");
 		LoadTexture("images/menuState/quit.tga");
 
 		//6  to 12 BUY MASK
@@ -59,7 +59,7 @@ public:
 		LoadTexture("images/startState/200.tga");
 		LoadTexture("images/startState/4.tga");
 		LoadTexture("images/startState/5.tga");
-		LoadTexture("images/startState/6.tga");
+		LoadTexture("images/startState/6.tga"); //20
 		LoadTexture("images/startState/back.tga");
 		LoadTexture("images/startState/reset.tga");
 		LoadTexture("images/startState/shop.tga");

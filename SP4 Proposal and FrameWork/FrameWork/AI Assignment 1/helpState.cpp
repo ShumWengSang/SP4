@@ -2,13 +2,9 @@
 #include "TextureSingleton.h"
 helpState helpState::theHelpState;
 
-
-
-
 helpState::~helpState(void)
 {
 }
-
 
 void helpState::LoadTextures()
 {
@@ -45,6 +41,9 @@ void helpState::Init()
 
 	LoadTextures();
 	LoadButtons();
+
+	volumeUp = false;
+	volumeDown = false;
 
 	//Input System
 	InputSystem = CInputSystem::getInstance();
@@ -145,6 +144,14 @@ void helpState::DrawInfo()
 		glPushAttrib(GL_DEPTH_TEST);
 			glColor3f( 1.0f, 1.0f, 0.0f);
 			printw (SCREEN_WIDTH/2 - 50, SCREEN_HEIGHT - 125, 0, "Volume: %d", sound->getCurrentVolume());
+
+			glColor3f( 0.0f, 0.0f, 0.0f);
+			if(volumeUp)
+				printw (theButton[volUp]->getButtonX(), theButton[volUp]->getButtonY(), 0, "Volume Up");
+
+			if(volumeDown)
+				printw (theButton[volDown]->getButtonX(), theButton[volDown]->getButtonY(), 0, "Volume Down");
+
 		glPopAttrib();
 	glPopMatrix();
 }
@@ -154,6 +161,16 @@ void helpState::MouseMove (int x, int y)
 {
 	InputSystem->mouseInfo.lastX = x;
 	InputSystem->mouseInfo.lastY = y;
+
+	if(theButton[volUp]->isInside(x, y))
+		volumeUp = true;
+	else
+		volumeUp = false;
+
+	if(theButton[volDown]->isInside(x, y))
+		volumeDown = true;
+	else
+		volumeDown = false;
 }
 
 void helpState::MouseClick(int button, int state, int x, int y) {

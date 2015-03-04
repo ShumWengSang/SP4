@@ -14,9 +14,9 @@ using namespace std;
 
 enum LOAD_BUTTON
 {
-	save1,
-	save2,
-	save3,
+	load1,
+	load2,
+	load3,
 	backToMenu
 };
 
