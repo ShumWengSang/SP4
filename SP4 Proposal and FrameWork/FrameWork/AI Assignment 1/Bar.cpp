@@ -50,7 +50,7 @@ void Bar::draw()
 
 void Bar::update(float r)
 {
-	Percentage += r * BARLONG/HourTime;
+	Percentage += r* CTimer::getInstance()->getDelta();
 
 	//std::cout << Percentage << std::endl;
 	//Percentage = r *BARLONG/DayTime;
