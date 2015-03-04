@@ -88,10 +88,10 @@ void CTutorialState::DrawNewsPaper()
 		glTranslatef(0, speed, -100);
 		glBindTexture(GL_TEXTURE_2D, background[0].texID);
 		glBegin(GL_QUADS);
-			glTexCoord2f(1, 1);  glVertex3f(0, 0.0f, 420);
-			glTexCoord2f(0, 1);  glVertex3f(420, 0.0f, 420); 
-			glTexCoord2f(0, 0);	 glVertex3f(420, 0.0f, 0);
-			glTexCoord2f(1, 0);	 glVertex3f(0, 0.0f, 0);
+			glTexCoord2f(1, 1);  glVertex3f(-210, 0.0f, 210);
+			glTexCoord2f(0, 1);  glVertex3f(210, 0.0f, 210); 
+			glTexCoord2f(0, 0);	 glVertex3f(210, 0.0f, -210);
+			glTexCoord2f(1, 0);	 glVertex3f(-210, 0.0f, -210);
 		glEnd();
 		glDisable(GL_TEXTURE_2D);
 		glDisable(GL_BLEND);
