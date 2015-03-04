@@ -54,7 +54,7 @@ void CTutorialState::Draw(CInGameStateManager* GSM)
 	else
 		DrawNewsPaper();
 }
-void CTutorialState::DrawBackground()
+void CTutorialState::DrawNewsPaper()
 {
 	glPushMatrix();
 		glEnable(GL_BLEND);
@@ -74,7 +74,7 @@ void CTutorialState::DrawBackground()
 	glPopMatrix();
 }
 
-void CTutorialState::DrawNewsPaper()
+void CTutorialState::MoveNewsPaper()
 {
 	glPushMatrix();
 		glEnable(GL_BLEND);
@@ -100,20 +100,6 @@ void CTutorialState::DrawNewsPaper()
 
 void CTutorialState::keyboardUpdate(void)
 {
-	if(CInputSystem::getInstance()->myKeys['a'])
-		Camera::getInstance()->Strafe(-1);
-	if(CInputSystem::getInstance()->myKeys['d'])
-		Camera::getInstance()->Strafe(1);
-	if(CInputSystem::getInstance()->myKeys['w'])
-		Camera::getInstance()->Walk(1);
-	if(CInputSystem::getInstance()->myKeys['s'])
-		Camera::getInstance()->Walk(-1);
-	if(CInputSystem::getInstance()->myKeys['c'])
-		cout << Camera::getInstance()->GetPos() << endl;
-	if(CInputSystem::getInstance()->myKeys['x'])
-		cout << rotate << endl;
-	if(CInputSystem::getInstance()->myKeys['z'])
-		cout << speed << endl;
 	//Esc Key
 	if(CInputSystem::getInstance()->myKeys[VK_ESCAPE]) 
 		exit(0);
