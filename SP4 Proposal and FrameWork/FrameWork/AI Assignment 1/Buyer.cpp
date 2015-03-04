@@ -130,12 +130,14 @@ bool Buyer::glRenderObject()
 	glPushMatrix();
 	glTranslatef(Position.x, Position.y, Position.z);
 	//glScalef(3, 3, 3);
-	glBegin(GL_QUADS);
-	glColor3f(Color.x, Color.y, Color.z);
-	glEnd();
 
-	
+	glColor3f(Color.x, Color.y, Color.z);
+	glEnable(GL_BLEND);
+	glEnable(GL_TEXTURE_2D);
+	glBindTexture(GL_TEXTURE_2D, Texture); 
 	theModel->Render();
+	glDisable(GL_TEXTURE_2D);
+	glDisable(GL_BLEND);
 
 	glPopMatrix();
 	return true;
@@ -158,7 +160,7 @@ void Buyer::AIUpdate()
 								{
 									if (HasMask)
 									{
-										Color.Set(0, 1, 0);
+										Color.Set(0, 0, 0);
 									}
 									else
 									{
@@ -167,7 +169,6 @@ void Buyer::AIUpdate()
 										if (theStall != NULL)
 										{
 											theShopToBuy = theStall;
-											Color.Set(0, 0, 1);
 											TargettoWalk.push_back(&theShopToBuy->pos);
 											CurrentState = GOINGTOBUY;
 
@@ -199,14 +200,13 @@ void Buyer::AIUpdate()
 								   else
 								   {
 									   theShopToBuy = StorePriorities[StorePriority];
-									   Color.Set(0, 0, 1);
 									   TargettoWalk.push_back(&theShopToBuy->pos);
 								   }
 							   }
 							   else
 							   {
 								   HasMask = true;
-								   Color.Set(1, 0, 0);
+								   Color.Set(0, 0, 0);
 								   CurrentState = IDLEWALKING;
 								   theTileTemp->ShopOnTop->buyMask(1);
 								   for (unsigned int i = TargettoWalk.size(); i != 1; i--)
@@ -227,7 +227,7 @@ void Buyer::AIUpdate()
 
 void Buyer::Init()
 {
-	Color.Set(0, 0, 0);
+	Color.Set(1, 1, 1);
 	CurrentMoney = rand() % 20 + 1;
 	theType = BUYER;
 	CurrentState = IDLEWALKING;

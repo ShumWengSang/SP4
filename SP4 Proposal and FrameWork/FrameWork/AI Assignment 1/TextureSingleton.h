@@ -122,6 +122,9 @@ public:
 		LoadTexture("images/tutorialState/SecondSetupScreen.tga");
 		LoadTexture("images/tutorialState/ThirdGameplay.tga");
 		LoadTexture("images/tutorialState/LastEndDay.tga");
+
+		//57
+		LoadTexture("images/buyerTex.tga");
 	}
 	int LoadTexture(std::string filename)
 	{

@@ -139,6 +139,7 @@ void CGamePlayState::Init()
 	for (int i = 0; i < STARTINGAMOUNTOFBUYERS; i++)
 	{
 		newBuyer = new Buyer(theListofStalls, theGrid);
+		newBuyer->Texture = TextureSingleton::getInstance()->GetNumber(57);
 		theListofEntities.push_back(newBuyer);
 	}
 
