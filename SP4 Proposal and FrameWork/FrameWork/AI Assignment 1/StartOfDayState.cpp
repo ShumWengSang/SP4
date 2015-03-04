@@ -18,8 +18,8 @@ void CStartOfDayState::LoadTextures()
 		button[i].texID = theInstance->GetNumber(i + 14);
 	}
 
-	button[15].texID = theInstance->GetNumber(47);
-	button[16].texID = theInstance->GetNumber(48);
+	button[15].texID = theInstance->GetNumber(48);
+	button[16].texID = theInstance->GetNumber(49);
 }
 
 void CStartOfDayState::LoadButtons()

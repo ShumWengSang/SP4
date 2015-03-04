@@ -53,6 +53,8 @@ void Buyer::WillBuy(int Haze)
 		{
 			(*i)->Considered = true;
 			float Distance = ((*i)->theStall->getPosition() - Position).Length();
+			if (Distance > 50)
+				continue;
 			//float Distance = 10;
 			long long temp = (GetNumber( static_cast<int>((*i)->theStall->Price), static_cast<int>(Distance), Haze));
 			if (temp < 0)
