@@ -6,11 +6,13 @@ Buyer::Buyer()
 	theGrid = NULL;
 	theShopToBuy = NULL;
 	Color.SetZero();
+	sound = AudioPlayer::Instance();
 }
 
 Buyer::Buyer(std::vector<CStalls*> theStalls, Grid * theGrid)
 {
 	this->theGrid = theGrid;
+	sound = AudioPlayer::Instance();
 	for (unsigned int i = 0; i < theStalls.size(); i++)
 	{
 		Insert(theStalls[i]);
@@ -53,7 +55,7 @@ void Buyer::WillBuy(int Haze)
 		{
 			(*i)->Considered = true;
 			float Distance = ((*i)->theStall->getPosition() - Position).Length();
-			if (Distance > 50)
+			if (Distance > 100)
 				continue;
 			//float Distance = 10;
 			long long temp = (GetNumber( static_cast<int>((*i)->theStall->Price), static_cast<int>(Distance), Haze));
@@ -132,13 +134,7 @@ bool Buyer::glRenderObject()
 	glPushMatrix();
 	glTranslatef(Position.x, Position.y, Position.z);
 	//glScalef(3, 3, 3);
-	glBegin(GL_QUADS);
 	glColor3f(Color.x, Color.y, Color.z);
-	glVertex3f(0.5, 1, 0.5);
-	glVertex3f(1.0, 1, 0.5);
-	glVertex3f(1.0, 0.5, 0.5);
-	glVertex3f(0.5, 0.5, 0.5);
-	glEnd();
 
 	
 	theModel->Render();
@@ -164,7 +160,7 @@ void Buyer::AIUpdate()
 								{
 									if (HasMask)
 									{
-										Color.Set(0, 1, 0);
+										//Color.Set(0, 1, 0);
 									}
 									else
 									{
@@ -172,8 +168,8 @@ void Buyer::AIUpdate()
 
 										if (theStall != NULL)
 										{
+
 											theShopToBuy = theStall;
-											Color.Set(0, 0, 1);
 											TargettoWalk.push_back(&theShopToBuy->pos);
 											CurrentState = GOINGTOBUY;
 
@@ -205,14 +201,13 @@ void Buyer::AIUpdate()
 								   else
 								   {
 									   theShopToBuy = StorePriorities[StorePriority];
-									   Color.Set(0, 0, 1);
 									   TargettoWalk.push_back(&theShopToBuy->pos);
 								   }
 							   }
 							   else
 							   {
+								   sound->se->play2D("audio/cashRegister.mp3", false);
 								   HasMask = true;
-								   Color.Set(1, 0, 0);
 								   CurrentState = IDLEWALKING;
 								   theTileTemp->ShopOnTop->buyMask(1);
 								   for (unsigned int i = TargettoWalk.size(); i != 1; i--)
