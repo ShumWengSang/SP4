@@ -2,9 +2,9 @@
 #include "StartOfDayState.h"
 #include "BuyMaskState.h"
 #include "TutorialState.h"
-
+bool CPlayState::skipTutorial = false;
 CPlayState CPlayState::thePlayState;
-
+CInGameStateManager * CPlayState::IGSM = NULL;
 void CPlayState::Init()
 {
 
@@ -40,7 +40,10 @@ void CPlayState::Init()
 	//Game State Manager
 	IGSM = CInGameStateManager::getInstance();
 	IGSM->Init("In Game State Manager");
-	IGSM->ChangeState(CTutorialState::Instance());
+	if (!skipTutorial)
+		IGSM->ChangeState(CTutorialState::Instance());
+	else
+		IGSM->ChangeState(CBuyMaskState::Instance());
 
 	theHaze.GetHazeAvg();
 }
@@ -115,3 +118,8 @@ void CPlayState::resetValues()
 	}
 }
 
+CPlayState* CPlayState::Instance()
+{
+	int i = 0;
+	return &thePlayState;
+}

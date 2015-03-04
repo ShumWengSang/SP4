@@ -16,6 +16,7 @@ Buyer::Buyer(std::vector<CStalls*> theStalls, Grid * theGrid)
 		Insert(theStalls[i]);
 	}
 	Init();
+	sound = AudioPlayer::Instance();
 }
 
 Buyer::~Buyer()
@@ -213,6 +214,7 @@ void Buyer::AIUpdate()
 								   {
 									   TargettoWalk.pop_back();
 								   }
+								   sound->se->play2D("audio/cashRegister.mp3");
 							   }
 						   }
 		}

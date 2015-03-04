@@ -5,6 +5,7 @@
 #include "InGameState.h"
 #include "GameStateManager.h"
 #include "InGameStateManager.h"
+#include "BuyMaskState.h"
 #include "Global.h"
 #include "Input.h"
 #include "Stalls.h"
@@ -33,6 +34,7 @@ public:
 	void Draw(CGameStateManager* GSM);
 	void keyboardUpdate(void);
 
+	static bool skipTutorial;
 	int day;
 
 	int maskInStock;
@@ -59,7 +61,7 @@ public:
 	void MouseWheel(int button, int dir, int x, int y);
 
 	//Game State Manager
-	CInGameStateManager *IGSM;
+	static CInGameStateManager *IGSM;
 
 	//Variables that persists throughout the days.
 	CStalls *theStall[3];
@@ -67,7 +69,11 @@ public:
 	WeatherGenerator theHaze;
 	CForecast *forecasting;
 
-	static CPlayState* Instance() {
+	static CPlayState* Instance(); 
+	static CPlayState* Instance(bool load)
+	{
+		skipTutorial = true;
+		//IGSM->ChangeState(CBuyMaskState::Instance());	
 		return &thePlayState;
 	}
 

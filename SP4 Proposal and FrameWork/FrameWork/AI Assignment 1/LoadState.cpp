@@ -18,6 +18,11 @@ bool CLoadState::getLoaded()
 	else
 		return false;
 }
+bool CLoadState::skipThis()
+{
+	return true;
+}
+
 
 void CLoadState::LoadTextures()
 {
@@ -201,17 +206,17 @@ void CLoadState::MouseClick(int button, int state, int x, int y) {
 				if(theButton[load1]->isInside(x, y) && loadedFiles[0]->getHere())
 				{
 					saveNum = 1;
-					CGameStateManager::getInstance()->ChangeState(CPlayState::Instance());
+					CGameStateManager::getInstance()->ChangeState(CPlayState::Instance(true));
 				}
 				if(theButton[load2]->isInside(x, y) && loadedFiles[1]->getHere())
 				{
 					saveNum = 2;
-					CGameStateManager::getInstance()->ChangeState(CPlayState::Instance());
+					CGameStateManager::getInstance()->ChangeState(CPlayState::Instance(true));
 				}
 				if(theButton[load3]->isInside(x, y) && loadedFiles[2]->getHere())
 				{
 					saveNum = 3;
-					CGameStateManager::getInstance()->ChangeState(CPlayState::Instance());
+					CGameStateManager::getInstance()->ChangeState(CPlayState::Instance(true));
 				}
 
 				//go back

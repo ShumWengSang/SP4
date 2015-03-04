@@ -47,6 +47,7 @@ public:
 	void DrawLoadInfo();
 	void keyboardUpdate(void);
 
+	bool skipThis();
 	CSaveLoad* getLoadData();
 	bool getLoaded();
 

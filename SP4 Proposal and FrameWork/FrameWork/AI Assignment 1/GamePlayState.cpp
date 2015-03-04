@@ -479,13 +479,7 @@ void CGamePlayState::keyboardUpdate()
 		Camera::getInstance()->Walk(1);
 	if(CInputSystem::getInstance()->myKeys['s'])
 		Camera::getInstance()->Walk(-1);
-	if (CInputSystem::getInstance()->myKeys['0' ])
-		CInGameStateManager::getInstance()->ChangeState(CEndOfDayState::Instance());
-	if (CInputSystem::getInstance()->myKeys['1'])
-	{
-		for (unsigned int i = 0; i < theSeededTiles.size(); i++)
-		{}
-	}
+
 
 	//Esc Key
 	if(CInputSystem::getInstance()->myKeys[VK_ESCAPE]) 
