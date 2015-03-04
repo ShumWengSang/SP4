@@ -61,6 +61,46 @@ public:
 		return 	theLoadState;
 	}
 
+	void Drop()
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			if(theButton[i] != NULL)
+			{
+				delete theButton[i];
+				theButton[i] = NULL;
+			}
+		}
+
+		for (int i = 0; i < 3; i++)
+		{
+			if(loadedFiles[i] != NULL)
+			{
+				delete loadedFiles[i];
+				loadedFiles[i] = NULL;
+			}
+		}
+
+		if (se != NULL)
+		{
+			delete se;
+			se = NULL;
+		}
+
+		/*if (sound != NULL)
+		{
+			delete sound;
+			sound = NULL;
+		}*/
+
+		if (theLoadState != NULL)
+		{
+			delete theLoadState;
+			theLoadState = NULL;
+		}
+
+	}
+
 	void *font_style;
 	void printw(float x, float y, float z, char* format, ...);
 
