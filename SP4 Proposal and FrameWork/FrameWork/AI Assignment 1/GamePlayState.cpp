@@ -46,6 +46,8 @@ void CGamePlayState::LoadTextures()
 		buyingButton[i + 1].texID = theInstance->GetNumber(i + 10);
 	}
 	buyingBackground[0].texID = theInstance->GetNumber(13);
+
+	ControlTexID = theInstance->GetNumber(47);
 	//CApplication::getInstance()->LoadTGA(&buyingButton[0],"images/playState/x.tga");
 	//CApplication::getInstance()->LoadTGA(&buyingButton[1],"images/playState/50.tga");
 	//CApplication::getInstance()->LoadTGA(&buyingButton[2],"images/playState/100.tga");
@@ -389,6 +391,20 @@ void CGamePlayState::DrawBuying()
 			glPopAttrib();
 		glPopMatrix();
 	}
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+	glEnable(GL_TEXTURE_2D);
+	glPushMatrix();	
+	glBindTexture(GL_TEXTURE_2D, ControlTexID);
+	glBegin(GL_QUADS);
+	glTexCoord2f(1, 0);	glVertex2f(SCREEN_WIDTH, SCREEN_HEIGHT / 4);
+	glTexCoord2f(0, 0); glVertex2f(SCREEN_WIDTH - SCREEN_WIDTH / 4, SCREEN_HEIGHT / 4);
+	glTexCoord2f(0, 1); glVertex2f(SCREEN_WIDTH - SCREEN_WIDTH / 4, 0);
+	glTexCoord2f(1, 1);	glVertex2f(SCREEN_WIDTH, 0);
+	glEnd();
+	glPopMatrix();
+	glDisable(GL_BLEND);
+	glDisable(GL_TEXTURE_2D);
 }
 
 void CGamePlayState::DrawButtons()
