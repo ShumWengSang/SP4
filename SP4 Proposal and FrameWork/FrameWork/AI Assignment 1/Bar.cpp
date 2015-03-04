@@ -50,8 +50,8 @@ void Bar::draw()
 
 void Bar::update(float r)
 {
-	Percentage += r * BARLONG/HourTime;
-	//Percentage = r *BARLONG/DayTime;
+	//Percentage += r * BARLONG/HourTime;
+	Percentage = r *BARLONG/DayTime;
 	if (r >= TIMEBLINK)
 	{
 		Color.x += Speed * Dir * CTimer::getInstance()->getDelta();

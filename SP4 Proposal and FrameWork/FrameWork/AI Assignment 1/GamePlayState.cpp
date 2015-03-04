@@ -241,7 +241,7 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 			if(HourNumber != DayTime)
 				SeedHaze();
 		}
-
+		theTimeBar.update(static_cast<float>(HourNumber));
 		if (HourNumber == DayTime)
 		{
 			CInGameStateManager::getInstance()->ChangeState(CEndOfDayState::Instance());
@@ -501,7 +501,6 @@ void CGamePlayState::DrawSkyBox()
 			
 void CGamePlayState::DrawTimeBar()
 {
-	theTimeBar.update(static_cast<float>(HourNumber));
 	theTimeBar.draw();
 }
 
