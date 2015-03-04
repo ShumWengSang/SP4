@@ -4,6 +4,7 @@
 #include "BuyMaskState.h"
 #include "StartOfDayState.h"
 #include "GamePlayState.h"
+#include "TutorialState.h"
 
 CInGameStateManager* CInGameStateManager::instance = NULL;
 
@@ -71,15 +72,21 @@ void CInGameStateManager::ChangeState(CInGameState* state)
 		case BuyMaskState:
 		state = CBuyMaskState::Instance();
 		break;
+
 		case StartofDayState:
 		state = CStartOfDayState::Instance();
 		break;
+
 		case PlayGameState:
 		state = CGamePlayState::Instance();
-
 		break;
+
 		case EndofDayState:
 		state = CEndOfDayState::Instance();
+		break;
+
+		case TutorialState:
+		state = CTutorialState::Instance();
 		break;
 	}
 	// store and init the new state

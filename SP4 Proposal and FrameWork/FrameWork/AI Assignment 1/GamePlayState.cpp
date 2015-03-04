@@ -120,7 +120,7 @@ void CGamePlayState::Init()
 	LoadButtons();
 
 	barPos.Set(80, 10, 0);
-
+	theTimeBar.init(1.0, 0.0, 0.0, barPos);
 	font_style = GLUT_BITMAP_HELVETICA_18;
 
 	//Input System
@@ -505,7 +505,7 @@ void CGamePlayState::DrawSkyBox()
 			
 void CGamePlayState::DrawTimeBar()
 {
-	theTimeBar.update(static_cast<float>(HourNumber) );
+	theTimeBar.update(static_cast<float>(HourNumber));
 	theTimeBar.draw();
 }
 

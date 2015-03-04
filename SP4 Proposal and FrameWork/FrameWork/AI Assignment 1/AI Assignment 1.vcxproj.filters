@@ -19,9 +19,6 @@
     <Filter Include="PlayStates">
       <UniqueIdentifier>{aa12f7b8-3913-4cde-bbb7-847b034400f4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="OtherGameStates">
-      <UniqueIdentifier>{fb8535f8-22ee-4083-a3a0-ae680b016ef4}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Camera">
       <UniqueIdentifier>{c284114f-0cca-4368-8dca-1b0e611bfcd2}</UniqueIdentifier>
     </Filter>
@@ -30,6 +27,9 @@
     </Filter>
     <Filter Include="Useless files for reference">
       <UniqueIdentifier>{198409cb-6135-45cb-9e89-6d91210f69a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OtherGameStates">
+      <UniqueIdentifier>{fb8535f8-22ee-4083-a3a0-ae680b016ef4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -108,17 +108,11 @@
     <ClCompile Include="AudioPlayer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LoadState.cpp">
-      <Filter>PlayStates</Filter>
-    </ClCompile>
     <ClCompile Include="Forecast.cpp">
       <Filter>Resource Files</Filter>
     </ClCompile>
     <ClCompile Include="SaveLoad.cpp">
       <Filter>Resource Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SaveState.cpp">
-      <Filter>PlayStates</Filter>
     </ClCompile>
     <ClCompile Include="BuyMaskState.cpp">
       <Filter>PlayStates</Filter>
@@ -155,6 +149,15 @@
     </ClCompile>
     <ClCompile Include="MoneyAnimation.cpp">
       <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadState.cpp">
+      <Filter>OtherGameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="SaveState.cpp">
+      <Filter>OtherGameStates</Filter>
+    </ClCompile>
+    <ClCompile Include="TutorialState.cpp">
+      <Filter>OtherGameStates</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -239,17 +242,11 @@
     <ClInclude Include="AudioPlayer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="LoadState.h">
-      <Filter>PlayStates</Filter>
-    </ClInclude>
     <ClInclude Include="Forecast.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
     <ClInclude Include="SaveLoad.h">
       <Filter>Resource Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SaveState.h">
-      <Filter>PlayStates</Filter>
     </ClInclude>
     <ClInclude Include="BuyMaskState.h">
       <Filter>PlayStates</Filter>
@@ -286,6 +283,15 @@
     </ClInclude>
     <ClInclude Include="MoneyAnimation.h">
       <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LoadState.h">
+      <Filter>OtherGameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="SaveState.h">
+      <Filter>OtherGameStates</Filter>
+    </ClInclude>
+    <ClInclude Include="TutorialState.h">
+      <Filter>OtherGameStates</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
