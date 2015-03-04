@@ -173,7 +173,8 @@ void CGamePlayState::SeedHaze()
 
 		if (!((x == 0 || (x == (TILE_NO_X - 1))) && ((y == 0 || y == (TILE_NO_Y - 1)))))
 		{
-			theGrid->temp[x][y].Seeded(static_cast<int>(CPlayState::Instance()->theHaze.HazeGraph[HourNumber + (DayNumber-1) * DayTime] * 1000));
+			//theGrid->temp[x][y].Seeded(static_cast<int>(CPlayState::Instance()->theHaze.HazeGraph[HourNumber + (DayNumber-1) * DayTime] * 1000));
+			theGrid->temp[x][y].Seeded(/*static_cast<int>*/pow((CPlayState::Instance()->theHaze.HazeGraph[HourNumber + (DayNumber - 1) * DayTime] ),3));
 			theSeededTiles.push_back(&theGrid->temp[x][y]);
 			Seeds++;
 		}
