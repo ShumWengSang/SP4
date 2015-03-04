@@ -14,6 +14,7 @@ void CTutorialState::LoadTextures()
 {
 	TextureSingleton * theInstance = TextureSingleton::getInstance();
 	background[0].texID = theInstance->GetNumber(50);
+	background[0].texID = theInstance->GetNumber(58);
 
 	for(int i = 0; i < 4; i++)
 	{

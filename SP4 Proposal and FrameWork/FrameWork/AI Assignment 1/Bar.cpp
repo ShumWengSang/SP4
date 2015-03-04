@@ -50,8 +50,8 @@ void Bar::draw()
 
 void Bar::update(float r)
 {
-	Percentage += r* CTimer::getInstance()->getDelta();
-
+	//Percentage += r* CTimer::getInstance()->getDelta();
+	Percentage += (r* CTimer::getInstance()->getDelta()) * BARLONG * (DayTime /HourTime);
 	//std::cout << Percentage << std::endl;
 	//Percentage = r *BARLONG/DayTime;
 	if (r >= TIMEBLINK)

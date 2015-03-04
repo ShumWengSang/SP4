@@ -125,6 +125,9 @@ public:
 
 		//57
 		LoadTexture("images/buyerTex.tga");
+
+		//58
+		LoadTexture("images/tutorialState/Newspaper2.tga");
 	}
 	int LoadTexture(std::string filename)
 	{
