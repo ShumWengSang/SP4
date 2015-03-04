@@ -24,3 +24,4 @@
 #define noiseWidth	DayTime * 7
 
 #define WinMoneyCondition	StartMoney
+#define FullScreen	false
