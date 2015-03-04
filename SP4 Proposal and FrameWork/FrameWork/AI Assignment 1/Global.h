@@ -4,7 +4,7 @@
 #define SCREEN_HEIGHT	600 // glutGet(GLUT_WINDOW_HEIGHT)
 
 #define BARLONG		270
-#define TIMEBLINK	7
+#define TIMEBLINK	8
 
 #define mWidth		64
 #define mHeight		64

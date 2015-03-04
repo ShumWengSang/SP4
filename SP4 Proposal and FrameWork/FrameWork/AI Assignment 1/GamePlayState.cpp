@@ -97,7 +97,7 @@ void CGamePlayState::Init()
 	LoadTextures();
 	LoadButtons();
 
-	barPos.Set(80, 10, 0);
+	barPos.Set(SCREEN_WIDTH/2.9, 10, 0);
 	theTimeBar.init(1.0, 0.0, 0.0, barPos);
 	
 	font_style = GLUT_BITMAP_HELVETICA_18;
@@ -220,7 +220,7 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 			if(HourNumber != DayTime)
 				SeedHaze();
 		}
-		theTimeBar.update(static_cast<float>(HourNumber));
+		theTimeBar.update(static_cast<float>(HourNumber) + 1.0f);
 		if (HourNumber == DayTime)
 		{
 			CInGameStateManager::getInstance()->ChangeState(CEndOfDayState::Instance());
@@ -352,13 +352,13 @@ void CGamePlayState::DrawBuying()
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_TEXTURE_2D);
 	glPushMatrix();	
-	glBindTexture(GL_TEXTURE_2D, ControlTexID);
-	glBegin(GL_QUADS);
-	glTexCoord2f(1, 0);	glVertex2f(SCREEN_WIDTH, SCREEN_HEIGHT / 4);
-	glTexCoord2f(0, 0); glVertex2f(SCREEN_WIDTH - SCREEN_WIDTH / 4, SCREEN_HEIGHT / 4);
-	glTexCoord2f(0, 1); glVertex2f(SCREEN_WIDTH - SCREEN_WIDTH / 4, 0);
-	glTexCoord2f(1, 1);	glVertex2f(SCREEN_WIDTH, 0);
-	glEnd();
+		glBindTexture(GL_TEXTURE_2D, ControlTexID);
+		glBegin(GL_QUADS);
+		glTexCoord2f(1, 0);	glVertex2f(SCREEN_WIDTH, SCREEN_HEIGHT / 4);
+		glTexCoord2f(0, 0); glVertex2f(SCREEN_WIDTH - SCREEN_WIDTH / 4, SCREEN_HEIGHT / 4);
+		glTexCoord2f(0, 1); glVertex2f(SCREEN_WIDTH - SCREEN_WIDTH / 4, 0);
+		glTexCoord2f(1, 1);	glVertex2f(SCREEN_WIDTH, 0);
+		glEnd();
 	glPopMatrix();
 	glDisable(GL_BLEND);
 	glDisable(GL_TEXTURE_2D);
@@ -463,10 +463,10 @@ void CGamePlayState::DrawSkyBox()
 void CGamePlayState::DrawTimeBar()
 {
 	glPushMatrix();
-	glTranslatef(SCREEN_WIDTH/3.5,0,0);
-	printw (20, 20, 0,  "Time: ");
-	theTimeBar.draw();
+		glTranslatef(SCREEN_WIDTH/3.5,0,0);
+		printw (20, 23, 0, "Time:");
 	glPopMatrix();
+	theTimeBar.draw();
 }
 
 void CGamePlayState::keyboardUpdate()
@@ -748,25 +748,25 @@ void CGamePlayState::drawInfo()
 			glEnable(GL_BLEND);
 			glColor4f(0, 0, 0, 0.5f);
 			glBegin(GL_QUADS);
-				glTexCoord2f(0,0);	glVertex2f(0,SCREEN_HEIGHT/3.5);
-				glTexCoord2f(1,0);	glVertex2f(SCREEN_WIDTH/4, SCREEN_HEIGHT/3.5);
-				glTexCoord2f(1,1);	glVertex2f(SCREEN_WIDTH/4 ,0);
-				glTexCoord2f(0,1);	glVertex2f(0,0);				
+				glTexCoord2f(1, 0);	glVertex2f(0, SCREEN_HEIGHT / 4);
+				glTexCoord2f(0, 0); glVertex2f(SCREEN_WIDTH / 4, SCREEN_HEIGHT / 4);
+				glTexCoord2f(0, 1); glVertex2f(SCREEN_WIDTH / 4, 0);
+				glTexCoord2f(1, 1);	glVertex2f(0, 0);
 			glEnd();
 			glDisable(GL_BLEND);
 		glPopMatrix();
 
 		glPushAttrib(GL_DEPTH_TEST);
 			glColor3f( 1,1,1);
-			printw(20, 25, 0, "PSI: %f", CPlayState::Instance()->theHaze.HazeGraph[HourNumber + (CPlayState::Instance()->day-1) * DayTime]);
-			printw(20, 45, 0, "Day: %d", CPlayState::Instance()->day);
-			printw(20, 65, 0, "Hour: %d", HourNumber);
+			printw(20, SCREEN_HEIGHT*0.03, 0, "PSI: %f", CPlayState::Instance()->theHaze.HazeGraph[HourNumber + (CPlayState::Instance()->day-1) * DayTime]);
+			printw(20, SCREEN_HEIGHT*0.06, 0, "Day: %d", CPlayState::Instance()->day);
+			printw(20, SCREEN_HEIGHT*0.09, 0, "Hour: %d", HourNumber);
 			glColor3f(0.4,0.4,1); //B
-			printw (20, 105, 0,  "Shop 1's no. of masks: %d", CPlayState::Instance()->theStall[0]->getMaskNo());
+			printw (20, SCREEN_HEIGHT*0.15, 0,  "Shop 1's no. of masks: %d", CPlayState::Instance()->theStall[0]->getMaskNo());
 			glColor3f(1,0.2,0.2); //R
-			printw (20, 125, 0,  "Shop 2's no. of masks: %d", CPlayState::Instance()->theStall[1]->getMaskNo());
+			printw (20, SCREEN_HEIGHT*0.18, 0,  "Shop 2's no. of masks: %d", CPlayState::Instance()->theStall[1]->getMaskNo());
 			glColor3f(0.2,1,0.2); //G
-			printw (20, 145, 0,  "Shop 3's no. of masks: %d", CPlayState::Instance()->theStall[2]->getMaskNo());
+			printw (20, SCREEN_HEIGHT*0.21, 0,  "Shop 3's no. of masks: %d", CPlayState::Instance()->theStall[2]->getMaskNo());
 		glPopAttrib();
 	glPopMatrix();
 }
