@@ -32,7 +32,6 @@ void CApplication::Update()
 	timelastcall = timeGetTime();
 
 	//Update Time
-
 	CTimer::getInstance()->updateTime();
 
 	//Handle the GSM events

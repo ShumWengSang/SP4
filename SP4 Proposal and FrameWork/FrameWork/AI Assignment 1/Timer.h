@@ -39,6 +39,7 @@ public:
 	void init();
 	void setActive(bool mode,int num);
 	bool getActive(int num);
+	void setTimeInterval(int num, int newTI);
 	int getTimeInterval(int num);
 	int getLimit(int num);
 	static void drop();

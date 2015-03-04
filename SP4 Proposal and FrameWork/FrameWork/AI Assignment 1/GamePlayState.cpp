@@ -9,36 +9,22 @@ void CGamePlayState::LoadTextures()
 {
 	TextureSingleton * theInstance = TextureSingleton::getInstance();
 	Tiles::TexID = theInstance->GetNumber(36);
-	
 
-	//Textures
-	for (int i = 0; i < 6; i++)
+	for (int i = 0; i < 3; i++) //shop 1, 2, 3
 	{
 		button[i + 1].texID = theInstance->GetNumber(i + 23);
 	}
-	button[0].texID = theInstance->GetNumber(29);
-	//CApplication::getInstance()->LoadTGA(&button[0], "images/playState/pause.tga");
-	//CApplication::getInstance()->LoadTGA(&button[1], "images/playState/shop.tga");
-	//CApplication::getInstance()->LoadTGA(&button[2], "images/playState/shop2.tga");
-	//CApplication::getInstance()->LoadTGA(&button[3], "images/playState/shop3.tga");
-	//CApplication::getInstance()->LoadTGA(&button[4],"images/playState/shopSelected.tga");
-	//CApplication::getInstance()->LoadTGA(&button[5],"images/playState/shop2Selected.tga");
-	//CApplication::getInstance()->LoadTGA(&button[6],"images/playState/shop3Selected.tga");
+	button[0].texID = theInstance->GetNumber(29); //pause
+
+	for (int i = 0; i < 3; i++) //shopSelected 1, 2, 3
+	{
+		button[i + 4].texID = theInstance->GetNumber(i + 26);
+	}
 
 	for (int i = 0; i < 6; i++)
 	{
 		skyBox[i].texID = theInstance->GetNumber(i + 30);
 	}
-	//CApplication::getInstance()->LoadTGA(&skyBox[0], "images/playState/SkyBox/skybox_near.tga");
-	//CApplication::getInstance()->LoadTGA(&skyBox[1], "images/playState/SkyBox/skybox_far.tga");
-	//CApplication::getInstance()->LoadTGA(&skyBox[2], "images/playState/SkyBox/skybox_left.tga");
-	//CApplication::getInstance()->LoadTGA(&skyBox[3], "images/playState/SkyBox/skybox_right.tga");
-	//CApplication::getInstance()->LoadTGA(&skyBox[4], "images/playState/SkyBox/skybox_top.tga");
-	//CApplication::getInstance()->LoadTGA(&skyBox[5], "images/playState/SkyBox/skybox_bottom.tga");
-
-	//TextureImage theImg;
-	//CApplication::getInstance()->LoadTGA(&theImg, "images/Gress_Texture.tga");
-	//Tiles::TexID = theImg.texID;
 
 	buyingButton[0].texID = theInstance->GetNumber(37);
 	for (int i = 0; i < 3; i++)
@@ -48,15 +34,10 @@ void CGamePlayState::LoadTextures()
 	buyingBackground[0].texID = theInstance->GetNumber(13);
 
 	ControlTexID = theInstance->GetNumber(47);
-	//CApplication::getInstance()->LoadTGA(&buyingButton[0],"images/playState/x.tga");
-	//CApplication::getInstance()->LoadTGA(&buyingButton[1],"images/playState/50.tga");
-	//CApplication::getInstance()->LoadTGA(&buyingButton[2],"images/playState/100.tga");
-	//CApplication::getInstance()->LoadTGA(&buyingButton[3],"images/playState/200.tga");
-	//CApplication::getInstance()->LoadTGA(&buyingBackground[0],"images/playState/box.tga");
 }
+
 void CGamePlayState::LoadButtons()
 {
-	//buttons
 	theButton[pause] = new CButtons(SCREEN_WIDTH/2 - 45, 1, 32, 32, pause);
 	theButton[pause]->setButtonTexture(button[0].texID);
 
@@ -68,7 +49,6 @@ void CGamePlayState::LoadButtons()
 
 	theButton[shop3] = new CButtons(160, SCREEN_HEIGHT - 50, 70, 50, shop3);
 	theButton[shop3]->setButtonTexture(button[3].texID);
-
 
 
 	theBuyingButton[close] = new CButtons(SCREEN_WIDTH - 45, SCREEN_HEIGHT - 320, 32, 32, close);
@@ -129,6 +109,8 @@ void CGamePlayState::Init()
 
 	CInputSystem::getInstance()->mouseInfo.mLClicked = false;
 	CInputSystem::getInstance()->mouseInfo.mLReclicked = true;
+	CInputSystem::getInstance()->mouseInfo.mRButtonUp = true;
+	CInputSystem::getInstance()->mouseInfo.mLButtonUp = true;
 
 	Camera::getInstance()->Reset();
 	Camera::getInstance()->SetPos(Vector3(TILE_NO_X * TILE_SIZE_X / 2, 0, TILE_NO_X * TILE_SIZE_X / 2));
@@ -142,6 +124,10 @@ void CGamePlayState::Init()
 	theTimerInstance = CTimer::getInstance();
 	TimerKeySeed = theTimerInstance->insertNewTime(HourTime);
 	TimerKeyDay = theTimerInstance->insertNewTime(HourTime * DayTime);
+
+	TimerKeySeedTI = 0;
+	TimerKeyDayTI = 0;
+
 	TimerHalfHour = theTimerInstance->insertNewTime(HourTime / 2);
 
 	Buyer * newBuyer;
@@ -189,7 +175,8 @@ void CGamePlayState::SeedHaze()
 
 		if (!((x == 0 || (x == (TILE_NO_X - 1))) && ((y == 0 || y == (TILE_NO_Y - 1)))))
 		{
-			theGrid->temp[x][y].Seeded(static_cast<int>(CPlayState::Instance()->theHaze.HazeGraph[HourNumber + (DayNumber-1) * DayTime] * 1000));
+			//theGrid->temp[x][y].Seeded(static_cast<int>(CPlayState::Instance()->theHaze.HazeGraph[HourNumber + (DayNumber-1) * DayTime] * 1000));
+			theGrid->temp[x][y].Seeded(/*static_cast<int>*/pow((CPlayState::Instance()->theHaze.HazeGraph[HourNumber + (DayNumber - 1) * DayTime] ),3));
 			theSeededTiles.push_back(&theGrid->temp[x][y]);
 			Seeds++;
 		}
@@ -209,14 +196,20 @@ void CGamePlayState::Cleanup()
 
 void CGamePlayState::Pause()
 {
-	if(isPause == false)
+	if(isPause == false){
 		isPause = true;
+		TimerKeySeedTI = theTimerInstance->getTimeInterval(TimerKeySeed);
+		TimerKeyDayTI = theTimerInstance->getTimeInterval(TimerKeyDay);
+	}
 }
 
 void CGamePlayState::Resume()
 {
-	if(isPause == true)
+	if(isPause == true){
 		isPause = false;
+		theTimerInstance->setTimeInterval(TimerKeySeed,TimerKeySeedTI);
+		theTimerInstance->setTimeInterval(TimerKeyDay,TimerKeyDayTI);
+	}
 }
 
 void CGamePlayState::HandleEvents(CInGameStateManager* theGSM)
@@ -226,11 +219,9 @@ void CGamePlayState::HandleEvents(CInGameStateManager* theGSM)
 void CGamePlayState::Update(CInGameStateManager* theGSM) 
 {
 	keyboardUpdate();
-	if(isPause)
-		Camera::getInstance()->newUpdate();
-	else
+	Camera::getInstance()->newUpdate();
+	if(!isPause)
 	{
-		Camera::getInstance()->newUpdate();
 		for (auto i = theListofEntities.begin(); i != theListofEntities.end(); i++)
 		{
 			(*i)->Update();
@@ -415,19 +406,19 @@ void CGamePlayState::DrawButtons()
 
 	//shop
 	theButton[shop]->drawButton();
-	if(CPlayState::Instance()->theStall[0]->Selected)
+	if(CPlayState::Instance()->shop1selected)
 		theButton[shop]->setButtonTexture(button[4].texID);
 	else
 		theButton[shop]->setButtonTexture(button[1].texID);
 
 	theButton[shop2]->drawButton();
-	if(CPlayState::Instance()->theStall[1]->Selected)
+	if(CPlayState::Instance()->shop2selected)
 		theButton[shop2]->setButtonTexture(button[5].texID);
 	else
 		theButton[shop2]->setButtonTexture(button[2].texID);
 
 	theButton[shop3]->drawButton();
-	if(CPlayState::Instance()->theStall[2]->Selected)
+	if(CPlayState::Instance()->shop3selected)
 		theButton[shop3]->setButtonTexture(button[6].texID);
 	else
 		theButton[shop3]->setButtonTexture(button[3].texID);
@@ -576,7 +567,6 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 				}
 				if (!isPause)
 				{
-					//CApplication::getInstance()->setClickCheck(true);
 					CInputSystem::getInstance()->mouseInfo.mLButtonUp = false;
 
 					//shop 1 clicked
@@ -623,11 +613,8 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 							isBuying = false;
 						}
 
-						if (CPlayState::Instance()->shop1selected ||
-							CPlayState::Instance()->shop2selected ||
-							CPlayState::Instance()->shop3selected)
+						if (CPlayState::Instance()->shop1selected || CPlayState::Instance()->shop2selected || CPlayState::Instance()->shop3selected)
 						{
-
 							if(theBuyingButton[bpFifty]->isInside(x, y))
 							{
 								if(CPlayState::Instance()->theMoney.getCurrentMoney() >= 300)
@@ -642,7 +629,6 @@ void CGamePlayState::MouseClick(int button, int state, int x, int y) {
 									if(CPlayState::Instance()->shop3selected)
 										CPlayState::Instance()->theStall[2]->setMaskNo(CPlayState::Instance()->theStall[2]->getMaskNo() + 50);
 								}
-
 							}
 							if(theBuyingButton[bpHundred]->isInside(x, y))
 							{

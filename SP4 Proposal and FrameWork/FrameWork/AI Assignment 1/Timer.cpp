@@ -129,6 +129,11 @@ void CTimer::changeLimit(int num, int nlimit)
 	timer[num]->limiter = nlimit;
 }
 
+void CTimer::setTimeInterval(int num, int newTI)
+{
+	timer[num]->timeInterval = newTI;
+}
+
 int CTimer::getTimeInterval(int num)
 {
 	return timer[num]->timeInterval;

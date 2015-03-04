@@ -156,6 +156,10 @@ private:
 	CTimer * theTimerInstance;
 	int TimerKeySeed;
 	int TimerKeyDay;
+
+	int TimerKeySeedTI;
+	int TimerKeyDayTI;
+
 	int TimerHalfHour;
 
 	void ClickCollision();

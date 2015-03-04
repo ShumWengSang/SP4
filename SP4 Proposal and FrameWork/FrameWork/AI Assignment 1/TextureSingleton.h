@@ -59,7 +59,7 @@ public:
 		LoadTexture("images/startState/200.tga");
 		LoadTexture("images/startState/4.tga");
 		LoadTexture("images/startState/5.tga");
-		LoadTexture("images/startState/6.tga");
+		LoadTexture("images/startState/6.tga"); //20
 		LoadTexture("images/startState/back.tga");
 		LoadTexture("images/startState/reset.tga");
 		LoadTexture("images/startState/shop.tga");
@@ -116,7 +116,6 @@ public:
 		//Highscore Textures 51 - 53
 		LoadTexture("images/endgameState/highscore.tga");
 		LoadTexture("images/endgameState/highscore_bg.tga");
-		LoadTexture("images/endgameState/highscore_input.tga");
 
 	}
 	int LoadTexture(std::string filename)

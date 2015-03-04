@@ -240,9 +240,9 @@ void CEndOfDayState::MouseClick(int button, int state, int x, int y) {
 						reinit = true;
 					}
 					if (CLoadState::Instance()->getLoaded())
-							CLoadState::Instance()->getLoadData()->off();
+						CLoadState::Instance()->getLoadData()->off();
 					CPlayState::Instance()->firstDay = false;
-					CPlayState::Instance()->maskInStock = CPlayState::Instance()->maskLeft;
+					CPlayState::Instance()->maskInStock = 0;
 					CPlayState::Instance()->resetValues();
 					if(CPlayState::Instance()->day <= 7)
 						CInGameStateManager::getInstance()->ChangeState(CBuyMaskState::Instance());
@@ -294,11 +294,6 @@ void CEndOfDayState::drawInfo()
 			if(mouseOverNext && CPlayState::Instance()->day < 7)
 				printw ( static_cast<float>(theButton[eNext]->getButtonX()+50), static_cast<float>(theButton[eNext]->getButtonY()-3), 0, "Start next day");
 			
-			glColor3f( 0.5f, 0.0f, 0.5f);
-			int totalMaskSold = CPlayState::Instance()->theStall[0]->getTotalMaskSold() + CPlayState::Instance()->theStall[1]->getTotalMaskSold() + CPlayState::Instance()->theStall[2]->getTotalMaskSold();
-			CPlayState::Instance()->maskLeft = (CPlayState::Instance()->totalMaskForSell - totalMaskSold) + CPlayState::Instance()->maskInStock;
-			printw ((SCREEN_WIDTH / 2) - 200, SCREEN_HEIGHT/2 + 150, 0, "Mask Left: %d", CPlayState::Instance()->maskLeft);
-
 			glColor3f( 0.5f, 0.0f, 0.8f);
 			CPlayState::Instance()->newMoneyValue = CPlayState::Instance()->theMoney.getCurrentMoney() + totalEarn;
 			printw ((SCREEN_WIDTH/2)+50, SCREEN_HEIGHT/2 + 150, 0, "Total Money: $%d", CPlayState::Instance()->newMoneyValue); //

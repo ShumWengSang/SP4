@@ -45,9 +45,8 @@ void EndGameState::LoadTextures()
 	TextureSingleton * theInstance = TextureSingleton::getInstance();
 	background[0].texID = theInstance->GetNumber(40);
 	background[1].texID = theInstance->GetNumber(41);
-	background[2].texID = theInstance->GetNumber(51);
-	highscore_text.texID = theInstance->GetNumber(52);
-	highscore_box.texID = theInstance->GetNumber(53);
+	highscore_text.texID = theInstance->GetNumber(51);
+	background[2].texID = theInstance->GetNumber(52);
 }
 
 void EndGameState::DrawBackground()
@@ -94,22 +93,33 @@ void EndGameState::DrawHighscore()
 				glTexCoord2f(0, 1);	glVertex2f(0, 0);			
 			glEnd();
 		glPopMatrix();
+
+		glBindTexture(GL_TEXTURE_2D, highscore_text.texID);
+		glPushMatrix();
+			glTranslatef(SCREEN_WIDTH/2,SCREEN_HEIGHT/4,0);
+			glBegin(GL_QUADS);
+				glTexCoord2f(0, 0);	glVertex2f(-SCREEN_WIDTH/10, SCREEN_HEIGHT/20);
+				glTexCoord2f(1, 0);	glVertex2f(SCREEN_WIDTH/10, SCREEN_HEIGHT/20);
+				glTexCoord2f(1, 1);	glVertex2f(SCREEN_WIDTH/10, -SCREEN_HEIGHT/20);
+				glTexCoord2f(0, 1);	glVertex2f(-SCREEN_WIDTH/10, -SCREEN_HEIGHT/20);			
+			glEnd();
+		glPopMatrix();
 		glDisable(GL_TEXTURE_2D);
 		glDisable(GL_BLEND);
 
 		for (auto i = highscore.HighScoreList.begin(); i != highscore.HighScoreList.end(); i++)
 		{
 			glPushMatrix();
-				glColor3f(1,1,1);
-				printw (50, SCREEN_HEIGHT/2+(i - highscore.HighScoreList.begin())*20, 0, "\nUsername:\t%s\tHighScore:\t%i", (*i).User.c_str(), (*i).HighScore);
+				glColor3f(1,0,0);
+				printw (SCREEN_WIDTH/5, SCREEN_HEIGHT*2/3+(i - highscore.HighScoreList.begin())*30, 0, "\nUsername:\t%s\tHighScore:\t%i", (*i).User.c_str(), (*i).HighScore);
 			glPopMatrix();
 		}
 
 		if(KeyInHighscore)
 		{
 			glPushMatrix();
-				glColor3f(1,1,1);
-				printw (80, SCREEN_HEIGHT/3, 0, "\nUsername:\t%s\tHighScore:\t%i", input.c_str(), profit);
+				glColor3f(0,1,0);
+				printw (SCREEN_WIDTH/5, SCREEN_HEIGHT/2, 0, "\nUsername:\t%s\tHighScore:\t%i", input.c_str(), profit);
 			glPopMatrix();
 		}
 	glPopMatrix();
@@ -172,7 +182,7 @@ void EndGameState::Update(CGameStateManager * GSM)
 	//Input mode
 	if(Dir == 0)
 	{
-		if(!doneInput) {
+		if(!doneInput && result) {
 			for (auto i = highscore.HighScoreList.begin(); i != highscore.HighScoreList.end(); i++)
 			{
 				if(profit >= (*i).HighScore) {
