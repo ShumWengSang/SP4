@@ -2,7 +2,7 @@
 #include "PlayState.h"
 #include "EndOfDayState.h"
 #include "TextureSingleton.h"
-CSaveState CSaveState::theSaveState;
+CSaveState * CSaveState::theSaveState = NULL;
 
 
 void CSaveState::LoadTextures()
