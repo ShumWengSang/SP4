@@ -54,14 +54,56 @@ public:
 	void MouseWheel(int button, int dir, int x, int y);
 
 	static CSaveState* Instance() {
-		return &theSaveState;
+		if (theSaveState == NULL)
+			theSaveState = new CSaveState();
+		return 	theSaveState;
 	}
 
 	void *font_style;
 	void printw(float x, float y, float z, char* format, ...);
 
+	void Drop()
+	{
+		for (int i = 0; i < 4; i++)
+		{
+			if(theButton[i] != NULL)
+			{
+				delete theButton[i];
+				theButton[i] = NULL;
+			}
+		}
+
+		for (int i = 0; i < 3; i++)
+		{
+			if(loadedFiles[i] != NULL)
+			{
+				delete loadedFiles[i];
+				loadedFiles[i] = NULL;
+			}
+		}
+
+		if (se != NULL)
+		{
+			delete se;
+			se = NULL;
+		}
+
+		/*if (sound != NULL)
+		{
+			delete sound;
+			sound = NULL;
+		}*/
+
+		if (theSaveState != NULL)
+		{
+			delete theSaveState;
+			theSaveState = NULL;
+		}
+
+	}
+
 private:
-	static CSaveState theSaveState;
+	static CSaveState *theSaveState;
 
 	//Input System
 	CInputSystem* InputSystem;
