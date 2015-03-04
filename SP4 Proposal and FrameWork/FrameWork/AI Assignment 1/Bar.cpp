@@ -51,8 +51,6 @@ void Bar::draw()
 
 void Bar::update(float r)
 {
-	//Percentage += r* CTimer::getInstance()->getDelta();
-	//Percentage = r/DayTime * (BARLONG );
 	Percentage = (r/DayTime * (BARLONG ));
 	static float Checker = Percentage;
 	if(Percentage != Checker)
@@ -62,12 +60,7 @@ void Bar::update(float r)
 	}
 	int hourlength = BARLONG / DayTime;
 
-	//if(DrawLength >= hourlength)
-	//{
-	//	
-	//}
 	DrawLength += 3 * CTimer::getInstance()->getDelta();
-
 
 	std::cout << DrawLength << std::endl;
 

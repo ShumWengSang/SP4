@@ -220,8 +220,8 @@ void CStartOfDayState::DrawMsg()
 	glPushMatrix();
 		glPushAttrib(GL_DEPTH_TEST);
 		glColor3f(0, 0, 0);
-		printw (SCREEN_WIDTH/2.3f, SCREEN_HEIGHT/2 - 150, 0, "You have not set the number");
-		printw (SCREEN_WIDTH/2.3f, SCREEN_HEIGHT/2 - 120, 0, "of mask or price for a stall.");
+		printw (SCREEN_WIDTH/2.3f, SCREEN_HEIGHT/2 - 150, 0, "You have not set the number of mask");
+		printw (SCREEN_WIDTH/2.3f, SCREEN_HEIGHT/2 - 120, 0, "or price for a stall.");
 		printw (SCREEN_WIDTH/2.3f, SCREEN_HEIGHT/2 - 90, 0,	"Do you want to start the day?");
 		glPopAttrib();
 	glPopMatrix();
