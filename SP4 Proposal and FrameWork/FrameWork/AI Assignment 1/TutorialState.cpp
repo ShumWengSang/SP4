@@ -14,7 +14,13 @@ void CTutorialState::LoadTextures()
 {
 	TextureSingleton * theInstance = TextureSingleton::getInstance();
 	background[0].texID = theInstance->GetNumber(50);
+
+	for(int i = 0; i < 4; i++)
+	{
+		background[i+1].texID = theInstance->GetNumber(i+53);
+	}
 }
+
 void CTutorialState::Init()
 {
 	cout << "Tutorial state init" << endl;
@@ -22,6 +28,8 @@ void CTutorialState::Init()
 
 	rotate = 0;
 	speed = 0;
+
+	screen = 1;
 
 	thisState = TutorialState;
 
@@ -48,30 +56,11 @@ void CTutorialState::Draw(CInGameStateManager* GSM)
 	if(speed >= 800)
 	{
 		Camera::getInstance()->SetHUD(true);
-		DrawBackground();
+		RenderPictures();
 		Camera::getInstance()->SetHUD(false);
 	}
 	else
-		DrawNewsPaper();
-}
-void CTutorialState::DrawNewsPaper()
-{
-	glPushMatrix();
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glEnable(GL_TEXTURE_2D);
-		glBindTexture(GL_TEXTURE_2D, background[0].texID);
-		glPushMatrix();
-			glBegin(GL_QUADS);
-				glTexCoord2f(0, 0);	glVertex2f(0, SCREEN_HEIGHT);
-				glTexCoord2f(1, 0);	glVertex2f(SCREEN_WIDTH, SCREEN_HEIGHT);
-				glTexCoord2f(1, 1);	glVertex2f(SCREEN_WIDTH, 0);
-				glTexCoord2f(0, 1);	glVertex2f(0, 0);			
-			glEnd();
-		glPopMatrix();
-		glDisable(GL_TEXTURE_2D);
-		glDisable(GL_BLEND);
-	glPopMatrix();
+		MoveNewsPaper();
 }
 
 void CTutorialState::MoveNewsPaper()
@@ -96,6 +85,131 @@ void CTutorialState::MoveNewsPaper()
 		glDisable(GL_TEXTURE_2D);
 		glDisable(GL_BLEND);
 	glPopMatrix();
+}
+
+void CTutorialState::DrawNewsPaper()
+{
+	glPushMatrix();
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, background[0].texID);
+		glPushMatrix();
+			glBegin(GL_QUADS);
+				glTexCoord2f(0, 0);	glVertex2f(0, SCREEN_HEIGHT);
+				glTexCoord2f(1, 0);	glVertex2f(SCREEN_WIDTH, SCREEN_HEIGHT);
+				glTexCoord2f(1, 1);	glVertex2f(SCREEN_WIDTH, 0);
+				glTexCoord2f(0, 1);	glVertex2f(0, 0);			
+			glEnd();
+		glPopMatrix();
+		glDisable(GL_TEXTURE_2D);
+		glDisable(GL_BLEND);
+	glPopMatrix();
+}
+
+void CTutorialState::DrawFirstScreen()
+{
+	glPushMatrix();
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, background[1].texID);
+		glPushMatrix();
+			glBegin(GL_QUADS);
+				glTexCoord2f(0, 0);	glVertex2f(0, SCREEN_HEIGHT);
+				glTexCoord2f(1, 0);	glVertex2f(SCREEN_WIDTH, SCREEN_HEIGHT);
+				glTexCoord2f(1, 1);	glVertex2f(SCREEN_WIDTH, 0);
+				glTexCoord2f(0, 1);	glVertex2f(0, 0);			
+			glEnd();
+		glPopMatrix();
+		glDisable(GL_TEXTURE_2D);
+		glDisable(GL_BLEND);
+	glPopMatrix();
+}
+
+void CTutorialState::DrawSecondScreen()
+{
+	glPushMatrix();
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, background[2].texID);
+		glPushMatrix();
+			glBegin(GL_QUADS);
+				glTexCoord2f(0, 0);	glVertex2f(0, SCREEN_HEIGHT);
+				glTexCoord2f(1, 0);	glVertex2f(SCREEN_WIDTH, SCREEN_HEIGHT);
+				glTexCoord2f(1, 1);	glVertex2f(SCREEN_WIDTH, 0);
+				glTexCoord2f(0, 1);	glVertex2f(0, 0);			
+			glEnd();
+		glPopMatrix();
+		glDisable(GL_TEXTURE_2D);
+		glDisable(GL_BLEND);
+	glPopMatrix();
+}
+
+void CTutorialState::DrawThirdScreen()
+{
+	glPushMatrix();
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, background[3].texID);
+		glPushMatrix();
+			glBegin(GL_QUADS);
+				glTexCoord2f(0, 0);	glVertex2f(0, SCREEN_HEIGHT);
+				glTexCoord2f(1, 0);	glVertex2f(SCREEN_WIDTH, SCREEN_HEIGHT);
+				glTexCoord2f(1, 1);	glVertex2f(SCREEN_WIDTH, 0);
+				glTexCoord2f(0, 1);	glVertex2f(0, 0);			
+			glEnd();
+		glPopMatrix();
+		glDisable(GL_TEXTURE_2D);
+		glDisable(GL_BLEND);
+	glPopMatrix();
+}
+
+void CTutorialState::DrawLastScreen()
+{
+	glPushMatrix();
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glEnable(GL_TEXTURE_2D);
+		glBindTexture(GL_TEXTURE_2D, background[4].texID);
+		glPushMatrix();
+			glBegin(GL_QUADS);
+				glTexCoord2f(0, 0);	glVertex2f(0, SCREEN_HEIGHT);
+				glTexCoord2f(1, 0);	glVertex2f(SCREEN_WIDTH, SCREEN_HEIGHT);
+				glTexCoord2f(1, 1);	glVertex2f(SCREEN_WIDTH, 0);
+				glTexCoord2f(0, 1);	glVertex2f(0, 0);			
+			glEnd();
+		glPopMatrix();
+		glDisable(GL_TEXTURE_2D);
+		glDisable(GL_BLEND);
+	glPopMatrix();
+}
+
+void CTutorialState::RenderPictures()
+{
+	switch (screen)
+	{
+		case 1:
+			DrawNewsPaper();
+			break;
+		case 2:
+			DrawFirstScreen();
+			break;
+		case 3:
+			DrawSecondScreen();
+			break;
+		case 4:
+			DrawThirdScreen();
+			break;
+		case 5:
+			DrawLastScreen();
+			break;
+		case 6:
+			CInGameStateManager::getInstance()->ChangeState(CBuyMaskState::Instance());
+			break;
+	}
 }
 
 void CTutorialState::keyboardUpdate(void)
@@ -124,8 +238,10 @@ void  CTutorialState::MouseClick(int button, int state, int x, int y)
 				}
 				else
 				{
+					cout << screen << endl;
+					screen += 1;
 					//go buy mask state
-					CInGameStateManager::getInstance()->ChangeState(CBuyMaskState::Instance());
+					//CInGameStateManager::getInstance()->ChangeState(CBuyMaskState::Instance());
 				}
 			}
 			else
