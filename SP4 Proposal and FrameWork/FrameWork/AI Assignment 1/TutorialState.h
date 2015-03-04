@@ -17,7 +17,8 @@ class CInputSystem;
 
 class CTutorialState: public CInGameState
 {
-	TextureImage background[3];
+	TextureImage background[5];
+	int screen;
 
 public:
 
@@ -35,8 +36,13 @@ public:
 	void Draw(CInGameStateManager* GSM);
 	void keyboardUpdate(void);
 	void LoadTextures();
-	void DrawBackground();
+	void MoveNewsPaper();
 	void DrawNewsPaper();
+	void DrawFirstScreen();
+	void DrawSecondScreen();
+	void DrawThirdScreen();
+	void DrawLastScreen();
+	void RenderPictures();
 
 	//Inputs
 	void MouseMove (int x, int y){};

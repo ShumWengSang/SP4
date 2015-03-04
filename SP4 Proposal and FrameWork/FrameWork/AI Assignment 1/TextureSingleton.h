@@ -111,12 +111,17 @@ public:
 		LoadTexture("images/startState/no.tga");
 
 		//Tutorial State 50
-		LoadTexture("images/Newspaper.tga");
+		LoadTexture("images/tutorialState/Newspaper.tga");
 
-		//Highscore Textures 51 - 53
+		//Highscore Textures 51 - 52
 		LoadTexture("images/endgameState/highscore.tga");
 		LoadTexture("images/endgameState/highscore_bg.tga");
 
+		//Tutorial State 53 - 56
+		LoadTexture("images/tutorialState/FirstBuyingMaskScreen.tga");
+		LoadTexture("images/tutorialState/SecondSetupScreen.tga");
+		LoadTexture("images/tutorialState/ThirdGameplay.tga");
+		LoadTexture("images/tutorialState/LastEndDay.tga");
 	}
 	int LoadTexture(std::string filename)
 	{
