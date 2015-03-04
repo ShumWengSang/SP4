@@ -61,10 +61,10 @@ void CStartOfDayState::LoadButtons()
 	theButton[sShop3] = new CButtons(SCREEN_WIDTH - 200, 150, 90, 64, sShop3);
 	theButton[sShop3]->setButtonTexture(button[11].texID);
 
-	theButton[yes] = new CButtons(SCREEN_WIDTH/2 + 30, SCREEN_HEIGHT/2, 125, 60, yes);
+	theButton[yes] = new CButtons(SCREEN_WIDTH/2 - 140, SCREEN_HEIGHT/2, 125, 60, yes);
 	theButton[yes]->setButtonTexture(button[15].texID);
 
-	theButton[no] = new CButtons(SCREEN_WIDTH/2 - 140, SCREEN_HEIGHT/2, 125, 60, no);
+	theButton[no] = new CButtons(SCREEN_WIDTH/2 + 30, SCREEN_HEIGHT/2, 125, 60, no);
 	theButton[no]->setButtonTexture(button[16].texID);
 }
 
