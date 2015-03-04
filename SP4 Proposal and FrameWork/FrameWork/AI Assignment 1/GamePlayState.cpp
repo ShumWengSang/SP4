@@ -214,7 +214,6 @@ void CGamePlayState::Update(CInGameStateManager* theGSM)
 		if (theTimerInstance->executeTime(TimerKeySeed))
 		{
 			HourNumber++;
-
 		}
 		if (theTimerInstance->executeTime(TimerHalfHour))
 		{
