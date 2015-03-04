@@ -12,7 +12,9 @@ CSaveLoad* CLoadState::getLoadData()
 bool CLoadState::getLoaded()
 {
 	if (saveNum > 0)
+	{
 		return loadedFiles[saveNum-1]->getHere();
+	}
 	else
 		return false;
 }
@@ -31,14 +33,14 @@ void CLoadState::LoadTextures()
 void CLoadState::LoadButtons()
 {
 	//buttons
-	theButton[save1] = new CButtons(SCREEN_WIDTH/2 - 150, 200, 350, 100, save1);
-	theButton[save1]->setButtonTexture(button[0].texID);
+	theButton[load1] = new CButtons(SCREEN_WIDTH/2 - 150, 200, 350, 100, load1);
+	theButton[load1]->setButtonTexture(button[0].texID);
 	
-	theButton[save2] = new CButtons(SCREEN_WIDTH/2 - 150, 300, 350, 100, save2);
-	theButton[save2]->setButtonTexture(button[0].texID);
+	theButton[load2] = new CButtons(SCREEN_WIDTH/2 - 150, 300, 350, 100, load2);
+	theButton[load2]->setButtonTexture(button[0].texID);
 	
-	theButton[save3] = new CButtons(SCREEN_WIDTH/2 - 150, 400, 350, 100, save3);
-	theButton[save3]->setButtonTexture(button[0].texID);
+	theButton[load3] = new CButtons(SCREEN_WIDTH/2 - 150, 400, 350, 100, load3);
+	theButton[load3]->setButtonTexture(button[0].texID);
 	
 	theButton[backToMenu] = new CButtons(0, 0, 64, 64, backToMenu);
 	theButton[backToMenu]->setButtonTexture(button[1].texID);
@@ -172,9 +174,9 @@ void CLoadState::DrawLoadInfo()
 
 void CLoadState::DrawButtons()
 {
-	theButton[save1]->drawButton();
-	theButton[save2]->drawButton();
-	theButton[save3]->drawButton();
+	theButton[load1]->drawButton();
+	theButton[load2]->drawButton();
+	theButton[load3]->drawButton();
 	theButton[backToMenu]->drawButton();
 }
 
@@ -225,17 +227,17 @@ void CLoadState::MouseClick(int button, int state, int x, int y) {
 				CInputSystem::getInstance()->mouseInfo.clickedY = y;
 
 				//load files
-				if(theButton[save1]->isInside(x, y) && loadedFiles[0]->getHere())
+				if(theButton[load1]->isInside(x, y) && loadedFiles[0]->getHere())
 				{
 					saveNum = 1;
 					CGameStateManager::getInstance()->ChangeState(CPlayState::Instance());
 				}
-				if(theButton[save2]->isInside(x, y) && loadedFiles[1]->getHere())
+				if(theButton[load2]->isInside(x, y) && loadedFiles[1]->getHere())
 				{
 					saveNum = 2;
 					CGameStateManager::getInstance()->ChangeState(CPlayState::Instance());
 				}
-				if(theButton[save3]->isInside(x, y) && loadedFiles[2]->getHere())
+				if(theButton[load3]->isInside(x, y) && loadedFiles[2]->getHere())
 				{
 					saveNum = 3;
 					CGameStateManager::getInstance()->ChangeState(CPlayState::Instance());

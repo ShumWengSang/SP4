@@ -24,6 +24,7 @@ public:
 	int getMask();
 
 	bool getHere();
+	void off();
 
 private:
 	int day;
