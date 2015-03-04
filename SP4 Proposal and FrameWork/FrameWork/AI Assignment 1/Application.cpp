@@ -32,8 +32,8 @@ void CApplication::Update()
 	timelastcall = timeGetTime();
 
 	//Update Time
-
-	CTimer::getInstance()->updateTime();
+	if(!isPause)
+		CTimer::getInstance()->updateTime();
 
 	//Handle the GSM events
 	GSM->HandleEvents();
@@ -232,3 +232,6 @@ void CApplication::setClickCheck(bool clickChecking) {
 	clickCheck = clickChecking;
 }
 
+void CApplication::setPause(bool isPause) {
+	this->isPause = isPause;
+}

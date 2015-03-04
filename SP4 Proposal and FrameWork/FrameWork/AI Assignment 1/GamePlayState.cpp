@@ -10,7 +10,6 @@ void CGamePlayState::LoadTextures()
 	TextureSingleton * theInstance = TextureSingleton::getInstance();
 	Tiles::TexID = theInstance->GetNumber(36);
 	
-
 	//Textures
 	for (int i = 0; i < 6; i++)
 	{
@@ -142,6 +141,8 @@ void CGamePlayState::Init()
 	theTimerInstance = CTimer::getInstance();
 	TimerKeySeed = theTimerInstance->insertNewTime(HourTime);
 	TimerKeyDay = theTimerInstance->insertNewTime(HourTime * DayTime);
+	TimerKeySeedTI = 0;
+	TimerKeyDayTI = 0;
 
 	Buyer * newBuyer;
 
@@ -208,14 +209,20 @@ void CGamePlayState::Cleanup()
 
 void CGamePlayState::Pause()
 {
-	if(isPause == false)
+	if(isPause == false){
 		isPause = true;
+		TimerKeySeedTI = theTimerInstance->getTimeInterval(TimerKeySeed);
+		TimerKeyDayTI = theTimerInstance->getTimeInterval(TimerKeyDay);
+	}
 }
 
 void CGamePlayState::Resume()
 {
-	if(isPause == true)
+	if(isPause == true){
 		isPause = false;
+		theTimerInstance->setTimeInterval(TimerKeySeed,TimerKeySeedTI);
+		theTimerInstance->setTimeInterval(TimerKeyDay,TimerKeyDayTI);
+	}
 }
 
 void CGamePlayState::HandleEvents(CInGameStateManager* theGSM)
@@ -225,11 +232,9 @@ void CGamePlayState::HandleEvents(CInGameStateManager* theGSM)
 void CGamePlayState::Update(CInGameStateManager* theGSM) 
 {
 	keyboardUpdate();
-	if(isPause)
-		Camera::getInstance()->newUpdate();
-	else
+	Camera::getInstance()->newUpdate();
+	if(!isPause)
 	{
-		Camera::getInstance()->newUpdate();
 		for (auto i = theListofEntities.begin(); i != theListofEntities.end(); i++)
 		{
 			(*i)->Update();
