@@ -132,10 +132,6 @@ bool Buyer::glRenderObject()
 	//glScalef(3, 3, 3);
 	glBegin(GL_QUADS);
 	glColor3f(Color.x, Color.y, Color.z);
-	glVertex3f(0.5, 1, 0.5);
-	glVertex3f(1.0, 1, 0.5);
-	glVertex3f(1.0, 0.5, 0.5);
-	glVertex3f(0.5, 0.5, 0.5);
 	glEnd();
 
 	

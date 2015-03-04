@@ -84,8 +84,8 @@ void CTutorialState::DrawNewsPaper()
 		glScalef(0.5f, 0.5f, 1);
 		glRotatef(-90, 1, 0, 0);
 		glTranslatef(0, -1200, -100);
-		glRotatef(-rotate, 0, 1, 0);
-		glTranslatef(0, speed, -100);
+		glRotatef(static_cast<GLfloat>(-rotate), 0, 1, 0);
+		glTranslatef(0, static_cast<GLfloat>(speed), -100);
 		glBindTexture(GL_TEXTURE_2D, background[0].texID);
 		glBegin(GL_QUADS);
 			glTexCoord2f(1, 1);  glVertex3f(0, 0.0f, 420);
