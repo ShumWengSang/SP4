@@ -12,7 +12,7 @@
 class CApplication
 {
 protected:
-	CApplication(void):clickCheck(false),isPause(false)  {};
+	CApplication(void):clickCheck(false)  {};
 	~CApplication(void) {};
 
 public:
@@ -42,8 +42,6 @@ public:
 	bool getClickCheck();
 	void setClickCheck(bool clickChecking);
 
-	void setPause(bool isPause);
-
 private:
 	static CApplication *instance;
 
@@ -55,6 +53,5 @@ private:
 	float frequency;
 
 	bool clickCheck;
-	bool isPause;
 };
 

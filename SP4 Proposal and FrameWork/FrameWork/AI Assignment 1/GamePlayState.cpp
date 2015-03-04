@@ -109,6 +109,8 @@ void CGamePlayState::Init()
 
 	CInputSystem::getInstance()->mouseInfo.mLClicked = false;
 	CInputSystem::getInstance()->mouseInfo.mLReclicked = true;
+	CInputSystem::getInstance()->mouseInfo.mRButtonUp = true;
+	CInputSystem::getInstance()->mouseInfo.mLButtonUp = true;
 
 	Camera::getInstance()->Reset();
 	Camera::getInstance()->SetPos(Vector3(TILE_NO_X * TILE_SIZE_X / 2, 0, TILE_NO_X * TILE_SIZE_X / 2));
