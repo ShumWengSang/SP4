@@ -489,22 +489,22 @@ void CStartOfDayState::drawInfo()
 		glPushAttrib(GL_DEPTH_TEST);
 			//print shop number
 			glColor3f(0.8f, 0.1f, 0.1f);
-			printw (150, 70, 0, "Click the shops and decide the number of mask and price for sell.");
+			printw (150, 70, 0, "Click the shops and decide the number of mask and price for sale.");
 			glColor3f( 0.0f, 0.0f, 0.0f);
 			printw (100, 120, 0, "SHOP1");
 			printw (350, 120, 0, "SHOP2");
 			printw (600, 120, 0, "SHOP3");
 
 			glColor3f( r, 0.0f, b);
-			printw (50.0, 250.0, 0, "Number of mask for sell: %d", CPlayState::Instance()->theStall[0]->getMaskNo());
+			printw (50.0, 250.0, 0, "Number of mask for sale: %d", CPlayState::Instance()->theStall[0]->getMaskNo());
 			printw (50.0, 270.0, 0, "Each price for sell: %d", CPlayState::Instance()->theStall[0]->getMaskPrice());
 
 			glColor3f( r2, g2, b2);
-			printw (300.0, 250.0, 0, "Number of mask for sell: %d", CPlayState::Instance()->theStall[1]->getMaskNo());
+			printw (300.0, 250.0, 0, "Number of mask for sale: %d", CPlayState::Instance()->theStall[1]->getMaskNo());
 			printw (300.0, 270.0, 0, "Each price for sell: %d", CPlayState::Instance()->theStall[1]->getMaskPrice());
 
 			glColor3f( r3, g3, b3);
-			printw (550.0, 250.0, 0, "Number of mask for sell: %d", CPlayState::Instance()->theStall[2]->getMaskNo());
+			printw (550.0, 250.0, 0, "Number of mask for sale: %d", CPlayState::Instance()->theStall[2]->getMaskNo());
 			printw (550.0, 270.0, 0, "Each price for sell: %d", CPlayState::Instance()->theStall[2]->getMaskPrice());
 
 			glColor3f( 0.0f, 0.0f, 0.0f);
@@ -513,8 +513,8 @@ void CStartOfDayState::drawInfo()
 			if(mouseOverBack)
 				printw (static_cast<float>(theButton[back]->getButtonX()),static_cast<float>(theButton[reset]->getButtonY()) , 0, "Back");
 
-			printw (50, 350, 0, "Number of mask for sell");
-			printw (SCREEN_WIDTH/2 + 80, 350, 0, "Price of each mask for sell");
+			printw (50, 350, 0, "Number of mask for sale");
+			printw (SCREEN_WIDTH/2 + 80, 350, 0, "Price of each mask for sale");
 
 			glColor3f( 1.0f, 0.5f, 0.2f);
 			printw (50, SCREEN_HEIGHT/2 + 180, 0, "Weather Forecast: %d - %d - %d", 50*(CPlayState::Instance()->forecasting->getCurrentDayRange()-1)+1 , (CPlayState::Instance()->forecasting->getCurrentForecast()), 50*(CPlayState::Instance()->forecasting->getCurrentDayRange()) );
